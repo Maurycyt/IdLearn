@@ -4,10 +4,9 @@ stages:          # List of stages for jobs, and their order of execution
   - build
   - test
 
-ci-test-build-job:     # This job is for debugging purposes.
-  stage: test
-  script:
-    - echo "Building..."
+workflow:        # Rule to execute only on merge requests because Maven takes long as fuuuck.
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
@@ -15,11 +14,6 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code..."
     - "mvn install -B"
     - echo "Compile complete."
-
-ci-test-test-job:     # This job is for debugging purposes.
-  stage: test
-  script:
-    - echo "Testing..."
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
