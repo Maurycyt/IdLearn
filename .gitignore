@@ -6,7 +6,7 @@
 
 # And the src and target directories
 !src/
-!target/
+# !target/ -- actually, ignore target.
 
 # And the maven files
 !pom.xml
