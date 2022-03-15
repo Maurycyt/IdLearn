@@ -1,0 +1,19 @@
+# Ignore all files
+*
+
+# Except for this file
+!.gitignore
+
+# And the src and target directories
+!src/*
+!target/*
+
+# And the maven files
+!pom.xml
+!Idlearn.iml
+
+# And the README
+!README.md
+
+# And the CI/CD config file!
+!.gitlab-ci.yml
