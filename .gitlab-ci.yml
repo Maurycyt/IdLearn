@@ -2,21 +2,15 @@ image: maven:3-openjdk-17
 
 stages:          # List of stages for jobs, and their order of execution
   - build
-  - test
 
 workflow:        # Rule to execute only on merge requests because Maven takes long as fuuuck.
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
-build-job:       # This job runs in the build stage, which runs first.
+all-in-one-job:       # This job does all there is to be done, including testing, apparently. https://stackoverflow.com/a/17123957/14406682
   stage: build
   script:
-    - echo "Compiling the code..."
-    - "mvn install -B"
-    - echo "Compile complete."
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  script:
-    - echo "Running unit tests..."
-    - "mvn test"
+    - echo "Starting maven execution..."
+    # - "mvn install -B" --- This was not ideal because it didn't colour the output
+    - mvn install -B -Dstyle.color=always
+    - echo "Maven execution complete."
