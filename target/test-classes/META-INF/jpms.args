@@ -1,4 +1,0 @@
---patch-module
-mimuw.idlearn=_
---add-reads
-mimuw.idlearn=ALL-UNNAMED
