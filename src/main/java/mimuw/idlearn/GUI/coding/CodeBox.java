@@ -40,12 +40,13 @@ public class CodeBox extends VBox {
             CodeBlock block = (CodeBlock) child;
             if (block.getIndentMod() < 0) {
                 indent += block.getIndentMod();
+                indent = Math.max(indent, 0);
             }
             block.setIndent(indent);
             if (block.getIndentMod() > 0) {
                 indent += block.getIndentMod();
+                indent = Math.max(indent, 0);
             }
-            indent = Math.max(indent, 0);
         }
     }
 
