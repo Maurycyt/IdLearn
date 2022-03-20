@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Assign;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

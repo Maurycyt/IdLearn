@@ -7,8 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import mimuw.idlearn.GUI.coding.codeblock.Assign;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Add;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Assign;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Multiply;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Subtract;
 
 public class SampleApp extends Application {
 
@@ -38,8 +41,14 @@ public class SampleApp extends Application {
 
 
         Node assignSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
+        Node addSpawner = new CodeBlockSpawner(codeBox, dragged, Add::new);
+        Node subSpawner = new CodeBlockSpawner(codeBox, dragged, Subtract::new);
+        Node mulSpawner = new CodeBlockSpawner(codeBox, dragged, Multiply::new);
 
         codeBlocks.getChildren().add(assignSpawner);
+        codeBlocks.getChildren().add(addSpawner);
+        codeBlocks.getChildren().add(subSpawner);
+        codeBlocks.getChildren().add(mulSpawner);
 
         root.getChildren().add(codeBlocks);
         root.getChildren().add(codeBox);

@@ -1,8 +1,11 @@
-package mimuw.idlearn.GUI.coding.codeblock;
+package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
+import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
+import mimuw.idlearn.GUI.coding.codeblock.ResizableTextField;
 
 public class Assign extends CodeBlock {
 
