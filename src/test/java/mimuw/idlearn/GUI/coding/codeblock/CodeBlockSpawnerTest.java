@@ -13,7 +13,14 @@ public class CodeBlockSpawnerTest {
 
     @BeforeAll
     public static void preparePlatform() {
-        Platform.startup(() -> {});
+        try {
+            Platform.startup(() -> {
+            });
+        }
+        catch (IllegalStateException e) {
+            // Toolkit already initialized
+        }
+
     }
 
     @Test

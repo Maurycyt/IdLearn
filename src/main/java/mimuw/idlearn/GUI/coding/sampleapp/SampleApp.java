@@ -1,4 +1,4 @@
-package mimuw.idlearn.GUI.coding;
+package mimuw.idlearn.GUI.coding.sampleapp;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import mimuw.idlearn.GUI.coding.CodeBox;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
 

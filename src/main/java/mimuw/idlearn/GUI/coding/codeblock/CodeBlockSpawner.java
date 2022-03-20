@@ -3,7 +3,6 @@ package mimuw.idlearn.GUI.coding.codeblock;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import mimuw.idlearn.GUI.coding.CodeBox;
 
 import java.util.function.Supplier;

@@ -30,6 +30,10 @@ public abstract class CodeBlock extends Group {
         this.setTranslateX(ind * INDENT);
     }
 
+    public int getIndent() {
+        return indent;
+    }
+
     private static class DragData {
         // Initial mouse coordinates
         public double mouseAnchorX;
@@ -56,13 +60,13 @@ public abstract class CodeBlock extends Group {
 
 
     private void removeGhost() {
-        codeBox.getChildren().remove(dragData.ghostIndex);
+        codeBox.remove(dragData.ghostIndex);
         dragData.ghostIndex = -1;
         codeBox.updateIndent();
     }
 
     private void addGhost(int index) {
-        codeBox.getChildren().add(index, dragData.ghost);
+        codeBox.add(index, dragData.ghost);
         dragData.ghostIndex = index;
         codeBox.updateIndent();
     }
@@ -86,7 +90,7 @@ public abstract class CodeBlock extends Group {
         }
     }
 
-    protected void releaseMouse() {
+    public void releaseMouse() {
         // Calculate our position in the code
         int index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
 
@@ -97,7 +101,7 @@ public abstract class CodeBlock extends Group {
         if (codeBox.shouldDrop(this.localToScene(0, 0))) {
 
             // Add us at the proper position
-            codeBox.getChildren().add(index, this);
+            codeBox.add(index, this);
             if (index <= dragData.ghostIndex) {
                 dragData.ghostIndex++;
             }
@@ -108,7 +112,7 @@ public abstract class CodeBlock extends Group {
         }
     }
 
-    protected void pressMouse(double mouseAX, double mouseAY) {
+    public void pressMouse(double mouseAX, double mouseAY) {
         // Set dragging info
         dragData.mouseAnchorX = mouseAX;
         dragData.mouseAnchorY = mouseAY;
@@ -133,7 +137,7 @@ public abstract class CodeBlock extends Group {
         checkGhost();
     }
 
-    protected void moveMouse(double mouseX, double mouseY) {
+    public void moveMouse(double mouseX, double mouseY) {
         this.relocate(
                 // Move to new proper location
                 dragData.initialX + mouseX - dragData.mouseAnchorX,
@@ -142,7 +146,7 @@ public abstract class CodeBlock extends Group {
         checkGhost();
     }
 
-    protected void makeDraggable(CodeBox codeBox, Group dragged) {
+    public void makeDraggable(CodeBox codeBox, Group dragged) {
 
         dragData = new DragData();
         this.codeBox = codeBox;

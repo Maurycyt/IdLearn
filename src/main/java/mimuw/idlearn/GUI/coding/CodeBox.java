@@ -10,6 +10,14 @@ public class CodeBox extends VBox {
         super();
     }
 
+    public void remove(int index) {
+        this.getChildren().remove(index);
+    }
+
+    public void add(int index, CodeBlock block) {
+        this.getChildren().add(index, block);
+    }
+
     public int calculateIndex(double toSceneY) {
         double position = toSceneY - this.localToScene(0, 0).getY();
         double sum = - CodeBlock.HEIGHT / 2;
@@ -50,6 +58,4 @@ public class CodeBox extends VBox {
 
         return isXOk && isYOk;
     }
-
-
 }
