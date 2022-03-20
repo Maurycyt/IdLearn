@@ -20,7 +20,7 @@ public class End extends CodeBlock {
     }
 
     @Override
-    public int getIndentMod() {
+    public int getIndentModBef() {
         return -1;
     }
 }

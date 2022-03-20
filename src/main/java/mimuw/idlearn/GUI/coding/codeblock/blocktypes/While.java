@@ -20,7 +20,7 @@ public class While extends CodeBlock {
     }
 
     @Override
-    public int getIndentMod() {
+    public int getIndentModAft() {
         return 1;
     }
 }

@@ -20,7 +20,10 @@ public abstract class CodeBlock extends Group {
         return HEIGHT;
     }
 
-    public int getIndentMod() {
+    public int getIndentModBef() {
+        return 0;
+    }
+    public int getIndentModAft() {
         return 0;
     }
 
@@ -120,7 +123,7 @@ public abstract class CodeBlock extends Group {
         dragData.initialX = pos.getX();
         dragData.initialY = pos.getY();
 
-        dragData.ghost = new Ghost(getIndentMod());
+        dragData.ghost = new Ghost(getIndentModBef(), getIndentModAft());
         dragData.ghostIndex = -1;
 
         // Switch parent
