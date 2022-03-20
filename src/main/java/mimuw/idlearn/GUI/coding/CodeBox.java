@@ -19,9 +19,14 @@ public class CodeBox extends VBox {
     }
 
     public int calculateIndex(double toSceneY) {
+        // Get block position relative to the box
         double position = toSceneY - this.localToScene(0, 0).getY();
+
+        // Offset
         double sum = - CodeBlock.HEIGHT / 2;
         int i = 0;
+
+        // Go until we reach where we should be
         for (Node child : this.getChildren()) {
             CodeBlock block = (CodeBlock) child;
             sum += block.getHeight();
@@ -30,10 +35,10 @@ public class CodeBox extends VBox {
             }
             i++;
         }
-
         return i;
     }
 
+    // Updates indents for all blocks
     public void updateIndent() {
         int indent = 0;
         for (Node child : this.getChildren()) {
@@ -48,7 +53,7 @@ public class CodeBox extends VBox {
         }
     }
 
-    // TEMPORARY
+    // Checks if a position is a valid drop off point for a codeblock
     public boolean shouldDrop(Point2D pos) {
         boolean isXOk = Math.abs(pos.getX() - this.localToScene(0, 0).getX()) < 100;
 

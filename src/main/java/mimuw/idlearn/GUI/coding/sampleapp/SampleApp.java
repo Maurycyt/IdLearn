@@ -18,17 +18,16 @@ public class SampleApp extends Application {
         launch(args);
     }
 
-
-
-
     @Override
     public void start(final Stage stage) {
 
+        // Create base elements
         final Group root = new Group();
         final CodeBox codeBox = new CodeBox();
         final Pane codeBlocks = new VBox();
         final Group dragged = new Group();
 
+        // Set positions
         codeBlocks.setTranslateX(50);
         codeBlocks.setTranslateY(100);
 
@@ -37,7 +36,7 @@ public class SampleApp extends Application {
 
         codeBox.setPrefSize(300, 400);
 
-
+        // Create spawners
         Node assignSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
         Node addSpawner = new CodeBlockSpawner(codeBox, dragged, Add::new);
         Node subSpawner = new CodeBlockSpawner(codeBox, dragged, Subtract::new);
@@ -45,6 +44,7 @@ public class SampleApp extends Application {
         Node whileSpawner = new CodeBlockSpawner(codeBox, dragged, While::new);
         Node endSpawner = new CodeBlockSpawner(codeBox, dragged, End::new);
 
+        // Link spawners
         codeBlocks.getChildren().add(assignSpawner);
         codeBlocks.getChildren().add(addSpawner);
         codeBlocks.getChildren().add(subSpawner);
@@ -52,6 +52,7 @@ public class SampleApp extends Application {
         codeBlocks.getChildren().add(whileSpawner);
         codeBlocks.getChildren().add(endSpawner);
 
+        // Link everything else
         root.getChildren().add(codeBlocks);
         root.getChildren().add(codeBox);
         root.getChildren().add(dragged);
@@ -59,6 +60,5 @@ public class SampleApp extends Application {
         final Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
-
     }
 }

@@ -58,17 +58,16 @@ public abstract class CodeBlock extends Group {
         super();
     }
 
-
-
-
-
+    // Remove our ghost from the CodeBox
     private void removeGhost() {
+        assert dragData.ghostIndex != -1;
         codeBox.remove(dragData.ghostIndex);
         dragData.ghostIndex = -1;
         codeBox.updateIndent();
     }
 
     private void addGhost(int index) {
+        assert dragData.ghostIndex == -1;
         codeBox.add(index, dragData.ghost);
         dragData.ghostIndex = index;
         codeBox.updateIndent();
