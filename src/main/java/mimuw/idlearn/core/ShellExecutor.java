@@ -35,9 +35,9 @@ public class ShellExecutor {
 	 */
 	private FileWriter writer = null;
 
-	private void prepareWriter(boolean append) {
+	private void prepareWriter(boolean closePrevious, boolean append) {
 		try {
-			if (writer != null) {
+			if (closePrevious) {
 				writer.close();
 			}
 			writer = new FileWriter(scriptFile, append);
@@ -51,13 +51,12 @@ public class ShellExecutor {
 	 * @param content The new content to be appended.
 	 */
 	private void addContent(String content) {
-		if (writer != null) {
-			try {
-				writer.write(content);
-				writer.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		assert writer != null;
+		try {
+			writer.write(content);
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -78,20 +77,14 @@ public class ShellExecutor {
 			tempPath = Files.createTempFile(tmpDirPath,"IdlearnSEScript", ".sh", PosixFilePermissions.asFileAttribute(perms));
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			if (tempPath != null) {
-				scriptFilePath = tempPath;
-				scriptFile = scriptFilePath.toFile();
-			} else {
-				scriptFilePath = null;
-				scriptFile = null;
-			}
 		}
+		assert tempPath != null;
+		scriptFilePath = tempPath;
+		scriptFile = scriptFilePath.toFile();
 
 		// Write to the file, adding "#!/bin/bash"
-		if (scriptFile != null) {
-			clearScript();
-		}
+		prepareWriter(false, false);
+		addContent(defaultScriptContents);
 	}
 
 	/**
@@ -127,7 +120,7 @@ public class ShellExecutor {
 	}
 
 	public void clearScript() {
-		prepareWriter(false);
+		prepareWriter(true, false);
 		addContent(defaultScriptContents);
 	}
 
@@ -137,7 +130,7 @@ public class ShellExecutor {
 	 * @return The output of the executed command. Often empty.
 	 */
 	public String execute(String command) {
-		// Code copied from https://stackoverflow.com/q/26830617/14406682.
+		// Code taken from https://stackoverflow.com/q/26830617/14406682.
 		StringBuilder output = new StringBuilder();
 
 		try {
@@ -165,18 +158,17 @@ public class ShellExecutor {
 	 * Executes the created script.
 	 */
 	public String execute() {
-		String output = "";
+		String output;
 		String command = scriptFilePath.toString();
 
 		try {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return output;
 		}
 
 		output = execute(command);
-		prepareWriter(true);
+		prepareWriter(false, true);
 		return output;
 	}
 }
