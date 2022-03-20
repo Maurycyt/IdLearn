@@ -4,14 +4,31 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import mimuw.idlearn.GUI.coding.CodeBox;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Ghost;
 
 public abstract class CodeBlock extends Group {
-    protected double HEIGHT = 50;
+    public static final double HEIGHT = 50;
+    private static final double INDENT = 40;
 
     private DragData dragData;
-    private Pane codeBox;
+    private CodeBox codeBox;
     private Group dragged;
+    private int indent = 0;
+
+    public double getHeight() {
+        return HEIGHT;
+    }
+
+    public int getIndentMod() {
+        return 0;
+    }
+
+    public void setIndent(int ind) {
+        assert(ind >= 0);
+        indent = ind;
+        this.setTranslateX(ind * INDENT);
+    }
 
     private static class DragData {
         // Initial mouse coordinates
@@ -34,48 +51,31 @@ public abstract class CodeBlock extends Group {
         super();
     }
 
-    private int calculateIndex() {
-        double position = this.localToScene(0, 0).getY() - codeBox.localToScene(0, 0).getY();
-        int index = (int)Math.round(position / HEIGHT);
-        if (index > dragData.ghostIndex && dragData.ghostIndex != -1) {
-            index++;
-        }
-        //System.out.println("Currently would be dropped at " + index);
-        return index;
-    }
 
-    // TEMPORARY
-    private boolean shouldDrop() {
-        boolean isXOk = Math.abs(this.localToScene(0, 0).getX() - codeBox.localToScene(0, 0).getX()) < 100;
 
-        int index = calculateIndex();
-        boolean isYOk = index <= codeBox.getChildren().size() && index >= 0;
 
-        if (isXOk && isYOk) {
-            System.out.println("DROP OK");
-        }
-        return isXOk && isYOk;
-    }
 
     private void removeGhost() {
         codeBox.getChildren().remove(dragData.ghostIndex);
         dragData.ghostIndex = -1;
+        codeBox.updateIndent();
     }
 
     private void addGhost(int index) {
         codeBox.getChildren().add(index, dragData.ghost);
         dragData.ghostIndex = index;
+        codeBox.updateIndent();
     }
 
     private void checkGhost() {
-        if (shouldDrop()) {
-            int index = calculateIndex();
+        if (codeBox.shouldDrop(this.localToScene(0, 0))) {
+            int index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
             if (dragData.ghostIndex != -1 && dragData.ghostIndex != index) {
                 removeGhost();
             }
 
             if (dragData.ghostIndex == -1) {
-                index = calculateIndex();
+                index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
                 addGhost(index);
             }
         }
@@ -88,21 +88,19 @@ public abstract class CodeBlock extends Group {
 
     protected void releaseMouse() {
         // Calculate our position in the code
-        int index = calculateIndex();
+        int index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
 
         // Remove from parent
         dragged.getChildren().remove(this);
 
         // Check if we should be added to the code section
-        if (shouldDrop()) {
+        if (codeBox.shouldDrop(this.localToScene(0, 0))) {
 
             // Add us at the proper position
             codeBox.getChildren().add(index, this);
             if (index <= dragData.ghostIndex) {
                 dragData.ghostIndex++;
             }
-
-            System.out.println("Adding a child");
         }
 
         if (dragData.ghostIndex != -1) {
@@ -118,7 +116,7 @@ public abstract class CodeBlock extends Group {
         dragData.initialX = pos.getX();
         dragData.initialY = pos.getY();
 
-        dragData.ghost = new Ghost();
+        dragData.ghost = new Ghost(getIndentMod());
         dragData.ghostIndex = -1;
 
         // Switch parent
@@ -128,6 +126,9 @@ public abstract class CodeBlock extends Group {
 
         // Set proper location
         this.relocate(pos.getX(), pos.getY());
+
+        // Reset indent
+        this.setTranslateX(0);
 
         checkGhost();
     }
@@ -141,7 +142,7 @@ public abstract class CodeBlock extends Group {
         checkGhost();
     }
 
-    protected void makeDraggable(Pane codeBox, Group dragged) {
+    protected void makeDraggable(CodeBox codeBox, Group dragged) {
 
         dragData = new DragData();
         this.codeBox = codeBox;

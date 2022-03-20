@@ -4,12 +4,13 @@ import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import mimuw.idlearn.GUI.coding.CodeBox;
 
 import java.util.function.Supplier;
 
 public class CodeBlockSpawner extends AnchorPane {
 
-    private final Pane codeBox;
+    private final CodeBox codeBox;
     private final Group dragged;
     private final Supplier<CodeBlock> spawn;
 
@@ -21,7 +22,7 @@ public class CodeBlockSpawner extends AnchorPane {
     }
 
 
-    public CodeBlockSpawner(Pane codeBox, Group dragged, Supplier<CodeBlock> spawn){
+    public CodeBlockSpawner(CodeBox codeBox, Group dragged, Supplier<CodeBlock> spawn){
         super();
         this.codeBox = codeBox;
         this.dragged = dragged;

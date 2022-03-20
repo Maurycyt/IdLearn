@@ -2,8 +2,7 @@ package mimuw.idlearn.GUI.coding.codeblock;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import mimuw.idlearn.GUI.coding.CodeBox;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Assign;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ public class CodeBlockSpawnerTest {
 
     @Test
     public void spawningTest() {
-        Pane codeBox = new VBox();
+        CodeBox codeBox = new CodeBox();
         Group dragged = new Group();
         CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
 
