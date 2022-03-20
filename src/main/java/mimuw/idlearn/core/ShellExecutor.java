@@ -161,6 +161,7 @@ public class ShellExecutor {
 		String output;
 		String command = scriptFilePath.toString();
 
+		// Closing writer before executing, because a file which is open to write cannot be executed.
 		try {
 			writer.close();
 		} catch (IOException e) {
