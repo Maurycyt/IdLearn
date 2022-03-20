@@ -25,7 +25,7 @@ public class Application extends javafx.application.Application{
 						actionEvent -> {
 							var scene = (Scene)states_.get(); 
 							stage.getScene().setRoot(scene);
-							scene.update();
+							scene.update(Duration.seconds(1.0 / framesPerSecond_));
 						})
 		);
 		timeline.play();

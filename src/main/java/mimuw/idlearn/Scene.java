@@ -2,6 +2,7 @@ package mimuw.idlearn;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.util.Duration;
 import mimuw.idlearn.core.State;
 import mimuw.idlearn.core.StateMachine;
 
@@ -34,7 +35,7 @@ public class Scene extends Group implements State{
 		setVisible(false);
 	}
 	
-	public void update(){}
+	public void update(Duration time){}
 	
 	protected final StateMachine stateMachine_;
 }
