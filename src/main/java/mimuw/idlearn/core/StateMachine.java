@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * Implementation of a State Machine design pattern.
- * Allows for safe managment of states.
+ * Allows for safe management of states.
  * 
  * Each operation on State Machine is lazy. 
  * Actions only take place once the 'get' function is executed.
