@@ -2,7 +2,6 @@ package mimuw.idlearn;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import mimuw.idlearn.core.StateMachine;
