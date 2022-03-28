@@ -3,7 +3,6 @@ package mimuw.idlearn.language.keywords;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
-import mimuw.idlearn.language.TypeCheck;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ public class Access extends Expression {
 				throw new RuntimeException("Cannot access " + what + ", expression is an array");
 			
 			Value tmp = id.evaluate(scope);
-			TypeCheck.isType(tmp.getValue(), Number.class);
 			int id = ((Number)tmp.getValue()).intValue();
 			
 			int len = Array.getLength(object);
@@ -46,7 +44,6 @@ public class Access extends Expression {
 				throw new RuntimeException("Cannot access " + what + ", expression is an array");
 			
 			Value tmp = id.evaluate(scope);
-			TypeCheck.isType(tmp.getValue(), Number.class);
 			int id = ((Number)tmp.getValue()).intValue();
 			
 			ArrayList<?> arr = (ArrayList<?>)object;
