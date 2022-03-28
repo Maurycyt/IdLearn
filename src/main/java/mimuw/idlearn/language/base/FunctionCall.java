@@ -2,13 +2,17 @@ package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class FunctionCall extends Expression {
-	private String name;
-	private Expression[] arguments;
-	
+	private final String name;
+	private final ArrayList<Expression> arguments;
+
+	public FunctionCall(String name, ArrayList<Expression> arguments) {
+		this.name = name;
+		this.arguments = arguments;
+	}
+
 	@Override
 	public Value evaluate(Scope scope) throws RuntimeException{
 		return scope.getFunction(name).call(scope, arguments);
@@ -24,11 +28,8 @@ public class FunctionCall extends Expression {
 			return false;
 		
 		FunctionCall other = (FunctionCall)o;
-		
-		if(!Objects.equals(name, other.name))
-			return false;
-		// Probably incorrect - comparing Object[] arrays with Arrays.equals
-		return Arrays.equals(arguments, other.arguments);
+
+		return name.equals(other.name) && arguments.equals(other.arguments);
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class FunctionCall extends Expression {
 
 		for (Expression arg : arguments){
 			out.append(arg.toPrettyString(indent));
-			if (!arg.equals(arguments[arguments.length - 1]))
+			if (!arg.equals(arguments.get(arguments.size() - 1)))
 				out.append(", ");
 		}
 

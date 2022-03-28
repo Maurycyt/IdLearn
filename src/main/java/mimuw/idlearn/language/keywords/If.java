@@ -3,20 +3,20 @@ package mimuw.idlearn.language.keywords;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
-import mimuw.idlearn.language.TypeCheck;
+import mimuw.idlearn.language.operators.RelationalOperator;
 
 public class If extends Expression {
-	private final Expression condition;
-	private final Expression onTrue;
-	private final Expression onFalse;
+	private final RelationalOperator condition;
+	private final Block onTrue;
+	private final Block onFalse;
 
-	public If(Expression condition, Expression onTrue, Expression onFalse) {
+	public If(RelationalOperator condition, Block onTrue, Block onFalse) {
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = onFalse;
 	}
 
-	public If(Expression condition, Expression onTrue) {
+	public If(RelationalOperator condition, Block onTrue) {
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = null;
@@ -25,7 +25,6 @@ public class If extends Expression {
 	@Override
 	public Value evaluate(Scope scope) throws RuntimeException{
 		Object condEvaluation = condition.evaluate(scope).getValue();
-		TypeCheck.assertType(condEvaluation, Boolean.class);
 
 		if ((Boolean) condEvaluation)
 			return onTrue.evaluate(new Scope(scope));
@@ -57,32 +56,20 @@ public class If extends Expression {
 		return result;
 	}
 
-
 	@Override
 	public String toPrettyString(String indent){
 		StringBuilder out = new StringBuilder()
 			.append("if (")
 			.append(condition.toPrettyString(indent + "    "))
-			.append(")");
-		if (onTrue.getClass() != Block.class)
+			.append(")")
+			.append(onTrue.toPrettyString(indent));
+
+		if (onFalse != null) {
 			out
 				.append("\n")
 				.append(indent)
-				.append(tabIndent)
-				.append(onTrue.toPrettyString(indent + tabIndent));
-		else 
-			out.append(onTrue.toPrettyString(indent));
-
-		if (onFalse != null) {
-			out.append("\n").append(indent).append("else");
-			if (onTrue.getClass() != Block.class)
-				out
-					.append("\n")
-					.append(indent)
-					.append(tabIndent)
-					.append(onFalse.toPrettyString(indent + tabIndent));
-			else
-				out.append(onFalse.toPrettyString(indent));
+				.append("else")
+				.append(onFalse.toPrettyString(indent));
 		}
 
 		return out.toString();

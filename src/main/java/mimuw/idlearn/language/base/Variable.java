@@ -2,11 +2,13 @@ package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
 
-import java.util.Objects;
-
 public class Variable extends Expression {
-	private String name;
-	
+	private final String name;
+
+	public Variable(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public Value evaluate(Scope scope) throws RuntimeException{
 		return scope.getVariable(name);
@@ -21,9 +23,9 @@ public class Variable extends Expression {
 		if (!super.equals(o))
 			return false;
 		
-		Variable variable = (Variable)o;
+		Variable other = (Variable)o;
 		
-		return Objects.equals(name, variable.name);
+		return name.equals(other.name);
 	}
 	
 	@Override
