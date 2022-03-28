@@ -1,11 +1,13 @@
 package mimuw.idlearn.GUI.coding.sampleapp;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import mimuw.idlearn.GUI.coding.CodeBox;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
@@ -24,12 +26,12 @@ public class SampleApp extends Application {
         // Create base elements
         final Group root = new Group();
         final CodeBox codeBox = new CodeBox();
-        final Pane codeBlocks = new VBox();
+        final Pane expressionSpawners = new VBox();
         final Group dragged = new Group();
 
         // Set positions
-        codeBlocks.setTranslateX(50);
-        codeBlocks.setTranslateY(100);
+        expressionSpawners.setTranslateX(50);
+        expressionSpawners.setTranslateY(100);
 
         codeBox.setTranslateX(300);
         codeBox.setTranslateY(100);
@@ -45,19 +47,21 @@ public class SampleApp extends Application {
         Node endSpawner = new CodeBlockSpawner(codeBox, dragged, End::new);
 
         // Link spawners
-        codeBlocks.getChildren().add(assignSpawner);
-        codeBlocks.getChildren().add(addSpawner);
-        codeBlocks.getChildren().add(subSpawner);
-        codeBlocks.getChildren().add(mulSpawner);
-        codeBlocks.getChildren().add(whileSpawner);
-        codeBlocks.getChildren().add(endSpawner);
+        expressionSpawners.getChildren().add(assignSpawner);
+        expressionSpawners.getChildren().add(addSpawner);
+        expressionSpawners.getChildren().add(subSpawner);
+        expressionSpawners.getChildren().add(mulSpawner);
+        expressionSpawners.getChildren().add(whileSpawner);
+        expressionSpawners.getChildren().add(endSpawner);
 
         // Link everything else
-        root.getChildren().add(codeBlocks);
+        root.getChildren().add(expressionSpawners);
         root.getChildren().add(codeBox);
         root.getChildren().add(dragged);
 
-        final Scene scene = new Scene(root, 800, 600);
+
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        final Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
         stage.setScene(scene);
         stage.show();
     }

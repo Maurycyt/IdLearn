@@ -15,6 +15,12 @@ public class Assignment extends Expression {
 		this.local = local;
 	}
 
+	public Assignment(String name, Expression value) {
+		this.name = name;
+		this.value = value;
+		this.local = false;
+	}
+
 	@Override
 	public Value evaluate(Scope scope) throws RuntimeException {
 		Value eval = value.evaluate(scope);

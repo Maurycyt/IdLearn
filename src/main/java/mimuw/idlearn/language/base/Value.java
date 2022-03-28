@@ -2,8 +2,6 @@ package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
 
-import java.util.Objects;
-
 public class Value extends Expression {
 	private final Object value;
 
@@ -29,9 +27,9 @@ public class Value extends Expression {
 		if(!super.equals(o))
 			return false;
 		
-		Value value1 = (Value)o;
+		Value other = (Value)o;
 		
-		return Objects.equals(value, value1.value);
+		return value.equals(other.value);
 	}
 	
 	@Override
