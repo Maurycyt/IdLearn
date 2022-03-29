@@ -129,7 +129,7 @@ public class ShellExecutor {
 	 * @param command The command to execute.
 	 * @return The output of the executed command. Often empty.
 	 */
-	public String execute(String command) {
+	public static String execute(String command) {
 		// Code taken from https://stackoverflow.com/q/26830617/14406682.
 		StringBuilder output = new StringBuilder();
 
