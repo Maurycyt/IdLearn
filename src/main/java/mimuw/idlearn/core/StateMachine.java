@@ -67,7 +67,7 @@ public class StateMachine implements Listener{
 	public State get(){
 		emitter.processEvents();
 		if(states.empty())
-			throw new RuntimeException("No active State in StateMachine");
+			return null;
 		return states.peek();
 	}
 	
