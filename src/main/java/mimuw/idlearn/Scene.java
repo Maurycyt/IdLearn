@@ -8,19 +8,26 @@ import mimuw.idlearn.core.StateMachine;
 
 import java.util.Collection;
 
+/**
+ * class representing application's scene and works just as javafx.Group
+ * 
+ * for more informations, look:
+ * - https://gitlab.com/Maurycyt/idlearn/-/wikis/Scene
+ * - https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Group.html
+ */
 public class Scene extends Group implements State{
-	public Scene(StateMachine stateMachine_){
-		this.stateMachine_ = stateMachine_;
+	public Scene(StateMachine stateMachine){
+		this.stateMachine = stateMachine;
 	}
 	
-	public Scene(StateMachine stateMachine_, Node... nodes){
+	public Scene(StateMachine stateMachine, Node... nodes){
 		super(nodes);
-		this.stateMachine_ = stateMachine_;
+		this.stateMachine = stateMachine;
 	}
 	
-	public Scene(StateMachine stateMachine_, Collection<Node> collection){
+	public Scene(StateMachine stateMachine, Collection<Node> collection){
 		super(collection);
-		this.stateMachine_ = stateMachine_;
+		this.stateMachine = stateMachine;
 	}
 	
 	@Override
@@ -37,5 +44,5 @@ public class Scene extends Group implements State{
 	
 	public void update(Duration time){}
 	
-	protected final StateMachine stateMachine_;
+	protected final StateMachine stateMachine;
 }
