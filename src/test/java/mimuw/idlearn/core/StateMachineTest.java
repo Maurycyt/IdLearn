@@ -65,6 +65,7 @@ public class StateMachineTest{
 		assertEquals(val, 2);
 		
 		state = stateMachine.get();
+		assertEquals(val, -1);
 		assertNull(state);
 	}
 }
