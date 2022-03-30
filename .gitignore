@@ -6,11 +6,9 @@
 
 # And the src and target directories
 !src/
-# !target/ -- actually, ignore target.
 
 # And the maven files
 !pom.xml
-!Idlearn.iml
 
 # And the README
 !README.md
