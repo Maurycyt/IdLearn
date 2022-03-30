@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * class representing application's scene and works just as javafx.Group
  * 
- * for more informations, look:
+ * for more information, see:
  * - https://gitlab.com/Maurycyt/idlearn/-/wikis/Scene
  * - https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Group.html
  */
