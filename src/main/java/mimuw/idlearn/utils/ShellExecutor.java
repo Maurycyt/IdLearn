@@ -130,17 +130,29 @@ public class ShellExecutor {
 	 * @return The output of the executed command. Often empty.
 	 */
 	public static String execute(String command) {
-		// Code taken from https://stackoverflow.com/q/26830617/14406682.
+		// StringBuilder for the output of the command.
 		StringBuilder output = new StringBuilder();
 
 		try {
 			Process p = Runtime.getRuntime().exec(command);
-			p.waitFor();
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
+			int exitCode = p.waitFor();
 			String line;
-			while ((line = reader.readLine())!= null) {
+
+			// If command execution failed, throw unchecked CommandException
+			if (exitCode != 0) {
+				StringBuilder errors = new StringBuilder();
+				BufferedReader stderr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+				while ((line = stderr.readLine()) != null) {
+					errors.append(line);
+					errors.append("\n");
+				}
+				throw new CommandException(command, errors.toString());
+			}
+
+			// If all is well, capture the output.
+			BufferedReader stdout = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+			while ((line = stdout.readLine())!= null) {
 				output.append(line);
 				output.append("\n");
 			}
