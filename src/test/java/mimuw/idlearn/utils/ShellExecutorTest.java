@@ -1,4 +1,4 @@
-package mimuw.idlearn.core;
+package mimuw.idlearn.utils;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
