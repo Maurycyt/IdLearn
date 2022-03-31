@@ -81,6 +81,7 @@ public class ShellExecutor {
 		assert tempPath != null;
 		scriptFilePath = tempPath;
 		scriptFile = scriptFilePath.toFile();
+		scriptFile.deleteOnExit();
 
 		// Write to the file, adding "#!/bin/bash"
 		prepareWriter(false, false);
