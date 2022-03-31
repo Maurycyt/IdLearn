@@ -4,32 +4,40 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
 
-public class Assignment extends Expression {
+public class Assignment<T> implements Expression<T> {
 	private final String name;
-	private final Expression value;
-	private final boolean local;
+	private final Expression<T> value;
+	private final boolean local; //todo: delete this
 
-	public Assignment(String name, Expression value, boolean local) {
+	public Assignment(String name, Expression<T> value, boolean local) {
 		this.name = name;
 		this.value = value;
 		this.local = local;
 	}
 
-	public Assignment(String name, Expression value) {
+	public Assignment(String name, Expression<T> value) {
 		this.name = name;
 		this.value = value;
+		this.local = true;
+	}
+
+	public Assignment(String name, T value) {
+		this.name = name;
+		this.value = new Value<>(value);
 		this.local = false;
 	}
 
 	@Override
-	public Value evaluate(Scope scope) throws RuntimeException {
-		Value eval = value.evaluate(scope);
-		
-		if (local)
+	public Value<T> evaluate(Scope scope) throws RuntimeException {
+		Value<T> eval = value.evaluate(scope);
+
+		Scope origin = scope.getOriginScope(name);
+
+		if (origin == null)
 			scope.add(name, eval);
 		else
-			scope.getGlobalScope().add(name, eval);
-		
+			origin.add(name, eval);
+
 		return eval;
 	}
 	
@@ -42,7 +50,7 @@ public class Assignment extends Expression {
 		if (!super.equals(o))
 			return false;
 		
-		Assignment other = (Assignment)o;
+		Assignment<T> other = (Assignment<T>)o;
 
 		return local == other.local && name.equals(other.name) && value.equals(other.value);
 	}
@@ -58,15 +66,4 @@ public class Assignment extends Expression {
 	}
 
 
-	@Override
-	public String toPrettyString(String indent){
-		StringBuilder stringBuilder = new StringBuilder();
-		if (local)
-			stringBuilder.append("local ");
-
-		return stringBuilder
-			.append(name)
-			.append(" = ")
-			.append(value.toPrettyString(indent)).toString();
-	}
 }

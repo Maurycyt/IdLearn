@@ -2,19 +2,19 @@ package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
 
-public class Value extends Expression {
-	private final Object value;
+public class Value<T> implements Expression<T> {
+	private final T value;
 
-	public Value(Object value){
+	public Value(T value){
 		this.value = value;
 	}
 	
 	@Override
-	public Value evaluate(Scope scope) throws RuntimeException{
+	public Value<T> evaluate(Scope scope) throws RuntimeException{
 		return this;
 	}
 	
-	public Object getValue(){
+	public T getValue(){
 		return value;
 	}
 
@@ -27,7 +27,7 @@ public class Value extends Expression {
 		if(!super.equals(o))
 			return false;
 		
-		Value other = (Value)o;
+		Value<T> other = (Value<T>)o;
 		
 		return value.equals(other.value);
 	}
@@ -38,9 +38,5 @@ public class Value extends Expression {
 		result = 31 * result + (value != null ? value.hashCode() : 0);
 		return result;
 	}
-	
-	@Override
-	public String toPrettyString(String indent){
-		return value.toString();
-	}
+
 }

@@ -3,34 +3,33 @@ package mimuw.idlearn.language.keywords;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
-import mimuw.idlearn.language.operators.RelationalOperator;
 
-public class If extends Expression {
-	private final RelationalOperator condition;
-	private final Block onTrue;
-	private final Block onFalse;
+public class If<Void> implements Expression<Void> {
+	private final Expression<Boolean> condition;
+	private final Block<Void> onTrue;
+	private final Block<Void> onFalse;
 
-	public If(RelationalOperator condition, Block onTrue, Block onFalse) {
+	public If(Expression<Boolean> condition, Block<Void> onTrue, Block<Void> onFalse) {
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = onFalse;
 	}
 
-	public If(RelationalOperator condition, Block onTrue) {
+	public If(Expression<Boolean> condition, Block<Void> onTrue) {
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = null;
 	}
 
 	@Override
-	public Value evaluate(Scope scope) throws RuntimeException{
-		Object condEvaluation = condition.evaluate(scope).getValue();
+	public Value<Void> evaluate(Scope scope) throws RuntimeException{
+		Boolean condEvaluation = condition.evaluate(scope).getValue();
 
 		if ((Boolean) condEvaluation)
 			return onTrue.evaluate(new Scope(scope));
 		if (onFalse != null)
 			return onFalse.evaluate(new Scope(scope));
-		return new Value(false);
+		return new Value<>(null);
 	}
 	
 	@Override
@@ -42,7 +41,7 @@ public class If extends Expression {
 		if (!super.equals(o))
 			return false;
 		
-		If other = (If)o;
+		If<Void> other = (If<Void>)o;
 
 		return condition.equals(other.condition) && onTrue.equals(other.onTrue) && onFalse.equals(other.onFalse);
 	}
@@ -56,22 +55,4 @@ public class If extends Expression {
 		return result;
 	}
 
-	@Override
-	public String toPrettyString(String indent){
-		StringBuilder out = new StringBuilder()
-			.append("if (")
-			.append(condition.toPrettyString(indent + "    "))
-			.append(")")
-			.append(onTrue.toPrettyString(indent));
-
-		if (onFalse != null) {
-			out
-				.append("\n")
-				.append(indent)
-				.append("else")
-				.append(onFalse.toPrettyString(indent));
-		}
-
-		return out.toString();
-	}
 }

@@ -1,12 +1,23 @@
 package mimuw.idlearn.language.operators;
 
 import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.Value;
+import mimuw.idlearn.language.environment.Scope;
 
-public abstract class OneArgumentOperator extends Expression {
-	protected Expression arg;
+public abstract class OneArgumentOperator<T> extends Operator<T> {
+	protected Expression<T> arg;
 
-	public OneArgumentOperator(Expression arg) {
+	public OneArgumentOperator(Expression<T> arg) {
 		this.arg = arg;
+	}
+
+	public static OneArgumentOperator<Boolean> newNot(Expression<Boolean> arg) {
+		return new OneArgumentOperator<>(arg) {
+			@Override
+			public Value<Boolean> evaluate(Scope scope) throws RuntimeException {
+				return new Value<>(!arg.evaluate(scope).getValue());
+			}
+		};
 	}
 
 	@Override
@@ -18,7 +29,7 @@ public abstract class OneArgumentOperator extends Expression {
 		if(!super.equals(o))
 			return false;
 		
-		OneArgumentOperator other = (OneArgumentOperator)o;
+		OneArgumentOperator<T> other = (OneArgumentOperator<T>)o;
 		
 		return arg.equals(other.arg);
 	}

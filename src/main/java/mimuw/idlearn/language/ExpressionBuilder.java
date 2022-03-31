@@ -1,4 +1,4 @@
-/*
+package mimuw.idlearn.language;/*
 package jsonparsing;
 
 import lang.Liczba;

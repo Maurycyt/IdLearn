@@ -2,7 +2,7 @@ package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
 
-public class Variable extends Expression {
+public class Variable<T> implements Expression<T> {
 	private final String name;
 
 	public Variable(String name) {
@@ -10,8 +10,8 @@ public class Variable extends Expression {
 	}
 
 	@Override
-	public Value evaluate(Scope scope) throws RuntimeException{
-		return scope.getVariable(name);
+	public Value<T> evaluate(Scope scope) throws RuntimeException{
+		return (Value<T>)scope.getVariable(name);
 	}
 	
 	@Override
@@ -23,13 +23,9 @@ public class Variable extends Expression {
 		if (!super.equals(o))
 			return false;
 		
-		Variable other = (Variable)o;
+		Variable<T> other = (Variable<T>)o;
 		
 		return name.equals(other.name);
 	}
-	
-	@Override
-	public String toPrettyString(String indent){
-		return "var " + name;
-	}
+
 }

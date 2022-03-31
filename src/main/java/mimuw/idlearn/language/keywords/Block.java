@@ -1,26 +1,25 @@
 package mimuw.idlearn.language.keywords;
 
+import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
-import mimuw.idlearn.language.base.Expression;
 
 import java.util.ArrayList;
 
-public class Block extends Expression {
-    private final ArrayList<Expression> instructions;
+public class Block<Void> implements Expression<Void> {
+    private final ArrayList<Expression<?>> instructions;
 
-    public Block(ArrayList<Expression> instructions) {
+    public Block(ArrayList<Expression<?>> instructions) {
         this.instructions = instructions;
     }
 
     @Override
-    public Value evaluate(Scope scope) throws RuntimeException {
+    public Value<Void> evaluate(Scope scope) throws RuntimeException {
         Scope nestedScope = new Scope(scope);
-        Value value = new Value(0);
-        for (Expression i : instructions) {
-            value = i.evaluate(nestedScope);
+        for (Expression<?> i : instructions) {
+            i.evaluate(nestedScope);
         }
-        return value; // the value of the block is that of the last instruction
+        return new Value<>(null); // the value of the block is that of the last instruction
     }
 
     @Override
@@ -32,7 +31,7 @@ public class Block extends Expression {
         if(!super.equals(o))
             return false;
 
-        Block block = (Block)o;
+        Block<Void> block = (Block<Void>)o;
 
         return instructions.equals(block.instructions);
     }
@@ -44,20 +43,4 @@ public class Block extends Expression {
         return result;
     }
 
-    @Override
-    public String toPrettyString(String indent) {
-        StringBuilder out = new StringBuilder()
-            .append("{\n");
-        for (Expression expression : instructions) {
-            out
-                .append(indent)
-                .append(tabIndent)
-                .append(expression.toPrettyString(indent + tabIndent))
-                .append("\n");
-        }
-        return out
-                .append(indent)
-                .append("}")
-                .toString();
-    }
 }

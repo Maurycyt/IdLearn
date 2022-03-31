@@ -1,46 +1,68 @@
 package mimuw.idlearn.language.environment;
 
-import mimuw.idlearn.language.base.Function;
 import mimuw.idlearn.language.base.Value;
 
-public class Scope extends Environment{
-	private final Scope parent;
-	private final GlobalScope globalScope;
+import java.util.HashMap;
+import java.util.Map;
 
-	public Scope(Scope parent){
-		this.parent = parent;
-		this.globalScope = parent.getGlobalScope();
+public class Scope {
+	private final Map<String, Value<?>> variables;
+	private final Scope parentScope;
+	private final Scope globalScope;
+
+	public Scope(Scope parentScope){
+		this.variables = new HashMap<>();
+		this.parentScope = parentScope;
+		this.globalScope = parentScope.getGlobalScope();
 	}
 
-	public Scope(GlobalScope globalScope){
-		this.parent = null;
-		this.globalScope = globalScope;
+	public Scope(){
+		this.variables = new HashMap<>();
+		this.parentScope = null;
+		this.globalScope = this;
 	}
 
-	@Override
-	public Value getVariable(String name) throws RuntimeException{
-		if (containsVariable(name))
-			return super.getVariable(name);
-		else if (parent != null)
-			return parent.getVariable(name);
-		return globalScope.getVariable(name);
-	}
-	
-	@Override
-	public Function getFunction(String name) throws RuntimeException{
-		if (containsFunction(name))
-			return super.getFunction(name);
-		else if (parent != null)
-			return parent.getFunction(name);
-		return globalScope.getFunction(name);
-	}
-	
-	public GlobalScope getGlobalScope(){
+	public Scope getGlobalScope(){
 		return globalScope;
 	}
-	
-	@Override
-	public String toString(){
-		return "Scope{" + "variables=" + variables + ", functions=" + functions + ", parent=" + (parent == null ? globalScope : parent) + '}';
+
+	public boolean isGlobal(){
+		return globalScope == this && parentScope == null;
+	}
+
+	public Scope getParentScope(){
+		return parentScope;
+	}
+
+	public boolean containsVariable(String name) {
+		return variables.containsKey(name);
+	}
+
+	public Value<?> getVariable(String name) throws RuntimeException{ //TODO: czy RuntimeException tu ma sens?
+		if (!variables.containsKey(name)) {
+			if (isGlobal())
+				throw new RuntimeException("Variable not found in scope");
+			return parentScope.getVariable(name);
+		}
+		return variables.get(name);
+	}
+
+	public Scope getOriginScope(String name) {
+		if (isGlobal())
+			return variables.containsKey(name)? this : null;
+
+		Scope origin = parentScope.getOriginScope(name);
+		if (origin != null)
+			return origin;
+
+		return variables.containsKey(name)? this : null;
+	}
+
+	public void add(String name, Value<?> value) {
+		variables.put(name, value);
+	}
+
+	public void clear() {
+		variables.clear();
 	}
 }
