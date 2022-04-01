@@ -24,7 +24,7 @@ public class Emitter{
 	}
 	
 	/**
-	 * Disconects listener from the emitter
+	 * Disconnects listener from the emitter
 	 * @param listener listener
 	 */
 	public void disconnect(Listener listener){
@@ -42,7 +42,7 @@ public class Emitter{
 	}
 	
 	/**
-	 * Force notify an event
+	 * Force notifies an event
 	 * @param event event
 	 */
 	public void fire(Object event){

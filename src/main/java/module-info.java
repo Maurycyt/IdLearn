@@ -5,5 +5,5 @@ module mimuw.idlearn {
 	
 	opens mimuw.idlearn to javafx.fxml;
 	exports mimuw.idlearn;
-	exports mimuw.idlearn.GUI.coding.sampleapp;
+	exports mimuw.idlearn.core;
 }
