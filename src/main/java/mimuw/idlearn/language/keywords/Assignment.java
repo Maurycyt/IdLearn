@@ -6,21 +6,21 @@ import mimuw.idlearn.language.environment.Scope;
 
 public class Assignment<T> implements Expression<T> {
 	private final String name;
-	private final Expression<T> value;
+	private final Expression<T> expression;
 
-	public Assignment(String name, Expression<T> value) {
+	public Assignment(String name, Expression<T> expression) {
 		this.name = name;
-		this.value = value;
+		this.expression = expression;
 	}
 
-	public Assignment(String name, T value) {
+	public Assignment(String name, T expression) {
 		this.name = name;
-		this.value = new Value<>(value);
+		this.expression = new Value<>(expression);
 	}
 
 	@Override
 	public Value<T> evaluate(Scope scope) throws RuntimeException {
-		Value<T> eval = value.evaluate(scope);
+		Value<T> eval = expression.evaluate(scope);
 
 		Scope origin = scope.getOriginScope(name);
 
@@ -31,27 +31,27 @@ public class Assignment<T> implements Expression<T> {
 
 		return eval;
 	}
-	
+
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(Object o) {
 		if (this == o)
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
 		if (!super.equals(o))
 			return false;
-		
-		Assignment<T> other = (Assignment<T>)o;
 
-		return name.equals(other.name) && value.equals(other.value);
+		Assignment<T> other = (Assignment<T>) o;
+
+		return name.equals(other.name) && expression.equals(other.expression);
 	}
 
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (value != null ? value.hashCode() : 0);
+		result = 31 * result + (expression != null ? expression.hashCode() : 0);
 		return result;
 	}
 }

@@ -4,14 +4,14 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
 
-public abstract class OneArgOperator<T> extends Operator<T> {
-	protected Expression<T> arg;
+public abstract class OneArgOperator<A, R> implements Expression<R> {
+	protected Expression<A> arg;
 
-	public OneArgOperator(Expression<T> arg) {
+	public OneArgOperator(Expression<A> arg) {
 		this.arg = arg;
 	}
 
-	public static OneArgOperator<Boolean> newNot(Expression<Boolean> arg) {
+	public static OneArgOperator<Boolean, Boolean> newNot(Expression<Boolean> arg) {
 		return new OneArgOperator<>(arg) {
 			@Override
 			public Value<Boolean> evaluate(Scope scope) throws RuntimeException {
@@ -21,21 +21,21 @@ public abstract class OneArgOperator<T> extends Operator<T> {
 	}
 
 	@Override
-	public boolean equals(Object o){
-		if(this == o)
+	public boolean equals(Object o) {
+		if (this == o)
 			return true;
-		if(o == null || getClass() != o.getClass())
+		if (o == null || getClass() != o.getClass())
 			return false;
-		if(!super.equals(o))
+		if (!super.equals(o))
 			return false;
-		
-		OneArgOperator<T> other = (OneArgOperator<T>)o;
-		
+
+		OneArgOperator<A, R> other = (OneArgOperator<A, R>) o;
+
 		return arg.equals(other.arg);
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + (arg != null ? arg.hashCode() : 0);
 		return result;

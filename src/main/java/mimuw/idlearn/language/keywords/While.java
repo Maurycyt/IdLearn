@@ -14,29 +14,29 @@ public class While<Void> implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope) throws RuntimeException{
+	public Value<Void> evaluate(Scope scope) throws RuntimeException {
 		while (condition.evaluate(scope).getValue()) {
 			body.evaluate(scope);
 		}
 		return new Value<>(null);
 	}
-	
+
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(Object o) {
 		if (this == o)
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
 		if (!super.equals(o))
 			return false;
-		
-		While<Void> other = (While<Void>)o;
+
+		While<Void> other = (While<Void>) o;
 
 		return condition.equals(other.condition) && body.equals(other.body);
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + (condition != null ? condition.hashCode() : 0);
 		result = 31 * result + (body != null ? body.hashCode() : 0);
