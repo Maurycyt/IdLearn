@@ -38,13 +38,13 @@ public class Scope {
 		return variables.containsKey(name);
 	}
 
-	public Value<?> getVariable(String name) throws RuntimeException{ //TODO: czy RuntimeException tu ma sens?
+	public <T> Value<T> getVariable(String name) throws RuntimeException{
 		if (!variables.containsKey(name)) {
 			if (isGlobal())
-				throw new RuntimeException("Variable not found in scope");
+				throw new RuntimeException("Variable not found in scope"); //TODO: could be replaced by initializing the variable to 0
 			return parentScope.getVariable(name);
 		}
-		return variables.get(name);
+		return (Value<T>) variables.get(name);
 	}
 
 	public Scope getOriginScope(String name) {

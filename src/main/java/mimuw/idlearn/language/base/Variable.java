@@ -1,6 +1,7 @@
 package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.keywords.Assignment;
 
 public class Variable<T> implements Expression<T> {
 	private final String name;
@@ -9,9 +10,19 @@ public class Variable<T> implements Expression<T> {
 		this.name = name;
 	}
 
+	public Variable(String name, Scope originScope) {
+		this.name = name;
+		new Assignment<>(name, 0).evaluate(originScope);
+	}
+
+	public Variable(String name, Scope originScope, T initialValue) {
+		this.name = name;
+		new Assignment<>(name, initialValue).evaluate(originScope);
+	}
+
 	@Override
 	public Value<T> evaluate(Scope scope) throws RuntimeException{
-		return (Value<T>)scope.getVariable(name);
+		return scope.getVariable(name);
 	}
 	
 	@Override

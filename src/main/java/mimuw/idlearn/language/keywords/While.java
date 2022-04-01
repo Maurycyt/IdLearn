@@ -15,11 +15,8 @@ public class While<Void> implements Expression<Void> {
 
 	@Override
 	public Value<Void> evaluate(Scope scope) throws RuntimeException{
-		while (true) {
-			Object condEvaluation = condition.evaluate(scope).getValue();
-			if (!((Boolean)condEvaluation))
-				break;
-			body.evaluate(new Scope(scope));
+		while (condition.evaluate(scope).getValue()) {
+			body.evaluate(scope);
 		}
 		return new Value<>(null);
 	}

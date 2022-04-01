@@ -5,6 +5,7 @@ import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Block<Void> implements Expression<Void> {
     private final ArrayList<Expression<?>> instructions;
@@ -13,13 +14,18 @@ public class Block<Void> implements Expression<Void> {
         this.instructions = instructions;
     }
 
+    public Block(Expression<?>... instructions) {
+        this.instructions = new ArrayList<>(instructions.length);
+        this.instructions.addAll(List.of(instructions));
+    }
+
     @Override
     public Value<Void> evaluate(Scope scope) throws RuntimeException {
-        Scope nestedScope = new Scope(scope);
         for (Expression<?> i : instructions) {
-            i.evaluate(nestedScope);
+            int x = 4; //Todo: remove
+            i.evaluate(scope);
         }
-        return new Value<>(null); // the value of the block is that of the last instruction
+        return new Value<>(null);
     }
 
     @Override
