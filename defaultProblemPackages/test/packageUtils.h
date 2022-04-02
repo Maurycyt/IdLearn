@@ -215,6 +215,7 @@ private:
 		return (c >= '0' && c <= '9');
 	}
 
+public:
 	// Possible optimization: array with values of ULL_MAX - digit / 10 for all digit values.
 	/**
 	 * Parses the string under the given pointer into an unsigned long long.
@@ -296,8 +297,6 @@ private:
 		return result;
 	}
 
-
-public:
 	Reader(std::string filename) : file(filename) {
 	}
 

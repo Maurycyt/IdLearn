@@ -1,9 +1,8 @@
-#include <ifstream>
 #include <iostream>
+#include "../../packageUtils.h"
 
-using std::ifstream;
-using std::cerr;
-using std::cout;
+using namespace std;
+using namespace pUtils;
 
 int main(int argc, char * * argv) {
 	if (argc != 4) {
@@ -11,9 +10,24 @@ int main(int argc, char * * argv) {
 		return 1;
 	}
 
-	ifstream input(argv[1]);
-	ifstream uOutput(argv[2]);
-	ifstream mOutput(argv[3]);
+	Reader uOutput(argv[2]);
+	Reader mOutput(argv[3]);
 
-	
+	bool result = true;
+
+	try {
+		result &= uOutput.read<si>() == mOutput.read<si>();
+		result &= uOutput.eof();
+	} catch (...) {
+		cout << "WRONG\n";
+		return 1;
+	}
+
+	if (result) {
+		cout << "OK\n";
+		return 0;
+	} else {
+		cout << "WRONG\n";
+		return 1;
+	}
 }
