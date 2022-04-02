@@ -1,0 +1,2383 @@
+        -:    0:Source:/home/maurycyt/Documents/IO/idlearn/defaultProblemPackages/test/packageUtilsTest.cpp
+        -:    0:Graph:/home/maurycyt/Documents/IO/idlearn/defaultProblemPackages/test/cmake-build-debug-coverage/CMakeFiles/packageUtilsTest.dir/packageUtilsTest.cpp.gcno
+        -:    0:Data:/home/maurycyt/Documents/IO/idlearn/defaultProblemPackages/test/cmake-build-debug-coverage/CMakeFiles/packageUtilsTest.dir/packageUtilsTest.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#include "packageUtils.h"
+        -:    2:#include <iostream>
+        -:    3:#include <cassert>
+        -:    4:#include <cstring> // std::memset
+        -:    5:#include <cstdio>  // std::remove
+        -:    6:#include <vector>
+        -:    7:
+        -:    8:using namespace std;
+        -:    9:using namespace pUtils;
+        -:   10:
+        -:   11:/**
+        -:   12: * Checks if the distribution of randomly generated integral numbers is uniform.
+        -:   13: * @param size The number of data points to be generated.
+        -:   14: * @param divisions The number of groups to divide the range into.
+        -:   15: * @param threshold The fraction of data points which should land in each division.
+        -:   16: * When divisions = 16, a perfect threshold would be 0.0625.
+        -:   17: */
+        -:   18:template<pUtils::integral T>
+        4:   19:void randomIntegralUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        4:   20:	bool result = true;
+        4:   21:	int counters[divisions];
+        4:   22:	memset(counters, 0, sizeof(counters));
+        -:   23:	T step;
+        -:   24:	if constexpr (pUtils::longIntegral<T>) {
+        2:   25:		step = ULL_MAX / divisions + 1;
+        -:   26:	} else {
+        2:   27:		step = UI_MAX / divisions + 1;
+        -:   28:	}
+        -:   29:
+        -:   30:	T dataPoint;
+  4000004:   31:	for (int i = 0; i < size; i++) {
+  4000000:   32:		dataPoint = Random::rand<T>();
+  4000000:   33:		int counter = dataPoint / step;
+        -:   34:		if constexpr(pUtils::signedIntegral<T>) {
+  2000000:   35:			counter += divisions / 2;
+  2000000:   36:			if (dataPoint < 0) {
+  1000254:   37:				counter--;
+        -:   38:			}
+        -:   39:		}
+  4000000:   40:		counters[counter]++;
+        -:   41:	}
+        -:   42:
+       68:   43:	for (int i = 0; i < divisions; i++) {
+       64:   44:		if (counters[i] < size * threshold) {
+    #####:   45:			result = false;
+        -:   46:		}
+        -:   47:	}
+        -:   48:
+       4*:   49:	assert(result);
+        4:   50:}
+------------------
+_Z28randomIntegralUniformityTestIiEviid:
+function _Z28randomIntegralUniformityTestIiEviid called 1 returned 100% blocks executed 85%
+        1:   19:void randomIntegralUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        1:   20:	bool result = true;
+        1:   21:	int counters[divisions];
+        1:   22:	memset(counters, 0, sizeof(counters));
+        -:   23:	T step;
+        -:   24:	if constexpr (pUtils::longIntegral<T>) {
+        -:   25:		step = ULL_MAX / divisions + 1;
+        -:   26:	} else {
+        1:   27:		step = UI_MAX / divisions + 1;
+        -:   28:	}
+        -:   29:
+        -:   30:	T dataPoint;
+  1000001:   31:	for (int i = 0; i < size; i++) {
+        1:   31-block  0
+  1000001:   31-block  1
+branch  0 taken 1000000
+branch  1 taken 1
+  1000000:   32:		dataPoint = Random::rand<T>();
+  1000000:   33:		int counter = dataPoint / step;
+        -:   34:		if constexpr(pUtils::signedIntegral<T>) {
+  1000000:   35:			counter += divisions / 2;
+  1000000:   36:			if (dataPoint < 0) {
+branch  0 taken 500243 (fallthrough)
+branch  1 taken 499757
+   500243:   37:				counter--;
+   500243:   37-block  0
+        -:   38:			}
+        -:   39:		}
+  1000000:   40:		counters[counter]++;
+  1000000:   40-block  0
+        -:   41:	}
+        -:   42:
+       17:   43:	for (int i = 0; i < divisions; i++) {
+       16:   43-block  0
+       17:   43-block  1
+branch  0 taken 16
+branch  1 taken 1 (fallthrough)
+       16:   44:		if (counters[i] < size * threshold) {
+       16:   44-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 16
+    #####:   45:			result = false;
+    %%%%%:   45-block  0
+        -:   46:		}
+        -:   47:	}
+        -:   48:
+       1*:   49:	assert(result);
+        1:   49-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   49-block  1
+call    2 never executed
+        1:   50:}
+        1:   50-block  0
+------------------
+_Z28randomIntegralUniformityTestIjEviid:
+function _Z28randomIntegralUniformityTestIjEviid called 1 returned 100% blocks executed 82%
+        1:   19:void randomIntegralUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        1:   20:	bool result = true;
+        1:   21:	int counters[divisions];
+        1:   22:	memset(counters, 0, sizeof(counters));
+        -:   23:	T step;
+        -:   24:	if constexpr (pUtils::longIntegral<T>) {
+        -:   25:		step = ULL_MAX / divisions + 1;
+        -:   26:	} else {
+        1:   27:		step = UI_MAX / divisions + 1;
+        -:   28:	}
+        -:   29:
+        -:   30:	T dataPoint;
+  1000001:   31:	for (int i = 0; i < size; i++) {
+        1:   31-block  0
+  1000001:   31-block  1
+branch  0 taken 1000000
+branch  1 taken 1
+  1000000:   32:		dataPoint = Random::rand<T>();
+  1000000:   33:		int counter = dataPoint / step;
+        -:   34:		if constexpr(pUtils::signedIntegral<T>) {
+        -:   35:			counter += divisions / 2;
+        -:   36:			if (dataPoint < 0) {
+        -:   37:				counter--;
+        -:   38:			}
+        -:   39:		}
+  1000000:   40:		counters[counter]++;
+        -:   41:	}
+        -:   42:
+       17:   43:	for (int i = 0; i < divisions; i++) {
+       16:   43-block  0
+       17:   43-block  1
+branch  0 taken 16
+branch  1 taken 1 (fallthrough)
+       16:   44:		if (counters[i] < size * threshold) {
+       16:   44-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 16
+    #####:   45:			result = false;
+    %%%%%:   45-block  0
+        -:   46:		}
+        -:   47:	}
+        -:   48:
+       1*:   49:	assert(result);
+        1:   49-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   49-block  1
+call    2 never executed
+        1:   50:}
+        1:   50-block  0
+------------------
+_Z28randomIntegralUniformityTestIlEviid:
+function _Z28randomIntegralUniformityTestIlEviid called 1 returned 100% blocks executed 85%
+        1:   19:void randomIntegralUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        1:   20:	bool result = true;
+        1:   21:	int counters[divisions];
+        1:   22:	memset(counters, 0, sizeof(counters));
+        -:   23:	T step;
+        -:   24:	if constexpr (pUtils::longIntegral<T>) {
+        1:   25:		step = ULL_MAX / divisions + 1;
+        -:   26:	} else {
+        -:   27:		step = UI_MAX / divisions + 1;
+        -:   28:	}
+        -:   29:
+        -:   30:	T dataPoint;
+  1000001:   31:	for (int i = 0; i < size; i++) {
+        1:   31-block  0
+  1000001:   31-block  1
+branch  0 taken 1000000
+branch  1 taken 1
+  1000000:   32:		dataPoint = Random::rand<T>();
+  1000000:   33:		int counter = dataPoint / step;
+        -:   34:		if constexpr(pUtils::signedIntegral<T>) {
+  1000000:   35:			counter += divisions / 2;
+  1000000:   36:			if (dataPoint < 0) {
+branch  0 taken 500011 (fallthrough)
+branch  1 taken 499989
+   500011:   37:				counter--;
+   500011:   37-block  0
+        -:   38:			}
+        -:   39:		}
+  1000000:   40:		counters[counter]++;
+  1000000:   40-block  0
+        -:   41:	}
+        -:   42:
+       17:   43:	for (int i = 0; i < divisions; i++) {
+       16:   43-block  0
+       17:   43-block  1
+branch  0 taken 16
+branch  1 taken 1 (fallthrough)
+       16:   44:		if (counters[i] < size * threshold) {
+       16:   44-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 16
+    #####:   45:			result = false;
+    %%%%%:   45-block  0
+        -:   46:		}
+        -:   47:	}
+        -:   48:
+       1*:   49:	assert(result);
+        1:   49-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   49-block  1
+call    2 never executed
+        1:   50:}
+        1:   50-block  0
+------------------
+_Z28randomIntegralUniformityTestImEviid:
+function _Z28randomIntegralUniformityTestImEviid called 1 returned 100% blocks executed 82%
+        1:   19:void randomIntegralUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        1:   20:	bool result = true;
+        1:   21:	int counters[divisions];
+        1:   22:	memset(counters, 0, sizeof(counters));
+        -:   23:	T step;
+        -:   24:	if constexpr (pUtils::longIntegral<T>) {
+        1:   25:		step = ULL_MAX / divisions + 1;
+        -:   26:	} else {
+        -:   27:		step = UI_MAX / divisions + 1;
+        -:   28:	}
+        -:   29:
+        -:   30:	T dataPoint;
+  1000001:   31:	for (int i = 0; i < size; i++) {
+        1:   31-block  0
+  1000001:   31-block  1
+branch  0 taken 1000000
+branch  1 taken 1
+  1000000:   32:		dataPoint = Random::rand<T>();
+  1000000:   33:		int counter = dataPoint / step;
+        -:   34:		if constexpr(pUtils::signedIntegral<T>) {
+        -:   35:			counter += divisions / 2;
+        -:   36:			if (dataPoint < 0) {
+        -:   37:				counter--;
+        -:   38:			}
+        -:   39:		}
+  1000000:   40:		counters[counter]++;
+        -:   41:	}
+        -:   42:
+       17:   43:	for (int i = 0; i < divisions; i++) {
+       16:   43-block  0
+       17:   43-block  1
+branch  0 taken 16
+branch  1 taken 1 (fallthrough)
+       16:   44:		if (counters[i] < size * threshold) {
+       16:   44-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 16
+    #####:   45:			result = false;
+    %%%%%:   45-block  0
+        -:   46:		}
+        -:   47:	}
+        -:   48:
+       1*:   49:	assert(result);
+        1:   49-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   49-block  1
+call    2 never executed
+        1:   50:}
+        1:   50-block  0
+------------------
+        -:   51:
+        -:   52:/**
+        -:   53: * Checks if the distribution of randomly generated floating point numbers is uniform.
+        -:   54: * @param size The number of data points to be generated.
+        -:   55: * @param divisions The number of groups to divide the range into.
+        -:   56: * @param threshold The fraction of data points which should land in each division.
+        -:   57: * When divisions = 16, a perfect threshold would be 0.0625.
+        -:   58: */
+        -:   59:template<pUtils::floatingPoint T>
+        2:   60:void randomFloatingPointUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        2:   61:	bool result = true;
+        2:   62:	int counters[divisions];
+        2:   63:	memset(counters, 0, sizeof(counters));
+        2:   64:	ldbl step = 1.0L / divisions;
+        -:   65:
+        -:   66:	T dataPoint;
+  2000002:   67:	for (int i = 0; i < size; i++) {
+  2000000:   68:		dataPoint = Random::rand<T>();
+  2000000:   69:		int counter = dataPoint / step;
+  2000000:   70:		counters[counter]++;
+        -:   71:	}
+        -:   72:
+       34:   73:	for (int i = 0; i < divisions; i++) {
+       32:   74:		if (counters[i] < size * threshold) {
+    #####:   75:			result = false;
+        -:   76:		}
+        -:   77:	}
+        -:   78:
+       2*:   79:	assert(result);
+        2:   80:}
+------------------
+_Z33randomFloatingPointUniformityTestIdEviid:
+function _Z33randomFloatingPointUniformityTestIdEviid called 1 returned 100% blocks executed 82%
+        1:   60:void randomFloatingPointUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        1:   61:	bool result = true;
+        1:   62:	int counters[divisions];
+        1:   63:	memset(counters, 0, sizeof(counters));
+        1:   64:	ldbl step = 1.0L / divisions;
+        -:   65:
+        -:   66:	T dataPoint;
+  1000001:   67:	for (int i = 0; i < size; i++) {
+        1:   67-block  0
+  1000001:   67-block  1
+branch  0 taken 1000000
+branch  1 taken 1
+  1000000:   68:		dataPoint = Random::rand<T>();
+  1000000:   69:		int counter = dataPoint / step;
+  1000000:   70:		counters[counter]++;
+        -:   71:	}
+        -:   72:
+       17:   73:	for (int i = 0; i < divisions; i++) {
+       16:   73-block  0
+       17:   73-block  1
+branch  0 taken 16
+branch  1 taken 1 (fallthrough)
+       16:   74:		if (counters[i] < size * threshold) {
+       16:   74-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 16
+    #####:   75:			result = false;
+    %%%%%:   75-block  0
+        -:   76:		}
+        -:   77:	}
+        -:   78:
+       1*:   79:	assert(result);
+        1:   79-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   79-block  1
+call    2 never executed
+        1:   80:}
+        1:   80-block  0
+------------------
+_Z33randomFloatingPointUniformityTestIeEviid:
+function _Z33randomFloatingPointUniformityTestIeEviid called 1 returned 100% blocks executed 82%
+        1:   60:void randomFloatingPointUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
+        1:   61:	bool result = true;
+        1:   62:	int counters[divisions];
+        1:   63:	memset(counters, 0, sizeof(counters));
+        1:   64:	ldbl step = 1.0L / divisions;
+        -:   65:
+        -:   66:	T dataPoint;
+  1000001:   67:	for (int i = 0; i < size; i++) {
+        1:   67-block  0
+  1000001:   67-block  1
+branch  0 taken 1000000
+branch  1 taken 1
+  1000000:   68:		dataPoint = Random::rand<T>();
+  1000000:   69:		int counter = dataPoint / step;
+  1000000:   70:		counters[counter]++;
+        -:   71:	}
+        -:   72:
+       17:   73:	for (int i = 0; i < divisions; i++) {
+       16:   73-block  0
+       17:   73-block  1
+branch  0 taken 16
+branch  1 taken 1 (fallthrough)
+       16:   74:		if (counters[i] < size * threshold) {
+       16:   74-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 16
+    #####:   75:			result = false;
+    %%%%%:   75-block  0
+        -:   76:		}
+        -:   77:	}
+        -:   78:
+       1*:   79:	assert(result);
+        1:   79-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   79-block  1
+call    2 never executed
+        1:   80:}
+        1:   80-block  0
+------------------
+        -:   81:
+        -:   82:template<packageType T>
+        -:   83:void catchEOFException(Reader & reader) {
+        -:   84:	bool result = false;
+        -:   85:	try {
+        -:   86:		reader.read<T>();
+        -:   87:	} catch (EOFException &) {
+        -:   88:		result = true;
+        -:   89:	}
+        -:   90:	assert(result);
+        -:   91:}
+        -:   92:
+        -:   93:template<packageType T>
+        -:   94:void catchParsingException(Reader & reader) {
+        -:   95:	bool result = false;
+        -:   96:	try {
+        -:   97:		reader.read<T>();
+        -:   98:	} catch (ParsingException &) {
+        -:   99:		result = true;
+        -:  100:	}
+        -:  101:	assert(result);
+        -:  102:}
+        -:  103:
+        -:  104:const string garbageWhitespace = "  \t\t\n\n\v\v\n\r\f  \n \t\t ";
+        -:  105:
+        -:  106:/**
+        -:  107: * Returns a list of strings for parsing tests.
+        -:  108: * @return List of strings.
+        -:  109: */
+function _Z17getStringsToParseB5cxx11v called 12 returned 100% blocks executed 81%
+       12:  110:const vector<string> & getStringsToParse() {
+       12:  111:	static vector<string> result {
+        -:  112:		"0",
+        -:  113:		"1",
+        -:  114:		"-1",
+        -:  115:		"2147483647",
+        -:  116:		"2147483648",
+        -:  117:		"-2147483648",
+        -:  118:		"-2147483649",
+        -:  119:		"4294967295",
+        -:  120:		"4294967296",
+        -:  121:		"9223372036854775807",
+        -:  122:		"9223372036854775808",
+        -:  123:		"-9223372036854775808",
+        -:  124:		"-9223372036854775809",
+        -:  125:		"18446744073709551615",
+        -:  126:		"18446744073709551616",
+        -:  127:		"0.1",
+        -:  128:		"-0.1",
+        -:  129:		"123abc",
+        -:  130:		"1.0ghoul",
+        -:  131:		"-"
+       32:  132:	};
+       12:  132-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 11
+        1:  132-block  1
+call    2 returned 1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0
+        1:  132-block  2
+call    5 returned 1
+branch  6 taken 1 (fallthrough)
+branch  7 taken 0 (throw)
+        1:  132-block  3
+call    8 returned 1
+branch  9 taken 1 (fallthrough)
+branch 10 taken 0 (throw)
+        1:  132-block  4
+call   11 returned 1
+branch 12 taken 1 (fallthrough)
+branch 13 taken 0 (throw)
+        1:  132-block  5
+call   14 returned 1
+branch 15 taken 1 (fallthrough)
+branch 16 taken 0 (throw)
+        1:  132-block  6
+call   17 returned 1
+branch 18 taken 1 (fallthrough)
+branch 19 taken 0 (throw)
+        1:  132-block  7
+call   20 returned 1
+branch 21 taken 1 (fallthrough)
+branch 22 taken 0 (throw)
+        1:  132-block  8
+call   23 returned 1
+branch 24 taken 1 (fallthrough)
+branch 25 taken 0 (throw)
+        1:  132-block  9
+call   26 returned 1
+branch 27 taken 1 (fallthrough)
+branch 28 taken 0 (throw)
+        1:  132-block 10
+call   29 returned 1
+branch 30 taken 1 (fallthrough)
+branch 31 taken 0 (throw)
+        1:  132-block 11
+call   32 returned 1
+branch 33 taken 1 (fallthrough)
+branch 34 taken 0 (throw)
+        1:  132-block 12
+call   35 returned 1
+branch 36 taken 1 (fallthrough)
+branch 37 taken 0 (throw)
+        1:  132-block 13
+call   38 returned 1
+branch 39 taken 1 (fallthrough)
+branch 40 taken 0 (throw)
+        1:  132-block 14
+call   41 returned 1
+branch 42 taken 1 (fallthrough)
+branch 43 taken 0 (throw)
+        1:  132-block 15
+call   44 returned 1
+branch 45 taken 1 (fallthrough)
+branch 46 taken 0 (throw)
+        1:  132-block 16
+call   47 returned 1
+branch 48 taken 1 (fallthrough)
+branch 49 taken 0 (throw)
+        1:  132-block 17
+call   50 returned 1
+branch 51 taken 1 (fallthrough)
+branch 52 taken 0 (throw)
+        1:  132-block 18
+call   53 returned 1
+branch 54 taken 1 (fallthrough)
+branch 55 taken 0 (throw)
+        1:  132-block 19
+call   56 returned 1
+branch 57 taken 1 (fallthrough)
+branch 58 taken 0 (throw)
+        1:  132-block 20
+call   59 returned 1
+branch 60 taken 1 (fallthrough)
+branch 61 taken 0 (throw)
+        1:  132-block 21
+call   62 returned 1
+branch 63 taken 1 (fallthrough)
+branch 64 taken 0 (throw)
+        1:  132-block 22
+call   65 returned 1
+branch 66 taken 0 (throw)
+branch 67 taken 1 (fallthrough)
+        1:  132-block 23
+call   68 returned 1
+call   69 returned 1
+       21:  132-block 24
+branch 70 taken 20 (fallthrough)
+branch 71 taken 1
+       20:  132-block 25
+branch 72 taken 6 (fallthrough)
+branch 73 taken 14
+        1:  132-block 26
+    $$$$$:  132-block 27
+branch 74 never executed
+branch 75 never executed
+    $$$$$:  132-block 28
+branch 76 never executed
+branch 77 never executed
+    $$$$$:  132-block 29
+call   78 never executed
+        -:  133:
+       12:  134:	return result;
+       12:  134-block  0
+        -:  135:}
+        -:  136:
+        -:  137:/**
+        -:  138: * Returns when a parsing error is expected when parsing to type T.
+        -:  139: * @tparam T The type to parse to.
+        -:  140: * @return List of flags when parsing error is expected.
+        -:  141: */
+        -:  142:template<packageType T>
+        6:  143:vector<bool> getExpectedParsingErrors() {
+        6:  144:	vector<bool> result(20, false);
+        6:  145:	result[17] = result[18] = result [19] = true;
+        -:  146:	if constexpr (pUtils::integral<T>) {
+        4:  147:		result[15] = result[16] = true;
+        -:  148:	}
+        6:  149:	return result;
+        -:  150:}
+------------------
+_Z24getExpectedParsingErrorsIdESt6vectorIbSaIbEEv:
+function _Z24getExpectedParsingErrorsIdESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  143:vector<bool> getExpectedParsingErrors() {
+        1:  143-block  0
+call    0 returned 1
+        1:  144:	vector<bool> result(20, false);
+        1:  144-block  0
+call    0 returned 1
+        1:  145:	result[17] = result[18] = result [19] = true;
+        -:  146:	if constexpr (pUtils::integral<T>) {
+        -:  147:		result[15] = result[16] = true;
+        -:  148:	}
+        1:  149:	return result;
+        -:  150:}
+------------------
+_Z24getExpectedParsingErrorsIeESt6vectorIbSaIbEEv:
+function _Z24getExpectedParsingErrorsIeESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  143:vector<bool> getExpectedParsingErrors() {
+        1:  143-block  0
+call    0 returned 1
+        1:  144:	vector<bool> result(20, false);
+        1:  144-block  0
+call    0 returned 1
+        1:  145:	result[17] = result[18] = result [19] = true;
+        -:  146:	if constexpr (pUtils::integral<T>) {
+        -:  147:		result[15] = result[16] = true;
+        -:  148:	}
+        1:  149:	return result;
+        -:  150:}
+------------------
+_Z24getExpectedParsingErrorsIiESt6vectorIbSaIbEEv:
+function _Z24getExpectedParsingErrorsIiESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  143:vector<bool> getExpectedParsingErrors() {
+        1:  143-block  0
+call    0 returned 1
+        1:  144:	vector<bool> result(20, false);
+        1:  144-block  0
+call    0 returned 1
+        1:  145:	result[17] = result[18] = result [19] = true;
+        -:  146:	if constexpr (pUtils::integral<T>) {
+        1:  147:		result[15] = result[16] = true;
+        -:  148:	}
+        1:  149:	return result;
+        -:  150:}
+------------------
+_Z24getExpectedParsingErrorsIjESt6vectorIbSaIbEEv:
+function _Z24getExpectedParsingErrorsIjESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  143:vector<bool> getExpectedParsingErrors() {
+        1:  143-block  0
+call    0 returned 1
+        1:  144:	vector<bool> result(20, false);
+        1:  144-block  0
+call    0 returned 1
+        1:  145:	result[17] = result[18] = result [19] = true;
+        -:  146:	if constexpr (pUtils::integral<T>) {
+        1:  147:		result[15] = result[16] = true;
+        -:  148:	}
+        1:  149:	return result;
+        -:  150:}
+------------------
+_Z24getExpectedParsingErrorsIlESt6vectorIbSaIbEEv:
+function _Z24getExpectedParsingErrorsIlESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  143:vector<bool> getExpectedParsingErrors() {
+        1:  143-block  0
+call    0 returned 1
+        1:  144:	vector<bool> result(20, false);
+        1:  144-block  0
+call    0 returned 1
+        1:  145:	result[17] = result[18] = result [19] = true;
+        -:  146:	if constexpr (pUtils::integral<T>) {
+        1:  147:		result[15] = result[16] = true;
+        -:  148:	}
+        1:  149:	return result;
+        -:  150:}
+------------------
+_Z24getExpectedParsingErrorsImESt6vectorIbSaIbEEv:
+function _Z24getExpectedParsingErrorsImESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  143:vector<bool> getExpectedParsingErrors() {
+        1:  143-block  0
+call    0 returned 1
+        1:  144:	vector<bool> result(20, false);
+        1:  144-block  0
+call    0 returned 1
+        1:  145:	result[17] = result[18] = result [19] = true;
+        -:  146:	if constexpr (pUtils::integral<T>) {
+        1:  147:		result[15] = result[16] = true;
+        -:  148:	}
+        1:  149:	return result;
+        -:  150:}
+------------------
+        -:  151:
+        -:  152:/**
+        -:  153: * Returns when an overflow error is expected when parsing to type T, given that no parsing error occurs.
+        -:  154: * @tparam T The type to parse to.
+        -:  155: * @return List of flags when overflow error is expected.
+        -:  156: */
+        -:  157:template<packageType T>
+        6:  158:vector<bool> getExpectedOverflowErrors() {
+        1:  158-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  158-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        -:  159:	if constexpr (pUtils::integral<T>) {
+        -:  160:		if constexpr (std::same_as<T, ull>) {
+        1:  161:			return {0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0};
+        -:  162:		} else if constexpr (std::same_as<T, sll>) {
+        1:  163:			return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  164:		} else if constexpr (std::same_as<T, ui>) {
+        1:  165:			return {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  166:		} else {
+        1:  167:			return {0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  168:		}
+        -:  169:	} else {
+        2:  170:		return vector<bool>(20, false);
+        1:  170-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  170-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  170-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  170-block  3
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        -:  171:	}
+        -:  172:}
+------------------
+_Z25getExpectedOverflowErrorsIiESt6vectorIbSaIbEEv:
+function _Z25getExpectedOverflowErrorsIiESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  158:vector<bool> getExpectedOverflowErrors() {
+        -:  159:	if constexpr (pUtils::integral<T>) {
+        -:  160:		if constexpr (std::same_as<T, ull>) {
+        -:  161:			return {0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0};
+        -:  162:		} else if constexpr (std::same_as<T, sll>) {
+        -:  163:			return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  164:		} else if constexpr (std::same_as<T, ui>) {
+        -:  165:			return {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  166:		} else {
+        1:  167:			return {0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        1:  167-block  0
+call    0 returned 1
+        -:  168:		}
+        -:  169:	} else {
+        -:  170:		return vector<bool>(20, false);
+        -:  171:	}
+        -:  172:}
+------------------
+_Z25getExpectedOverflowErrorsIjESt6vectorIbSaIbEEv:
+function _Z25getExpectedOverflowErrorsIjESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  158:vector<bool> getExpectedOverflowErrors() {
+        -:  159:	if constexpr (pUtils::integral<T>) {
+        -:  160:		if constexpr (std::same_as<T, ull>) {
+        -:  161:			return {0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0};
+        -:  162:		} else if constexpr (std::same_as<T, sll>) {
+        -:  163:			return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  164:		} else if constexpr (std::same_as<T, ui>) {
+        1:  165:			return {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        1:  165-block  0
+call    0 returned 1
+        -:  166:		} else {
+        -:  167:			return {0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  168:		}
+        -:  169:	} else {
+        -:  170:		return vector<bool>(20, false);
+        -:  171:	}
+        -:  172:}
+------------------
+_Z25getExpectedOverflowErrorsIlESt6vectorIbSaIbEEv:
+function _Z25getExpectedOverflowErrorsIlESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  158:vector<bool> getExpectedOverflowErrors() {
+        -:  159:	if constexpr (pUtils::integral<T>) {
+        -:  160:		if constexpr (std::same_as<T, ull>) {
+        -:  161:			return {0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0};
+        -:  162:		} else if constexpr (std::same_as<T, sll>) {
+        1:  163:			return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0};
+        1:  163-block  0
+call    0 returned 1
+        -:  164:		} else if constexpr (std::same_as<T, ui>) {
+        -:  165:			return {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  166:		} else {
+        -:  167:			return {0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  168:		}
+        -:  169:	} else {
+        -:  170:		return vector<bool>(20, false);
+        -:  171:	}
+        -:  172:}
+------------------
+_Z25getExpectedOverflowErrorsImESt6vectorIbSaIbEEv:
+function _Z25getExpectedOverflowErrorsImESt6vectorIbSaIbEEv called 1 returned 100% blocks executed 100%
+        1:  158:vector<bool> getExpectedOverflowErrors() {
+        -:  159:	if constexpr (pUtils::integral<T>) {
+        -:  160:		if constexpr (std::same_as<T, ull>) {
+        1:  161:			return {0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0};
+        1:  161-block  0
+call    0 returned 1
+        -:  162:		} else if constexpr (std::same_as<T, sll>) {
+        -:  163:			return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  164:		} else if constexpr (std::same_as<T, ui>) {
+        -:  165:			return {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  166:		} else {
+        -:  167:			return {0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+        -:  168:		}
+        -:  169:	} else {
+        -:  170:		return vector<bool>(20, false);
+        -:  171:	}
+        -:  172:}
+------------------
+        -:  173:
+        -:  174:/**
+        -:  175: * Returns the expected values of the results of parsing to to type T, given that no parsing or overflow errors occur.
+        -:  176: * @tparam T The type to parse to.
+        -:  177: * @return List of expected values.
+        -:  178: */
+        -:  179:template<packageType T>
+        6:  180:vector<T> getExpectedValues() {
+        6:  181:	const vector<string> & stringsToParse = getStringsToParse();
+        6:  182:	vector<T> result {
+        -:  183:		T(0), T(1), T(-1),
+        -:  184:		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
+        -:  185:		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
+        -:  186:		-T(9223372036854775809ULL), T(18446744073709551615ULL), T(18446744073709551616.L),
+        -:  187:		T(0.1L), T(-0.1L), T(0), T(0), T(0)
+        -:  188:	};
+        -:  189:
+        6:  190:	return result;
+        -:  191:}
+------------------
+_Z17getExpectedValuesIdESt6vectorIT_SaIS1_EEv:
+function _Z17getExpectedValuesIdESt6vectorIT_SaIS1_EEv called 1 returned 100% blocks executed 100%
+        1:  180:vector<T> getExpectedValues() {
+        1:  181:	const vector<string> & stringsToParse = getStringsToParse();
+        1:  181-block  0
+call    0 returned 1
+        1:  182:	vector<T> result {
+call    0 returned 1
+        -:  183:		T(0), T(1), T(-1),
+        -:  184:		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
+        -:  185:		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
+        -:  186:		-T(9223372036854775809ULL), T(18446744073709551615ULL), T(18446744073709551616.L),
+        -:  187:		T(0.1L), T(-0.1L), T(0), T(0), T(0)
+        -:  188:	};
+        -:  189:
+        1:  190:	return result;
+        -:  191:}
+------------------
+_Z17getExpectedValuesIeESt6vectorIT_SaIS1_EEv:
+function _Z17getExpectedValuesIeESt6vectorIT_SaIS1_EEv called 1 returned 100% blocks executed 100%
+        1:  180:vector<T> getExpectedValues() {
+        1:  181:	const vector<string> & stringsToParse = getStringsToParse();
+        1:  181-block  0
+call    0 returned 1
+        1:  182:	vector<T> result {
+call    0 returned 1
+        -:  183:		T(0), T(1), T(-1),
+        -:  184:		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
+        -:  185:		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
+        -:  186:		-T(9223372036854775809ULL), T(18446744073709551615ULL), T(18446744073709551616.L),
+        -:  187:		T(0.1L), T(-0.1L), T(0), T(0), T(0)
+        -:  188:	};
+        -:  189:
+        1:  190:	return result;
+        -:  191:}
+------------------
+_Z17getExpectedValuesIiESt6vectorIT_SaIS1_EEv:
+function _Z17getExpectedValuesIiESt6vectorIT_SaIS1_EEv called 1 returned 100% blocks executed 100%
+        1:  180:vector<T> getExpectedValues() {
+        1:  181:	const vector<string> & stringsToParse = getStringsToParse();
+        1:  181-block  0
+call    0 returned 1
+        1:  182:	vector<T> result {
+call    0 returned 1
+        -:  183:		T(0), T(1), T(-1),
+        -:  184:		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
+        -:  185:		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
+        -:  186:		-T(9223372036854775809ULL), T(18446744073709551615ULL), T(18446744073709551616.L),
+        -:  187:		T(0.1L), T(-0.1L), T(0), T(0), T(0)
+        -:  188:	};
+        -:  189:
+        1:  190:	return result;
+        -:  191:}
+------------------
+_Z17getExpectedValuesIjESt6vectorIT_SaIS1_EEv:
+function _Z17getExpectedValuesIjESt6vectorIT_SaIS1_EEv called 1 returned 100% blocks executed 100%
+        1:  180:vector<T> getExpectedValues() {
+        1:  181:	const vector<string> & stringsToParse = getStringsToParse();
+        1:  181-block  0
+call    0 returned 1
+        1:  182:	vector<T> result {
+call    0 returned 1
+        -:  183:		T(0), T(1), T(-1),
+        -:  184:		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
+        -:  185:		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
+        -:  186:		-T(9223372036854775809ULL), T(18446744073709551615ULL), T(18446744073709551616.L),
+        -:  187:		T(0.1L), T(-0.1L), T(0), T(0), T(0)
+        -:  188:	};
+        -:  189:
+        1:  190:	return result;
+        -:  191:}
+------------------
+_Z17getExpectedValuesIlESt6vectorIT_SaIS1_EEv:
+function _Z17getExpectedValuesIlESt6vectorIT_SaIS1_EEv called 1 returned 100% blocks executed 100%
+        1:  180:vector<T> getExpectedValues() {
+        1:  181:	const vector<string> & stringsToParse = getStringsToParse();
+        1:  181-block  0
+call    0 returned 1
+        1:  182:	vector<T> result {
+call    0 returned 1
+        -:  183:		T(0), T(1), T(-1),
+        -:  184:		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
+        -:  185:		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
+        -:  186:		-T(9223372036854775809ULL), T(18446744073709551615ULL), T(18446744073709551616.L),
+        -:  187:		T(0.1L), T(-0.1L), T(0), T(0), T(0)
+        -:  188:	};
+        -:  189:
+        1:  190:	return result;
+        -:  191:}
+------------------
+_Z17getExpectedValuesImESt6vectorIT_SaIS1_EEv:
+function _Z17getExpectedValuesImESt6vectorIT_SaIS1_EEv called 1 returned 100% blocks executed 100%
+        1:  180:vector<T> getExpectedValues() {
+        1:  181:	const vector<string> & stringsToParse = getStringsToParse();
+        1:  181-block  0
+call    0 returned 1
+        1:  182:	vector<T> result {
+call    0 returned 1
+        -:  183:		T(0), T(1), T(-1),
+        -:  184:		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
+        -:  185:		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
+        -:  186:		-T(9223372036854775809ULL), T(18446744073709551615ULL), T(18446744073709551616.L),
+        -:  187:		T(0.1L), T(-0.1L), T(0), T(0), T(0)
+        -:  188:	};
+        -:  189:
+        1:  190:	return result;
+        -:  191:}
+------------------
+        -:  192:
+        -:  193:ldbl margin = 1e-10;
+        -:  194:
+        -:  195:/**
+        -:  196: * Performs reader class parsing tests.
+        -:  197: * @tparam T The type to parse to.
+        -:  198: */
+        -:  199:template<packageType T>
+        6:  200:void parsingTest() {
+        -:  201:	// Prepare result, filename, file, and vectors with information, and reader.
+        6:  202:	char filename [10] = "test.txt";
+        6:  203:	ofstream file(filename);
+        6:  204:	const vector<string> & stringsToParse = getStringsToParse();
+        6:  205:	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+        4:  206:	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+        6:  207:	const vector<T> expectedValues = getExpectedValues<T>();
+       12:  208:	Reader reader((string(filename)));
+        -:  209:
+       6*:  210:	assert(stringsToParse.size() == expectedParsingErrors.size());
+       6*:  211:	assert(stringsToParse.size() == expectedOverflowErrors.size());
+       6*:  212:	assert(stringsToParse.size() == expectedValues.size());
+        -:  213:
+      246:  214:	for (string str : stringsToParse) {
+      120:  215:		file << garbageWhitespace << str;
+        -:  216:	}
+        6:  217:	file << garbageWhitespace;
+        6:  218:	file.close();
+        -:  219:
+        -:  220:	// Perform the test.
+        -:  221:	T value;
+      126:  222:	for (size_t i = 0; i < stringsToParse.size(); i++) {
+     120*:  223:		assert(!reader.eof());
+        -:  224:		try {
+      120:  225:			value = reader.read<T>();
+       82:  226:		} catch (ParsingException &) {
+       26:  227:			assert(expectedParsingErrors[i]);
+        -:  228:			continue;
+       60:  229:		} catch (OverflowException &) {
+       30:  230:			assert(expectedOverflowErrors[i]);
+        -:  231:			continue;
+        -:  232:		}
+      64*:  233:		assert(!expectedParsingErrors[i]);
+      64*:  234:		assert(!expectedOverflowErrors[i]);
+        -:  235:		if constexpr (pUtils::integral<T>) {
+      30*:  236:			assert(value == expectedValues[i]);
+        -:  237:		} else {
+       34:  238:			ldbl difference = value - expectedValues[i];
+       34:  239:			ldbl ratio = value / expectedValues[i];
+      34*:  240:			assert((difference > -margin && difference < margin) || (ratio > 1 - margin && ratio < 1 + margin));
+        -:  241:		}
+        -:  242:	}
+        -:  243:
+        6:  244:	bool caughtEOF = false;
+       6*:  245:	assert(reader.eof());
+        -:  246:	try {
+        6:  247:		reader.read<T>();
+        6:  248:	} catch (EOFException &) {
+        6:  249:		caughtEOF = true;
+        -:  250:	}
+    #####:  251:	assert(caughtEOF);
+        -:  252:
+        -:  253:	// Remove the file.
+        6:  254:	remove(filename);
+       12:  255:}
+------------------
+_Z11parsingTestIdEvv:
+function _Z11parsingTestIdEvv called 1 returned 100% blocks executed 55%
+        1:  200:void parsingTest() {
+        -:  201:	// Prepare result, filename, file, and vectors with information, and reader.
+        1:  202:	char filename [10] = "test.txt";
+        1:  203:	ofstream file(filename);
+        1:  203-block  0
+call    0 returned 1
+        1:  204:	const vector<string> & stringsToParse = getStringsToParse();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  205:	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+        1:  205-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  206:	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+        1:  207:	const vector<T> expectedValues = getExpectedValues<T>();
+        1:  207-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  208:	Reader reader((string(filename)));
+        1:  208-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  208-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+        1:  208-block  2
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    $$$$$:  208-block  3
+branch  7 never executed
+branch  8 never executed
+        -:  209:
+       1*:  210:	assert(stringsToParse.size() == expectedParsingErrors.size());
+        1:  210-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  210-block  1
+call    2 never executed
+       1*:  211:	assert(stringsToParse.size() == expectedOverflowErrors.size());
+        1:  211-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  211-block  1
+call    2 never executed
+       1*:  212:	assert(stringsToParse.size() == expectedValues.size());
+        1:  212-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  212-block  1
+call    2 never executed
+        -:  213:
+       41:  214:	for (string str : stringsToParse) {
+       20:  214-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  214-block  1
+call    3 returned 20
+branch  4 taken 20 (fallthrough)
+branch  5 taken 0 (throw)
+       20:  214-block  2
+       21:  214-block  3
+branch  6 taken 20
+branch  7 taken 1 (fallthrough)
+    $$$$$:  214-block  4
+       20:  215:		file << garbageWhitespace << str;
+       20:  215-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  215-block  1
+branch  3 taken 6 (fallthrough)
+branch  4 taken 14
+        -:  216:	}
+        1:  217:	file << garbageWhitespace;
+        1:  218:	file.close();
+        1:  218-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  219:
+        -:  220:	// Perform the test.
+        -:  221:	T value;
+       21:  222:	for (size_t i = 0; i < stringsToParse.size(); i++) {
+       20:  222-block  0
+       21:  222-block  1
+branch  0 taken 20
+branch  1 taken 1 (fallthrough)
+      20*:  223:		assert(!reader.eof());
+       20:  223-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 20
+    %%%%%:  223-block  1
+call    2 never executed
+        -:  224:		try {
+       20:  225:			value = reader.read<T>();
+       20:  225-block  0
+call    0 returned 20
+branch  1 taken 17 (fallthrough)
+branch  2 taken 3 (throw)
+       17:  225-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 17
+        6:  226:		} catch (ParsingException &) {
+        3:  226-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 3
+branch  2 taken 0
+        3:  226-block  1
+call    3 returned 3
+branch  4 taken 0 (fallthrough)
+branch  5 taken 3
+        3:  226-block  2
+call    6 returned 3
+branch  7 taken 3 (fallthrough)
+branch  8 taken 0 (throw)
+        3:  227:			assert(expectedParsingErrors[i]);
+        3:  227-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 3
+    $$$$$:  227-block  1
+call    2 never executed
+        -:  228:			continue;
+    =====:  229:		} catch (OverflowException &) {
+    $$$$$:  229-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    $$$$$:  229-block  1
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+    =====:  230:			assert(expectedOverflowErrors[i]);
+    $$$$$:  230-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  230-block  1
+call    2 never executed
+        -:  231:			continue;
+        -:  232:		}
+      17*:  233:		assert(!expectedParsingErrors[i]);
+       17:  233-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 17
+    %%%%%:  233-block  1
+call    2 never executed
+      17*:  234:		assert(!expectedOverflowErrors[i]);
+       17:  234-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 17
+    %%%%%:  234-block  1
+call    2 never executed
+        -:  235:		if constexpr (pUtils::integral<T>) {
+        -:  236:			assert(value == expectedValues[i]);
+        -:  237:		} else {
+       17:  238:			ldbl difference = value - expectedValues[i];
+       17:  239:			ldbl ratio = value / expectedValues[i];
+      17*:  240:			assert((difference > -margin && difference < margin) || (ratio > 1 - margin && ratio < 1 + margin));
+       17:  240-block  0
+branch  0 taken 17 (fallthrough)
+branch  1 taken 0
+       17:  240-block  1
+branch  2 taken 0 (fallthrough)
+branch  3 taken 17
+    %%%%%:  240-block  2
+branch  4 never executed
+branch  5 never executed
+    %%%%%:  240-block  3
+branch  6 never executed
+branch  7 never executed
+    %%%%%:  240-block  4
+call    8 never executed
+        -:  241:		}
+        -:  242:	}
+        -:  243:
+        1:  244:	bool caughtEOF = false;
+        1:  244-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  245:	assert(reader.eof());
+        1:  245-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  245-block  1
+call    2 never executed
+        -:  246:	try {
+        1:  247:		reader.read<T>();
+        1:  247-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  248:	} catch (EOFException &) {
+        1:  248-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        1:  248-block  1
+call    2 returned 1
+        1:  249:		caughtEOF = true;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  250:	}
+    #####:  251:	assert(caughtEOF);
+    %%%%%:  251-block  0
+call    0 never executed
+        -:  252:
+        -:  253:	// Remove the file.
+        1:  254:	remove(filename);
+        1:  254-block  0
+call    0 returned 1
+        2:  255:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        1:  255-block  0
+call    3 returned 1
+call    4 returned 1
+call    5 returned 1
+    $$$$$:  255-block  1
+call    6 never executed
+    $$$$$:  255-block  2
+    $$$$$:  255-block  3
+call    7 never executed
+------------------
+_Z11parsingTestIeEvv:
+function _Z11parsingTestIeEvv called 1 returned 100% blocks executed 55%
+        1:  200:void parsingTest() {
+        -:  201:	// Prepare result, filename, file, and vectors with information, and reader.
+        1:  202:	char filename [10] = "test.txt";
+        1:  203:	ofstream file(filename);
+        1:  203-block  0
+call    0 returned 1
+        1:  204:	const vector<string> & stringsToParse = getStringsToParse();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  205:	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+        1:  205-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  206:	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+        1:  207:	const vector<T> expectedValues = getExpectedValues<T>();
+        1:  207-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  208:	Reader reader((string(filename)));
+        1:  208-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  208-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+        1:  208-block  2
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    $$$$$:  208-block  3
+branch  7 never executed
+branch  8 never executed
+        -:  209:
+       1*:  210:	assert(stringsToParse.size() == expectedParsingErrors.size());
+        1:  210-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  210-block  1
+call    2 never executed
+       1*:  211:	assert(stringsToParse.size() == expectedOverflowErrors.size());
+        1:  211-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  211-block  1
+call    2 never executed
+       1*:  212:	assert(stringsToParse.size() == expectedValues.size());
+        1:  212-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  212-block  1
+call    2 never executed
+        -:  213:
+       41:  214:	for (string str : stringsToParse) {
+       20:  214-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  214-block  1
+call    3 returned 20
+branch  4 taken 20 (fallthrough)
+branch  5 taken 0 (throw)
+       20:  214-block  2
+       21:  214-block  3
+branch  6 taken 20
+branch  7 taken 1 (fallthrough)
+    $$$$$:  214-block  4
+       20:  215:		file << garbageWhitespace << str;
+       20:  215-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  215-block  1
+branch  3 taken 6 (fallthrough)
+branch  4 taken 14
+        -:  216:	}
+        1:  217:	file << garbageWhitespace;
+        1:  218:	file.close();
+        1:  218-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  219:
+        -:  220:	// Perform the test.
+        -:  221:	T value;
+       21:  222:	for (size_t i = 0; i < stringsToParse.size(); i++) {
+       20:  222-block  0
+       21:  222-block  1
+branch  0 taken 20
+branch  1 taken 1 (fallthrough)
+      20*:  223:		assert(!reader.eof());
+       20:  223-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 20
+    %%%%%:  223-block  1
+call    2 never executed
+        -:  224:		try {
+       20:  225:			value = reader.read<T>();
+       20:  225-block  0
+call    0 returned 20
+branch  1 taken 17 (fallthrough)
+branch  2 taken 3 (throw)
+       17:  225-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 17
+        6:  226:		} catch (ParsingException &) {
+        3:  226-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 3
+branch  2 taken 0
+        3:  226-block  1
+call    3 returned 3
+branch  4 taken 0 (fallthrough)
+branch  5 taken 3
+        3:  226-block  2
+call    6 returned 3
+branch  7 taken 3 (fallthrough)
+branch  8 taken 0 (throw)
+        3:  227:			assert(expectedParsingErrors[i]);
+        3:  227-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 3
+    $$$$$:  227-block  1
+call    2 never executed
+        -:  228:			continue;
+    =====:  229:		} catch (OverflowException &) {
+    $$$$$:  229-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    $$$$$:  229-block  1
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+    =====:  230:			assert(expectedOverflowErrors[i]);
+    $$$$$:  230-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  230-block  1
+call    2 never executed
+        -:  231:			continue;
+        -:  232:		}
+      17*:  233:		assert(!expectedParsingErrors[i]);
+       17:  233-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 17
+    %%%%%:  233-block  1
+call    2 never executed
+      17*:  234:		assert(!expectedOverflowErrors[i]);
+       17:  234-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 17
+    %%%%%:  234-block  1
+call    2 never executed
+        -:  235:		if constexpr (pUtils::integral<T>) {
+        -:  236:			assert(value == expectedValues[i]);
+        -:  237:		} else {
+       17:  238:			ldbl difference = value - expectedValues[i];
+       17:  239:			ldbl ratio = value / expectedValues[i];
+      17*:  240:			assert((difference > -margin && difference < margin) || (ratio > 1 - margin && ratio < 1 + margin));
+       17:  240-block  0
+branch  0 taken 17 (fallthrough)
+branch  1 taken 0
+       17:  240-block  1
+branch  2 taken 0 (fallthrough)
+branch  3 taken 17
+    %%%%%:  240-block  2
+branch  4 never executed
+branch  5 never executed
+    %%%%%:  240-block  3
+branch  6 never executed
+branch  7 never executed
+    %%%%%:  240-block  4
+call    8 never executed
+        -:  241:		}
+        -:  242:	}
+        -:  243:
+        1:  244:	bool caughtEOF = false;
+        1:  244-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  245:	assert(reader.eof());
+        1:  245-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  245-block  1
+call    2 never executed
+        -:  246:	try {
+        1:  247:		reader.read<T>();
+        1:  247-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  248:	} catch (EOFException &) {
+        1:  248-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        1:  248-block  1
+call    2 returned 1
+        1:  249:		caughtEOF = true;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  250:	}
+    #####:  251:	assert(caughtEOF);
+    %%%%%:  251-block  0
+call    0 never executed
+        -:  252:
+        -:  253:	// Remove the file.
+        1:  254:	remove(filename);
+        1:  254-block  0
+call    0 returned 1
+        2:  255:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        1:  255-block  0
+call    3 returned 1
+call    4 returned 1
+call    5 returned 1
+    $$$$$:  255-block  1
+call    6 never executed
+    $$$$$:  255-block  2
+    $$$$$:  255-block  3
+call    7 never executed
+------------------
+_Z11parsingTestIiEvv:
+function _Z11parsingTestIiEvv called 1 returned 100% blocks executed 60%
+        1:  200:void parsingTest() {
+        -:  201:	// Prepare result, filename, file, and vectors with information, and reader.
+        1:  202:	char filename [10] = "test.txt";
+        1:  203:	ofstream file(filename);
+        1:  203-block  0
+call    0 returned 1
+        1:  204:	const vector<string> & stringsToParse = getStringsToParse();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  205:	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+        1:  205-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  206:	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+        1:  206-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  207:	const vector<T> expectedValues = getExpectedValues<T>();
+        1:  207-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  208:	Reader reader((string(filename)));
+        1:  208-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  208-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+        1:  208-block  2
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    $$$$$:  208-block  3
+branch  7 never executed
+branch  8 never executed
+        -:  209:
+       1*:  210:	assert(stringsToParse.size() == expectedParsingErrors.size());
+        1:  210-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  210-block  1
+call    2 never executed
+       1*:  211:	assert(stringsToParse.size() == expectedOverflowErrors.size());
+        1:  211-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  211-block  1
+call    2 never executed
+       1*:  212:	assert(stringsToParse.size() == expectedValues.size());
+        1:  212-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  212-block  1
+call    2 never executed
+        -:  213:
+       41:  214:	for (string str : stringsToParse) {
+       20:  214-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  214-block  1
+call    3 returned 20
+branch  4 taken 20 (fallthrough)
+branch  5 taken 0 (throw)
+       20:  214-block  2
+       21:  214-block  3
+branch  6 taken 20
+branch  7 taken 1 (fallthrough)
+    $$$$$:  214-block  4
+       20:  215:		file << garbageWhitespace << str;
+       20:  215-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  215-block  1
+branch  3 taken 6 (fallthrough)
+branch  4 taken 14
+        -:  216:	}
+        1:  217:	file << garbageWhitespace;
+        1:  218:	file.close();
+        1:  218-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  219:
+        -:  220:	// Perform the test.
+        -:  221:	T value;
+       21:  222:	for (size_t i = 0; i < stringsToParse.size(); i++) {
+       20:  222-block  0
+       21:  222-block  1
+branch  0 taken 20
+branch  1 taken 1 (fallthrough)
+      20*:  223:		assert(!reader.eof());
+       20:  223-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 20
+    %%%%%:  223-block  1
+call    2 never executed
+        -:  224:		try {
+       20:  225:			value = reader.read<T>();
+       20:  225-block  0
+call    0 returned 20
+branch  1 taken 5 (fallthrough)
+branch  2 taken 15 (throw)
+        5:  225-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 5
+       20:  226:		} catch (ParsingException &) {
+       15:  226-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+branch  2 taken 10
+        5:  226-block  1
+call    3 returned 5
+branch  4 taken 0 (fallthrough)
+branch  5 taken 5
+        5:  226-block  2
+call    6 returned 5
+branch  7 taken 5 (fallthrough)
+branch  8 taken 0 (throw)
+        5:  227:			assert(expectedParsingErrors[i]);
+        5:  227-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    $$$$$:  227-block  1
+call    2 never executed
+        -:  228:			continue;
+       20:  229:		} catch (OverflowException &) {
+       10:  229-block  0
+call    0 returned 10
+branch  1 taken 0 (fallthrough)
+branch  2 taken 10
+       10:  229-block  1
+call    3 returned 10
+branch  4 taken 10 (fallthrough)
+branch  5 taken 0 (throw)
+       10:  230:			assert(expectedOverflowErrors[i]);
+       10:  230-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 10
+    $$$$$:  230-block  1
+call    2 never executed
+        -:  231:			continue;
+        -:  232:		}
+       5*:  233:		assert(!expectedParsingErrors[i]);
+        5:  233-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    %%%%%:  233-block  1
+call    2 never executed
+       5*:  234:		assert(!expectedOverflowErrors[i]);
+        5:  234-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    %%%%%:  234-block  1
+call    2 never executed
+        -:  235:		if constexpr (pUtils::integral<T>) {
+       5*:  236:			assert(value == expectedValues[i]);
+        5:  236-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    %%%%%:  236-block  1
+call    2 never executed
+        -:  237:		} else {
+        -:  238:			ldbl difference = value - expectedValues[i];
+        -:  239:			ldbl ratio = value / expectedValues[i];
+        -:  240:			assert((difference > -margin && difference < margin) || (ratio > 1 - margin && ratio < 1 + margin));
+        -:  241:		}
+        -:  242:	}
+        -:  243:
+        1:  244:	bool caughtEOF = false;
+        1:  244-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  245:	assert(reader.eof());
+        1:  245-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  245-block  1
+call    2 never executed
+        -:  246:	try {
+        1:  247:		reader.read<T>();
+        1:  247-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  248:	} catch (EOFException &) {
+        1:  248-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        1:  248-block  1
+call    2 returned 1
+        1:  249:		caughtEOF = true;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  250:	}
+    #####:  251:	assert(caughtEOF);
+    %%%%%:  251-block  0
+call    0 never executed
+        -:  252:
+        -:  253:	// Remove the file.
+        1:  254:	remove(filename);
+        1:  254-block  0
+call    0 returned 1
+        2:  255:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        1:  255-block  0
+call    3 returned 1
+call    4 returned 1
+call    5 returned 1
+    $$$$$:  255-block  1
+call    6 never executed
+    $$$$$:  255-block  2
+    $$$$$:  255-block  3
+call    7 never executed
+------------------
+_Z11parsingTestIjEvv:
+function _Z11parsingTestIjEvv called 1 returned 100% blocks executed 60%
+        1:  200:void parsingTest() {
+        -:  201:	// Prepare result, filename, file, and vectors with information, and reader.
+        1:  202:	char filename [10] = "test.txt";
+        1:  203:	ofstream file(filename);
+        1:  203-block  0
+call    0 returned 1
+        1:  204:	const vector<string> & stringsToParse = getStringsToParse();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  205:	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+        1:  205-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  206:	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+        1:  206-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  207:	const vector<T> expectedValues = getExpectedValues<T>();
+        1:  207-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  208:	Reader reader((string(filename)));
+        1:  208-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  208-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+        1:  208-block  2
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    $$$$$:  208-block  3
+branch  7 never executed
+branch  8 never executed
+        -:  209:
+       1*:  210:	assert(stringsToParse.size() == expectedParsingErrors.size());
+        1:  210-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  210-block  1
+call    2 never executed
+       1*:  211:	assert(stringsToParse.size() == expectedOverflowErrors.size());
+        1:  211-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  211-block  1
+call    2 never executed
+       1*:  212:	assert(stringsToParse.size() == expectedValues.size());
+        1:  212-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  212-block  1
+call    2 never executed
+        -:  213:
+       41:  214:	for (string str : stringsToParse) {
+       20:  214-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  214-block  1
+call    3 returned 20
+branch  4 taken 20 (fallthrough)
+branch  5 taken 0 (throw)
+       20:  214-block  2
+       21:  214-block  3
+branch  6 taken 20
+branch  7 taken 1 (fallthrough)
+    $$$$$:  214-block  4
+       20:  215:		file << garbageWhitespace << str;
+       20:  215-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  215-block  1
+branch  3 taken 6 (fallthrough)
+branch  4 taken 14
+        -:  216:	}
+        1:  217:	file << garbageWhitespace;
+        1:  218:	file.close();
+        1:  218-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  219:
+        -:  220:	// Perform the test.
+        -:  221:	T value;
+       21:  222:	for (size_t i = 0; i < stringsToParse.size(); i++) {
+       20:  222-block  0
+       21:  222-block  1
+branch  0 taken 20
+branch  1 taken 1 (fallthrough)
+      20*:  223:		assert(!reader.eof());
+       20:  223-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 20
+    %%%%%:  223-block  1
+call    2 never executed
+        -:  224:		try {
+       20:  225:			value = reader.read<T>();
+       20:  225-block  0
+call    0 returned 20
+branch  1 taken 5 (fallthrough)
+branch  2 taken 15 (throw)
+        5:  225-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 5
+       20:  226:		} catch (ParsingException &) {
+       15:  226-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+branch  2 taken 10
+        5:  226-block  1
+call    3 returned 5
+branch  4 taken 0 (fallthrough)
+branch  5 taken 5
+        5:  226-block  2
+call    6 returned 5
+branch  7 taken 5 (fallthrough)
+branch  8 taken 0 (throw)
+        5:  227:			assert(expectedParsingErrors[i]);
+        5:  227-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    $$$$$:  227-block  1
+call    2 never executed
+        -:  228:			continue;
+       20:  229:		} catch (OverflowException &) {
+       10:  229-block  0
+call    0 returned 10
+branch  1 taken 0 (fallthrough)
+branch  2 taken 10
+       10:  229-block  1
+call    3 returned 10
+branch  4 taken 10 (fallthrough)
+branch  5 taken 0 (throw)
+       10:  230:			assert(expectedOverflowErrors[i]);
+       10:  230-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 10
+    $$$$$:  230-block  1
+call    2 never executed
+        -:  231:			continue;
+        -:  232:		}
+       5*:  233:		assert(!expectedParsingErrors[i]);
+        5:  233-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    %%%%%:  233-block  1
+call    2 never executed
+       5*:  234:		assert(!expectedOverflowErrors[i]);
+        5:  234-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    %%%%%:  234-block  1
+call    2 never executed
+        -:  235:		if constexpr (pUtils::integral<T>) {
+       5*:  236:			assert(value == expectedValues[i]);
+        5:  236-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    %%%%%:  236-block  1
+call    2 never executed
+        -:  237:		} else {
+        -:  238:			ldbl difference = value - expectedValues[i];
+        -:  239:			ldbl ratio = value / expectedValues[i];
+        -:  240:			assert((difference > -margin && difference < margin) || (ratio > 1 - margin && ratio < 1 + margin));
+        -:  241:		}
+        -:  242:	}
+        -:  243:
+        1:  244:	bool caughtEOF = false;
+        1:  244-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  245:	assert(reader.eof());
+        1:  245-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  245-block  1
+call    2 never executed
+        -:  246:	try {
+        1:  247:		reader.read<T>();
+        1:  247-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  248:	} catch (EOFException &) {
+        1:  248-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        1:  248-block  1
+call    2 returned 1
+        1:  249:		caughtEOF = true;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  250:	}
+    #####:  251:	assert(caughtEOF);
+    %%%%%:  251-block  0
+call    0 never executed
+        -:  252:
+        -:  253:	// Remove the file.
+        1:  254:	remove(filename);
+        1:  254-block  0
+call    0 returned 1
+        2:  255:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        1:  255-block  0
+call    3 returned 1
+call    4 returned 1
+call    5 returned 1
+    $$$$$:  255-block  1
+call    6 never executed
+    $$$$$:  255-block  2
+    $$$$$:  255-block  3
+call    7 never executed
+------------------
+_Z11parsingTestIlEvv:
+function _Z11parsingTestIlEvv called 1 returned 100% blocks executed 60%
+        1:  200:void parsingTest() {
+        -:  201:	// Prepare result, filename, file, and vectors with information, and reader.
+        1:  202:	char filename [10] = "test.txt";
+        1:  203:	ofstream file(filename);
+        1:  203-block  0
+call    0 returned 1
+        1:  204:	const vector<string> & stringsToParse = getStringsToParse();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  205:	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+        1:  205-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  206:	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+        1:  206-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  207:	const vector<T> expectedValues = getExpectedValues<T>();
+        1:  207-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  208:	Reader reader((string(filename)));
+        1:  208-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  208-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+        1:  208-block  2
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    $$$$$:  208-block  3
+branch  7 never executed
+branch  8 never executed
+        -:  209:
+       1*:  210:	assert(stringsToParse.size() == expectedParsingErrors.size());
+        1:  210-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  210-block  1
+call    2 never executed
+       1*:  211:	assert(stringsToParse.size() == expectedOverflowErrors.size());
+        1:  211-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  211-block  1
+call    2 never executed
+       1*:  212:	assert(stringsToParse.size() == expectedValues.size());
+        1:  212-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  212-block  1
+call    2 never executed
+        -:  213:
+       41:  214:	for (string str : stringsToParse) {
+       20:  214-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  214-block  1
+call    3 returned 20
+branch  4 taken 20 (fallthrough)
+branch  5 taken 0 (throw)
+       20:  214-block  2
+       21:  214-block  3
+branch  6 taken 20
+branch  7 taken 1 (fallthrough)
+    $$$$$:  214-block  4
+       20:  215:		file << garbageWhitespace << str;
+       20:  215-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  215-block  1
+branch  3 taken 6 (fallthrough)
+branch  4 taken 14
+        -:  216:	}
+        1:  217:	file << garbageWhitespace;
+        1:  218:	file.close();
+        1:  218-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  219:
+        -:  220:	// Perform the test.
+        -:  221:	T value;
+       21:  222:	for (size_t i = 0; i < stringsToParse.size(); i++) {
+       20:  222-block  0
+       21:  222-block  1
+branch  0 taken 20
+branch  1 taken 1 (fallthrough)
+      20*:  223:		assert(!reader.eof());
+       20:  223-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 20
+    %%%%%:  223-block  1
+call    2 never executed
+        -:  224:		try {
+       20:  225:			value = reader.read<T>();
+       20:  225-block  0
+call    0 returned 20
+branch  1 taken 11 (fallthrough)
+branch  2 taken 9 (throw)
+       11:  225-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 11
+       14:  226:		} catch (ParsingException &) {
+        9:  226-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+branch  2 taken 4
+        5:  226-block  1
+call    3 returned 5
+branch  4 taken 0 (fallthrough)
+branch  5 taken 5
+        5:  226-block  2
+call    6 returned 5
+branch  7 taken 5 (fallthrough)
+branch  8 taken 0 (throw)
+        5:  227:			assert(expectedParsingErrors[i]);
+        5:  227-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    $$$$$:  227-block  1
+call    2 never executed
+        -:  228:			continue;
+        8:  229:		} catch (OverflowException &) {
+        4:  229-block  0
+call    0 returned 4
+branch  1 taken 0 (fallthrough)
+branch  2 taken 4
+        4:  229-block  1
+call    3 returned 4
+branch  4 taken 4 (fallthrough)
+branch  5 taken 0 (throw)
+        4:  230:			assert(expectedOverflowErrors[i]);
+        4:  230-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 4
+    $$$$$:  230-block  1
+call    2 never executed
+        -:  231:			continue;
+        -:  232:		}
+      11*:  233:		assert(!expectedParsingErrors[i]);
+       11:  233-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 11
+    %%%%%:  233-block  1
+call    2 never executed
+      11*:  234:		assert(!expectedOverflowErrors[i]);
+       11:  234-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 11
+    %%%%%:  234-block  1
+call    2 never executed
+        -:  235:		if constexpr (pUtils::integral<T>) {
+      11*:  236:			assert(value == expectedValues[i]);
+       11:  236-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 11
+    %%%%%:  236-block  1
+call    2 never executed
+        -:  237:		} else {
+        -:  238:			ldbl difference = value - expectedValues[i];
+        -:  239:			ldbl ratio = value / expectedValues[i];
+        -:  240:			assert((difference > -margin && difference < margin) || (ratio > 1 - margin && ratio < 1 + margin));
+        -:  241:		}
+        -:  242:	}
+        -:  243:
+        1:  244:	bool caughtEOF = false;
+        1:  244-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  245:	assert(reader.eof());
+        1:  245-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  245-block  1
+call    2 never executed
+        -:  246:	try {
+        1:  247:		reader.read<T>();
+        1:  247-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  248:	} catch (EOFException &) {
+        1:  248-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        1:  248-block  1
+call    2 returned 1
+        1:  249:		caughtEOF = true;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  250:	}
+    #####:  251:	assert(caughtEOF);
+    %%%%%:  251-block  0
+call    0 never executed
+        -:  252:
+        -:  253:	// Remove the file.
+        1:  254:	remove(filename);
+        1:  254-block  0
+call    0 returned 1
+        2:  255:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        1:  255-block  0
+call    3 returned 1
+call    4 returned 1
+call    5 returned 1
+    $$$$$:  255-block  1
+call    6 never executed
+    $$$$$:  255-block  2
+    $$$$$:  255-block  3
+call    7 never executed
+------------------
+_Z11parsingTestImEvv:
+function _Z11parsingTestImEvv called 1 returned 100% blocks executed 60%
+        1:  200:void parsingTest() {
+        -:  201:	// Prepare result, filename, file, and vectors with information, and reader.
+        1:  202:	char filename [10] = "test.txt";
+        1:  203:	ofstream file(filename);
+        1:  203-block  0
+call    0 returned 1
+        1:  204:	const vector<string> & stringsToParse = getStringsToParse();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  205:	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+        1:  205-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  206:	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+        1:  206-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  207:	const vector<T> expectedValues = getExpectedValues<T>();
+        1:  207-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  208:	Reader reader((string(filename)));
+        1:  208-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  208-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+        1:  208-block  2
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    $$$$$:  208-block  3
+branch  7 never executed
+branch  8 never executed
+        -:  209:
+       1*:  210:	assert(stringsToParse.size() == expectedParsingErrors.size());
+        1:  210-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  210-block  1
+call    2 never executed
+       1*:  211:	assert(stringsToParse.size() == expectedOverflowErrors.size());
+        1:  211-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  211-block  1
+call    2 never executed
+       1*:  212:	assert(stringsToParse.size() == expectedValues.size());
+        1:  212-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  212-block  1
+call    2 never executed
+        -:  213:
+       41:  214:	for (string str : stringsToParse) {
+       20:  214-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  214-block  1
+call    3 returned 20
+branch  4 taken 20 (fallthrough)
+branch  5 taken 0 (throw)
+       20:  214-block  2
+       21:  214-block  3
+branch  6 taken 20
+branch  7 taken 1 (fallthrough)
+    $$$$$:  214-block  4
+       20:  215:		file << garbageWhitespace << str;
+       20:  215-block  0
+call    0 returned 20
+branch  1 taken 20 (fallthrough)
+branch  2 taken 0 (throw)
+       20:  215-block  1
+branch  3 taken 6 (fallthrough)
+branch  4 taken 14
+        -:  216:	}
+        1:  217:	file << garbageWhitespace;
+        1:  218:	file.close();
+        1:  218-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  219:
+        -:  220:	// Perform the test.
+        -:  221:	T value;
+       21:  222:	for (size_t i = 0; i < stringsToParse.size(); i++) {
+       20:  222-block  0
+       21:  222-block  1
+branch  0 taken 20
+branch  1 taken 1 (fallthrough)
+      20*:  223:		assert(!reader.eof());
+       20:  223-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 20
+    %%%%%:  223-block  1
+call    2 never executed
+        -:  224:		try {
+       20:  225:			value = reader.read<T>();
+       20:  225-block  0
+call    0 returned 20
+branch  1 taken 9 (fallthrough)
+branch  2 taken 11 (throw)
+        9:  225-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 9
+       16:  226:		} catch (ParsingException &) {
+       11:  226-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+branch  2 taken 6
+        5:  226-block  1
+call    3 returned 5
+branch  4 taken 0 (fallthrough)
+branch  5 taken 5
+        5:  226-block  2
+call    6 returned 5
+branch  7 taken 5 (fallthrough)
+branch  8 taken 0 (throw)
+        5:  227:			assert(expectedParsingErrors[i]);
+        5:  227-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+    $$$$$:  227-block  1
+call    2 never executed
+        -:  228:			continue;
+       12:  229:		} catch (OverflowException &) {
+        6:  229-block  0
+call    0 returned 6
+branch  1 taken 0 (fallthrough)
+branch  2 taken 6
+        6:  229-block  1
+call    3 returned 6
+branch  4 taken 6 (fallthrough)
+branch  5 taken 0 (throw)
+        6:  230:			assert(expectedOverflowErrors[i]);
+        6:  230-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 6
+    $$$$$:  230-block  1
+call    2 never executed
+        -:  231:			continue;
+        -:  232:		}
+       9*:  233:		assert(!expectedParsingErrors[i]);
+        9:  233-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 9
+    %%%%%:  233-block  1
+call    2 never executed
+       9*:  234:		assert(!expectedOverflowErrors[i]);
+        9:  234-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 9
+    %%%%%:  234-block  1
+call    2 never executed
+        -:  235:		if constexpr (pUtils::integral<T>) {
+       9*:  236:			assert(value == expectedValues[i]);
+        9:  236-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 9
+    %%%%%:  236-block  1
+call    2 never executed
+        -:  237:		} else {
+        -:  238:			ldbl difference = value - expectedValues[i];
+        -:  239:			ldbl ratio = value / expectedValues[i];
+        -:  240:			assert((difference > -margin && difference < margin) || (ratio > 1 - margin && ratio < 1 + margin));
+        -:  241:		}
+        -:  242:	}
+        -:  243:
+        1:  244:	bool caughtEOF = false;
+        1:  244-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  245:	assert(reader.eof());
+        1:  245-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  245-block  1
+call    2 never executed
+        -:  246:	try {
+        1:  247:		reader.read<T>();
+        1:  247-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  248:	} catch (EOFException &) {
+        1:  248-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        1:  248-block  1
+call    2 returned 1
+        1:  249:		caughtEOF = true;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  250:	}
+    #####:  251:	assert(caughtEOF);
+    %%%%%:  251-block  0
+call    0 never executed
+        -:  252:
+        -:  253:	// Remove the file.
+        1:  254:	remove(filename);
+        1:  254-block  0
+call    0 returned 1
+        2:  255:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+        1:  255-block  0
+call    3 returned 1
+call    4 returned 1
+call    5 returned 1
+    $$$$$:  255-block  1
+call    6 never executed
+    $$$$$:  255-block  2
+    $$$$$:  255-block  3
+call    7 never executed
+------------------
+        -:  256:
+function main called 1 returned 100% blocks executed 100%
+        1:  257:int main () {
+        -:  258:	// pUtils::Random tests
+        1:  259:	randomIntegralUniformityTest<ull>();
+        1:  259-block  0
+call    0 returned 1
+        1:  260:	randomIntegralUniformityTest<sll>();
+call    0 returned 1
+        1:  261:	randomIntegralUniformityTest<ui>();
+call    0 returned 1
+        1:  262:	randomIntegralUniformityTest<si>();
+call    0 returned 1
+        1:  263:	randomFloatingPointUniformityTest<ldbl>();
+call    0 returned 1
+        1:  264:	randomFloatingPointUniformityTest<dbl>();
+call    0 returned 1
+        -:  265:
+        -:  266:	// pUtils::Reader::read tests
+        1:  267:	parsingTest<ull>();
+call    0 returned 1
+        1:  268:	parsingTest<sll>();
+call    0 returned 1
+        1:  269:	parsingTest<ui>();
+call    0 returned 1
+        1:  270:	parsingTest<si>();
+call    0 returned 1
+        1:  271:	parsingTest<ldbl>();
+call    0 returned 1
+        1:  272:	parsingTest<dbl>();
+call    0 returned 1
+        -:  273:
+        1:  274:	cout << "OK!\n";
+call    0 returned 1
+        1:  275:}

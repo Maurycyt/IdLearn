@@ -4,8 +4,9 @@
 # Except for this file
 !.gitignore
 
-# And the src and target directories
+# And the src and problem package directories
 !src/
+!defaultProblemPackages/
 
 # And the maven files
 !pom.xml
@@ -15,3 +16,6 @@
 
 # And the CI/CD config file!
 !.gitlab-ci.yml
+
+# Finally, throw out all useless IDE files
+**/.idea/
