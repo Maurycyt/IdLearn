@@ -17,5 +17,7 @@
 # And the CI/CD config file!
 !.gitlab-ci.yml
 
-# Finally, throw out all useless IDE files
+# Finally, throw out all useless IDE files and CMake replies and stuff
 **/.idea/
+defaultProblemPackages/test/cmake-build-debug/.cmake/api/v1/reply
+defaultProblemPackages/test/cmake-build-debug-coverage/.cmake/api/v1/reply

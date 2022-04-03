@@ -22,8 +22,17 @@ public class PackageManager {
 		File result = problemPackageDirectoryPath.toFile();
 
 		if (result.mkdirs()) {
-			String copyCommand = "cp -r defaultProblemPackages/. " + problemPackageDirectoryPath;
-			ShellExecutor.execute(copyCommand);
+			// If the problem package directory didn't exist, we need to create it.
+			ShellExecutor se = new ShellExecutor();
+			// First, copy the contents of defaultProblemPackages into the directory.
+			se.addLineToScript("cp -r defaultProblemPackages/. " + problemPackageDirectoryPath);
+			// cd into that directory
+			se.addLineToScript("cd " + problemPackageDirectoryPath);
+			// Copy packageUtils.h from test into the problem package directory.
+			se.addLineToScript("mv test/packageUtils.h ./");
+			// Remove the test directory and the IDE directory.
+			se.addLineToScript("rm -r test/ .idea/");
+			se.execute();
 		}
 
 		return result;

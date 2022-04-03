@@ -4,6 +4,10 @@
 using namespace std;
 using namespace pUtils;
 
+/**
+ * The checker should return a non-zero exit code ONLY on failure of execution.
+ * A wrong user output should be reported by outputting "WRONG" to stdout and returning 0.
+ */
 int main(int argc, char * * argv) {
 	if (argc != 4) {
 		cerr << "Usage: " << argv[0] << " <input> <user output> <model output>\n";
@@ -19,15 +23,12 @@ int main(int argc, char * * argv) {
 		result &= uOutput.read<si>() == mOutput.read<si>();
 		result &= uOutput.eof();
 	} catch (...) {
-		cout << "WRONG\n";
-		return 1;
+		result = false;
 	}
 
 	if (result) {
 		cout << "OK\n";
-		return 0;
 	} else {
 		cout << "WRONG\n";
-		return 1;
 	}
 }
