@@ -43,9 +43,10 @@ public class BlockParent extends CodeBlock {
     }
 
     @Override
-    public void updateIndent() {
-        segment.setTranslateX(INDENT);
-        segment.updateIndent();
+    public void updateIndent(int base) {
+        head.setIndent(base);
+        foot.setIndent(base);
+        segment.updateIndent(base + 1);
     }
 
     @Override

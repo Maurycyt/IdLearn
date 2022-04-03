@@ -5,12 +5,9 @@ import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 
 public class Ghost extends CodeBlock {
-    private int indentModAft;
-    private int indentModBef;
-    public Ghost(int indentBef, int indentAft, double height) {
+    public Ghost(double height) {
         super();
-        indentModBef = indentBef;
-        indentModAft = indentAft;
+
         BlockBase base = new BlockBase(height, Color.TRANSPARENT);
         this.getChildren().add(base);
     }
@@ -20,11 +17,4 @@ public class Ghost extends CodeBlock {
         return 0;
     }
 
-    @Override
-    public int getIndentModAft() {
-        return indentModAft;
-    }
-
-    @Override
-    public int getIndentModBef(){return indentModBef;}
 }

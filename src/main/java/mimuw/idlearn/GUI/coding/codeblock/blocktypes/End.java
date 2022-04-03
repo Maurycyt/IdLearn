@@ -15,8 +15,4 @@ public class End extends CodeBlock {
         this.getChildren().add(base);
     }
 
-    @Override
-    public int getIndentModBef() {
-        return -1;
-    }
 }

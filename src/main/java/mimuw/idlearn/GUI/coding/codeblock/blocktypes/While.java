@@ -19,8 +19,4 @@ public class While extends CodeBlock {
         this.getChildren().add(base);
     }
 
-    @Override
-    public int getIndentModAft() {
-        return 1;
-    }
 }
