@@ -1,20 +1,16 @@
 package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
-import mimuw.idlearn.GUI.coding.codeblock.ResizableTextField;
 
 public class End extends CodeBlock {
-    private final BlockBase base = new BlockBase(HEIGHT, Color.PURPLE);
+    private final BlockBase base;
 
-    public End() {
+    public End(Color colour) {
         super();
 
-        final TextField condition = new ResizableTextField(base);
-
-        base.addChild(condition);
+        base = new BlockBase(HEIGHT, colour);
 
         this.getChildren().add(base);
     }

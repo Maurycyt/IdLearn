@@ -15,16 +15,10 @@ public abstract class CodeBlock extends Group {
     private CodeBox codeBox;
     private Group dragged;
     private int indent = 0;
+    private boolean isNew = true;
 
     public double getHeight() {
         return HEIGHT;
-    }
-
-    public int getIndentModBef() {
-        return 0;
-    }
-    public int getIndentModAft() {
-        return 0;
     }
 
     public void setIndent(int ind) {
@@ -35,6 +29,26 @@ public abstract class CodeBlock extends Group {
 
     public int getIndent() {
         return indent;
+    }
+
+    public boolean isParent() {
+        return false;
+    }
+
+    public void addChild(double position, CodeBlock child) {
+        throw new Error("Not a parent");
+    }
+
+    public boolean removeChild(CodeBlock child) {
+        throw new Error("Not a parent");
+    }
+
+    public double insideBarrier() {
+        throw new Error("Not a parent");
+    }
+
+    public void updateIndent(int base) {
+        throw new Error("Not a parent");
     }
 
     private static class DragData {
@@ -48,8 +62,6 @@ public abstract class CodeBlock extends Group {
 
         // Our ghost
         public Ghost ghost;
-        // The index of our ghost on the list, -1 if it's not there
-        public int ghostIndex;
     }
 
 
@@ -58,43 +70,16 @@ public abstract class CodeBlock extends Group {
         super();
     }
 
-    // Remove our ghost from the CodeBox
-    private void removeGhost() {
-        assert dragData.ghostIndex != -1;
-        codeBox.remove(dragData.ghostIndex);
-        dragData.ghostIndex = -1;
-        codeBox.updateIndent();
-    }
-
-    private void addGhost(int index) {
-        assert dragData.ghostIndex == -1;
-        codeBox.add(index, dragData.ghost);
-        dragData.ghostIndex = index;
-        codeBox.updateIndent();
-    }
 
     private void checkGhost() {
+        codeBox.removeChild(dragData.ghost);
         if (codeBox.shouldDrop(this.localToScene(0, 0))) {
-            int index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
-            if (dragData.ghostIndex != -1 && dragData.ghostIndex != index) {
-                removeGhost();
-            }
-
-            if (dragData.ghostIndex == -1) {
-                index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
-                addGhost(index);
-            }
+            codeBox.addChild(this.localToScene(0, 0).getY(), dragData.ghost);
         }
-        else {
-            if (dragData.ghostIndex != -1) {
-                removeGhost();
-            }
-        }
+        codeBox.updateIndent();
     }
 
     public void releaseMouse() {
-        // Calculate our position in the code
-        int index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
 
         // Remove from parent
         dragged.getChildren().remove(this);
@@ -103,18 +88,16 @@ public abstract class CodeBlock extends Group {
         if (codeBox.shouldDrop(this.localToScene(0, 0))) {
 
             // Add us at the proper position
-            codeBox.add(index, this);
-            if (index <= dragData.ghostIndex) {
-                dragData.ghostIndex++;
-            }
+            codeBox.addChild(this.localToScene(0, 0).getY(), this);
         }
 
-        if (dragData.ghostIndex != -1) {
-            removeGhost();
-        }
+        codeBox.removeChild(dragData.ghost);
+        codeBox.updateIndent();
+        System.out.println(getIndent());
     }
 
     public void pressMouse(double mouseAX, double mouseAY) {
+
         // Set dragging info
         dragData.mouseAnchorX = mouseAX;
         dragData.mouseAnchorY = mouseAY;
@@ -122,13 +105,18 @@ public abstract class CodeBlock extends Group {
         dragData.initialX = pos.getX();
         dragData.initialY = pos.getY();
 
-        dragData.ghost = new Ghost(getIndentModBef(), getIndentModAft());
-        dragData.ghostIndex = -1;
+        dragData.ghost = new Ghost(getHeight());
 
         // Switch parent
         Pane parent = ((Pane)this.getParent());
         parent.getChildren().remove(this);
         dragged.getChildren().add(this);
+
+        if (isNew) {
+            isNew = false;
+            CodeBlockSpawner spawner = (CodeBlockSpawner) parent;
+            spawner.spawnBlock();
+        }
 
         // Set proper location
         this.relocate(pos.getX(), pos.getY());
@@ -162,6 +150,8 @@ public abstract class CodeBlock extends Group {
                     double mouseAY = mouseEvent.getSceneY();
                     // Do the pressing
                     pressMouse(mouseAX, mouseAY);
+
+                    mouseEvent.consume();
                 });
 
         this.addEventHandler(

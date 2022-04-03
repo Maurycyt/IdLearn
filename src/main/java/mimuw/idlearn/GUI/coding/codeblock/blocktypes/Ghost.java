@@ -7,11 +7,11 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 public class Ghost extends CodeBlock {
     private int indentModAft;
     private int indentModBef;
-    public Ghost(int indentBef, int indentAft) {
+    public Ghost(int indentBef, int indentAft, double height) {
         super();
         indentModBef = indentBef;
         indentModAft = indentAft;
-        BlockBase base = new BlockBase(HEIGHT, Color.TRANSPARENT);
+        BlockBase base = new BlockBase(height, Color.TRANSPARENT);
         this.getChildren().add(base);
     }
 

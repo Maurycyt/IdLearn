@@ -34,15 +34,14 @@ public class SampleApp extends Application {
         codeBox.setTranslateX(300);
         codeBox.setTranslateY(100);
 
-        codeBox.setPrefSize(300, 400);
+        //codeBox.setPrefSize(300, 400);
 
         // Create spawners
         Node assignSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
         Node addSpawner = new CodeBlockSpawner(codeBox, dragged, Add::new);
         Node subSpawner = new CodeBlockSpawner(codeBox, dragged, Subtract::new);
         Node mulSpawner = new CodeBlockSpawner(codeBox, dragged, Multiply::new);
-        Node whileSpawner = new CodeBlockSpawner(codeBox, dragged, While::new);
-        Node endSpawner = new CodeBlockSpawner(codeBox, dragged, End::new);
+        Node whileSpawner = new CodeBlockSpawner(codeBox, dragged, BlockParent::new);
 
         // Link spawners
         codeBlocks.getChildren().add(assignSpawner);
@@ -50,7 +49,6 @@ public class SampleApp extends Application {
         codeBlocks.getChildren().add(subSpawner);
         codeBlocks.getChildren().add(mulSpawner);
         codeBlocks.getChildren().add(whileSpawner);
-        codeBlocks.getChildren().add(endSpawner);
 
         // Link everything else
         root.getChildren().add(codeBlocks);
