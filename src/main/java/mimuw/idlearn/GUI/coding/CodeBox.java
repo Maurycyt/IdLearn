@@ -2,7 +2,6 @@ package mimuw.idlearn.GUI.coding;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
 
@@ -29,26 +28,6 @@ public class CodeBox extends Group {
 
         segment.addChild(position, block);
     }
-
-    /*private int calculateIndex(double toSceneY) {
-        // Get block position relative to the box
-        double position = toSceneY - this.localToScene(0, 0).getY();
-
-        // Offset
-        double sum = - CodeBlock.HEIGHT / 2;
-        int i = 0;
-
-        // Go until we reach where we should be
-        for (Node child : this.getChildren()) {
-            CodeBlock block = (CodeBlock) child;
-            sum += block.getHeight();
-            if (sum > position) {
-                break;
-            }
-            i++;
-        }
-        return i;
-    }*/
 
     // Updates indents for all blocks
     public void updateIndent() {

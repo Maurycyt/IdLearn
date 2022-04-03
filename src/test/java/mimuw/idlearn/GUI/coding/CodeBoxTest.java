@@ -2,18 +2,19 @@ package mimuw.idlearn.GUI.coding;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.layout.VBox;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Assign;
-import mimuw.idlearn.GUI.coding.codeblock.blocktypes.BlockParent;
-import mimuw.idlearn.GUI.coding.codeblock.blocktypes.While;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.WhileBlock;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CodeBoxTest {
+
     @BeforeAll
     public static void preparePlatform() {
         try {
@@ -29,7 +30,9 @@ public class CodeBoxTest {
     public void ghostTest() {
         Group root = new Group();
 
-        VBox codeBlocks = new VBox();
+        final Scene scene = new Scene(root, 800, 600);
+
+        Group codeBlocks = new Group();
         CodeBox codeBox = new CodeBox();
         Group dragged = new Group();
         CodeBlockSpawner blockSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
@@ -56,11 +59,13 @@ public class CodeBoxTest {
         block.moveMouse(100, 100);
         block.releaseMouse();
 
+
         assertEquals(1, codeBox.getSegment().getChildren().size());
         assertEquals(0, block.getIndent());
 
-        CodeBlockSpawner whileSpawner = new CodeBlockSpawner(codeBox, dragged, BlockParent::new);
-        CodeBlock whileBlock = (CodeBlock) blockSpawner.getChildren().get(0);
+
+        CodeBlockSpawner whileSpawner = new CodeBlockSpawner(codeBox, dragged, WhileBlock::new);
+        CodeBlock whileBlock = (CodeBlock) whileSpawner.getChildren().get(0);
 
         codeBlocks.getChildren().add(whileSpawner);
 
@@ -72,21 +77,18 @@ public class CodeBoxTest {
         assertEquals(2, codeBox.getSegment().getChildren().size());
 
         block.pressMouse(0, 0);
-        block.moveMouse(0, CodeBlock.HEIGHT);
+        block.moveMouse(0, -CodeBlock.HEIGHT);
         block.releaseMouse();
 
         assertEquals(1, block.getIndent());
-        assertEquals(2, codeBox.getSegment().getChildren().size());
-
-        whileBlock.moveMouse(-100, -100);
-
-        assertEquals(0, block.getIndent());
         assertEquals(1, codeBox.getSegment().getChildren().size());
 
-        whileBlock.moveMouse(100, 100);
-        whileBlock.releaseMouse();
+        whileBlock.pressMouse(0, 0);
+        whileBlock.moveMouse(-100, -100);
 
         assertEquals(1, block.getIndent());
-        assertEquals(2, codeBox.getSegment().getChildren().size());
+        assertEquals(0, codeBox.getSegment().getChildren().size());
+
+        whileBlock.releaseMouse();
     }
 }

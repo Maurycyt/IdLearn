@@ -93,7 +93,6 @@ public abstract class CodeBlock extends Group {
 
         codeBox.removeChild(dragData.ghost);
         codeBox.updateIndent();
-        System.out.println(getIndent());
     }
 
     public void pressMouse(double mouseAX, double mouseAY) {

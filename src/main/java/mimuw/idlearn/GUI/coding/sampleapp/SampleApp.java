@@ -41,7 +41,7 @@ public class SampleApp extends Application {
         Node addSpawner = new CodeBlockSpawner(codeBox, dragged, Add::new);
         Node subSpawner = new CodeBlockSpawner(codeBox, dragged, Subtract::new);
         Node mulSpawner = new CodeBlockSpawner(codeBox, dragged, Multiply::new);
-        Node whileSpawner = new CodeBlockSpawner(codeBox, dragged, BlockParent::new);
+        Node whileSpawner = new CodeBlockSpawner(codeBox, dragged, WhileBlock::new);
 
         // Link spawners
         codeBlocks.getChildren().add(assignSpawner);

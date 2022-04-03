@@ -6,14 +6,14 @@ import javafx.scene.paint.Color;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
 
-public class BlockParent extends CodeBlock {
+public class WhileBlock extends CodeBlock {
 
     private Pane content;
     private CodeBlock head;
     private CodeBlock foot;
     private CodeSegment segment;
 
-    public BlockParent() {
+    public WhileBlock() {
         super();
         content = new VBox();
         head = new While();
