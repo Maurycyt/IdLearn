@@ -13,6 +13,9 @@ public class CodeBlockSpawner extends AnchorPane {
     private final Group dragged;
     private final Supplier<CodeBlock> spawn;
 
+    /**
+     * Spawns our CodeBlock
+     */
     public void spawnBlock() {
         CodeBlock block = spawn.get();
         block.makeDraggable(codeBox, dragged);
@@ -20,7 +23,12 @@ public class CodeBlockSpawner extends AnchorPane {
         this.getChildren().add(block);
     }
 
-
+    /**
+     * Creates a new CodeBlockSpawner
+     * @param codeBox The box for code our CodeBlocks will interact with
+     * @param dragged The parent for nodes being dragged
+     * @param spawn The function for spawning new CodeBlocks
+     */
     public CodeBlockSpawner(CodeBox codeBox, Group dragged, Supplier<CodeBlock> spawn){
         super();
         this.codeBox = codeBox;

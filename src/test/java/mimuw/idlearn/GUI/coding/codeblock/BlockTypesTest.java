@@ -1,6 +1,7 @@
 package mimuw.idlearn.GUI.coding.codeblock;
 
 import javafx.application.Platform;
+import javafx.scene.paint.Color;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,6 @@ public class BlockTypesTest {
 
     @Test
     public void EndTest() {
-        new End();
+        new End(Color.PURPLE);
     }
 }

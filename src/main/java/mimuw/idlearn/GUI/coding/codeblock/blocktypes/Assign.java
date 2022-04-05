@@ -11,6 +11,9 @@ public class Assign extends CodeBlock {
 
     private final BlockBase base = new BlockBase(HEIGHT, Color.GRAY);
 
+    /**
+     * Create a new Assignment CodeBlock
+     */
     public Assign() {
         super();
 

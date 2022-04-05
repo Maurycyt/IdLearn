@@ -1,64 +1,71 @@
 package mimuw.idlearn.GUI.coding;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.layout.VBox;
+import javafx.scene.Group;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
+import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
 
-public class CodeBox extends VBox {
+import static mimuw.idlearn.GUI.coding.codeblock.CodeBlock.HEIGHT;
+
+public class CodeBox extends Group {
+
+    private CodeSegment segment;
+
+    /**
+     * Create a new CodeBox
+     */
     public CodeBox() {
         super();
+        segment = new CodeSegment();
+        this.getChildren().add(segment);
     }
 
-    public void remove(int index) {
-        this.getChildren().remove(index);
+
+    /**
+     * Remove our child
+     * @param block The child to be removed
+     * @return Whether it was in us
+     */
+    public boolean removeChild(CodeBlock block) {
+
+        return segment.removeChild(block);
     }
 
-    public void add(int index, CodeBlock block) {
-        this.getChildren().add(index, block);
+    /**
+     * Add a new child
+     * @param position The child's absolute Y position
+     * @param block The child
+     */
+    public void addChild(double position, CodeBlock block) {
+
+        segment.addChild(position, block);
     }
 
-    public int calculateIndex(double toSceneY) {
-        // Get block position relative to the box
-        double position = toSceneY - this.localToScene(0, 0).getY();
-
-        // Offset
-        double sum = - CodeBlock.HEIGHT / 2;
-        int i = 0;
-
-        // Go until we reach where we should be
-        for (Node child : this.getChildren()) {
-            CodeBlock block = (CodeBlock) child;
-            sum += block.getHeight();
-            if (sum > position) {
-                break;
-            }
-            i++;
-        }
-        return i;
-    }
-
-    // Updates indents for all blocks
+    /**
+     * Updates indents for all blocks
+     */
     public void updateIndent() {
-        int indent = 0;
-        for (Node child : this.getChildren()) {
-            CodeBlock block = (CodeBlock) child;
-            indent += block.getIndentModBef();
-            indent = Math.max(indent, 0);
-
-            block.setIndent(indent);
-
-            indent += block.getIndentModAft();
-            indent = Math.max(indent, 0);
-        }
+        segment.updateIndent();
     }
 
-    // Checks if a position is a valid drop off point for a codeblock
-    public boolean shouldDrop(Point2D pos) {
-        boolean isXOk = Math.abs(pos.getX() - this.localToScene(0, 0).getX()) < 100;
+    /**
+     * @return Our code segment
+     */
+    protected CodeSegment getSegment() {
+        return segment;
+    }
 
-        int index = calculateIndex(pos.getY());
-        boolean isYOk = index <= getChildren().size() && index >= 0;
+    /**
+     * @param pos Position
+     * @return Whether the position is a valid drop-off point
+     */
+    public boolean shouldDrop(Point2D pos) {
+        boolean isXOk = pos.getX() - this.localToScene(0, 0).getX() > -100;
+
+        double relativeStartY = pos.getY() - this.localToScene(0, 0).getY();
+        double relativeEndY = relativeStartY - this.getLayoutBounds().getHeight();
+
+        boolean isYOk =  relativeEndY <= HEIGHT / 2 && relativeStartY >= - HEIGHT / 2;
 
         return isXOk && isYOk;
     }

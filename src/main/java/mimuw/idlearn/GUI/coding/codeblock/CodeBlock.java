@@ -15,28 +15,69 @@ public abstract class CodeBlock extends Group {
     private CodeBox codeBox;
     private Group dragged;
     private int indent = 0;
+    private boolean isNew = true;
 
+    /**
+     * Return the height of this CodeBlock
+     * @return Height
+     */
     public double getHeight() {
         return HEIGHT;
     }
 
-    public int getIndentModBef() {
-        return 0;
-    }
-    public int getIndentModAft() {
-        return 0;
-    }
-
+    /**
+     * Set the indentation of this CodeBlock and its possible children
+     * @param ind Indentation
+     */
     public void setIndent(int ind) {
         assert(ind >= 0);
         indent = ind;
         this.setTranslateX(ind * INDENT);
     }
 
+    /**
+     * Get the indentation of this CodeBlock
+     * @return Indentation
+     */
     public int getIndent() {
         return indent;
     }
 
+    /**
+     * @return Whether this CodeBlock is a parent
+     */
+    public boolean isParent() {
+        return false;
+    }
+
+    /**
+     * Adds a new child to this CodeBlock
+     * @param position The child's absolute position
+     * @param child The child
+     */
+    public void addChild(double position, CodeBlock child) {
+        throw new Error("Not a parent");
+    }
+
+    /**
+     * Removes a child
+     * @param child The child to be removed
+     * @return Whether this child was in us
+     */
+    public boolean removeChild(CodeBlock child) {
+        throw new Error("Not a parent");
+    }
+
+    /**
+     * @return The minimum relative Y value required to be put inside us
+     */
+    public double insideBarrier() {
+        throw new Error("Not a parent");
+    }
+
+    /**
+     * Data we need to know when dragging a CodeBlock
+     */
     private static class DragData {
         // Initial mouse coordinates
         public double mouseAnchorX;
@@ -48,8 +89,6 @@ public abstract class CodeBlock extends Group {
 
         // Our ghost
         public Ghost ghost;
-        // The index of our ghost on the list, -1 if it's not there
-        public int ghostIndex;
     }
 
 
@@ -58,43 +97,21 @@ public abstract class CodeBlock extends Group {
         super();
     }
 
-    // Remove our ghost from the CodeBox
-    private void removeGhost() {
-        assert dragData.ghostIndex != -1;
-        codeBox.remove(dragData.ghostIndex);
-        dragData.ghostIndex = -1;
-        codeBox.updateIndent();
-    }
-
-    private void addGhost(int index) {
-        assert dragData.ghostIndex == -1;
-        codeBox.add(index, dragData.ghost);
-        dragData.ghostIndex = index;
-        codeBox.updateIndent();
-    }
-
+    /**
+     * Re-places our ghost
+     */
     private void checkGhost() {
+        codeBox.removeChild(dragData.ghost);
         if (codeBox.shouldDrop(this.localToScene(0, 0))) {
-            int index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
-            if (dragData.ghostIndex != -1 && dragData.ghostIndex != index) {
-                removeGhost();
-            }
-
-            if (dragData.ghostIndex == -1) {
-                index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
-                addGhost(index);
-            }
+            codeBox.addChild(this.localToScene(0, 0).getY(), dragData.ghost);
         }
-        else {
-            if (dragData.ghostIndex != -1) {
-                removeGhost();
-            }
-        }
+        codeBox.updateIndent();
     }
 
+    /**
+     * Drops us, possibly into the CodeBox
+     */
     public void releaseMouse() {
-        // Calculate our position in the code
-        int index = codeBox.calculateIndex(this.localToScene(0, 0).getY());
 
         // Remove from parent
         dragged.getChildren().remove(this);
@@ -103,18 +120,20 @@ public abstract class CodeBlock extends Group {
         if (codeBox.shouldDrop(this.localToScene(0, 0))) {
 
             // Add us at the proper position
-            codeBox.add(index, this);
-            if (index <= dragData.ghostIndex) {
-                dragData.ghostIndex++;
-            }
+            codeBox.addChild(this.localToScene(0, 0).getY(), this);
         }
 
-        if (dragData.ghostIndex != -1) {
-            removeGhost();
-        }
+        codeBox.removeChild(dragData.ghost);
+        codeBox.updateIndent();
     }
 
+    /**
+     * Picks us up
+     * @param mouseAX Starting mouse X position
+     * @param mouseAY Starting mouse Y position
+     */
     public void pressMouse(double mouseAX, double mouseAY) {
+
         // Set dragging info
         dragData.mouseAnchorX = mouseAX;
         dragData.mouseAnchorY = mouseAY;
@@ -122,13 +141,18 @@ public abstract class CodeBlock extends Group {
         dragData.initialX = pos.getX();
         dragData.initialY = pos.getY();
 
-        dragData.ghost = new Ghost(getIndentModBef(), getIndentModAft());
-        dragData.ghostIndex = -1;
+        dragData.ghost = new Ghost(getHeight());
 
         // Switch parent
         Pane parent = ((Pane)this.getParent());
         parent.getChildren().remove(this);
         dragged.getChildren().add(this);
+
+        if (isNew) {
+            isNew = false;
+            CodeBlockSpawner spawner = (CodeBlockSpawner) parent;
+            spawner.spawnBlock();
+        }
 
         // Set proper location
         this.relocate(pos.getX(), pos.getY());
@@ -139,6 +163,11 @@ public abstract class CodeBlock extends Group {
         checkGhost();
     }
 
+    /**
+     * Moves us around
+     * @param mouseX New mouse X position
+     * @param mouseY New mouse Y position
+     */
     public void moveMouse(double mouseX, double mouseY) {
         this.relocate(
                 // Move to new proper location
@@ -148,6 +177,11 @@ public abstract class CodeBlock extends Group {
         checkGhost();
     }
 
+    /**
+     * Makes our CodeBlock draggable
+     * @param codeBox The CodeBox we can be dropped in
+     * @param dragged The parent for dragged CodeBlocks
+     */
     public void makeDraggable(CodeBox codeBox, Group dragged) {
 
         dragData = new DragData();
@@ -162,6 +196,8 @@ public abstract class CodeBlock extends Group {
                     double mouseAY = mouseEvent.getSceneY();
                     // Do the pressing
                     pressMouse(mouseAX, mouseAY);
+
+                    mouseEvent.consume();
                 });
 
         this.addEventHandler(

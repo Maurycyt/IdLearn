@@ -26,30 +26,30 @@ public class CodeBlockTest {
     @Test
     public void movingTest() {
         VBox codeBlocks = new VBox();
-        CodeBlock block = new Assign();
         CodeBox codeBox = new CodeBox();
         Group dragged = new Group();
-        block.makeDraggable(codeBox, dragged);
+        CodeBlockSpawner blockSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
+        CodeBlock block = (CodeBlock) blockSpawner.getChildren().get(0);
 
-        codeBlocks.getChildren().add(block);
+        codeBlocks.getChildren().add(blockSpawner);
 
         assertEquals(0, dragged.getChildren().size());
-        assertEquals(1, codeBlocks.getChildren().size());
+        assertEquals(1, blockSpawner.getChildren().size());
 
         block.pressMouse(0, 0);
 
         assertEquals(1, dragged.getChildren().size());
-        assertEquals(0, codeBlocks.getChildren().size());
+        assertEquals(1, blockSpawner.getChildren().size());
 
         block.moveMouse(100, 100);
 
         assertEquals(1, dragged.getChildren().size());
-        assertEquals(0, codeBlocks.getChildren().size());
+        assertEquals(1, blockSpawner.getChildren().size());
 
         block.releaseMouse();
 
         assertEquals(0, dragged.getChildren().size());
-        assertEquals(0, codeBlocks.getChildren().size());
+        assertEquals(1, blockSpawner.getChildren().size());
 
     }
 }

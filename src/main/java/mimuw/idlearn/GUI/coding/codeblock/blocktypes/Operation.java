@@ -10,6 +10,10 @@ import mimuw.idlearn.GUI.coding.codeblock.ResizableTextField;
 public abstract class Operation extends CodeBlock {
     private final BlockBase base = new BlockBase(HEIGHT, Color.GRAY);
 
+    /**
+     * Create a new operation CodeBlock
+     * @param oper A string representing the operation
+     */
     protected Operation(String oper) {
         super();
 

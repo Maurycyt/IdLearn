@@ -5,26 +5,25 @@ import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 
 public class Ghost extends CodeBlock {
-    private int indentModAft;
-    private int indentModBef;
-    public Ghost(int indentBef, int indentAft) {
+    /**
+     * Create a new ghost CodeBlock
+     * @param height The wanted height
+     */
+    public Ghost(double height) {
         super();
-        indentModBef = indentBef;
-        indentModAft = indentAft;
-        BlockBase base = new BlockBase(HEIGHT, Color.TRANSPARENT);
+
+        BlockBase base = new BlockBase(height, Color.TRANSPARENT);
         this.getChildren().add(base);
     }
 
+    /**
+     * Return the height of this CodeBlock
+     * @return Height
+     */
     @Override
     public double getHeight() {
+        // 0 - Because we don't want GhostBlocks to affect placement
         return 0;
     }
 
-    @Override
-    public int getIndentModAft() {
-        return indentModAft;
-    }
-
-    @Override
-    public int getIndentModBef(){return indentModBef;}
 }
