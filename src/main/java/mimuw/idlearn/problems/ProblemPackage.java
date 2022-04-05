@@ -41,6 +41,10 @@ public class ProblemPackage {
 		title = packageDirectory.getName();
 	}
 
+	public File getPackageDirectory() {
+		return packageDirectory;
+	}
+
 	/**
 	 * Returns the title of the problem, which is the name of the directory with the package.
 	 * @return The problem title.
@@ -136,5 +140,12 @@ public class ProblemPackage {
 		se.addLineToScript("make check -s");
 		checkerOutput = se.execute();
 		return checkerOutput.equals("OK\n");
+	}
+
+	public void clean() {
+		ShellExecutor se = new ShellExecutor();
+		se.addLineToScript("cd " + packageDirectory);
+		se.addLineToScript("make clean");
+		se.execute();
 	}
 }

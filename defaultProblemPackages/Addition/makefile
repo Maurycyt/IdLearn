@@ -7,7 +7,7 @@ all: generator model checker
 
 .PHONY: clean
 clean:
-	rm -f generator model checker
+	rm -f generator model checker input.in model.out user.out
 
 generator: prog/generator.cpp ../packageUtils.h
 	$(CXX) $(CXXFLAGS) prog/generator.cpp -o generator
