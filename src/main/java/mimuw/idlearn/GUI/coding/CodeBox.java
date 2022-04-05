@@ -2,14 +2,20 @@ package mimuw.idlearn.GUI.coding;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
+import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.Variable;
+import mimuw.idlearn.language.environment.Scope;
 
 import static mimuw.idlearn.GUI.coding.codeblock.CodeBlock.HEIGHT;
 
 public class CodeBox extends Group {
 
     private CodeSegment segment;
+    Button button = new Button("Convert");
+
 
     /**
      * Create a new CodeBox
@@ -18,6 +24,15 @@ public class CodeBox extends Group {
         super();
         segment = new CodeSegment();
         this.getChildren().add(segment);
+        this.getChildren().add(button);
+        button.setTranslateY(-50);
+
+        button.setOnMousePressed(event -> {
+            Expression<Void> exp = compile();
+            Scope scope = new Scope();
+            exp.evaluate(scope);
+            System.out.println(new Variable<>("x").evaluate(scope).getValue());
+        });
     }
 
 
@@ -68,5 +83,13 @@ public class CodeBox extends Group {
         boolean isYOk =  relativeEndY <= HEIGHT / 2 && relativeStartY >= - HEIGHT / 2;
 
         return isXOk && isYOk;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Expression<Void> compile() {
+        return segment.convert();
     }
 }

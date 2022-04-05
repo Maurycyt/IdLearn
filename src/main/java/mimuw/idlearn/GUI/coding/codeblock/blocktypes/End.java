@@ -3,6 +3,7 @@ package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 import javafx.scene.paint.Color;
 import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
+import mimuw.idlearn.language.base.Expression;
 
 public class End extends CodeBlock {
     private final BlockBase base;
@@ -17,6 +18,11 @@ public class End extends CodeBlock {
         base = new BlockBase(HEIGHT, colour);
 
         this.getChildren().add(base);
+    }
+
+    @Override
+    public Expression<Void> convert() {
+        throw new Error("Inconvertible");
     }
 
 }

@@ -2,6 +2,12 @@ package mimuw.idlearn.GUI.coding.codeblock;
 
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.keywords.Block;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CodeSegment extends VBox {
     /**
@@ -89,9 +95,24 @@ public class CodeSegment extends VBox {
     public double giveHeight() {
         double sum = 0;
         for (Node child : this.getChildren()) {
-            CodeBlock current_block = (CodeBlock) child;
-            sum += current_block.getHeight();
+            CodeBlock currentBlock = (CodeBlock) child;
+            sum += currentBlock.getHeight();
         }
         return sum;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Block convert() {
+        int length = this.getChildren().size();
+        ArrayList<Expression<?>> expressions = new ArrayList<>();
+        for (Node child : this.getChildren()) {
+            CodeBlock currentBlock = (CodeBlock) child;
+            expressions.add(currentBlock.convert());
+        }
+        Block block = new Block(expressions);
+        return block;
     }
 }
