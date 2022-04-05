@@ -7,6 +7,10 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 public class End extends CodeBlock {
     private final BlockBase base;
 
+    /**
+     * Create a new End CodeBlock
+     * @param colour Background colour
+     */
     public End(Color colour) {
         super();
 

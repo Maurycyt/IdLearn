@@ -4,7 +4,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
 public class CodeSegment extends VBox {
-
+    /**
+     * Removes a CodeBlock from this segment
+     * @param block A CodeBlock to be removed
+     * @return Whether the CodeBlock was in this segment
+     */
     public boolean removeChild(CodeBlock block) {
 
         boolean removed = this.getChildren().remove(block);
@@ -24,6 +28,11 @@ public class CodeSegment extends VBox {
         return removed;
     }
 
+    /**
+     * Adds a child to this segment
+     * @param position Absolute Y position of the new child
+     * @param block The CodeBlock to be added
+     */
     public void addChild(double position, CodeBlock block) {
 
         // Get block position relative to the box
@@ -53,25 +62,30 @@ public class CodeSegment extends VBox {
         this.getChildren().add(i, block);
     }
 
-    // Updates indents for all blocks
+
+    // Currently somewhat redundant, only needs to give indents to the current block
+    /**
+     * Updates indentations
+     * @param base indentation of the whole block
+     */
     public void updateIndent(int base) {
-        int indent = base;
         for (Node child : this.getChildren()) {
             CodeBlock block = (CodeBlock) child;
-
-            if (block.isParent()) {
-                block.updateIndent(base);
-            }
-            else {
-                block.setIndent(base);
-            }
+            block.setIndent(base);
         }
     }
 
+    /**
+     * Updates indents with the whole block's indentation being 0
+     */
     public void updateIndent() {
         updateIndent(0);
     }
 
+    /**
+     * Calculates the height of the segment
+     * @return height
+     */
     public double giveHeight() {
         double sum = 0;
         for (Node child : this.getChildren()) {

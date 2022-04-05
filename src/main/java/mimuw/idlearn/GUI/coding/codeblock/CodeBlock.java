@@ -17,40 +17,67 @@ public abstract class CodeBlock extends Group {
     private int indent = 0;
     private boolean isNew = true;
 
+    /**
+     * Return the height of this CodeBlock
+     * @return Height
+     */
     public double getHeight() {
         return HEIGHT;
     }
 
+    /**
+     * Set the indentation of this CodeBlock and its possible children
+     * @param ind Indentation
+     */
     public void setIndent(int ind) {
         assert(ind >= 0);
         indent = ind;
         this.setTranslateX(ind * INDENT);
     }
 
+    /**
+     * Get the indentation of this CodeBlock
+     * @return Indentation
+     */
     public int getIndent() {
         return indent;
     }
 
+    /**
+     * @return Whether this CodeBlock is a parent
+     */
     public boolean isParent() {
         return false;
     }
 
+    /**
+     * Adds a new child to this CodeBlock
+     * @param position The child's absolute position
+     * @param child The child
+     */
     public void addChild(double position, CodeBlock child) {
         throw new Error("Not a parent");
     }
 
+    /**
+     * Removes a child
+     * @param child The child to be removed
+     * @return Whether this child was in us
+     */
     public boolean removeChild(CodeBlock child) {
         throw new Error("Not a parent");
     }
 
+    /**
+     * @return The minimum relative Y value required to be put inside us
+     */
     public double insideBarrier() {
         throw new Error("Not a parent");
     }
 
-    public void updateIndent(int base) {
-        throw new Error("Not a parent");
-    }
-
+    /**
+     * Data we need to know when dragging a CodeBlock
+     */
     private static class DragData {
         // Initial mouse coordinates
         public double mouseAnchorX;
@@ -70,7 +97,9 @@ public abstract class CodeBlock extends Group {
         super();
     }
 
-
+    /**
+     * Re-places our ghost
+     */
     private void checkGhost() {
         codeBox.removeChild(dragData.ghost);
         if (codeBox.shouldDrop(this.localToScene(0, 0))) {
@@ -79,6 +108,9 @@ public abstract class CodeBlock extends Group {
         codeBox.updateIndent();
     }
 
+    /**
+     * Drops us, possibly into the CodeBox
+     */
     public void releaseMouse() {
 
         // Remove from parent
@@ -95,6 +127,11 @@ public abstract class CodeBlock extends Group {
         codeBox.updateIndent();
     }
 
+    /**
+     * Picks us up
+     * @param mouseAX Starting mouse X position
+     * @param mouseAY Starting mouse Y position
+     */
     public void pressMouse(double mouseAX, double mouseAY) {
 
         // Set dragging info
@@ -126,6 +163,11 @@ public abstract class CodeBlock extends Group {
         checkGhost();
     }
 
+    /**
+     * Moves us around
+     * @param mouseX New mouse X position
+     * @param mouseY New mouse Y position
+     */
     public void moveMouse(double mouseX, double mouseY) {
         this.relocate(
                 // Move to new proper location
@@ -135,6 +177,11 @@ public abstract class CodeBlock extends Group {
         checkGhost();
     }
 
+    /**
+     * Makes our CodeBlock draggable
+     * @param codeBox The CodeBox we can be dropped in
+     * @param dragged The parent for dragged CodeBlocks
+     */
     public void makeDraggable(CodeBox codeBox, Group dragged) {
 
         dragData = new DragData();

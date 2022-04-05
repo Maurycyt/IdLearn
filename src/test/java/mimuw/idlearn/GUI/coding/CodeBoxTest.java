@@ -2,8 +2,6 @@ package mimuw.idlearn.GUI.coding;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Assign;
@@ -29,8 +27,6 @@ public class CodeBoxTest {
     @Test
     public void ghostTest() {
         Group root = new Group();
-
-        final Scene scene = new Scene(root, 800, 600);
 
         Group codeBlocks = new Group();
         CodeBox codeBox = new CodeBox();

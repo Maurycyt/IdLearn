@@ -9,6 +9,9 @@ import mimuw.idlearn.GUI.coding.codeblock.ResizableTextField;
 public class While extends CodeBlock {
     private final BlockBase base = new BlockBase(HEIGHT, Color.BLUE);
 
+    /**
+     * Create a new While head
+     */
     public While() {
         super();
 

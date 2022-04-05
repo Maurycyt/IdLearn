@@ -9,39 +9,50 @@ import javafx.scene.shape.Rectangle;
 
 public class BlockBase extends Group {
 
-    final private Rectangle bg_ = new Rectangle();
-    final private HBox content_ = new HBox();
+    final private Rectangle bg = new Rectangle();
+    final private HBox content = new HBox();
 
+    /**
+     * Create a new BlockBase
+     * @param height Height
+     * @param colour Background colour
+     */
     public BlockBase(double height, Color colour) {
         super();
 
-        bg_.setHeight(height);
-        bg_.setFill(colour);
-        content_.setPrefHeight(height);
-        content_.setAlignment(Pos.CENTER);
+        bg.setHeight(height);
+        bg.setFill(colour);
+        content.setPrefHeight(height);
+        content.setAlignment(Pos.CENTER);
 
-        this.getChildren().add(bg_);
-        this.getChildren().add(content_);
+        this.getChildren().add(bg);
+        this.getChildren().add(content);
 
         update();
     }
 
-    // Recalculate size
+    /**
+     * Updates our width
+     * @return New width
+     */
     public double update() {
 
         double size = 20;
-        var children = content_.getChildren();
+        var children = content.getChildren();
         for (var child : children) {
             size += child.getLayoutBounds().getWidth();
         }
-        content_.setPrefWidth(size);
-        bg_.setWidth(size);
+        content.setPrefWidth(size);
+        bg.setWidth(size);
         return size;
     }
 
-    // Add something new to the content box
+    /**
+     * Add something new to our content
+     * @param child New content
+     */
     public void addChild(Node child) {
-        content_.getChildren().add(child);
+        content.getChildren().add(child);
         update();
     }
 }

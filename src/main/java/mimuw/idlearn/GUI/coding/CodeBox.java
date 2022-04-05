@@ -11,6 +11,9 @@ public class CodeBox extends Group {
 
     private CodeSegment segment;
 
+    /**
+     * Create a new CodeBox
+     */
     public CodeBox() {
         super();
         segment = new CodeSegment();
@@ -18,27 +21,44 @@ public class CodeBox extends Group {
     }
 
 
-
+    /**
+     * Remove our child
+     * @param block The child to be removed
+     * @return Whether it was in us
+     */
     public boolean removeChild(CodeBlock block) {
 
         return segment.removeChild(block);
     }
 
+    /**
+     * Add a new child
+     * @param position The child's absolute Y position
+     * @param block The child
+     */
     public void addChild(double position, CodeBlock block) {
 
         segment.addChild(position, block);
     }
 
-    // Updates indents for all blocks
+    /**
+     * Updates indents for all blocks
+     */
     public void updateIndent() {
         segment.updateIndent();
     }
 
+    /**
+     * @return Our code segment
+     */
     protected CodeSegment getSegment() {
         return segment;
     }
 
-    // Checks if a position is a valid drop off point for a codeblock
+    /**
+     * @param pos Position
+     * @return Whether the position is a valid drop-off point
+     */
     public boolean shouldDrop(Point2D pos) {
         boolean isXOk = pos.getX() - this.localToScene(0, 0).getX() > -100;
 

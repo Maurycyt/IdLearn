@@ -6,6 +6,10 @@ import javafx.scene.text.Text;
 
 // Maybe switch to TextFormatter
 public class ResizableTextField extends TextField {
+    /**
+     * Creates a resizable text box with a BlockBase to be resized alongside it
+     * @param base The BlockBase to be resized alongside us (can be null)
+     */
     public ResizableTextField(BlockBase base) {
         super();
         this.setAlignment(Pos.CENTER);
