@@ -142,6 +142,9 @@ public class ProblemPackage {
 		return checkerOutput.equals("OK\n");
 	}
 
+	/**
+	 * Cleans the contents of the package.
+	 */
 	public void clean() {
 		ShellExecutor se = new ShellExecutor();
 		se.addLineToScript("cd " + packageDirectory);
