@@ -5,7 +5,6 @@
 #include <cstdio>  // std::remove
 #include <vector>
 
-using namespace std;
 using namespace pUtils;
 
 /**
@@ -73,36 +72,14 @@ void randomFloatingPointUniformityTest(int size = 1'000'000, int divisions = 16,
 	assert(result);
 }
 
-template<packageType T>
-void catchEOFException(Reader & reader) {
-	bool result = false;
-	try {
-		reader.read<T>();
-	} catch (EOFException &) {
-		result = true;
-	}
-	assert(result);
-}
-
-template<packageType T>
-void catchParsingException(Reader & reader) {
-	bool result = false;
-	try {
-		reader.read<T>();
-	} catch (ParsingException &) {
-		result = true;
-	}
-	assert(result);
-}
-
-const string garbageWhitespace = "  \t\t\n\n\v\v\n\r\f  \n \t\t ";
+const std::string garbageWhitespace = "  \t\t\n\n\v\v\n\r\f  \n \t\t ";
 
 /**
  * Returns a list of strings for parsing tests.
  * @return List of strings.
  */
-const vector<string> & getStringsToParse() {
-	static vector<string> result {
+const std::vector<std::string> & getStringsToParse() {
+	static std::vector<std::string> result {
 		"0",
 		"1",
 		"-1",
@@ -134,8 +111,8 @@ const vector<string> & getStringsToParse() {
  * @return List of flags when parsing error is expected.
  */
 template<packageType T>
-vector<bool> getExpectedParsingErrors() {
-	vector<bool> result(20, false);
+std::vector<bool> getExpectedParsingErrors() {
+	std::vector<bool> result(20, false);
 	result[17] = result[18] = result [19] = true;
 	if constexpr (pUtils::integral<T>) {
 		result[15] = result[16] = true;
@@ -149,19 +126,19 @@ vector<bool> getExpectedParsingErrors() {
  * @return List of flags when overflow error is expected.
  */
 template<packageType T>
-vector<bool> getExpectedOverflowErrors() {
+std::vector<bool> getExpectedOverflowErrors() {
 	if constexpr (pUtils::integral<T>) {
 		if constexpr (std::same_as<T, ull>) {
-			return {0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0};
+			return {false, false, true, false, false, true, true, false, false, false, false, true, true, false, true, false, false, false, false, false};
 		} else if constexpr (std::same_as<T, sll>) {
-			return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0};
+			return {false, false, false, false, false, false, false, false, false, false, true, false, true, true, true, false, false, false, false, false};
 		} else if constexpr (std::same_as<T, ui>) {
-			return {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+			return {false, false, true, false, false, true, true, false, true, true, true, true, true, true, true, false, false, false, false, false};
 		} else {
-			return {0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
+			return {false, false, false, false, true, false, true, true, true, true, true, true, true, true, true, false, false, false, false, false};
 		}
 	} else {
-		return vector<bool>(20, false);
+		return std::vector<bool>(20, false);
 	}
 }
 
@@ -171,9 +148,9 @@ vector<bool> getExpectedOverflowErrors() {
  * @return List of expected values.
  */
 template<packageType T>
-vector<T> getExpectedValues() {
-	const vector<string> & stringsToParse = getStringsToParse();
-	vector<T> result {
+std::vector<T> getExpectedValues() {
+	const std::vector<std::string> & stringsToParse = getStringsToParse();
+	std::vector<T> result {
 		T(0), T(1), T(-1),
 		T(2147483647), T(2147483648), T(-2147483648), T(-2147483649), T(4294967295), T(4294967296),
 		T(9223372036854775807), T(9223372036854775808ULL), -T(9223372036854775808ULL),
@@ -194,18 +171,18 @@ template<packageType T>
 void parsingTest() {
 	// Prepare result, filename, file, and vectors with information, and reader.
 	char filename [10] = "test.txt";
-	ofstream file(filename);
-	const vector<string> & stringsToParse = getStringsToParse();
-	const vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
-	const vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
-	const vector<T> expectedValues = getExpectedValues<T>();
-	Reader reader((string(filename)));
+	std::ofstream file(filename);
+	const std::vector<std::string> & stringsToParse = getStringsToParse();
+	const std::vector<bool> expectedParsingErrors = getExpectedParsingErrors<T>();
+	const std::vector<bool> expectedOverflowErrors = getExpectedOverflowErrors<T>();
+	const std::vector<T> expectedValues = getExpectedValues<T>();
+	Reader reader((std::string(filename)));
 
 	assert(stringsToParse.size() == expectedParsingErrors.size());
 	assert(stringsToParse.size() == expectedOverflowErrors.size());
 	assert(stringsToParse.size() == expectedValues.size());
 
-	for (string str : stringsToParse) {
+	for (const std::string& str : stringsToParse) {
 		file << garbageWhitespace << str;
 	}
 	file << garbageWhitespace;
@@ -263,5 +240,5 @@ int main () {
 	parsingTest<ldbl>();
 	parsingTest<dbl>();
 
-	cout << "OK!\n";
+	std::cout << "OK!\n";
 }
