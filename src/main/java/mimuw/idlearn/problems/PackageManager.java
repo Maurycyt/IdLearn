@@ -29,8 +29,6 @@ public class PackageManager {
 			se.addLineToScript("cp -r defaultProblemPackages/. " + problemPackageDirectoryPath);
 			// cd into that directory
 			se.addLineToScript("cd " + problemPackageDirectoryPath);
-			// Copy packageUtils.h from test into the problem package directory.
-			se.addLineToScript("mv test/packageUtils.h ./");
 			// Remove the test directory and the IDE directory.
 			se.addLineToScript("rm -r test/ .idea/");
 			se.execute();
@@ -54,7 +52,10 @@ public class PackageManager {
 	 */
 	public static ProblemPackage [] getInitialProblemPackages() {
 		File [] packageDirectories = problemPackageDirectory.listFiles(File::isDirectory);
-		assert packageDirectories != null;
+		if (packageDirectories == null) {
+			return null;
+		}
+
 		ProblemPackage [] result = new ProblemPackage [packageDirectories.length];
 		for (int i = 0; i < result.length; i++) {
 			result[i] = new ProblemPackage(packageDirectories[i]);

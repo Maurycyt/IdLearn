@@ -7,6 +7,7 @@
 # And the src and problem package directories
 !src/
 !defaultProblemPackages/
+!problemPackageDevelopment/
 
 # And the maven files
 !pom.xml
@@ -19,5 +20,5 @@
 
 # Finally, throw out all useless IDE files and CMake replies and stuff
 **/.idea/
-defaultProblemPackages/test/cmake-build-debug/.cmake/api/v1/reply
-defaultProblemPackages/test/cmake-build-debug-coverage/.cmake/api/v1/reply
+problemPackageDevelopment/test/cmake-build-debug/
+problemPackageDevelopment/test/cmake-build-debug-coverage/

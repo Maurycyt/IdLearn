@@ -12,6 +12,21 @@ import java.util.Scanner;
  */
 public class ProblemPackage {
 	/**
+	 * The expected contents of a properly formatted package.
+	 * Lists all files in the form of arrays of subdirectories relative
+	 * to the package directory, for easy modification.
+	 */
+	private static final String [] [] expectedContents = {
+					{"makefile"},
+					{"doc", "statement.txt"},
+					{"doc", "example.in"},
+					{"doc", "example.out"},
+					{"prog", "generator.cpp"},
+					{"prog", "model.cpp"},
+					{"prog", "checker.cpp"}
+	};
+
+	/**
 	 * The directory containing the package (one package).
 	 */
 	private final File packageDirectory;
@@ -39,6 +54,9 @@ public class ProblemPackage {
 	public ProblemPackage(File packageDirectory) {
 		this.packageDirectory = packageDirectory;
 		title = packageDirectory.getName();
+		if (!checkValidity()) {
+			throw new RuntimeException("Package directory invalid.");
+		}
 	}
 
 	public File getPackageDirectory() {
@@ -51,6 +69,24 @@ public class ProblemPackage {
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	 * Checks if the package contains all the necessary files.
+	 * @return True if and only if the package contains all the necessary files.
+	 */
+	public boolean checkValidity() {
+		boolean result = true;
+
+		for (String [] pathArray : expectedContents) {
+			File expectedFile = packageDirectory;
+			for (String subdirectory : pathArray) {
+				expectedFile = new File(expectedFile, subdirectory);
+			}
+			result &= expectedFile.exists();
+		}
+
+		return result;
 	}
 
 	/**

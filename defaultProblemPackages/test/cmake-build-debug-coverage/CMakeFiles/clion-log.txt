@@ -1,4 +1,0 @@
-/home/maurycyt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.7172.20/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/maurycyt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.7172.20/bin/ninja/linux/ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_FLAGS=--coverage -DCMAKE_C_FLAGS=--coverage -G Ninja /home/maurycyt/Documents/IO/idlearn/defaultProblemPackages/test
--- Configuring done
--- Generating done
--- Build files have been written to: /home/maurycyt/Documents/IO/idlearn/defaultProblemPackages/test/cmake-build-debug-coverage
