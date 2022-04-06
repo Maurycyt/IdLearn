@@ -15,7 +15,7 @@ using namespace pUtils;
  * @param threshold The fraction of data points which should land in each division.
  * When divisions = 16, a perfect threshold would be 0.0625.
  */
-template<pUtils::integral T>
+template<pUtils::unsignedIntegral T>
 void randomIntegralUniformityTest(int size = 1'000'000, int divisions = 16, double threshold = 0.0615) {
 	bool result = true;
 	int counters[divisions];
@@ -31,12 +31,6 @@ void randomIntegralUniformityTest(int size = 1'000'000, int divisions = 16, doub
 	for (int i = 0; i < size; i++) {
 		dataPoint = Random::rand<T>();
 		int counter = dataPoint / step;
-		if constexpr(pUtils::signedIntegral<T>) {
-			counter += divisions / 2;
-			if (dataPoint < 0) {
-				counter--;
-			}
-		}
 		counters[counter]++;
 	}
 
@@ -257,9 +251,7 @@ void parsingTest() {
 int main () {
 	// pUtils::Random tests
 	randomIntegralUniformityTest<ull>();
-	randomIntegralUniformityTest<sll>();
 	randomIntegralUniformityTest<ui>();
-	randomIntegralUniformityTest<si>();
 	randomFloatingPointUniformityTest<ldbl>();
 	randomFloatingPointUniformityTest<dbl>();
 

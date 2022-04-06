@@ -23,15 +23,9 @@ public class PackageManager {
 		File result = problemPackageDirectoryPath.toFile();
 
 		if (result.mkdirs()) {
-			// If the problem package directory didn't exist, we need to create it.
-			ShellExecutor se = new ShellExecutor();
-			// First, copy the contents of defaultProblemPackages into the directory.
-			se.addLineToScript("cp -r defaultProblemPackages/. " + problemPackageDirectoryPath);
-			// cd into that directory
-			se.addLineToScript("cd " + problemPackageDirectoryPath);
-			// Remove the test directory and the IDE directory.
-			se.addLineToScript("rm -r test/ .idea/");
-			se.execute();
+			// If the problem package directory didn't exist, we need to initialize it.
+			// Copy the contents of defaultProblemPackages into the directory.
+			ShellExecutor.execute("cp -r defaultProblemPackages/. " + problemPackageDirectoryPath);
 		}
 
 		problemPackageDirectory = result;

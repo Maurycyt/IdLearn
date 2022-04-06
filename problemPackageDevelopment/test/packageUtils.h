@@ -27,13 +27,13 @@ const ull ULL_MAX = 18446744073709551615ULL;
 // Floating-point limits defined in <cfloat>.
 
 template<typename T>
-concept integral = std::same_as<T, ull> || std::same_as<T, sll> || std::same_as<T, ui> || std::same_as<T, si>;
-
-template<typename T>
 concept signedIntegral = std::same_as<T, sll> || std::same_as<T, si>;
 
 template<typename T>
 concept unsignedIntegral = std::same_as<T, ull> || std::same_as<T, ui>;
+
+template<typename T>
+concept integral = signedIntegral<T> || unsignedIntegral<T>;
 
 template<typename T>
 concept mediumIntegral = std::same_as<T, ui> || std::same_as<T, si>;
@@ -53,7 +53,7 @@ concept packageType = integral<T> || floatingPoint<T>;
  * @return The type's maximum value.
  */
 template<integral T>
-ull integralMaximum() {
+T integralMaximum() {
 	if constexpr (std::same_as<T, ull>) {
 		return ULL_MAX;
 	} else if constexpr (std::same_as<T, sll>) {
@@ -71,7 +71,7 @@ ull integralMaximum() {
  * @return The type's minimum value.
  */
 template<integral T>
-sll integralMinimum() {
+T integralMinimum() {
 	if constexpr (std::same_as<T, ull>) {
 		return ULL_MIN;
 	} else if constexpr (std::same_as<T, sll>) {
@@ -84,25 +84,40 @@ sll integralMinimum() {
 }
 
 /**
- * Returns the negated minimum value of an integral type.
+ * Returns the negated minimum value of a medium integral type.
  * @tparam T The integral type.
  * @return The type's negated minimum value.
  */
-template<integral T>
-ull integralNegatedMinimum() {
-	if constexpr (std::same_as<T, ull>) {
-		return ULL_MIN;
-	} else if constexpr (std::same_as<T, sll>) {
-		return ull(SLL_MAX) + 1;
-	} else if constexpr (std::same_as<T, ui>) {
+template<mediumIntegral T>
+ui integralNegatedMinimum() {
+	if constexpr (std::same_as<T, ui>) {
 		return UI_MIN;
 	} else {
-		return ull(SI_MAX) + 1;
+		return ui(SI_MAX) + 1;
 	}
 }
 
+/**
+ * Returns the negated minimum value of a long integral type.
+ * @tparam T The integral type.
+ * @return The type's negated minimum value.
+ */
+template<longIntegral T>
+ull integralNegatedMinimum() {
+	if constexpr (std::same_as<T, ull>) {
+		return ULL_MIN;
+	} else {
+		return ull(SLL_MAX) + 1;
+	}
+}
+
+/**
+ * Returns the minimum value of a floating point type.
+ * @tparam T A floating point type.
+ * @return The minimum value.
+ */
 template<floatingPoint T>
-ldbl floatingPointMinimum() {
+T floatingPointMinimum() {
 	if constexpr (std::same_as<T, ldbl>) {
 		return LDBL_MIN;
 	} else {
@@ -110,8 +125,13 @@ ldbl floatingPointMinimum() {
 	}
 }
 
+/**
+ * Returns the maximum value of a floating point type.
+ * @tparam T A floating point type.
+ * @return The maximum value.
+ */
 template<floatingPoint T>
-ldbl floatingPointMaximum() {
+T floatingPointMaximum() {
 	if constexpr (std::same_as<T, ldbl>) {
 		return LDBL_MAX;
 	} else {
@@ -119,6 +139,11 @@ ldbl floatingPointMaximum() {
 	}
 }
 
+/**
+ * Returns the minimum value of a given type.
+ * @tparam T The given type.
+ * @return The minimum value.
+ */
 template<packageType T>
 T minimumValue() {
 	if constexpr (integral<T>) {
@@ -128,6 +153,11 @@ T minimumValue() {
 	}
 }
 
+/**
+ * Returns the maximum value of a given type.
+ * @tparam T The given type.
+ * @return The maximum value.
+ */
 template<packageType T>
 T maximumValue() {
 	if constexpr (integral<T>) {
@@ -147,17 +177,24 @@ public:
 
 	Random(Random &r) = delete;
 
-	template<packageType T>
+	template<unsignedIntegral T>
 	static T rand() {
-		if constexpr (integral<T>) {
 			// Random integer in the range of the returned type.
-			return rng();
-		} else {
-			// Random real number in the range [0, 1).
-			ldbl result = rng();
-			result /= (1LL << 32);
-			return result / (1LL << 32);
-		}
+			if constexpr (std::same_as<T, ull>) {
+				return rng();
+			} else {
+				ull result = rng();
+				result &= (ull)UI_MAX;
+				return (ui)result;
+			}
+	}
+
+	template<floatingPoint T>
+	static T rand() {
+		// Random real number in the range [0, 1).
+		ldbl result = rng();
+		result /= (1LL << 32);
+		return result / (1LL << 32);
 	}
 };
 
@@ -229,22 +266,19 @@ public:
 	static ull parseULL(const char * str, const size_t len) {
 		errno = 0;
 		if (len == 0) {
-			errno = 1;
-			return 0;
+			throw ParsingException();
 		}
 
 		ull result = 0;
 
 		for (size_t index = 0; index < len; index++) {
 			if (!isDigit(str[index])) {
-				errno = 1;
-				return 0;
+				throw ParsingException();
 			}
 			int digit = str[index] - '0';
 			// check that result * 10 + digit <= ULL_MAX
 			if ((ULL_MAX - digit) / 10 < result) {
-				errno = 2;
-				return 0;
+				throw OverflowException();
 			}
 			result = result * 10 + digit;
 		}
@@ -263,8 +297,7 @@ public:
 	static ldbl parseLDBL(const char * str, const size_t len) {
 		errno = 0;
 		if (len == 0) {
-			errno = 1;
-			return 0;
+			throw ParsingException();
 		}
 
 		ldbl result = 0;
@@ -277,8 +310,7 @@ public:
 				break;
 			}
 			if (!isDigit(str[index])) {
-				errno = 1;
-				return 0;
+				throw ParsingException();
 			}
 			int digit = str[index] - '0';
 			result = result * 10 + digit;
@@ -286,8 +318,7 @@ public:
 
 		for(; index < len; index++) {
 			if (!isDigit(str[index])) {
-				errno = 1;
-				return 0;
+				throw ParsingException();
 			}
 			int digit = str[index] - '0';
 			result = result + digit * fraction;
@@ -316,11 +347,6 @@ public:
 				ull result = parseULL(buffer.data() + 1, buffer.size() - 1);
 				ull negatedMinimum = integralNegatedMinimum<T>();
 				if (result > negatedMinimum) {
-					errno = 2;
-				}
-				if (errno == 1) {
-					throw ParsingException();
-				} else if (errno == 2) {
 					throw OverflowException();
 				}
 				if (result == negatedMinimum) {
@@ -331,11 +357,6 @@ public:
 				// positive integer
 				ull result = parseULL(buffer.data(), buffer.size());
 				if (result > integralMaximum<T>()) {
-					errno = 2;
-				}
-				if (errno == 1) {
-					throw ParsingException();
-				} else if (errno == 2) {
 					throw OverflowException();
 				}
 				return result;
@@ -344,20 +365,13 @@ public:
 			// reading an unsigned integral
 			ull result;
 			if (buffer[0] == '-') {
-				// we expect an unsigned integer, but we check for parsing errors before we check overflow.
+				// we expect an unsigned integer, but we check try to parse before we check overflow.
 				result = parseULL(buffer.data() + 1, buffer.size() - 1);
-				if (errno == 0) {
-					errno = 2;
-				}
+				throw OverflowException();
 			} else {
 				result = parseULL(buffer.data(), buffer.size());
 			}
 			if (result > integralMaximum<T>()) {
-				errno = 2;
-			}
-			if (errno == 1) {
-				throw ParsingException();
-			} else if (errno == 2) {
 				throw OverflowException();
 			}
 			return result;
@@ -373,9 +387,6 @@ public:
 			result = parseLDBL(buffer.data() + 1, buffer.size() - 1);
 		} else {
 			result = parseLDBL(buffer.data(), buffer.size());
-		}
-		if (errno == 1) {
-			throw ParsingException();
 		}
 		if (sign) {
 			return -result;
