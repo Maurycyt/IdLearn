@@ -366,7 +366,7 @@ public:
 			ull result;
 			if (buffer[0] == '-') {
 				// we expect an unsigned integer, but we check try to parse before we check overflow.
-				result = parseULL(buffer.data() + 1, buffer.size() - 1);
+				parseULL(buffer.data() + 1, buffer.size() - 1);
 				throw OverflowException();
 			} else {
 				result = parseULL(buffer.data(), buffer.size());
