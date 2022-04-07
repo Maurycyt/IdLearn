@@ -5,12 +5,12 @@
 !.gitignore
 
 # And the src and problem package directories
-!src/
-!defaultProblemPackages/
-!problemPackageDevelopment/
+!idlearn/
+!idlearn-preloader/
+!idlearn-problem-package-system/
 
 # And the maven files
-!pom.xml
+!pom_backup.xml
 
 # And the README
 !README.md
@@ -20,5 +20,5 @@
 
 # Finally, throw out all useless IDE files and CMake replies and stuff
 **/.idea/
-problemPackageDevelopment/test/cmake-build-debug/
-problemPackageDevelopment/test/cmake-build-debug-coverage/
+idlearn-problem-package-system/test/cmake-build-debug/
+idlearn-problem-package-system/test/cmake-build-debug-coverage/
