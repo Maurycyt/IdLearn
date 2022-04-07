@@ -15,15 +15,9 @@
                 <artifactId>idlearn</artifactId>
                 <version>1.0.0</version>
             </dependency>
-            <dependency>
-                <groupId>mimuw</groupId>
-                <artifactId>idlearn-preloader</artifactId>
-                <version>1.0.0</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
     <modules>
         <module>idlearn</module>
-        <module>idlearn-preloader</module>
     </modules>
 </project>
