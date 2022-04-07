@@ -31,12 +31,14 @@ public class Preloader extends Scene implements Listener {
 
 	private final ProgressBar bar;
 	private final Emitter emitter;
+	private final Scene next;
 
-	public Preloader(StateMachine stateMachine, LoadTask task) {
+	public Preloader(StateMachine stateMachine, LoadTask task, Scene next) {
 		super(stateMachine);
 
 		emitter = new Emitter();
 		bar = new ProgressBar();
+		this.next = next;
 
 		getChildren().add(bar);
 
@@ -62,7 +64,7 @@ public class Preloader extends Scene implements Listener {
 			PreloaderEvent preloaderEvent = (PreloaderEvent) event.value();
 			if (preloaderEvent.type() == PreloaderEvent.Type.Success) {
 				bar.setProgress(1);
-				stateMachine.pop();
+				stateMachine.replace(next);
 			} else if (preloaderEvent.type() == PreloaderEvent.Type.Progress) {
 				bar.setProgress(preloaderEvent.progress());
 			} else if (preloaderEvent.type() == PreloaderEvent.Type.Fail) {}

@@ -27,7 +27,6 @@ public class Application extends javafx.application.Application{
 		}
 
 		// Here add first scene
-		states.add(new SimpleScene(states));
 		states.add(new Preloader(states, new Preloader.LoadTask() {
 			@Override
 			public void load() {
@@ -39,7 +38,7 @@ public class Application extends javafx.application.Application{
 				logSuccess();
 				System.out.println("Success!");
 			}
-		}));
+		}, new SimpleScene(states)));
 
 		stage.setScene(new javafx.scene.Scene((Scene)states.get(), 320, 240));
 		stage.show();
