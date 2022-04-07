@@ -6,7 +6,10 @@ import mimuw.idlearn.core.StateMachine;
 
 import java.util.Collection;
 
-public class SimpleScene extends Scene{
+/**
+ * Class for creating simple scenes just with collection of nodes
+ */
+public final class SimpleScene extends Scene{
 	public SimpleScene(StateMachine stateMachine) {
 		super(stateMachine);
 	}

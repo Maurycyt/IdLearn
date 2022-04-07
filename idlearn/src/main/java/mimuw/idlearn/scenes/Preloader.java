@@ -8,7 +8,13 @@ import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.core.StateMachine;
 import mimuw.idlearn.scenes.events.PreloaderEvent;
 
+/**
+ * Special scene used to safely load resources in another thread.
+ */
 public class Preloader extends Scene implements Listener {
+	/**
+	 * A function wrapper allowing for logging progress of loading task
+	 */
 	public static abstract class LoadTask {
 		private Emitter emitter;
 		protected void logProgress(double progress){
@@ -33,6 +39,12 @@ public class Preloader extends Scene implements Listener {
 	private final Emitter emitter;
 	private final Scene next;
 
+	/**
+	 *
+	 * @param stateMachine
+	 * @param task
+	 * @param next
+	 */
 	public Preloader(StateMachine stateMachine, LoadTask task, Scene next) {
 		super(stateMachine);
 
@@ -58,7 +70,7 @@ public class Preloader extends Scene implements Listener {
 	}
 
 	@Override
-	public void onNotify(Event event) {
+	public void onNotify(Event event) { // will be only executed under synchronized in update method
 		// TODO: fill with content
 		if (event.type() == PreloaderEvent.class) {
 			PreloaderEvent preloaderEvent = (PreloaderEvent) event.value();
