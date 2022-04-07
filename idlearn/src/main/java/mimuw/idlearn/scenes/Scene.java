@@ -1,4 +1,4 @@
-package mimuw.idlearn;
+package mimuw.idlearn.scenes;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -15,7 +15,7 @@ import java.util.Collection;
  * - https://gitlab.com/Maurycyt/idlearn/-/wikis/Scene
  * - https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Group.html
  */
-public class Scene extends Group implements State{
+public abstract class Scene extends Group implements State{
 	public Scene(StateMachine stateMachine){
 		this.stateMachine = stateMachine;
 	}
@@ -42,7 +42,7 @@ public class Scene extends Group implements State{
 		setVisible(false);
 	}
 	
-	public void update(Duration time){}
+	public abstract void update(Duration time);
 	
 	protected final StateMachine stateMachine;
 }

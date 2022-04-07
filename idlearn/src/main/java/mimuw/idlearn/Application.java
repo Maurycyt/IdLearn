@@ -7,6 +7,9 @@ import javafx.util.Duration;
 import mimuw.idlearn.core.StateMachine;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
+import mimuw.idlearn.scenes.Preloader;
+import mimuw.idlearn.scenes.Scene;
+import mimuw.idlearn.scenes.SimpleScene;
 
 /**
  * Main class of our application
@@ -24,8 +27,20 @@ public class Application extends javafx.application.Application{
 		}
 
 		// Here add first scene
-		states.add(new Scene(states));
-		
+		states.add(new SimpleScene(states));
+		states.add(new Preloader(states, new Preloader.LoadTask() {
+			@Override
+			public void load() {
+				int n = 1000000;
+				for (int i = 0; i < n; i++) {
+					System.out.println("Loading very big data: " + i);
+					logProgress((double)(i) / n);
+				}
+				logSuccess();
+				System.out.println("Success!");
+			}
+		}));
+
 		stage.setScene(new javafx.scene.Scene((Scene)states.get(), 320, 240));
 		stage.show();
 		
