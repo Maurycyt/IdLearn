@@ -19,17 +19,17 @@ public class Application extends javafx.application.Application{
 	public void start(Stage stage){
 		stage.setTitle("IdLearn");
 
-		// Load in the packages (not necessarily here)
-		ProblemPackage[] packages = PackageManager.getProblemPackages();
-		for (ProblemPackage p : packages) {
-			System.out.println(p.getTitle());
-			p.prepareTest(123);
-		}
-
 		// Here add first scene
 		states.add(new Preloader(states, new Preloader.LoadTask() {
 			@Override
 			public void load() {
+				// Load in the packages (not necessarily here)
+				ProblemPackage[] packages = PackageManager.getProblemPackages();
+				for (ProblemPackage p : packages) {
+					System.out.println(p.getTitle());
+					p.prepareTest(123);
+				}
+
 				int n = 1000000;
 				for (int i = 0; i < n; i++) {
 					System.out.println("Loading very big data: " + i);
