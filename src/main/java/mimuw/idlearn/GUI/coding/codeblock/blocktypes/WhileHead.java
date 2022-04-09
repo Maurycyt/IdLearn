@@ -33,4 +33,11 @@ public class WhileHead extends CodeBlock {
         this.getChildren().add(base);
     }
 
+    /**
+     * Set the text in our while head
+     * @param text Condition text
+     */
+    public void setText(String text) {
+        condition.setText(text);
+    }
 }

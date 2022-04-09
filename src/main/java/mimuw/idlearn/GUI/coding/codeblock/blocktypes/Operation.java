@@ -41,6 +41,9 @@ public abstract class Operation extends CodeBlock {
         this.getChildren().add(base);
     }
 
+    /**
+     * @return An equivalent expression
+     */
     @Override
     public Expression<Void> convert() {
         Expression<Integer> op;
@@ -59,5 +62,17 @@ public abstract class Operation extends CodeBlock {
         };
         Expression<Void> result = new Assignment<>(assignee, op);
         return result;
+    }
+
+    /**
+     * Set the text in our operation
+     * @param text0 Where to put the result
+     * @param text1 First operand
+     * @param text2 Second operand
+     */
+    public void setText(String text0, String text1, String text2) {
+        result.setText(text0);
+        oper1.setText(text1);
+        oper2.setText(text2);
     }
 }

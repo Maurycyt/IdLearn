@@ -31,7 +31,6 @@ public class CodeBox extends Group {
             Expression<Void> exp = compile();
             Scope scope = new Scope();
             exp.evaluate(scope);
-            System.out.println(new Variable<>("x").evaluate(scope).getValue());
         });
     }
 

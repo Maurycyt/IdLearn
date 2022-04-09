@@ -3,10 +3,7 @@ package mimuw.idlearn.GUI.coding.codeblock;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import mimuw.idlearn.language.base.Expression;
-import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.language.keywords.Block;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CodeSegment extends VBox {
@@ -102,11 +99,10 @@ public class CodeSegment extends VBox {
     }
 
     /**
-     *
-     * @return
+     * Converts segment into an expression
+     * @return Equivalent expression
      */
     public Block convert() {
-        int length = this.getChildren().size();
         ArrayList<Expression<?>> expressions = new ArrayList<>();
         for (Node child : this.getChildren()) {
             CodeBlock currentBlock = (CodeBlock) child;

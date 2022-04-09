@@ -16,6 +16,9 @@ public class Assign extends CodeBlock {
     TextField varName;
     TextField value;
 
+    /**
+     * @return An equivalent expression
+     */
     @Override
     public Expression<Void> convert() {
         String name = varName.getText();
@@ -42,5 +45,14 @@ public class Assign extends CodeBlock {
         this.getChildren().add(base);
     }
 
+    /**
+     * Set the text in our assign block
+     * @param text1 Variable name
+     * @param text2 Value
+     */
+    public void setText(String text1, String text2) {
+        varName.setText(text1);
+        value.setText(text2);
+    }
 }
 
