@@ -3,7 +3,9 @@ package mimuw.idlearn.problems;
 import mimuw.idlearn.utils.ShellExecutor;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * Static class, which manages problem packages.
@@ -78,5 +80,18 @@ public class PackageManager {
 	 */
 	public static ProblemPackage [] getProblemPackages() {
 		return problemPackages;
+	}
+
+	/**
+	 * Gets a specific problem package.
+	 * @return The requested package.
+	 */
+	public static ProblemPackage getProblemPackage(String title) throws FileNotFoundException {
+		for (var pkg : problemPackages) {
+			if (Objects.equals(pkg.getTitle(), title)) {
+				return pkg;
+			}
+		}
+		throw new FileNotFoundException("Package not found.");
 	}
 }
