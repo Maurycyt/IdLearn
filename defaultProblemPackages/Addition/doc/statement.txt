@@ -1,0 +1,7 @@
+Johnny needs help with his maths homework. Write a program, which will read two numbers and output their sum.
+
+Input:
+The first and only line of input contains two numbers, a and b, in the range [-10^9, 10^9].
+
+Output:
+The only number outputted should be the value of a + b.

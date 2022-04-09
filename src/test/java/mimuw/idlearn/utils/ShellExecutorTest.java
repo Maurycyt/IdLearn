@@ -34,8 +34,11 @@ public class ShellExecutorTest {
 		String output;
 
 		// Check execution of single command.
-		output = se.execute("echo " + someText);
+		output = ShellExecutor.execute("echo " + someText);
 		assertEquals(expectedOutput, output);
+
+		// Check execution of wrong command.
+		assertThrows(CommandException.class, () -> ShellExecutor.execute("rm /"));
 
 		// Check script appending and script execution.
 		se.addLineToScript("echo " + someText);

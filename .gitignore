@@ -4,8 +4,10 @@
 # Except for this file
 !.gitignore
 
-# And the src and target directories
+# And the src and problem package directories
 !src/
+!defaultProblemPackages/
+!problemPackageDevelopment/
 
 # And the maven files
 !pom.xml
@@ -15,3 +17,8 @@
 
 # And the CI/CD config file!
 !.gitlab-ci.yml
+
+# Finally, throw out all useless IDE files and CMake replies and stuff
+**/.idea/
+problemPackageDevelopment/test/cmake-build-debug/
+problemPackageDevelopment/test/cmake-build-debug-coverage/

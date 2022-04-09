@@ -5,6 +5,8 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import mimuw.idlearn.core.StateMachine;
+import mimuw.idlearn.problems.PackageManager;
+import mimuw.idlearn.problems.ProblemPackage;
 
 /**
  * Main class of our application
@@ -13,7 +15,14 @@ public class Application extends javafx.application.Application{
 	@Override
 	public void start(Stage stage){
 		stage.setTitle("IdLearn");
-		
+
+		// Load in the packages (not necessarily here)
+		ProblemPackage[] packages = PackageManager.getProblemPackages();
+		for (ProblemPackage p : packages) {
+			System.out.println(p.getTitle());
+			p.prepareTest(123);
+		}
+
 		// Here add first scene
 		states.add(new Scene(states));
 		
