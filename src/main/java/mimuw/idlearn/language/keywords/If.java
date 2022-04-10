@@ -6,18 +6,18 @@ import mimuw.idlearn.language.environment.Scope;
 
 import java.util.Objects;
 
-public class If implements Expression<Void> {
+public class If<Void> implements Expression<Void> {
 	private final Expression<Boolean> condition;
-	private final Block onTrue;
-	private final Block onFalse;
+	private final Block<Void> onTrue;
+	private final Block<Void> onFalse;
 
-	public If(Expression<Boolean> condition, Block onTrue, Block onFalse) {
+	public If(Expression<Boolean> condition, Block<Void> onTrue, Block<Void> onFalse) {
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = onFalse;
 	}
 
-	public If(Expression<Boolean> condition, Block onTrue) {
+	public If(Expression<Boolean> condition, Block<Void> onTrue) {
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = null;
@@ -39,7 +39,7 @@ public class If implements Expression<Void> {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		If other = (If) o;
+		If<?> other = (If<?>) o;
 
 		if (!Objects.equals(condition, other.condition)) return false;
 		if (!Objects.equals(onTrue, other.onTrue)) return false;

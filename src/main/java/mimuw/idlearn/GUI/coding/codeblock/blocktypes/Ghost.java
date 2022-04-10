@@ -3,7 +3,6 @@ package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 import javafx.scene.paint.Color;
 import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
-import mimuw.idlearn.language.base.Expression;
 
 public class Ghost extends CodeBlock {
     /**
@@ -26,4 +25,5 @@ public class Ghost extends CodeBlock {
         // 0 - Because we don't want GhostBlocks to affect placement
         return 0;
     }
+
 }

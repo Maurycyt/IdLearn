@@ -7,7 +7,7 @@ import mimuw.idlearn.language.environment.Scope;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block implements Expression<Void> {
+public class Block<Void> implements Expression<Void> {
 	private final ArrayList<Expression<?>> instructions;
 
 	public Block(ArrayList<Expression<?>> instructions) {
@@ -36,7 +36,7 @@ public class Block implements Expression<Void> {
 		if (!super.equals(o))
 			return false;
 
-		Block block = (Block) o;
+		Block<Void> block = (Block<Void>) o;
 
 		return instructions.equals(block.instructions);
 	}

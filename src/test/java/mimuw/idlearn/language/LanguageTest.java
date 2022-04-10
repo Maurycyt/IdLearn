@@ -214,11 +214,11 @@ public class LanguageTest {
 		Variable<Integer> x = new Variable<>("x");
 		new Assignment<>("x", 5).evaluate(scope);
 
-		Block onTrue = new Block(new ArrayList<>(List.of(
+		Block<Void> onTrue = new Block<>(new ArrayList<>(List.of(
 				new Assignment<>("x",
 						TwoArgOperator.newAdd(x.evaluate(scope), new Value<>(1)))
 		)));
-		Block onFalse = new Block(new ArrayList<>(List.of(
+		Block<Void> onFalse = new Block<>(new ArrayList<>(List.of(
 				new Assignment<>("x",
 						TwoArgOperator.newAdd(x.evaluate(scope), new Value<>(-1)))
 		)));
@@ -231,7 +231,7 @@ public class LanguageTest {
 		).evaluate(scope);
 
 		// `if (x % 2 == 0) {x++;} else {x--;}`
-		new If(cond, onTrue, onFalse).evaluate(scope);
+		new If<>(cond, onTrue, onFalse).evaluate(scope);
 
 		assertEquals(4, scope.getVariable("x").getValue());
 	}
@@ -255,7 +255,7 @@ public class LanguageTest {
 				new Value<>(0)
 		);
 
-		Block block = new Block(new ArrayList<>(List.of(
+		Block<Void> block = new Block<>(new ArrayList<>(List.of(
 				new Assignment<>("x",
 						TwoArgOperator.newAdd(x, new Value<>(1))),
 				new Assignment<>("count",
@@ -263,7 +263,7 @@ public class LanguageTest {
 		)));
 
 		// `while (count > 0) {x++; count--}`
-		new While(cond, block).evaluate(scope);
+		new While<>(cond, block).evaluate(scope);
 
 		assertEquals(420, x.evaluate(scope).getValue());
 	}
@@ -275,9 +275,9 @@ public class LanguageTest {
 		Scope innerScope = new Scope(outerScope);
 
 		Variable<Integer> x = new Variable<>("x");
-		Value<Void> asn1 = new Assignment<>("x", 1).evaluate(outerScope);
-		Value<Void> asn2 = new Assignment<>("y", x.evaluate(innerScope)).evaluate(innerScope);
-		Value<Void> asn3 = new Assignment<>("x",
+		Value<Integer> asn1 = new Assignment<>("x", 1).evaluate(outerScope);
+		Value<Integer> asn2 = new Assignment<>("y", x.evaluate(innerScope)).evaluate(innerScope);
+		Value<Integer> asn3 = new Assignment<>("x",
 				TwoArgOperator.newAdd(x.evaluate(innerScope), new Value<>(1))
 		).evaluate(innerScope);
 
@@ -299,16 +299,16 @@ public class LanguageTest {
 		Variable<Integer> i = new Variable<>("i", scope, 0);
 
 		var whileCond = TwoArgOperator.newLessEqual(i, n);
-		var whileBlock = new Block(
+		var whileBlock = new Block<>(
 				new Assignment<>("f3", TwoArgOperator.newAdd(f1, f2)),
 				new Assignment<>("f1", f2),
 				new Assignment<>("f2", f3),
 				new Assignment<>("i", TwoArgOperator.newAdd(i, new Value<>(1)))
 		);
 
-		var outerBlock = new Block(
+		var outerBlock = new Block<>(
 				new Assignment<>("n", TwoArgOperator.newSubtract(n, new Value<>(3))),
-				new While(whileCond, whileBlock)
+				new While<>(whileCond, whileBlock)
 		).evaluate(scope);
 
 		assertEquals(4181, f3.evaluate(scope).getValue());
