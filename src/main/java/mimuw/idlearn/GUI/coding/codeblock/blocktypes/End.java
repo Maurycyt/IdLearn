@@ -3,6 +3,7 @@ package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 import javafx.scene.paint.Color;
 import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
+import mimuw.idlearn.language.base.Expression;
 
 public class End extends CodeBlock {
     private final BlockBase base;
@@ -18,5 +19,4 @@ public class End extends CodeBlock {
 
         this.getChildren().add(base);
     }
-
 }

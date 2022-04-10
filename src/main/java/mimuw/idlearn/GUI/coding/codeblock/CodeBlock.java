@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mimuw.idlearn.GUI.coding.CodeBox;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Ghost;
+import mimuw.idlearn.language.base.Expression;
 
 public abstract class CodeBlock extends Group {
     public static final double HEIGHT = 50;
@@ -73,6 +74,14 @@ public abstract class CodeBlock extends Group {
      */
     public double insideBarrier() {
         throw new Error("Not a parent");
+    }
+
+    /**
+     * Convert code block to corresponding expression
+     * @return Equivalent expression
+     */
+    public Expression<Void> convert() {
+        throw new Error("Inconvertible");
     }
 
     /**

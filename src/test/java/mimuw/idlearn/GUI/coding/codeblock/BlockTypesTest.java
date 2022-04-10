@@ -43,7 +43,7 @@ public class BlockTypesTest {
 
     @Test
     public void WhileTest() {
-        new While();
+        new WhileHead();
     }
 
     @Test

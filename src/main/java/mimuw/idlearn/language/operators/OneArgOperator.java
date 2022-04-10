@@ -7,7 +7,7 @@ import mimuw.idlearn.language.environment.Scope;
 public abstract class OneArgOperator<A, R> implements Expression<R> {
 	protected Expression<A> arg;
 
-	public OneArgOperator(Expression<A> arg) {
+	private OneArgOperator(Expression<A> arg) {
 		this.arg = arg;
 	}
 
