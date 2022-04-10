@@ -11,11 +11,6 @@ public class WhileHead extends CodeBlock {
     private final BlockBase base = new BlockBase(HEIGHT, Color.BLUE);
     TextField condition;
 
-    @Override
-    public Expression<Void> convert() {
-        throw new Error("Inconvertible");
-    }
-
     public String getCond() {
         return condition.getText();
     }

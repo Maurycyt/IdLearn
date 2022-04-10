@@ -26,9 +26,4 @@ public class Ghost extends CodeBlock {
         // 0 - Because we don't want GhostBlocks to affect placement
         return 0;
     }
-
-    @Override
-    public Expression<Void> convert() {
-        throw new Error("Inconvertible");
-    }
 }

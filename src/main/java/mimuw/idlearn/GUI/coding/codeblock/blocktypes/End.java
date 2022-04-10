@@ -19,10 +19,4 @@ public class End extends CodeBlock {
 
         this.getChildren().add(base);
     }
-
-    @Override
-    public Expression<Void> convert() {
-        throw new Error("Inconvertible");
-    }
-
 }
