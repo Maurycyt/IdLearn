@@ -9,14 +9,15 @@ import java.util.Scanner;
 
 public class IOHandler {
     private final static String whitespacePrefix = " ";
-    private ProblemPackage problem;
+    private final ProblemPackage pkg;
 
     public IOHandler(ProblemPackage problem) {
-        this.problem = problem;
+        this.pkg = problem;
     }
 
-    public void takeInput(Scope scope, Variable<Integer> ...in) throws EOFException {
-        Scanner scanner =  problem.getTestInputScanner();
+    @SafeVarargs
+    public final void takeInput(Scope scope, Variable<Integer>... in) throws EOFException {
+        Scanner scanner =  pkg.getTestInputScanner();
         for (var v : in) {
             if (!scanner.hasNextInt()) {
                 throw new EOFException("Too many variables provided for loading input.");
@@ -27,11 +28,11 @@ public class IOHandler {
     }
 
     public void giveOutput(String out) throws IOException {
-        problem.getTestOutputWriter().write(out);
+        pkg.getTestOutputWriter().write(out);
     }
 
     public void giveOutput(Value<?> ...out) throws IOException {
-        FileWriter writer = problem.getTestOutputWriter();
+        FileWriter writer = pkg.getTestOutputWriter();
         for (var v : out) {
             writer.write(whitespacePrefix + v.getValue());
         }
