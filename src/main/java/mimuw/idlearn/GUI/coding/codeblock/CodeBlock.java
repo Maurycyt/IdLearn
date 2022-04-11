@@ -80,7 +80,9 @@ public abstract class CodeBlock extends Group {
      * Convert code block to corresponding expression
      * @return Equivalent expression
      */
-    abstract public Expression<Void> convert();
+    public Expression<Void> convert() {
+        throw new Error("Inconvertible");
+    }
 
     /**
      * Data we need to know when dragging a CodeBlock

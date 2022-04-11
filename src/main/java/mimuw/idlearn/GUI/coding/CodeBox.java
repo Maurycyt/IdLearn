@@ -76,8 +76,8 @@ public class CodeBox extends Group {
     }
 
     /**
-     *
-     * @return
+     * Compiles the CodeBox into code
+     * @return Equivalent expression
      */
     public Expression<Void> compile() {
         return segment.convert();

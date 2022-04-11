@@ -89,6 +89,9 @@ public class WhileBlock extends CodeBlock {
         return head.getHeight();
     }
 
+    /**
+     * @return An equivalent expression
+     */
     @Override
     public Expression<Void> convert() {
         Block body = segment.convert();
@@ -104,5 +107,13 @@ public class WhileBlock extends CodeBlock {
     @Override
     public double getHeight() {
         return head.getHeight() + segment.giveHeight() + foot.getHeight();
+    }
+
+    /**
+     * Set the text in our while
+     * @param text Condition text
+     */
+    public void setText(String text) {
+        head.setText(text);
     }
 }
