@@ -1,8 +1,6 @@
 package mimuw.idlearn.language;
 
-import mimuw.idlearn.language.base.Expression;
-import mimuw.idlearn.language.base.Value;
-import mimuw.idlearn.language.base.Variable;
+import mimuw.idlearn.language.base.*;
 import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.language.keywords.Assignment;
 import mimuw.idlearn.language.keywords.Block;
@@ -10,17 +8,19 @@ import mimuw.idlearn.language.keywords.If;
 import mimuw.idlearn.language.keywords.While;
 import mimuw.idlearn.language.operators.OneArgOperator;
 import mimuw.idlearn.language.operators.TwoArgOperator;
+import mimuw.idlearn.problems.PackageManager;
+import mimuw.idlearn.problems.ProblemPackage;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.io.EOFException;
+import java.io.IOException;
+import java.util.*;
 
 import static mimuw.idlearn.language.LanguageTest.OperatorTestConfig.OpName.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 
@@ -312,6 +312,63 @@ public class LanguageTest {
 		).evaluate(scope);
 
 		assertEquals(4181, f3.evaluate(scope).getValue());
+	}
+
+	@Test
+	public void testArithmeticOperationsEfficiency() {
+		final int N = 20000000;
+		Scope globalScope = new Scope();
+		Scope scope = new Scope(globalScope);
+
+		Variable<Integer> i = new Variable<>("i", scope, N);
+		Value<Integer> zero = new Value<>(0);
+
+		var whileCond = TwoArgOperator.newGreaterEqual(i, zero);
+		var whileBlock = new Block(
+				new Assignment<>("i",
+						TwoArgOperator.newSubtract(i, new Value<>(1))
+				)
+		);
+		var outerBlock = new Block(
+				new While(whileCond, whileBlock)
+		);
+
+		long start = System.currentTimeMillis();
+		outerBlock.evaluate(scope);
+		long end = System.currentTimeMillis();
+
+		System.out.println(2*N + " operations performed in " + (end - start) + " milliseconds.");
+	}
+
+	@Test
+	public void testInputAndOutput() {
+		try {
+			ProblemPackage pkg = PackageManager.getProblemPackage("Addition");
+			pkg.prepareTest(123);
+
+			Scope globalScope = new Scope();
+			Scope scope = new Scope(globalScope);
+			Variable<Integer> x = new Variable<>("x");
+			Variable<Integer> y = new Variable<>("y");
+			Variable<Integer> z = new Variable<>("z");
+			InputHandler inputHandler = new InputHandler(pkg);
+			OutputHandler outputHandler = new OutputHandler(pkg);
+
+			inputHandler.takeVariables(x, y, z);
+			assertThrows(RuntimeException.class, () -> inputHandler.evaluate(scope));
+			pkg.resetScanner();
+
+			inputHandler.takeVariables(x, y);
+			inputHandler.evaluate(scope);
+
+			Value<Integer> ret = TwoArgOperator.newAdd(x, y).evaluate(scope);
+			outputHandler.takeValues(ret);
+			outputHandler.evaluate(scope);
+
+			assert(pkg.checkTest());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 
