@@ -9,14 +9,14 @@ import java.io.IOException;
 public class OutputHandler implements Expression<Void> {
     private final static String separator = " ";
     private final ProblemPackage pkg;
-    private Value<?> [] values;
+    private Expression<?> [] values;
 
-    public OutputHandler(ProblemPackage pkg, Value<?> ...values) {
+    public OutputHandler(ProblemPackage pkg, Expression<?> ...values) {
         this.pkg = pkg;
         this.values = values;
     }
 
-    public void takeValues(Value<?> ...variables) {
+    public void takeValues(Expression<?> ...variables) {
         this.values = variables;
     }
 
@@ -25,7 +25,7 @@ public class OutputHandler implements Expression<Void> {
         FileWriter writer = pkg.getTestOutputWriter();
         try {
             for (var v : values) {
-                writer.write(separator + v.getValue());
+                writer.write(separator + v.evaluate(scope).getValue());
             }
             writer.flush();
         } catch (IOException e) {
