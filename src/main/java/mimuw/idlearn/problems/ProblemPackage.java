@@ -3,6 +3,7 @@ package mimuw.idlearn.problems;
 import mimuw.idlearn.utils.ShellExecutor;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -120,8 +121,7 @@ public class ProblemPackage {
 		se.addLineToScript("make input -s TestID=" + id);
 		se.execute();
 		try {
-			inputScanner = new Scanner(new File(packageDirectory, "input.in"));
-			outputWriter = new FileWriter(new File(packageDirectory, "user.out"));
+			resetIO();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -186,5 +186,27 @@ public class ProblemPackage {
 		se.addLineToScript("cd " + packageDirectory);
 		se.addLineToScript("make clean");
 		se.execute();
+	}
+
+	/**
+	 * Resets the file scanner by creating a new one.
+	 */
+	public void resetScanner() throws FileNotFoundException {
+		inputScanner = new Scanner(new File(packageDirectory, "input.in"));
+	}
+
+	/**
+	 * Resets the file writer by creating a new one.
+	 */
+	public void resetWriter() throws IOException {
+		outputWriter = new FileWriter(new File(packageDirectory, "user.out"));
+	}
+
+	/**
+	 * Resets both the file scanner and writer.
+	 */
+	public void resetIO() throws IOException {
+		resetScanner();
+		resetWriter();
 	}
 }

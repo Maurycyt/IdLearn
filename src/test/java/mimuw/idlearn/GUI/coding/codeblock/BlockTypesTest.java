@@ -43,11 +43,6 @@ public class BlockTypesTest {
 
     @Test
     public void WhileTest() {
-        new WhileHead();
-    }
-
-    @Test
-    public void EndTest() {
-        new End(Color.PURPLE);
+        new WhileBlock();
     }
 }
