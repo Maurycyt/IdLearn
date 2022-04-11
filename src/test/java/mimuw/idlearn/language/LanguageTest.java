@@ -1,9 +1,6 @@
 package mimuw.idlearn.language;
 
-import mimuw.idlearn.language.base.Expression;
-import mimuw.idlearn.language.base.IOHandler;
-import mimuw.idlearn.language.base.Value;
-import mimuw.idlearn.language.base.Variable;
+import mimuw.idlearn.language.base.*;
 import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.language.keywords.Assignment;
 import mimuw.idlearn.language.keywords.Block;
@@ -319,7 +316,7 @@ public class LanguageTest {
 
 	@Test
 	public void testArithmeticOperationsEfficiency() {
-		final int N = 15000000;
+		final int N = 20000000;
 		Scope globalScope = new Scope();
 		Scope scope = new Scope(globalScope);
 
@@ -340,7 +337,7 @@ public class LanguageTest {
 		outerBlock.evaluate(scope);
 		long end = System.currentTimeMillis();
 
-		System.out.println(N + " operations performed in " + (end - start) + " milliseconds.");
+		System.out.println(2*N + " operations performed in " + (end - start) + " milliseconds.");
 	}
 
 	@Test
@@ -354,13 +351,19 @@ public class LanguageTest {
 			Variable<Integer> x = new Variable<>("x");
 			Variable<Integer> y = new Variable<>("y");
 			Variable<Integer> z = new Variable<>("z");
-			IOHandler ioHandler = new IOHandler(pkg);
+			InputHandler inputHandler = new InputHandler(pkg);
+			OutputHandler outputHandler = new OutputHandler(pkg);
 
-			assertThrows(EOFException.class, () -> ioHandler.takeInput(scope, x, y, z));
+			inputHandler.takeVariables(x, y, z);
+			assertThrows(RuntimeException.class, () -> inputHandler.evaluate(scope));
 			pkg.resetScanner();
-			ioHandler.takeInput(scope, x, y);
+
+			inputHandler.takeVariables(x, y);
+			inputHandler.evaluate(scope);
+
 			Value<Integer> ret = TwoArgOperator.newAdd(x, y).evaluate(scope);
-			ioHandler.giveOutput(ret);
+			outputHandler.takeValues(ret);
+			outputHandler.evaluate(scope);
 
 			assert(pkg.checkTest());
 		} catch (IOException e) {
