@@ -35,4 +35,12 @@ public class Read extends CodeBlock {
 
         this.getChildren().add(base);
     }
+
+    /**
+     * Set the text in our read block
+     * @param text Variable name
+     */
+    public void setText(String text) {
+        varName.setText(text);
+    }
 }

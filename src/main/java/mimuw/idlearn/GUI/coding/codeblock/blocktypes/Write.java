@@ -35,4 +35,12 @@ public class Write extends CodeBlock {
 
         this.getChildren().add(base);
     }
+
+    /**
+     * Set the text in our write block
+     * @param text Variable name
+     */
+    public void setText(String text) {
+        varName.setText(text);
+    }
 }
