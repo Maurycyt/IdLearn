@@ -14,7 +14,6 @@ import static mimuw.idlearn.GUI.coding.codeblock.CodeBlock.HEIGHT;
 public class CodeBox extends Group {
 
     private CodeSegment segment;
-    Button button = new Button("Convert");
 
 
     /**
@@ -24,15 +23,6 @@ public class CodeBox extends Group {
         super();
         segment = new CodeSegment();
         this.getChildren().add(segment);
-        this.getChildren().add(button);
-        button.setTranslateY(-50);
-
-        button.setOnMousePressed(event -> {
-            Expression<Void> exp = compile();
-            Scope scope = new Scope();
-            exp.evaluate(scope);
-            System.out.println(new Variable<>("x").evaluate(scope).getValue());
-        });
     }
 
 

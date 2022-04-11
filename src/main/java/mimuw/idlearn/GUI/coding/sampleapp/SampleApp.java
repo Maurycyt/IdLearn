@@ -4,12 +4,18 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mimuw.idlearn.GUI.coding.CodeBox;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
+import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.Variable;
+import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.problems.PackageManager;
+import mimuw.idlearn.problems.ProblemPackage;
 
 public class SampleApp extends Application {
 
@@ -35,6 +41,35 @@ public class SampleApp extends Application {
         codeBox.setTranslateY(100);
 
         //codeBox.setPrefSize(300, 400);
+        final ProblemPackage pkg;
+        try {
+            pkg = PackageManager.getProblemPackage("Addition");
+            pkg.prepareTest(123);
+            Node readSpawner = new CodeBlockSpawner(codeBox, dragged, () -> new Read(pkg));
+            Node writeSpawner = new CodeBlockSpawner(codeBox, dragged, () -> new Write(pkg));
+            codeBlocks.getChildren().add(readSpawner);
+            codeBlocks.getChildren().add(writeSpawner);
+
+            final Button button = new Button("Convert");
+            root.getChildren().add(button);
+
+            button.setOnMousePressed(event -> {
+                Expression<Void> exp = codeBox.compile();
+                Scope scope = new Scope();
+                try {
+                    pkg.resetIO();
+                }
+                catch (Exception e) {}
+                exp.evaluate(scope);
+                if (pkg.checkTest()) {
+                    System.out.println("Correct output");
+                }
+                else {
+                    System.out.println("Incorrect output");
+                }
+            });
+        }
+        catch (Exception e) {}
 
         // Create spawners
         Node assignSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
