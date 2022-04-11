@@ -83,12 +83,13 @@ public class PackageManager {
 	}
 
 	/**
-	 * Gets a specific problem package.
+	 * Gets a specific problem package by title.
+	 * @param title The title of the package.
 	 * @return The requested package.
 	 */
 	public static ProblemPackage getProblemPackage(String title) throws FileNotFoundException {
-		for (var pkg : problemPackages) {
-			if (Objects.equals(pkg.getTitle(), title)) {
+		for (ProblemPackage pkg : problemPackages) {
+			if (pkg.getTitle().equals(title)) {
 				return pkg;
 			}
 		}
