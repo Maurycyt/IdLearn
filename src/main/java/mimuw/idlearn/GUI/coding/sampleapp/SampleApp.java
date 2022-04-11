@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -34,10 +35,10 @@ public class SampleApp extends Application {
 
 		// Set positions
 		codeBlocks.setTranslateX(50);
-		codeBlocks.setTranslateY(100);
+		codeBlocks.setTranslateY(200);
 
 		codeBox.setTranslateX(300);
-		codeBox.setTranslateY(100);
+		codeBox.setTranslateY(200);
 
 		//codeBox.setPrefSize(300, 400);
 		final ProblemPackage pkg;
@@ -50,11 +51,15 @@ public class SampleApp extends Application {
 
 		pkg = tmpPkg;
 		assert pkg != null;
-		System.out.println("'" + pkg.getStatement() + "'");
+		final TextArea statement = new TextArea(pkg.getStatement());
+		statement.setWrapText(true);
 		pkg.prepareTest(123);
 
-			final Button button = new Button("Convert");
-			root.getChildren().add(button);
+		statement.setTranslateX(100);
+		statement.setPrefWidth(700);
+
+		final Button button = new Button("Convert");
+		root.getChildren().add(button);
 
 		button.setOnMousePressed(event -> {
 			Expression<Void> exp = codeBox.compile();
@@ -92,6 +97,7 @@ public class SampleApp extends Application {
 		codeBlocks.getChildren().add(whileSpawner);
 
 		// Link everything else
+		root.getChildren().add(statement);
 		root.getChildren().add(codeBlocks);
 		root.getChildren().add(codeBox);
 		root.getChildren().add(dragged);
