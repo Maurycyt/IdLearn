@@ -5,6 +5,8 @@ import javafx.scene.Group;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Add;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Read;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Write;
+import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,7 +51,9 @@ public class BlockIOTest {
             codeBox.addChild(0, r3);
 
             try {
-                codeBox.compile();
+                Expression<Void> program = codeBox.compile();
+								Scope scope = new Scope();
+								program.evaluate(scope);
                 fail();
             }
             catch (Exception e) {}
@@ -85,7 +89,9 @@ public class BlockIOTest {
             codeBox.addChild(0, r2);
             codeBox.addChild(0, r1);
 
-            codeBox.compile();
+            Expression<Void> program = codeBox.compile();
+						Scope scope = new Scope();
+						program.evaluate(scope);
             assertTrue(pkg.checkTest());
         }
         catch (Exception e) {
