@@ -13,25 +13,31 @@ import mimuw.idlearn.language.keywords.*;
 import mimuw.idlearn.language.operators.OneArgOperator;
 import mimuw.idlearn.language.operators.TwoArgOperator;
 
-public class WhileBlock extends CodeBlock {
+public class IfElse extends CodeBlock {
 
-    private Pane content;
-    private WhileHead head;
-    private CodeBlock foot;
-    private CodeSegment segment;
+    private final Pane content;
+    private final IfHead ifHead;
+    private final ElseHead elseHead;
+    private final End foot;
+    private final CodeSegment ifSegment;
+    private final CodeSegment elseSegment;
 
     /**
      * Create a new WhileBlock
      */
-    public WhileBlock() {
+    public IfElse() {
         super();
         content = new VBox();
-        head = new WhileHead();
-        foot = new End(Color.AQUA);
-        segment = new CodeSegment();
+        ifHead = new IfHead();
+        elseHead = new ElseHead();
+        foot = new End(Color.PURPLE);
+        ifSegment = new CodeSegment();
+        elseSegment = new CodeSegment();
 
-        content.getChildren().add(head);
-        content.getChildren().add(segment);
+        content.getChildren().add(ifHead);
+        content.getChildren().add(ifSegment);
+        content.getChildren().add(elseHead);
+        content.getChildren().add(elseSegment);
         content.getChildren().add(foot);
 
         this.getChildren().add(content);
@@ -52,7 +58,7 @@ public class WhileBlock extends CodeBlock {
      */
     @Override
     public boolean removeChild(CodeBlock child) {
-        return segment.removeChild(child);
+        return ifSegment.removeChild(child) || elseSegment.removeChild(child);
     }
 
     /**
@@ -62,7 +68,20 @@ public class WhileBlock extends CodeBlock {
      */
     @Override
     public void addChild(double position, CodeBlock child) {
-        segment.addChild(position, child);
+        double relativeY = position - this.localToScene(0, 0).getY();
+
+        // Offset
+        double sum = - CodeBlock.HEIGHT / 2;
+
+        sum += ifHead.getHeight();
+        sum += ifSegment.giveHeight();
+        sum += elseHead.getHeight();
+        if (sum > relativeY) {
+            ifSegment.addChild(position, child);
+        }
+        else {
+            elseSegment.addChild(position, child);
+        }
     }
 
     /**
@@ -71,23 +90,25 @@ public class WhileBlock extends CodeBlock {
      */
     @Override
     public void setIndent(int ind) {
-        head.setIndent(ind);
+        ifHead.setIndent(ind);
+        elseHead.setIndent(ind);
         foot.setIndent(ind);
-        segment.updateIndent(ind + 1);
+        ifSegment.updateIndent(ind + 1);
+        elseSegment.updateIndent(ind + 1);
     }
 
     /**
      * Get the indentation of this CodeBlock
      * @return Indentation
      */
-     @Override
-     public int getIndent() {
-        return head.getIndent();
-     }
+    @Override
+    public int getIndent() {
+        return ifHead.getIndent();
+    }
 
     @Override
     public double insideBarrier() {
-        return head.getHeight();
+        return ifHead.getHeight();
     }
 
     /**
@@ -95,10 +116,10 @@ public class WhileBlock extends CodeBlock {
      */
     @Override
     public Expression<Void> convert() {
-        Block body = segment.convert();
-        Expression<Boolean> condition = new IntToBool(new Variable<>(head.getCond()));
-        While result = new While(OneArgOperator.newNot(condition), body);
-        return result;
+        Block ifBody = ifSegment.convert();
+        Block elseBody = elseSegment.convert();
+        Expression<Boolean> condition = new IntToBool(new Variable<>(ifHead.getCond()));
+        return new If(OneArgOperator.newNot(condition), ifBody, elseBody);
     }
 
     /**
@@ -107,7 +128,10 @@ public class WhileBlock extends CodeBlock {
      */
     @Override
     public double getHeight() {
-        return head.getHeight() + segment.giveHeight() + foot.getHeight();
+        return (
+            ifHead.getHeight() + ifSegment.giveHeight() + elseHead.getHeight() +
+            elseSegment.getHeight() + foot.getHeight()
+        );
     }
 
     /**
@@ -115,6 +139,6 @@ public class WhileBlock extends CodeBlock {
      * @param text Condition text
      */
     public void setText(String text) {
-        head.setText(text);
+        ifHead.setText(text);
     }
 }

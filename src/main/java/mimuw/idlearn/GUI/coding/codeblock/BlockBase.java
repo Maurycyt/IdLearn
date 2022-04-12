@@ -42,9 +42,13 @@ public class BlockBase extends Group {
         for (var child : children) {
             size += child.getLayoutBounds().getWidth();
         }
-        content.setPrefWidth(size);
-        bg.setWidth(size);
+        setCurrentWidth(size);
         return size;
+    }
+
+    public void setCurrentWidth(double width) {
+        content.setPrefWidth(width);
+        bg.setWidth(width);
     }
 
     /**
