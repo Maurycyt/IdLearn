@@ -17,7 +17,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - add-apt-repository ppa:ubuntu-toolchain-r/test
     - apt update
 
-    # Install Java 17 and Maven 3.8.5
+    # Install Java 17, Maven 3.8.5, and JavaFX
     - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless
     - apt install -y wget
     - apt install -y tar
@@ -25,11 +25,13 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - mkdir -p /usr/local/apache-maven
     - mv apache-maven-3.8.5-bin.tar.gz /usr/local/apache-maven
     - tar -xzvf /usr/local/apache-maven/apache-maven-3.8.5-bin.tar.gz --directory /usr/local/apache-maven
+    - apt install -y openjfx
 
     - export M2_HOME=/usr/local/apache-maven/apache-maven-3.8.5
     - export M2=$M2_HOME/bin
     - export MAVEN_OPTS="-Xms256m -Xmx512m"
     - export PATH=$M2:$PATH
+    - export PATH_TO_FX=/usr/share/openjfx/lib
     - source ~/.profile
 
     # Check versions
