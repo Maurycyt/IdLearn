@@ -12,9 +12,8 @@ all-in-one-job:       # This job does all there is to be done, including testing
   script:
     - echo "Starting maven execution..."
     - apt update
-    - apt install -y default-jre
+    - apt install -y openjdk-17-jre-headless
     - apt install -y maven
     - java --version
-    - javac --version
     - mvn install -B -Dstyle.color=always
     - echo "Maven execution complete."
