@@ -13,8 +13,8 @@ public class CodeBlockSpawnerTest {
 
     private static void preparePlatform() {
         try {
-            Platform.startup(() -> {
-            });
+            //Platform.startup(() -> {
+            //});
         }
         catch (IllegalStateException e) {
             // Toolkit already initialized
