@@ -3,9 +3,9 @@ image: ubuntu
 stages:          # List of stages for jobs, and their order of execution
   - build
 
-workflow:        # Rule to execute only on merge requests because Maven takes long as fuuuck.
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+#workflow:        # Rule to execute only on merge requests because Maven takes long as fuuuck.
+#  rules:
+#    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 all-in-one-job:       # This job does all there is to be done, including testing, apparently. https://stackoverflow.com/a/17123957/14406682
   stage: build
