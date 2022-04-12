@@ -23,7 +23,7 @@ public class CompilerTest {
     }
 
     @Test
-    void testBasicCompile() {
+    public void testBasicCompile() {
         preparePlatform();
         CodeSegment segment = new CodeSegment();
 

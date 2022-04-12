@@ -22,8 +22,7 @@ public class ResizableTextFieldTest {
     }
 
     @Test
-    void testCompile() {
-        System.out.println("testCompile");
+    public void testCompile() {
         preparePlatform();
         new ResizableTextField(null);
 
@@ -32,8 +31,7 @@ public class ResizableTextFieldTest {
     }
 
     @Test
-    void testSize() {
-        System.out.println("testSize");
+    public void testSize() {
         preparePlatform();
         ResizableTextField rtf1 = new ResizableTextField(null);
         double size0 = rtf1.getWidth();

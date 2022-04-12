@@ -23,7 +23,7 @@ public class CodeBoxTest {
     }
 
     @Test
-    void testGhost() {
+    public void testGhost() {
         preparePlatform();
         Group root = new Group();
 

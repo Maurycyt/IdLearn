@@ -23,7 +23,7 @@ public class CodeBlockTest {
     }
 
     @Test
-    void testMoving() {
+    public void testMoving() {
         preparePlatform();
         VBox codeBlocks = new VBox();
         CodeBox codeBox = new CodeBox();
