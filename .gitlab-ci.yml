@@ -1,4 +1,4 @@
-image: ubuntu
+image: maven:3-openjdk-17
 
 stages:          # List of stages for jobs, and their order of execution
   - build
@@ -12,6 +12,6 @@ all-in-one-job:       # This job does all there is to be done, including testing
   script:
     - echo "Starting maven execution..."
     - apt update
-    - apt install -y maven
+    - apt install make
     - mvn install -B -Dstyle.color=always
     - echo "Maven execution complete."
