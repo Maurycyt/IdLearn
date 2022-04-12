@@ -28,7 +28,7 @@ public class BlockIOTest {
     }
 
     @Test
-    public void testIncorrectInput() {
+    void testIncorrectInput() {
         preparePlatform();
         try {
             ProblemPackage pkg = PackageManager.getProblemPackage("Addition");
@@ -64,7 +64,7 @@ public class BlockIOTest {
     }
 
     @Test
-    public void testAddition() {
+    void testAddition() {
         preparePlatform();
         try {
             ProblemPackage pkg = PackageManager.getProblemPackage("Addition");

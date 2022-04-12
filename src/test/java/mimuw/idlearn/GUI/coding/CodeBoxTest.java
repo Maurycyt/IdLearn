@@ -6,7 +6,6 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Assign;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.WhileBlock;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
