@@ -24,7 +24,6 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - wget https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
     - mkdir -p /usr/local/apache-maven
     - mv apache-maven-3.8.5-bin.tar.gz /usr/local/apache-maven
-#    - cd /usr/local/apache-maven
     - tar -xzvf /usr/local/apache-maven/apache-maven-3.8.5-bin.tar.gz --directory /usr/local/apache-maven
 
     - export M2_HOME=/usr/local/apache-maven/apache-maven-3.8.5
@@ -46,7 +45,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - apt install -y make
     - apt install -y g++-11
     - g++-11 --version
-    - update-alternatives --set g++ "/usr/bin/g++-11"
+    - mv /usr/bin/g++-11 /usr/bin/g++
     - g++ --version
 
     # Install
