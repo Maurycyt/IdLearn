@@ -11,6 +11,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
   stage: build
   script:
     - echo "Starting maven execution..."
+    - apt update
     - apt install -y software-properties-common
     - add-apt-repository ppa:ubuntu-toolchain-r/test
     - apt update
