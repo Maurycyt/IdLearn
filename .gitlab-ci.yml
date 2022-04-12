@@ -10,15 +10,15 @@ stages:          # List of stages for jobs, and their order of execution
 all-in-one-job:       # This job does all there is to be done, including testing, apparently. https://stackoverflow.com/a/17123957/14406682
   stage: build
   script:
+    # Add g++ repository and update repositories.
     - echo "Starting maven execution..."
     - apt update
     - apt install -y software-properties-common
     - add-apt-repository ppa:ubuntu-toolchain-r/test
     - apt update
-    - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless
-    - pwd
 
-    # Install maven 3.8.5
+    # Install Java 17 and Maven 3.8.5
+    - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless
     - apt install -y wget
     - apt install -y tar
     - wget https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
@@ -37,14 +37,10 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - mvn --version
     - update-alternatives --config java
     - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-    - pwd
-    - apt install -y tree
-    - tree
 
     # Install make and g++
     - apt install -y make
     - apt install -y g++-11
-    - g++-11 --version
     - mv /usr/bin/g++-11 /usr/bin/g++
     - g++ --version
 
