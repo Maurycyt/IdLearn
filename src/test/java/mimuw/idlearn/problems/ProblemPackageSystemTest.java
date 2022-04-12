@@ -42,6 +42,18 @@ public class ProblemPackageSystemTest {
 	public void problemPackageTest() throws IOException {
 		ProblemPackage pack = PackageManager.getProblemPackages()[0];
 		assertEquals(pack.getTitle(), "Addition");
+		assertEquals(pack.getStatement(), "Johnny needs help with his maths homework. Write a program, which will read two numbers and output their sum.\n" +
+						"\n" +
+						"Input:\n" +
+						"The first and only line of input contains two numbers, a and b, in the range [-10^9, 10^9].\n" +
+						"\n" +
+						"Output:\n" +
+						"The only number outputted should be the value of a + b.\n" +
+						"\n" +
+						"Example input:\n" +
+						"3 -5\n" +
+						"Example output:\n" +
+						"-2");
 
 		pack.prepareTest(123);
 		Scanner scanner = pack.getTestInputScanner();

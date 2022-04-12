@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -70,6 +72,27 @@ public class ProblemPackage {
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	 * Returns the statement of the problem, complete with an example input and output.
+	 * @return The statement, with example input and output.
+	 */
+	public String getStatement() {
+		StringBuilder sb = new StringBuilder();
+		try {
+			String contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "statement.txt"));
+			sb.append(contents);
+			sb.append("\n\nExample input:\n");
+			contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "example.in"));
+			sb.append(contents);
+			sb.append("\nExample output:\n");
+			contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "example.out"));
+			sb.append(contents);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
 	}
 
 	/**
