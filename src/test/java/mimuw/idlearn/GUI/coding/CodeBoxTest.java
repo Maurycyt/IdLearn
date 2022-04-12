@@ -6,15 +6,13 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Assign;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.WhileBlock;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CodeBoxTest {
 
-    @BeforeAll
-    public static void preparePlatform() {
+    private static void preparePlatform() {
         try {
             Platform.startup(() -> {
             });
@@ -25,7 +23,8 @@ public class CodeBoxTest {
     }
 
     @Test
-    public void ghostTest() {
+    public void testGhost() {
+        preparePlatform();
         Group root = new Group();
 
         Group codeBlocks = new Group();

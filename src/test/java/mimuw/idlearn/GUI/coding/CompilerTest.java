@@ -6,14 +6,13 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.environment.Scope;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CompilerTest {
-    @BeforeAll
-    public static void preparePlatform() {
+
+    private static void preparePlatform() {
         try {
             Platform.startup(() -> {
             });
@@ -24,7 +23,8 @@ public class CompilerTest {
     }
 
     @Test
-    public void basicCompileTest() {
+    public void testBasicCompile() {
+        preparePlatform();
         CodeSegment segment = new CodeSegment();
 
         Assign assignx = new Assign();

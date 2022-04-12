@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static mimuw.idlearn.language.LanguageTest.OperatorTestConfig.OpName.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 
@@ -65,8 +64,7 @@ public class LanguageTest {
 		}
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleValueArithmeticTests() {
+	public Collection<DynamicTest> simpleValueArithmeticTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -88,8 +86,15 @@ public class LanguageTest {
 		return dynamicTests;
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleValueLogicTests() {
+	@Test
+	public void testSimpleValueArithmetic() throws Throwable {
+		Collection<DynamicTest> tests = simpleValueArithmeticTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	public Collection<DynamicTest> simpleValueLogicTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -119,8 +124,15 @@ public class LanguageTest {
 		return dynamicTests;
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleNestedArithmeticTests() {
+	@Test
+	public void testSimpleValueLogic() throws Throwable {
+		Collection<DynamicTest> tests = simpleValueLogicTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	public Collection<DynamicTest> simpleNestedArithmeticTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -167,8 +179,15 @@ public class LanguageTest {
 		return dynamicTests;
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleNestedLogicTests() {
+	@Test
+	public void testSimpleNestedArithmetic() throws Throwable {
+		Collection<DynamicTest> tests = simpleNestedArithmeticTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	public Collection<DynamicTest> simpleNestedLogicTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -207,7 +226,15 @@ public class LanguageTest {
 	}
 
 	@Test
-	public void simpleIfElseTest() {
+	public void testSimpleNestedLogic() throws Throwable {
+		Collection<DynamicTest> tests = simpleNestedLogicTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	@Test
+	public void testSimpleIfElse() {
 		Scope globalScope = new Scope();
 		Scope scope = new Scope(globalScope);
 
@@ -237,7 +264,7 @@ public class LanguageTest {
 	}
 
 	@Test
-	public void simpleWhileTest() {
+	public void testSimpleWhile() {
 		Scope globalScope = new Scope();
 		Scope scope = new Scope(globalScope);
 
@@ -269,7 +296,7 @@ public class LanguageTest {
 	}
 
 	@Test
-	public void innerScopeAssignmentTest() {
+	public void testInnerScopeAssignment() {
 		Scope globalScope = new Scope();
 		Scope outerScope = new Scope(globalScope);
 		Scope innerScope = new Scope(outerScope);
@@ -287,7 +314,7 @@ public class LanguageTest {
 	}
 
 	@Test
-	public void programFibTest() {
+	public void testProgramFib() {
 		final int N = 20;
 		Scope globalScope = new Scope();
 		Scope scope = new Scope(globalScope);
@@ -338,6 +365,7 @@ public class LanguageTest {
 		long end = System.currentTimeMillis();
 
 		System.out.println(2*N + " operations performed in " + (end - start) + " milliseconds.");
+		assertTrue(end - start < 10000);
 	}
 
 	@Test
