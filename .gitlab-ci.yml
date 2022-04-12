@@ -45,6 +45,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - add-apt-repository ppa:ubuntu-toolchain-r/test
     - apt update
     - apt install -y g++-11
+    - alias g++=g++-11
     - g++ --version
 
     # Install
