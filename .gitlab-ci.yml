@@ -11,6 +11,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
   stage: build
   script:
     - echo "Starting maven execution..."
-    # - "mvn install -B" --- This was not ideal because it didn't colour the output
+    - apt update
+    - apt install maven
     - mvn install -B -Dstyle.color=always
     - echo "Maven execution complete."
