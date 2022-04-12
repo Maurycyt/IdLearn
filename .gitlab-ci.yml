@@ -11,7 +11,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
   stage: build
   script:
     - echo "Starting maven execution..."
-    - apt update
-    - apt install make
+    - apt-get update
+    - apt-get install make
     - mvn install -B -Dstyle.color=always
     - echo "Maven execution complete."
