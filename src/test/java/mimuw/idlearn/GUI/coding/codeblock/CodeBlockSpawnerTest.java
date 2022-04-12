@@ -23,7 +23,7 @@ public class CodeBlockSpawnerTest {
     }
 
     @Test
-    public void testSpawning() {
+    void testSpawning() {
         preparePlatform();
         CodeBox codeBox = new CodeBox();
         Group dragged = new Group();
