@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CodeBoxTest {
 
-    @BeforeAll
-    public static void preparePlatform() {
+    private static void preparePlatform() {
         try {
             Platform.startup(() -> {
             });
@@ -25,7 +24,8 @@ public class CodeBoxTest {
     }
 
     @Test
-    public void ghostTest() {
+    public void testGhost() {
+        preparePlatform();
         Group root = new Group();
 
         Group codeBlocks = new Group();

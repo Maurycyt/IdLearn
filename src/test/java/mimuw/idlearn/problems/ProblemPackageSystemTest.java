@@ -15,7 +15,7 @@ public class ProblemPackageSystemTest {
 	static final File expectedPackageDirectory = expectedPackageDirectoryPath.toFile();
 
 	@Test
-	public void packageManagerTest() {
+	public void testPackageManager() {
 		ShellExecutor.execute("rm -rf " + expectedPackageDirectoryPath);
 
 		assertEquals(PackageManager.getInitialProblemPackageDirectory(), expectedPackageDirectory);
@@ -39,21 +39,22 @@ public class ProblemPackageSystemTest {
 	}
 
 	@Test
-	public void problemPackageTest() throws IOException {
+	public void testProblemPackage() throws IOException {
 		ProblemPackage pack = PackageManager.getProblemPackages()[0];
 		assertEquals(pack.getTitle(), "Addition");
-		assertEquals(pack.getStatement(), "Johnny needs help with his maths homework. Write a program, which will read two numbers and output their sum.\n" +
-						"\n" +
-						"Input:\n" +
-						"The first and only line of input contains two numbers, a and b, in the range [-10^9, 10^9].\n" +
-						"\n" +
-						"Output:\n" +
-						"The only number outputted should be the value of a + b.\n" +
-						"\n" +
-						"Example input:\n" +
-						"3 -5\n" +
-						"Example output:\n" +
-						"-2");
+		assertEquals(pack.getStatement(), """
+						Johnny needs help with his maths homework. Write a program, which will read two numbers and output their sum.
+
+						Input:
+						The first and only line of input contains two numbers, a and b, in the range [-10^9, 10^9].
+
+						Output:
+						The only number outputted should be the value of a + b.
+
+						Example input:
+						3 -5
+						Example output:
+						-2""");
 
 		pack.prepareTest(123);
 		Scanner scanner = pack.getTestInputScanner();

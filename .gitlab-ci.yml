@@ -1,4 +1,4 @@
-image: maven:3-openjdk-17
+image: ubuntu
 
 stages:          # List of stages for jobs, and their order of execution
   - build

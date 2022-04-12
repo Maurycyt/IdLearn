@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CodeBlockTest {
 
-    @BeforeAll
-    public static void preparePlatform() {
+    private static void preparePlatform() {
         try {
             Platform.startup(() -> {
             });
@@ -24,7 +23,8 @@ public class CodeBlockTest {
     }
 
     @Test
-    public void movingTest() {
+    public void testMoving() {
+        preparePlatform();
         VBox codeBlocks = new VBox();
         CodeBox codeBox = new CodeBox();
         Group dragged = new Group();

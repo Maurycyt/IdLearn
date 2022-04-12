@@ -11,16 +11,15 @@ public class ShellExecutorTest {
 	private File scriptFile;
 	private Path scriptFilePath;
 
-	@SuppressWarnings("unused")
-	@BeforeEach
-	private void beforeEach() {
+	private void init() {
 		se = new ShellExecutor();
 		scriptFile = se.getScriptFile();
 		scriptFilePath = se.getScriptFilePath();
 	}
 
 	@Test
-	public void fileCreationTest() throws IOException {
+	public void testFileCreation() throws IOException {
+		init();
 		assertTrue(scriptFile.canRead() && scriptFile.canWrite() && scriptFile.canExecute());
 		String expectedContents = ShellExecutor.getDefaultScriptContents();
 		String actualContents = Files.readString(scriptFilePath);
@@ -28,7 +27,8 @@ public class ShellExecutorTest {
 	}
 
 	@Test
-	public void commandExecutionTest() {
+	public void testCommandExecution() {
+		init();
 		String someText = "some text";
 		String expectedOutput = someText + "\n";
 		String output;
