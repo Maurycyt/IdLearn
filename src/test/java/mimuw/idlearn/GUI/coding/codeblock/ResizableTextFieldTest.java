@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ResizableTextFieldTest {
 
-    @BeforeAll
-    public static void preparePlatform() {
+    private static void preparePlatform() {
         try {
             Platform.startup(() -> {
             });
@@ -23,8 +22,8 @@ public class ResizableTextFieldTest {
     }
 
     @Test
-    public void compileTest() {
-
+    public void testCompile() {
+        preparePlatform();
         new ResizableTextField(null);
 
         BlockBase base = new BlockBase(50, Color.AQUA);
@@ -32,7 +31,8 @@ public class ResizableTextFieldTest {
     }
 
     @Test
-    public void sizeTest() {
+    public void testSize() {
+        preparePlatform();
         ResizableTextField rtf1 = new ResizableTextField(null);
         double size0 = rtf1.getWidth();
 

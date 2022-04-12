@@ -1,16 +1,43 @@
-image: maven:3-openjdk-17
+image: ubuntu
 
 stages:          # List of stages for jobs, and their order of execution
   - build
 
-workflow:        # Rule to execute only on merge requests because Maven takes long as fuuuck.
+workflow:        # Rule to execute only on merge requests.
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 all-in-one-job:       # This job does all there is to be done, including testing, apparently. https://stackoverflow.com/a/17123957/14406682
   stage: build
   script:
+    # Add g++ repository and update repositories.
     - echo "Starting maven execution..."
-    # - "mvn install -B" --- This was not ideal because it didn't colour the output
-    - mvn install -B -Dstyle.color=always
+    - apt update
+    - apt install -y software-properties-common
+    - add-apt-repository ppa:ubuntu-toolchain-r/test
+    - apt update
+
+    # Install Java 17, Maven 3.8.5, JavaFX, g++ and xvfb.
+    # wget and tar are for maven 3.8.5 installation.
+    # xvfb is to run CI/CD in a virtual framebuffer server or something, so that javafx works. https://stackoverflow.com/a/58724982/14406682
+    - apt install -y openjdk-17-jre openjdk-17-jdk wget tar openjfx make g++-11 xvfb
+    - wget https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
+    - mkdir -p /usr/local/apache-maven
+    - mv apache-maven-3.8.5-bin.tar.gz /usr/local/apache-maven
+    - tar -xzvf /usr/local/apache-maven/apache-maven-3.8.5-bin.tar.gz --directory /usr/local/apache-maven
+
+    - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+    - export M2_HOME=/usr/local/apache-maven/apache-maven-3.8.5
+    - export M2=$M2_HOME/bin
+    - export MAVEN_OPTS="-Xms256m -Xmx512m"
+    - export PATH=$M2:$PATH
+    - export PATH_TO_FX=/usr/share/openjfx/lib
+    - source ~/.profile
+
+    # Check versions
+    - update-alternatives --config java
+    - mv /usr/bin/g++-11 /usr/bin/g++
+
+    # Install
+    - xvfb-run mvn clean install -X -B -Dstyle.color=always
     - echo "Maven execution complete."

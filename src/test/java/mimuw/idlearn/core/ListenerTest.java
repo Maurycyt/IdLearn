@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ListenerTest{
 	@Test
-	void simpleListenerTest(){
+	public void testSimpleListener(){
 		final Integer[] x = new Integer[1];
 		
 		Emitter emitter = new Emitter();
@@ -45,7 +45,7 @@ public class ListenerTest{
 	}
 	
 	@Test
-	void multipleListenersTest(){
+	public void testMultipleListeners(){
 		final Integer[] x = new Integer[1];
 		
 		Emitter emitter = new Emitter();

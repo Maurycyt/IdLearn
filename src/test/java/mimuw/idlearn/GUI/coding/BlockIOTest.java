@@ -17,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class BlockIOTest {
 
-    @BeforeAll
-    public static void preparePlatform() {
+    private static void preparePlatform() {
         try {
             Platform.startup(() -> {
             });
@@ -29,7 +28,8 @@ public class BlockIOTest {
     }
 
     @Test
-    public void incorrectInputTest() {
+    public void testIncorrectInput() {
+        preparePlatform();
         try {
             ProblemPackage pkg = PackageManager.getProblemPackage("Addition");
             pkg.prepareTest(123);
@@ -64,7 +64,8 @@ public class BlockIOTest {
     }
 
     @Test
-    public void additionTest() {
+    public void testAddition() {
+        preparePlatform();
         try {
             ProblemPackage pkg = PackageManager.getProblemPackage("Addition");
             pkg.prepareTest(123);
