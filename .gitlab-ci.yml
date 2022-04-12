@@ -12,7 +12,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
   script:
     - echo "Starting maven execution..."
     - apt update
-    - apt install default-jre
+    - apt install -y default-jre
     - apt install -y maven
     - mvn install -B -Dstyle.color=always
     - echo "Maven execution complete."
