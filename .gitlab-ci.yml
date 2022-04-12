@@ -39,6 +39,8 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - mv /usr/bin/g++-11 /usr/bin/g++
     - g++ --version
 
+    - apt install -y xorg libgtk2.0-0
+
     # Install
     - mvn clean install -X -B -Dstyle.color=always
     - echo "Maven execution complete."
