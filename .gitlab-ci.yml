@@ -39,6 +39,13 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - apt install -y tree
     - tree
 
+    # Install make and g++
+    - apt install -y make
+    - add-apt-repository ppa:ubuntu-toolchain-r/test
+    - apt update
+    - apt install -y g++-11
+    - g++ --version
+
     # Install
     - mvn clean install -X -B -Dstyle.color=always
     - echo "Maven execution complete."
