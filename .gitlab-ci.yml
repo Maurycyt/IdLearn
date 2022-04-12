@@ -11,6 +11,8 @@ all-in-one-job:       # This job does all there is to be done, including testing
   stage: build
   script:
     - echo "Starting maven execution..."
+    - apt install -y software-properties-common
+    - add-apt-repository ppa:ubuntu-toolchain-r/test
     - apt update
     - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless
     - pwd
@@ -41,12 +43,8 @@ all-in-one-job:       # This job does all there is to be done, including testing
 
     # Install make and g++
     - apt install -y make
-    - apt install -y software-properties-common
-    - add-apt-repository ppa:ubuntu-toolchain-r/test
-    - apt update
     - apt install -y g++-11
     - g++-11 --version
-    - update-alternatives --remove-all g++
     - update-alternatives --set g++ "/usr/bin/g++-11"
     - g++ --version
 
