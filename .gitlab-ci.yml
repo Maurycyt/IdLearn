@@ -13,10 +13,26 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - echo "Starting maven execution..."
     - apt update
     - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless
-    - apt install -y maven
+
+    # Install maven 3.8.5
+    - wget https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
+    - mkdir -p /usr/local/apache-maven
+    - mv apache-maven-3.8.5-bin.tar.gz /usr/local/apache-maven
+    - cd /usr/local/apache-maven
+    - tar -xzvf apache-maven-3.8.5-bin.tar.gz
+
+    - export M2_HOME=/usr/local/apache-maven/apache-maven-3.8.5
+    - export M2=$M2_HOME/bin
+    - export MAVEN_OPTS="-Xms256m -Xmx512m"
+    - export PATH=$M2:$PATH
+    - source ~/.profile
+
+    # Check versions
     - java --version
     - mvn --version
     - update-alternatives --config java
     - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-    - mvn install -X -B -Dstyle.color=always
+
+    # Install
+    - mvn clean install -X -B -Dstyle.color=always
     - echo "Maven execution complete."
