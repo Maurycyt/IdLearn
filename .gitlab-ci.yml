@@ -34,6 +34,9 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - mvn --version
     - update-alternatives --config java
     - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+    - pwd
+    - apt install -y tree
+    - tree
 
     # Install
     - mvn clean install -X -B -Dstyle.color=always
