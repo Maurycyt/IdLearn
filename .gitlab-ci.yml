@@ -3,7 +3,7 @@ image: ubuntu
 stages:          # List of stages for jobs, and their order of execution
   - build
 
-#workflow:        # Rule to execute only on merge requests because Maven takes long as fuuuck.
+#workflow:        # Rule to execute only on merge requests because.
 #  rules:
 #    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
@@ -18,7 +18,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - apt update
 
     # Install Java 17, Maven 3.8.5, JavaFX and g++.
-    - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless wget tar openjfx make g++-11
+    - apt install -y openjdk-17-jre openjdk-17-jdk wget tar openjfx make g++-11
     - wget https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
     - mkdir -p /usr/local/apache-maven
     - mv apache-maven-3.8.5-bin.tar.gz /usr/local/apache-maven
@@ -39,7 +39,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - mv /usr/bin/g++-11 /usr/bin/g++
     - g++ --version
 
-    - apt install -y xorg libgtk2.0-0
+#    - apt install -y xorg libgtk2.0-0
 
     # Install
     - mvn clean install -X -B -Dstyle.color=always
