@@ -17,16 +17,14 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - add-apt-repository ppa:ubuntu-toolchain-r/test
     - apt update
 
-    # Install Java 17, Maven 3.8.5, and JavaFX
-    - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless
-    - apt install -y wget
-    - apt install -y tar
+    # Install Java 17, Maven 3.8.5, JavaFX and g++.
+    - apt install -y openjdk-17-jre-headless openjdk-17-jdk-headless wget tar openjfx make g++-11
     - wget https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
     - mkdir -p /usr/local/apache-maven
     - mv apache-maven-3.8.5-bin.tar.gz /usr/local/apache-maven
     - tar -xzvf /usr/local/apache-maven/apache-maven-3.8.5-bin.tar.gz --directory /usr/local/apache-maven
-    - apt install -y openjfx
 
+    - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
     - export M2_HOME=/usr/local/apache-maven/apache-maven-3.8.5
     - export M2=$M2_HOME/bin
     - export MAVEN_OPTS="-Xms256m -Xmx512m"
@@ -38,11 +36,6 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - java --version
     - mvn --version
     - update-alternatives --config java
-    - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-
-    # Install make and g++
-    - apt install -y make
-    - apt install -y g++-11
     - mv /usr/bin/g++-11 /usr/bin/g++
     - g++ --version
 
