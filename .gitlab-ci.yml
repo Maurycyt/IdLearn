@@ -14,5 +14,7 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - apt update
     - apt install -y default-jre
     - apt install -y maven
+    - java --version
+    - javac --version
     - mvn install -B -Dstyle.color=always
     - echo "Maven execution complete."
