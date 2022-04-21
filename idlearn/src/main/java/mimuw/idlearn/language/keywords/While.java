@@ -4,11 +4,11 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
 
-public class While<Void> implements Expression<Void> {
+public class While implements Expression<Void> {
 	private final Expression<Boolean> condition;
-	private final Block<Void> body;
+	private final Block body;
 
-	public While(Expression<Boolean> condition, Block<Void> body) {
+	public While(Expression<Boolean> condition, Block body) {
 		this.condition = condition;
 		this.body = body;
 	}
@@ -30,7 +30,7 @@ public class While<Void> implements Expression<Void> {
 		if (!super.equals(o))
 			return false;
 
-		While<Void> other = (While<Void>) o;
+		While other = (While) o;
 
 		return condition.equals(other.condition) && body.equals(other.body);
 	}

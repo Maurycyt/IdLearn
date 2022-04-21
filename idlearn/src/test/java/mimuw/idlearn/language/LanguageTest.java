@@ -1,8 +1,6 @@
 package mimuw.idlearn.language;
 
-import mimuw.idlearn.language.base.Expression;
-import mimuw.idlearn.language.base.Value;
-import mimuw.idlearn.language.base.Variable;
+import mimuw.idlearn.language.base.*;
 import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.language.keywords.Assignment;
 import mimuw.idlearn.language.keywords.Block;
@@ -10,17 +8,18 @@ import mimuw.idlearn.language.keywords.If;
 import mimuw.idlearn.language.keywords.While;
 import mimuw.idlearn.language.operators.OneArgOperator;
 import mimuw.idlearn.language.operators.TwoArgOperator;
+import mimuw.idlearn.problems.PackageManager;
+import mimuw.idlearn.problems.ProblemPackage;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.io.EOFException;
+import java.io.IOException;
+import java.util.*;
 
 import static mimuw.idlearn.language.LanguageTest.OperatorTestConfig.OpName.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 
@@ -65,8 +64,7 @@ public class LanguageTest {
 		}
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleValueArithmeticTests() {
+	public Collection<DynamicTest> simpleValueArithmeticTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -88,8 +86,15 @@ public class LanguageTest {
 		return dynamicTests;
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleValueLogicTests() {
+	@Test
+	public void testSimpleValueArithmetic() throws Throwable {
+		Collection<DynamicTest> tests = simpleValueArithmeticTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	public Collection<DynamicTest> simpleValueLogicTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -119,8 +124,15 @@ public class LanguageTest {
 		return dynamicTests;
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleNestedArithmeticTests() {
+	@Test
+	public void testSimpleValueLogic() throws Throwable {
+		Collection<DynamicTest> tests = simpleValueLogicTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	public Collection<DynamicTest> simpleNestedArithmeticTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -167,8 +179,15 @@ public class LanguageTest {
 		return dynamicTests;
 	}
 
-	@TestFactory
-	Collection<DynamicTest> simpleNestedLogicTests() {
+	@Test
+	public void testSimpleNestedArithmetic() throws Throwable {
+		Collection<DynamicTest> tests = simpleNestedArithmeticTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	public Collection<DynamicTest> simpleNestedLogicTests() {
 		List<DynamicTest> dynamicTests = new ArrayList<>();
 
 		Scope globalScope = new Scope();
@@ -207,18 +226,26 @@ public class LanguageTest {
 	}
 
 	@Test
-	public void simpleIfElseTest() {
+	public void testSimpleNestedLogic() throws Throwable {
+		Collection<DynamicTest> tests = simpleNestedLogicTests();
+		for (DynamicTest test : tests) {
+			test.getExecutable().execute();
+		}
+	}
+
+	@Test
+	public void testSimpleIfElse() {
 		Scope globalScope = new Scope();
 		Scope scope = new Scope(globalScope);
 
 		Variable<Integer> x = new Variable<>("x");
 		new Assignment<>("x", 5).evaluate(scope);
 
-		Block<Void> onTrue = new Block<>(new ArrayList<>(List.of(
+		Block onTrue = new Block(new ArrayList<>(List.of(
 				new Assignment<>("x",
 						TwoArgOperator.newAdd(x.evaluate(scope), new Value<>(1)))
 		)));
-		Block<Void> onFalse = new Block<>(new ArrayList<>(List.of(
+		Block onFalse = new Block(new ArrayList<>(List.of(
 				new Assignment<>("x",
 						TwoArgOperator.newAdd(x.evaluate(scope), new Value<>(-1)))
 		)));
@@ -231,13 +258,13 @@ public class LanguageTest {
 		).evaluate(scope);
 
 		// `if (x % 2 == 0) {x++;} else {x--;}`
-		new If<>(cond, onTrue, onFalse).evaluate(scope);
+		new If(cond, onTrue, onFalse).evaluate(scope);
 
 		assertEquals(4, scope.getVariable("x").getValue());
 	}
 
 	@Test
-	public void simpleWhileTest() {
+	public void testSimpleWhile() {
 		Scope globalScope = new Scope();
 		Scope scope = new Scope(globalScope);
 
@@ -255,7 +282,7 @@ public class LanguageTest {
 				new Value<>(0)
 		);
 
-		Block<Void> block = new Block<>(new ArrayList<>(List.of(
+		Block block = new Block(new ArrayList<>(List.of(
 				new Assignment<>("x",
 						TwoArgOperator.newAdd(x, new Value<>(1))),
 				new Assignment<>("count",
@@ -263,21 +290,21 @@ public class LanguageTest {
 		)));
 
 		// `while (count > 0) {x++; count--}`
-		new While<>(cond, block).evaluate(scope);
+		new While(cond, block).evaluate(scope);
 
 		assertEquals(420, x.evaluate(scope).getValue());
 	}
 
 	@Test
-	public void innerScopeAssignmentTest() {
+	public void testInnerScopeAssignment() {
 		Scope globalScope = new Scope();
 		Scope outerScope = new Scope(globalScope);
 		Scope innerScope = new Scope(outerScope);
 
 		Variable<Integer> x = new Variable<>("x");
-		Value<Integer> asn1 = new Assignment<>("x", 1).evaluate(outerScope);
-		Value<Integer> asn2 = new Assignment<>("y", x.evaluate(innerScope)).evaluate(innerScope);
-		Value<Integer> asn3 = new Assignment<>("x",
+		Value<Void> asn1 = new Assignment<>("x", 1).evaluate(outerScope);
+		Value<Void> asn2 = new Assignment<>("y", x.evaluate(innerScope)).evaluate(innerScope);
+		Value<Void> asn3 = new Assignment<>("x",
 				TwoArgOperator.newAdd(x.evaluate(innerScope), new Value<>(1))
 		).evaluate(innerScope);
 
@@ -287,7 +314,7 @@ public class LanguageTest {
 	}
 
 	@Test
-	public void programFibTest() {
+	public void testProgramFib() {
 		final int N = 20;
 		Scope globalScope = new Scope();
 		Scope scope = new Scope(globalScope);
@@ -299,19 +326,77 @@ public class LanguageTest {
 		Variable<Integer> i = new Variable<>("i", scope, 0);
 
 		var whileCond = TwoArgOperator.newLessEqual(i, n);
-		var whileBlock = new Block<>(
+		var whileBlock = new Block(
 				new Assignment<>("f3", TwoArgOperator.newAdd(f1, f2)),
 				new Assignment<>("f1", f2),
 				new Assignment<>("f2", f3),
 				new Assignment<>("i", TwoArgOperator.newAdd(i, new Value<>(1)))
 		);
 
-		var outerBlock = new Block<>(
+		var outerBlock = new Block(
 				new Assignment<>("n", TwoArgOperator.newSubtract(n, new Value<>(3))),
-				new While<>(whileCond, whileBlock)
+				new While(whileCond, whileBlock)
 		).evaluate(scope);
 
 		assertEquals(4181, f3.evaluate(scope).getValue());
+	}
+
+	@Test
+	public void testArithmeticOperationsEfficiency() {
+		final int N = 20000000;
+		Scope globalScope = new Scope();
+		Scope scope = new Scope(globalScope);
+
+		Variable<Integer> i = new Variable<>("i", scope, N);
+		Value<Integer> zero = new Value<>(0);
+
+		var whileCond = TwoArgOperator.newGreaterEqual(i, zero);
+		var whileBlock = new Block(
+				new Assignment<>("i",
+						TwoArgOperator.newSubtract(i, new Value<>(1))
+				)
+		);
+		var outerBlock = new Block(
+				new While(whileCond, whileBlock)
+		);
+
+		long start = System.currentTimeMillis();
+		outerBlock.evaluate(scope);
+		long end = System.currentTimeMillis();
+
+		System.out.println(2*N + " operations performed in " + (end - start) + " milliseconds.");
+		assertTrue(end - start < 10000);
+	}
+
+	@Test
+	public void testInputAndOutput() {
+		try {
+			ProblemPackage pkg = PackageManager.getProblemPackage("Addition");
+			pkg.prepareTest(123);
+
+			Scope globalScope = new Scope();
+			Scope scope = new Scope(globalScope);
+			Variable<Integer> x = new Variable<>("x");
+			Variable<Integer> y = new Variable<>("y");
+			Variable<Integer> z = new Variable<>("z");
+			InputHandler inputHandler = new InputHandler(pkg);
+			OutputHandler outputHandler = new OutputHandler(pkg);
+
+			inputHandler.takeVariables(x, y, z);
+			assertThrows(RuntimeException.class, () -> inputHandler.evaluate(scope));
+			pkg.resetScanner();
+
+			inputHandler.takeVariables(x, y);
+			inputHandler.evaluate(scope);
+
+			Value<Integer> ret = TwoArgOperator.newAdd(x, y).evaluate(scope);
+			outputHandler.takeValues(ret);
+			outputHandler.evaluate(scope);
+
+			assert(pkg.checkTest());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

@@ -19,6 +19,10 @@ public class Variable<T> implements Expression<T> {
 		originScope.add(name, new Value<>(initialValue));
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public Value<T> evaluate(Scope scope) throws RuntimeException {
 		return scope.getVariable(name);

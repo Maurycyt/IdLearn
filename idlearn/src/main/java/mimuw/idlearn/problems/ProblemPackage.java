@@ -3,8 +3,11 @@ package mimuw.idlearn.problems;
 import mimuw.idlearn.utils.ShellExecutor;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -72,6 +75,27 @@ public class ProblemPackage {
 	}
 
 	/**
+	 * Returns the statement of the problem, complete with an example input and output.
+	 * @return The statement, with example input and output.
+	 */
+	public String getStatement() {
+		StringBuilder sb = new StringBuilder();
+		try {
+			String contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "statement.txt"));
+			sb.append(contents);
+			sb.append("\n\nExample input:\n");
+			contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "example.in"));
+			sb.append(contents);
+			sb.append("\nExample output:\n");
+			contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "example.out"));
+			sb.append(contents);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
+
+	/**
 	 * Checks if the package contains all the necessary files.
 	 * @return True if and only if the package contains all the necessary files.
 	 */
@@ -120,8 +144,7 @@ public class ProblemPackage {
 		se.addLineToScript("make input -s TestID=" + id);
 		se.execute();
 		try {
-			inputScanner = new Scanner(new File(packageDirectory, "input.in"));
-			outputWriter = new FileWriter(new File(packageDirectory, "user.out"));
+			resetIO();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -186,5 +209,27 @@ public class ProblemPackage {
 		se.addLineToScript("cd " + packageDirectory);
 		se.addLineToScript("make clean");
 		se.execute();
+	}
+
+	/**
+	 * Resets the file scanner by creating a new one.
+	 */
+	public void resetScanner() throws FileNotFoundException {
+		inputScanner = new Scanner(new File(packageDirectory, "input.in"));
+	}
+
+	/**
+	 * Resets the file writer by creating a new one.
+	 */
+	public void resetWriter() throws IOException {
+		outputWriter = new FileWriter(new File(packageDirectory, "user.out"));
+	}
+
+	/**
+	 * Resets both the file scanner and writer.
+	 */
+	public void resetIO() throws IOException {
+		resetScanner();
+		resetWriter();
 	}
 }

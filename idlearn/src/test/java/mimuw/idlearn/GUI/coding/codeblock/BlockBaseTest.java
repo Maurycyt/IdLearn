@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BlockBaseTest {
     @Test
-    public void compilationTest() {
+    public void testCompilation() {
         BlockBase base = new BlockBase(50, Color.AQUA);
         Text t = new Text("IdLang");
         base.addChild(t);
@@ -17,7 +17,7 @@ public class BlockBaseTest {
     }
 
     @Test
-    public void sizeTest() {
+    public void testSize() {
         BlockBase base = new BlockBase(50, Color.AQUA);
         Text t = new Text("IdLang");
 

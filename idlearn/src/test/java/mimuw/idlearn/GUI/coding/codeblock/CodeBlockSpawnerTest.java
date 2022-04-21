@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CodeBlockSpawnerTest {
 
-    @BeforeAll
-    public static void preparePlatform() {
+    private static void preparePlatform() {
         try {
             Platform.startup(() -> {
             });
@@ -24,7 +23,8 @@ public class CodeBlockSpawnerTest {
     }
 
     @Test
-    public void spawningTest() {
+    public void testSpawning() {
+        preparePlatform();
         CodeBox codeBox = new CodeBox();
         Group dragged = new Group();
         CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);

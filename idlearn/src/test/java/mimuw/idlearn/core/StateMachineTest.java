@@ -29,8 +29,9 @@ public class StateMachineTest{
 			return x;
 		}
 	}
+
 	@Test
-	void simpleStateMachineTest(){
+	public void testSimpleStateMachine(){
 		val = 0;
 		StateMachine stateMachine = new StateMachine();
 		State state;

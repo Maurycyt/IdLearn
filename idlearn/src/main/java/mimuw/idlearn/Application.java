@@ -17,17 +17,18 @@ import mimuw.idlearn.scenes.SimpleScene;
 public class Application extends javafx.application.Application{
 	@Override
 	public void start(Stage stage){
+		long start = System.currentTimeMillis();
 		stage.setTitle("IdLearn");
 
 		// Here add first scene
 		states.add(new Preloader(states, new Preloader.LoadTask() {
 			@Override
 			public void load() {
-				// Load in the packages (not necessarily here)
 				ProblemPackage[] packages = PackageManager.getProblemPackages();
 				for (ProblemPackage p : packages) {
 					System.out.println(p.getTitle());
-					p.prepareTest(123);
+					p.build();
+					//p.prepareTest(123);
 				}
 
 				int n = 1000000;
@@ -56,10 +57,14 @@ public class Application extends javafx.application.Application{
 							scene.update(Duration.seconds(1.0 / framesPerSecond));
 						})
 		);
+
+		long end = System.currentTimeMillis();
+		System.out.println("Loaded app in " + (end - start) + " ms.");
+
 		timeline.play();
 	}
 	
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		launch();
 	}
 	

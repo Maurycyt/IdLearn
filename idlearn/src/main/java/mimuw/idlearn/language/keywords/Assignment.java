@@ -4,7 +4,7 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
 
-public class Assignment<T> implements Expression<T> {
+public class Assignment<T> implements Expression<Void> {
 	private final String name;
 	private final Expression<T> expression;
 
@@ -19,7 +19,7 @@ public class Assignment<T> implements Expression<T> {
 	}
 
 	@Override
-	public Value<T> evaluate(Scope scope) throws RuntimeException {
+	public Value<Void> evaluate(Scope scope) throws RuntimeException {
 		Value<T> eval = expression.evaluate(scope);
 
 		Scope origin = scope.getOriginScope(name);
@@ -29,7 +29,7 @@ public class Assignment<T> implements Expression<T> {
 		else
 			origin.add(name, eval);
 
-		return eval;
+		return new Value<>(null);
 	}
 
 	@Override

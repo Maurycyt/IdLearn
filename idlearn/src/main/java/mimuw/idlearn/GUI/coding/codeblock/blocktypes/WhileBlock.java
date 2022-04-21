@@ -5,11 +5,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
+import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.Value;
+import mimuw.idlearn.language.base.Variable;
+import mimuw.idlearn.language.keywords.*;
+import mimuw.idlearn.language.operators.OneArgOperator;
+import mimuw.idlearn.language.operators.TwoArgOperator;
 
 public class WhileBlock extends CodeBlock {
 
     private Pane content;
-    private CodeBlock head;
+    private WhileHead head;
     private CodeBlock foot;
     private CodeSegment segment;
 
@@ -19,7 +25,7 @@ public class WhileBlock extends CodeBlock {
     public WhileBlock() {
         super();
         content = new VBox();
-        head = new While();
+        head = new WhileHead();
         foot = new End(Color.AQUA);
         segment = new CodeSegment();
 
@@ -84,11 +90,30 @@ public class WhileBlock extends CodeBlock {
     }
 
     /**
+     * @return An equivalent expression
+     */
+    @Override
+    public Expression<Void> convert() {
+        Block body = segment.convert();
+        Expression<Boolean> condition = TwoArgOperator.newEqual(new Variable<>(head.getCond()), new Value<>(0));
+        While result = new While(OneArgOperator.newNot(condition), body);
+        return result;
+    }
+
+    /**
      * Return the height of this CodeBlock
      * @return Height
      */
     @Override
     public double getHeight() {
         return head.getHeight() + segment.giveHeight() + foot.getHeight();
+    }
+
+    /**
+     * Set the text in our while
+     * @param text Condition text
+     */
+    public void setText(String text) {
+        head.setText(text);
     }
 }
