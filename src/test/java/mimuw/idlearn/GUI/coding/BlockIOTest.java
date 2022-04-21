@@ -2,14 +2,13 @@ package mimuw.idlearn.GUI.coding;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Add;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Operation;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Read;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Write;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -79,7 +78,8 @@ public class BlockIOTest {
             r1.setText("x");
             r2.setText("y");
 
-            Add add = new Add();
+            Operation add = new Operation();
+            add.setType("+");
             add.setText("x", "x", "y");
 
             Write w = new Write(pkg);

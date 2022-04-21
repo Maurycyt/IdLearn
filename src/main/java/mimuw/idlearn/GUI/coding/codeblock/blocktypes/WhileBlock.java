@@ -97,7 +97,7 @@ public class WhileBlock extends CodeBlock {
     public Expression<Void> convert() {
         Block body = segment.convert();
         Expression<Boolean> condition = new IntToBool(new Variable<>(head.getCond()));
-        While result = new While(OneArgOperator.newNot(condition), body);
+        While result = new While(condition, body);
         return result;
     }
 

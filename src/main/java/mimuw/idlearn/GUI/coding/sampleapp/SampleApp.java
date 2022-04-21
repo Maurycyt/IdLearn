@@ -101,7 +101,7 @@ public class SampleApp extends Application {
 		root.getChildren().add(codeBox);
 		root.getChildren().add(dragged);
 
-		final Scene scene = new Scene(root, 800, 600);
+		final Scene scene = new Scene(root, 1400, 800);
 		stage.setScene(scene);
 		stage.show();
 	}

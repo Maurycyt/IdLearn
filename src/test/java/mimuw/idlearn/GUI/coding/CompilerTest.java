@@ -36,15 +36,17 @@ public class CompilerTest {
         WhileBlock whileB = new WhileBlock();
         whileB.setText("y");
 
-        Operation sub = new Subtract();
+        Operation sub = new Operation();
+        sub.setType("-");
         sub.setText("y", "y", "1");
 
-        Operation mul = new Multiply();
+        Operation mul = new Operation();
+        mul.setType("×");
         mul.setText("x", "2", "x");
 
+        whileB.addChild(CodeBlock.HEIGHT, mul);
+        whileB.addChild(CodeBlock.HEIGHT, sub);
         segment.addChild(0, whileB);
-        segment.addChild(CodeBlock.HEIGHT, mul);
-        segment.addChild(CodeBlock.HEIGHT, sub);
         segment.addChild(0, assigny);
         segment.addChild(0, assignx);
 

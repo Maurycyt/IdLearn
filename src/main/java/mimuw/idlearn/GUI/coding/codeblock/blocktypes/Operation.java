@@ -18,10 +18,11 @@ import mimuw.idlearn.language.operators.TwoArgOperator;
 
 public class Operation extends CodeBlock {
     private final BlockBase base = new BlockBase(HEIGHT, Color.GRAY);
-    String oper;
     TextField oper1;
     TextField oper2;
     TextField result;
+
+    ComboBox<String> dropDown;
 
     /**
      * Create a new operation CodeBlock
@@ -38,7 +39,7 @@ public class Operation extends CodeBlock {
                 FXCollections.observableArrayList(
                         "+", "-", "×", "÷", ">", "<", "=="
                 );
-        final ComboBox dropDown = new ComboBox(options);
+        dropDown = new ComboBox<>(options);
         dropDown.setValue("+");
 
         oper2 = new ResizableTextField(base);
@@ -69,7 +70,7 @@ public class Operation extends CodeBlock {
         Expression<Integer> arg1 = StringToExpression.parse(oper1.getText());
         Expression<Integer> arg2 = StringToExpression.parse(oper2.getText());
         String assignee = result.getText();
-        op = switch (oper) {
+        op = switch (dropDown.getValue()) {
             case "+" ->
                 TwoArgOperator.newAdd(arg1, arg2);
             case "-" ->
@@ -101,5 +102,9 @@ public class Operation extends CodeBlock {
         result.setText(text0);
         oper1.setText(text1);
         oper2.setText(text2);
+    }
+
+    public void setType(String type) {
+        dropDown.setValue(type);
     }
 }

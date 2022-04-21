@@ -2,6 +2,7 @@ package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.ResizableTextField;
@@ -11,7 +12,7 @@ import mimuw.idlearn.language.base.Variable;
 import mimuw.idlearn.problems.ProblemPackage;
 
 public class Write extends CodeBlock {
-    private final BlockBase base = new BlockBase(HEIGHT, Color.BLACK);
+    private final BlockBase base = new BlockBase(HEIGHT, Color.BLUE);
     TextField varName;
     ProblemPackage pkg;
 
@@ -29,8 +30,10 @@ public class Write extends CodeBlock {
         super();
 
         this.pkg = pkg;
+        final Text readText = new Text("Write ");
         varName = new ResizableTextField(base);
 
+        base.addChild(readText);
         base.addChild(varName);
 
         this.getChildren().add(base);

@@ -2,6 +2,7 @@ package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.ResizableTextField;
@@ -29,8 +30,11 @@ public class Read extends CodeBlock {
         super();
 
         this.pkg = pkg;
+
+        final Text readText = new Text("Read ");
         varName = new ResizableTextField(base);
 
+        base.addChild(readText);
         base.addChild(varName);
 
         this.getChildren().add(base);
