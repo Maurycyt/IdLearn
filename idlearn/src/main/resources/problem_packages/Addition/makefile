@@ -1,4 +1,4 @@
-CXX = g++-10
+CXX = g++
 CXXFLAGS = -O3 -Wall -Wextra -DNDEBUG -std=c++20
 TestID = 1
 

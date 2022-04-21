@@ -41,6 +41,9 @@ public class PackageManager {
 	 * Avoid using if problem packages do not need to be reloaded.
 	 */
 	public static void reloadProblemPackages() {
+		if (problemPackageDirectory == null) {
+			reloadProblemPackageDirectory();
+		}
 		File [] packageDirectories = problemPackageDirectory.listFiles(File::isDirectory);
 		if (packageDirectories == null) {
 			throw new RuntimeException("Problem package directory empty");

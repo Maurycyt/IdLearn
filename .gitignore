@@ -18,7 +18,8 @@
 # And the CI/CD config file!
 !.gitlab-ci.yml
 
-# Finally, throw out all useless IDE files and CMake replies and stuff
+# Finally, throw out all useless IDE files and CMake replies and stuff and target directories
 **/.idea/
 idlearn-problem-package-system/test/cmake-build-debug/
 idlearn-problem-package-system/test/cmake-build-debug-coverage/
+**/target/
