@@ -24,7 +24,7 @@ public class PackageManager {
 		if (result.mkdirs()) {
 			// If the problem package directory didn't exist, we need to initialize it.
 			// Copy the contents of defaultProblemPackages into the directory.
-			ShellExecutor.execute("cp -r src/main/resources/problem_packages/. " + problemPackageDirectoryPath);
+			ShellExecutor.execute("cp -r defaultProblemPackages/. " + problemPackageDirectoryPath);
 		}
 
 		problemPackageDirectory = result;

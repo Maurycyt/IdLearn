@@ -40,6 +40,7 @@ public class ProblemPackageSystemTest {
 
 	@Test
 	public void testProblemPackage() throws IOException {
+		PackageManager.reloadProblemPackages();
 		ProblemPackage pack = PackageManager.getProblemPackages()[0];
 		assertEquals(pack.getTitle(), "Addition");
 		assertEquals(pack.getStatement(), """
