@@ -18,7 +18,7 @@ public class ProblemPackageSystemTest {
 	public void testPackageManager() {
 		ShellExecutor.execute("rm -rf " + expectedPackageDirectoryPath);
 
-		assertEquals(PackageManager.getInitialProblemPackageDirectory(), expectedPackageDirectory);
+		assertEquals(PackageManager.getProblemPackageDirectory(), expectedPackageDirectory);
 
 		String[] contents = expectedPackageDirectory.list();
 
@@ -33,7 +33,7 @@ public class ProblemPackageSystemTest {
 		}
 		assertTrue(copiedUtils && didNotCopyTest);
 
-		ProblemPackage[] problemPackages = PackageManager.getInitialProblemPackages();
+		ProblemPackage[] problemPackages = PackageManager.getProblemPackages();
 		assertEquals(problemPackages, PackageManager.getProblemPackages());
 		assertEquals(expectedPackageDirectory, PackageManager.getProblemPackageDirectory());
 	}
