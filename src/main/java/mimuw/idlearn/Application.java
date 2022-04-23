@@ -2,13 +2,14 @@ package mimuw.idlearn;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.control.Button;
+import javafx.event.EventType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
+import mimuw.idlearn.scenes.MainMenu;
+import mimuw.idlearn.scenes.Scene;
 import mimuw.idlearn.scenes.SceneManager;
-import mimuw.idlearn.scenes.SimpleScene;
 import mimuw.idlearn.scenes.preloader.LoadTask;
 
 /**
@@ -21,9 +22,7 @@ public class Application extends javafx.application.Application{
 		stage.setTitle("IdLearn");
 
 		// Here add first scene
-		Button b = new Button("Hello there");
-		b.setOnAction(e -> b.setText("General Kenobi"));
-		scenes.add(new SimpleScene(scenes, b), new LoadTask() {
+		scenes.add(new MainMenu(scenes), new LoadTask() {
 			@Override
 			public void load() {
 				PackageManager.reloadProblemPackages();
@@ -43,7 +42,10 @@ public class Application extends javafx.application.Application{
 			}
 		});
 
-		stage.setScene(new javafx.scene.Scene(scenes.get(), 320, 240));
+		javafx.scene.Scene fxScene = new javafx.scene.Scene(scenes.get(), 640, 480);
+		fxScene.addEventHandler(EventType.ROOT, e -> ((Scene)fxScene.getRoot()).handleEvent(e));
+
+		stage.setScene(fxScene);
 		stage.show();
 
 		final Timeline timeline = new Timeline();

@@ -5,7 +5,6 @@ import javafx.util.Duration;
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Event;
 import mimuw.idlearn.core.Listener;
-import mimuw.idlearn.core.StateMachine;
 import mimuw.idlearn.scenes.Scene;
 import mimuw.idlearn.scenes.SceneManager;
 
@@ -34,6 +33,11 @@ public class Preloader extends Scene implements Listener {
 		synchronized (emitter){
 			emitter.processEvents();
 		}
+	}
+
+	@Override
+	public void handleEvent(javafx.event.Event event) {
+
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package mimuw.idlearn.scenes;
 
+import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
@@ -20,4 +21,7 @@ public class SimpleScene extends Scene{
 
 	@Override
 	public void update(Duration time) {}
+
+	@Override
+	public void handleEvent(Event event) {}
 }
