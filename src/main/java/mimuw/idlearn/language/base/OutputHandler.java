@@ -21,11 +21,12 @@ public class OutputHandler implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope) throws RuntimeException {
+	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws RuntimeException {
 		FileWriter writer = pkg.getTestOutputWriter();
 		try {
 			for (var v : values) {
-				writer.write(separator + v.evaluate(scope).getValue());
+				counter.addTime(delay);
+				writer.write(separator + v.evaluate(scope, counter).getValue());
 			}
 			writer.flush();
 		} catch (IOException e) {

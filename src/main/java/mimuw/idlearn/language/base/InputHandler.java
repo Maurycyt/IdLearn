@@ -20,9 +20,10 @@ public class InputHandler implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope) throws RuntimeException {
+	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws RuntimeException {
 		Scanner scanner = pkg.getTestInputScanner();
 		for (var v : variables) {
+			counter.addTime(delay);
 			if (!scanner.hasNextInt()) {
 				throw new RuntimeException("Too many variables provided for loading input.");
 			}

@@ -6,6 +6,7 @@ import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Operation;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Read;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Write;
 import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
@@ -51,7 +52,7 @@ public class BlockIOTest {
 			try {
 				Expression<Void> program = codeBox.compile();
 				Scope scope = new Scope();
-				program.evaluate(scope);
+				program.evaluate(scope, new TimeCounter());
 				fail();
 			} catch (Exception e) {
 			}
@@ -90,7 +91,7 @@ public class BlockIOTest {
 
 			Expression<Void> program = codeBox.compile();
 			Scope scope = new Scope();
-			program.evaluate(scope);
+			program.evaluate(scope, new TimeCounter());
 			assertTrue(pkg.checkTest());
 		} catch (Exception e) {
 			fail();

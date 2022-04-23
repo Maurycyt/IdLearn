@@ -24,7 +24,7 @@ public class Variable<T> implements Expression<T> {
 	}
 
 	@Override
-	public Value<T> evaluate(Scope scope) throws RuntimeException {
+	public Value<T> evaluate(Scope scope, TimeCounter counter) throws RuntimeException {
 		return scope.getVariable(name);
 	}
 

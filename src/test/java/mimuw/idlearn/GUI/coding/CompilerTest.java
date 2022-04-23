@@ -5,6 +5,7 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.environment.Scope;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +52,7 @@ public class CompilerTest {
 
 		Expression<Void> exp = segment.convert();
 		Scope scope = new Scope();
-		exp.evaluate(scope);
+		exp.evaluate(scope, new TimeCounter());
 		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").getValue());
 	}
 }

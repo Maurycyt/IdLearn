@@ -1,6 +1,7 @@
 package mimuw.idlearn.language.operators;
 
 import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
 
@@ -14,8 +15,9 @@ public abstract class OneArgOperator<A, R> implements Expression<R> {
 	public static OneArgOperator<Boolean, Boolean> newNot(Expression<Boolean> arg) {
 		return new OneArgOperator<>(arg) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope) throws RuntimeException {
-				return new Value<>(!arg.evaluate(scope).getValue());
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws RuntimeException {
+				counter.addTime(delay);
+				return new Value<>(!arg.evaluate(scope, counter).getValue());
 			}
 		};
 	}

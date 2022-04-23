@@ -24,7 +24,7 @@ public class Assign extends CodeBlock {
 		String name = varName.getText();
 		String valueText = value.getText();
 		Expression<Integer> valueInt = StringToExpression.parse(valueText);
-		Assignment<Integer> assign = new Assignment<>(name, valueInt);
+		Assignment<Integer> assign = new Assignment<>(name, valueInt, true);
 		return assign;
 	}
 

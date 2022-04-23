@@ -60,7 +60,7 @@ public class LanguageTest {
 		}
 
 		public void checkResult(Scope scope) {
-			assertEquals(expected, op.evaluate(scope).getValue());
+			assertEquals(expected, op.evaluate(scope, new TimeCounter()).getValue());
 		}
 	}
 
@@ -239,15 +239,17 @@ public class LanguageTest {
 		Scope scope = new Scope(globalScope);
 
 		Variable<Integer> x = new Variable<>("x");
-		new Assignment<>("x", 5).evaluate(scope);
+		new Assignment<>("x", 5, false).evaluate(scope, new TimeCounter());
 
 		Block onTrue = new Block(new ArrayList<>(List.of(
 				new Assignment<>("x",
-						TwoArgOperator.newAdd(x.evaluate(scope), new Value<>(1)))
+						TwoArgOperator.newAdd(x.evaluate(scope, new TimeCounter()), new Value<>(1)),
+						false)
 		)));
 		Block onFalse = new Block(new ArrayList<>(List.of(
 				new Assignment<>("x",
-						TwoArgOperator.newAdd(x.evaluate(scope), new Value<>(-1)))
+						TwoArgOperator.newAdd(x.evaluate(scope, new TimeCounter()), new Value<>(-1)),
+						false)
 		)));
 
 		Value<Boolean> cond = TwoArgOperator.newEqual(
@@ -255,10 +257,10 @@ public class LanguageTest {
 						scope.getVariable("x"),
 						new Value<>(2)),
 				new Value<>(0)
-		).evaluate(scope);
+		).evaluate(scope, new TimeCounter());
 
 		// `if (x % 2 == 0) {x++;} else {x--;}`
-		new If(cond, onTrue, onFalse).evaluate(scope);
+		new If(cond, onTrue, onFalse).evaluate(scope, new TimeCounter());
 
 		assertEquals(4, scope.getVariable("x").getValue());
 	}
@@ -270,8 +272,8 @@ public class LanguageTest {
 
 		Variable<Integer> x = new Variable<>("x");
 		Variable<Integer> count = new Variable<>("count");
-		new Assignment<>("x", 0).evaluate(scope);
-		new Assignment<>("count", 420).evaluate(scope);
+		new Assignment<>("x", 0, false).evaluate(scope, new TimeCounter());
+		new Assignment<>("count", 420, false).evaluate(scope, new TimeCounter());
 
 		// Note: don't hard-code evaluations in operators unless you want endless loops!
 		// - write `x` instead of `x.evaluate(scope)`
@@ -284,15 +286,17 @@ public class LanguageTest {
 
 		Block block = new Block(new ArrayList<>(List.of(
 				new Assignment<>("x",
-						TwoArgOperator.newAdd(x, new Value<>(1))),
+						TwoArgOperator.newAdd(x, new Value<>(1)),
+						false),
 				new Assignment<>("count",
-						TwoArgOperator.newSubtract(count, new Value<>(1)))
+						TwoArgOperator.newSubtract(count, new Value<>(1)),
+						false)
 		)));
 
 		// `while (count > 0) {x++; count--}`
-		new While(cond, block).evaluate(scope);
+		new While(cond, block).evaluate(scope, new TimeCounter());
 
-		assertEquals(420, x.evaluate(scope).getValue());
+		assertEquals(420, x.evaluate(scope, new TimeCounter()).getValue());
 	}
 
 	@Test
@@ -302,11 +306,12 @@ public class LanguageTest {
 		Scope innerScope = new Scope(outerScope);
 
 		Variable<Integer> x = new Variable<>("x");
-		Value<Void> asn1 = new Assignment<>("x", 1).evaluate(outerScope);
-		Value<Void> asn2 = new Assignment<>("y", x.evaluate(innerScope)).evaluate(innerScope);
+		Value<Void> asn1 = new Assignment<>("x", 1, false).evaluate(outerScope, new TimeCounter());
+		Value<Void> asn2 = new Assignment<>("y", x.evaluate(innerScope, new TimeCounter()), false).evaluate(innerScope, new TimeCounter());
 		Value<Void> asn3 = new Assignment<>("x",
-				TwoArgOperator.newAdd(x.evaluate(innerScope), new Value<>(1))
-		).evaluate(innerScope);
+				TwoArgOperator.newAdd(x.evaluate(innerScope, new TimeCounter()), new Value<>(1)),
+				false
+		).evaluate(innerScope, new TimeCounter());
 
 		assertEquals(2, innerScope.getVariable("x").getValue());
 		assertEquals(2, outerScope.getVariable("x").getValue());
@@ -327,18 +332,18 @@ public class LanguageTest {
 
 		var whileCond = TwoArgOperator.newLessEqual(i, n);
 		var whileBlock = new Block(
-				new Assignment<>("f3", TwoArgOperator.newAdd(f1, f2)),
-				new Assignment<>("f1", f2),
-				new Assignment<>("f2", f3),
-				new Assignment<>("i", TwoArgOperator.newAdd(i, new Value<>(1)))
+				new Assignment<>("f3", TwoArgOperator.newAdd(f1, f2), false),
+				new Assignment<>("f1", f2, false),
+				new Assignment<>("f2", f3, false),
+				new Assignment<>("i", TwoArgOperator.newAdd(i, new Value<>(1)), false)
 		);
 
 		var outerBlock = new Block(
-				new Assignment<>("n", TwoArgOperator.newSubtract(n, new Value<>(3))),
+				new Assignment<>("n", TwoArgOperator.newSubtract(n, new Value<>(3)), false),
 				new While(whileCond, whileBlock)
-		).evaluate(scope);
+		).evaluate(scope, new TimeCounter());
 
-		assertEquals(4181, f3.evaluate(scope).getValue());
+		assertEquals(4181, f3.evaluate(scope, new TimeCounter()).getValue());
 	}
 
 	@Test
@@ -353,7 +358,8 @@ public class LanguageTest {
 		var whileCond = TwoArgOperator.newGreaterEqual(i, zero);
 		var whileBlock = new Block(
 				new Assignment<>("i",
-						TwoArgOperator.newSubtract(i, new Value<>(1))
+						TwoArgOperator.newSubtract(i, new Value<>(1)),
+						false
 				)
 		);
 		var outerBlock = new Block(
@@ -361,7 +367,7 @@ public class LanguageTest {
 		);
 
 		long start = System.currentTimeMillis();
-		outerBlock.evaluate(scope);
+		outerBlock.evaluate(scope, new TimeCounter());
 		long end = System.currentTimeMillis();
 
 		System.out.println(2*N + " operations performed in " + (end - start) + " milliseconds.");
@@ -383,15 +389,15 @@ public class LanguageTest {
 			OutputHandler outputHandler = new OutputHandler(pkg);
 
 			inputHandler.takeVariables(x, y, z);
-			assertThrows(RuntimeException.class, () -> inputHandler.evaluate(scope));
+			assertThrows(RuntimeException.class, () -> inputHandler.evaluate(scope, new TimeCounter()));
 			pkg.resetScanner();
 
 			inputHandler.takeVariables(x, y);
-			inputHandler.evaluate(scope);
+			inputHandler.evaluate(scope, new TimeCounter());
 
-			Value<Integer> ret = TwoArgOperator.newAdd(x, y).evaluate(scope);
+			Value<Integer> ret = TwoArgOperator.newAdd(x, y).evaluate(scope, new TimeCounter());
 			outputHandler.takeValues(ret);
-			outputHandler.evaluate(scope);
+			outputHandler.evaluate(scope, new TimeCounter());
 
 			assert(pkg.checkTest());
 		} catch (IOException e) {
