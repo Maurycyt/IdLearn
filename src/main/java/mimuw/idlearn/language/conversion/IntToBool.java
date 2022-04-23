@@ -6,21 +6,20 @@ import mimuw.idlearn.language.environment.Scope;
 
 public class IntToBool implements Expression<Boolean> {
 
-    private final Expression<Integer> expression;
+	private final Expression<Integer> expression;
 
-    public IntToBool(Expression<Integer> expression) {
-        this.expression = expression;
-    }
+	public IntToBool(Expression<Integer> expression) {
+		this.expression = expression;
+	}
 
-    @Override
-    public Value<Boolean> evaluate(Scope scope) throws RuntimeException {
-        Value<Integer> eval = expression.evaluate(scope);
+	@Override
+	public Value<Boolean> evaluate(Scope scope) throws RuntimeException {
+		Value<Integer> eval = expression.evaluate(scope);
 
-        if (eval.getValue() != 0) {
-            return new Value<>(true);
-        }
-        else {
-            return new Value<>(false);
-        }
-    }
+		if (eval.getValue() != 0) {
+			return new Value<>(true);
+		} else {
+			return new Value<>(false);
+		}
+	}
 }

@@ -12,38 +12,39 @@ import mimuw.idlearn.language.base.Variable;
 import mimuw.idlearn.problems.ProblemPackage;
 
 public class Write extends CodeBlock {
-    private final BlockBase base = new BlockBase(HEIGHT, Color.BLUE);
-    TextField varName;
-    ProblemPackage pkg;
+	private final BlockBase base = new BlockBase(HEIGHT, Color.BLUE);
+	TextField varName;
+	ProblemPackage pkg;
 
-    @Override
-    public Expression<Void> convert() {
-        String name = varName.getText();
-        OutputHandler writer = new OutputHandler(pkg, new Variable<Integer>(name));
-        return writer;
-    }
+	@Override
+	public Expression<Void> convert() {
+		String name = varName.getText();
+		OutputHandler writer = new OutputHandler(pkg, new Variable<Integer>(name));
+		return writer;
+	}
 
-    /**
-     * Create a new Write CodeBlock
-     */
-    public Write(ProblemPackage pkg) {
-        super();
+	/**
+	 * Create a new Write CodeBlock
+	 */
+	public Write(ProblemPackage pkg) {
+		super();
 
-        this.pkg = pkg;
-        final Text readText = new Text("Write ");
-        varName = new ResizableTextField(base);
+		this.pkg = pkg;
+		final Text readText = new Text("Write ");
+		varName = new ResizableTextField(base);
 
-        base.addChild(readText);
-        base.addChild(varName);
+		base.addChild(readText);
+		base.addChild(varName);
 
-        this.getChildren().add(base);
-    }
+		this.getChildren().add(base);
+	}
 
-    /**
-     * Set the text in our write block
-     * @param text Variable name
-     */
-    public void setText(String text) {
-        varName.setText(text);
-    }
+	/**
+	 * Set the text in our write block
+	 *
+	 * @param text Variable name
+	 */
+	public void setText(String text) {
+		varName.setText(text);
+	}
 }

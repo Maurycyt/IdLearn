@@ -22,7 +22,7 @@ public class SampleApp extends Application {
 
 
 	public static void main(final String[] args) {
-			launch(args);
+		launch(args);
 	}
 
 	@Override
@@ -73,8 +73,7 @@ public class SampleApp extends Application {
 			exp.evaluate(scope);
 			if (pkg.checkTest()) {
 				System.out.println("Correct output");
-			}
-				else {
+			} else {
 				System.out.println("Incorrect output");
 			}
 		});
