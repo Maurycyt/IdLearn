@@ -7,30 +7,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class OutputHandler implements Expression<Void> {
-    private final static String separator = " ";
-    private final ProblemPackage pkg;
-    private Expression<?> [] values;
+	private final static String separator = " ";
+	private final ProblemPackage pkg;
+	private Expression<?>[] values;
 
-    public OutputHandler(ProblemPackage pkg, Expression<?> ...values) {
-        this.pkg = pkg;
-        this.values = values;
-    }
+	public OutputHandler(ProblemPackage pkg, Expression<?>... values) {
+		this.pkg = pkg;
+		this.values = values;
+	}
 
-    public void takeValues(Expression<?> ...variables) {
-        this.values = variables;
-    }
+	public void takeValues(Expression<?>... variables) {
+		this.values = variables;
+	}
 
-    @Override
-    public Value<Void> evaluate(Scope scope) throws RuntimeException {
-        FileWriter writer = pkg.getTestOutputWriter();
-        try {
-            for (var v : values) {
-                writer.write(separator + v.evaluate(scope).getValue());
-            }
-            writer.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new Value<>(null);
-    }
+	@Override
+	public Value<Void> evaluate(Scope scope) throws RuntimeException {
+		FileWriter writer = pkg.getTestOutputWriter();
+		try {
+			for (var v : values) {
+				writer.write(separator + v.evaluate(scope).getValue());
+			}
+			writer.flush();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return new Value<>(null);
+	}
 }
