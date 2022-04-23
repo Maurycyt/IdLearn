@@ -2,7 +2,7 @@ package mimuw.idlearn.GUI.coding;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Add;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Operation;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Read;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.Write;
 import mimuw.idlearn.language.base.Expression;
@@ -18,11 +18,9 @@ public class BlockIOTest {
 
 	private static void preparePlatform() {
 		try {
-			PackageManager.reloadProblemPackages();
 			Platform.startup(() -> {
 			});
-		}
-		catch (IllegalStateException e) {
+		} catch (IllegalStateException e) {
 			// Toolkit already initialized
 		}
 	}
@@ -55,11 +53,10 @@ public class BlockIOTest {
 				Scope scope = new Scope();
 				program.evaluate(scope);
 				fail();
+			} catch (Exception e) {
 			}
-			catch (Exception ignored) {}
-		}
-		catch (Exception e) {
-			fail(e);
+		} catch (Exception e) {
+			fail();
 		}
 	}
 
@@ -79,7 +76,8 @@ public class BlockIOTest {
 			r1.setText("x");
 			r2.setText("y");
 
-			Add add = new Add();
+			Operation add = new Operation();
+			add.setType("+");
 			add.setText("x", "x", "y");
 
 			Write w = new Write(pkg);
@@ -94,9 +92,8 @@ public class BlockIOTest {
 			Scope scope = new Scope();
 			program.evaluate(scope);
 			assertTrue(pkg.checkTest());
-		}
-		catch (Exception e) {
-			fail(e);
+		} catch (Exception e) {
+			fail();
 		}
 	}
 }

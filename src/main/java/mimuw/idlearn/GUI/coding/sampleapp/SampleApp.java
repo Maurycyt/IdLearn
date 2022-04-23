@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -21,7 +22,7 @@ public class SampleApp extends Application {
 
 
 	public static void main(final String[] args) {
-			launch(args);
+		launch(args);
 	}
 
 	@Override
@@ -72,8 +73,7 @@ public class SampleApp extends Application {
 			exp.evaluate(scope);
 			if (pkg.checkTest()) {
 				System.out.println("Correct output");
-			}
-				else {
+			} else {
 				System.out.println("Incorrect output");
 			}
 		});
@@ -82,19 +82,17 @@ public class SampleApp extends Application {
 		Node readSpawner = new CodeBlockSpawner(codeBox, dragged, () -> new Read(pkg));
 		Node writeSpawner = new CodeBlockSpawner(codeBox, dragged, () -> new Write(pkg));
 		Node assignSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
-		Node addSpawner = new CodeBlockSpawner(codeBox, dragged, Add::new);
-		Node subSpawner = new CodeBlockSpawner(codeBox, dragged, Subtract::new);
-		Node mulSpawner = new CodeBlockSpawner(codeBox, dragged, Multiply::new);
+		Node operationSpawner = new CodeBlockSpawner(codeBox, dragged, Operation::new);
 		Node whileSpawner = new CodeBlockSpawner(codeBox, dragged, WhileBlock::new);
+		Node ifSpawner = new CodeBlockSpawner(codeBox, dragged, IfElse::new);
 
 		// Link spawners
 		codeBlocks.getChildren().add(readSpawner);
 		codeBlocks.getChildren().add(writeSpawner);
 		codeBlocks.getChildren().add(assignSpawner);
-		codeBlocks.getChildren().add(addSpawner);
-		codeBlocks.getChildren().add(subSpawner);
-		codeBlocks.getChildren().add(mulSpawner);
+		codeBlocks.getChildren().add(operationSpawner);
 		codeBlocks.getChildren().add(whileSpawner);
+		codeBlocks.getChildren().add(ifSpawner);
 
 		// Link everything else
 		root.getChildren().add(statement);
@@ -102,7 +100,7 @@ public class SampleApp extends Application {
 		root.getChildren().add(codeBox);
 		root.getChildren().add(dragged);
 
-		final Scene scene = new Scene(root, 800, 600);
+		final Scene scene = new Scene(root, 1400, 800);
 		stage.setScene(scene);
 		stage.show();
 	}
