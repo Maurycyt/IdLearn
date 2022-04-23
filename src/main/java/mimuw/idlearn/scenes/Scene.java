@@ -1,10 +1,12 @@
-package mimuw.idlearn;
+package mimuw.idlearn.scenes;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.util.Duration;
 import mimuw.idlearn.core.State;
 import mimuw.idlearn.core.StateMachine;
+import mimuw.idlearn.scenes.preloader.Preloader;
+import mimuw.idlearn.scenes.preloader.LoadTask;
 
 import java.util.Collection;
 
@@ -16,20 +18,24 @@ import java.util.Collection;
  * - https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Group.html
  */
 public class Scene extends Group implements State{
-	public Scene(StateMachine stateMachine){
-		this.stateMachine = stateMachine;
+	public Scene(SceneManager sceneManager) {
+		this.sceneManager = sceneManager;
 	}
-	
-	public Scene(StateMachine stateMachine, Node... nodes){
+
+	public Scene(SceneManager sceneManager, Node... nodes) {
 		super(nodes);
-		this.stateMachine = stateMachine;
+		this.sceneManager = sceneManager;
 	}
-	
-	public Scene(StateMachine stateMachine, Collection<Node> collection){
+
+	public Scene(Collection<Node> collection, SceneManager sceneManager) {
 		super(collection);
-		this.stateMachine = stateMachine;
+		this.sceneManager = sceneManager;
 	}
-	
+
+	public void load(LoadTask task){
+		getSceneManager().add(new Preloader(getSceneManager(), task));
+	}
+
 	@Override
 	public void activate(){
 		setVisible(true);
@@ -41,8 +47,12 @@ public class Scene extends Group implements State{
 		setDisabled(true);
 		setVisible(false);
 	}
-	
+
 	public void update(Duration time){}
-	
-	protected final StateMachine stateMachine;
+
+	public SceneManager getSceneManager() {
+		return sceneManager;
+	}
+
+	private final SceneManager sceneManager;
 }
