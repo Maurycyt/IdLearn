@@ -3,7 +3,9 @@ package mimuw.idlearn.GUI.coding.codeblock.blocktypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -22,7 +24,7 @@ public class Operation extends CodeBlock {
     TextField oper2;
     TextField result;
 
-    ComboBox<String> dropDown;
+    ChoiceBox<String> dropDown;
 
     /**
      * Create a new operation CodeBlock
@@ -39,8 +41,15 @@ public class Operation extends CodeBlock {
                 FXCollections.observableArrayList(
                         "+", "-", "×", "÷", ">", "<", "=="
                 );
-        dropDown = new ComboBox<>(options);
+        dropDown = new ChoiceBox<>(options);
         dropDown.setValue("+");
+
+        double max = 0;
+        for (var option : options) {
+            Text test = new Text(option);
+            max = Math.max(max, test.getLayoutBounds().getWidth());
+        }
+        dropDown.setPrefWidth(max + 30);
 
         oper2 = new ResizableTextField(base);
 
