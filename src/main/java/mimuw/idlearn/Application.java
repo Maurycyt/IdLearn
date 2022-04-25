@@ -31,7 +31,6 @@ public class Application extends javafx.application.Application{
 				for (ProblemPackage p : packages) {
 					System.out.println(p.getTitle());
 					p.build();
-					//p.prepareTest(123);
 				}
 				int n = 1000000;
 				for (int i = 0; i < n; i++) {
