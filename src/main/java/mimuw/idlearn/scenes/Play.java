@@ -1,35 +1,28 @@
-package mimuw.idlearn.GUI.coding.sampleapp;
+package mimuw.idlearn.scenes;
 
-import javafx.application.Application;
+import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 import mimuw.idlearn.GUI.coding.CodeBox;
-import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
+import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
 
-public class SampleApp extends Application {
-
-
-	public static void main(final String[] args) {
-		launch(args);
-	}
-
-	@Override
-	public void start(final Stage stage) {
+public class Play extends Scene {
+	public Play(SceneManager sceneManager) {
+		super(sceneManager);
 
 		// Create base elements
-		final Group root = new Group();
 		final CodeBox codeBox = new CodeBox();
 		final Pane codeBlocks = new VBox();
 		final Group dragged = new Group();
@@ -60,7 +53,7 @@ public class SampleApp extends Application {
 		statement.setPrefWidth(700);
 
 		final Button button = new Button("Convert");
-		root.getChildren().add(button);
+		getChildren().add(button);
 
 		button.setOnMousePressed(event -> {
 			Expression<Void> exp = codeBox.compile();
@@ -87,21 +80,24 @@ public class SampleApp extends Application {
 		Node ifSpawner = new CodeBlockSpawner(codeBox, dragged, IfElse::new);
 
 		// Link spawners
-		codeBlocks.getChildren().add(readSpawner);
-		codeBlocks.getChildren().add(writeSpawner);
-		codeBlocks.getChildren().add(assignSpawner);
-		codeBlocks.getChildren().add(operationSpawner);
-		codeBlocks.getChildren().add(whileSpawner);
-		codeBlocks.getChildren().add(ifSpawner);
+		codeBlocks.getChildren().addAll(readSpawner, writeSpawner, assignSpawner, operationSpawner, whileSpawner, ifSpawner);
 
 		// Link everything else
-		root.getChildren().add(statement);
-		root.getChildren().add(codeBlocks);
-		root.getChildren().add(codeBox);
-		root.getChildren().add(dragged);
+		getChildren().addAll(statement, codeBlocks, codeBox, dragged);
+	}
 
-		final Scene scene = new Scene(root, 1400, 800);
-		stage.setScene(scene);
-		stage.show();
+	@Override
+	public void handleEvent(Event event) {
+		if(event instanceof KeyEvent e) {
+			if (e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+				if (e.getCode() == KeyCode.ESCAPE)
+					getSceneManager().add(new Pause(getSceneManager()));
+			}
+		}
+	}
+
+	@Override
+	public void update(Duration time) {
+
 	}
 }

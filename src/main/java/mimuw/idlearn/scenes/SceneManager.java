@@ -9,6 +9,11 @@ public class SceneManager extends StateMachine {
 		scene.load(task);
 	}
 
+	public void replace(Scene scene, LoadTask task){
+		replace(scene);
+		scene.load(task);
+	}
+
 	public Scene get(){
 		return (Scene)super.get();
 	}
