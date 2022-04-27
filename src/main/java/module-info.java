@@ -10,4 +10,6 @@ module mimuw.idlearn {
 	opens mimuw.idlearn.scenes to javafx.fxml;
 	exports mimuw.idlearn.scenes.preloader;
 	opens mimuw.idlearn.scenes.preloader to javafx.fxml;
+	exports mimuw.idlearn.scenes.pkg;
+	opens mimuw.idlearn.scenes.pkg to javafx.fxml;
 }
