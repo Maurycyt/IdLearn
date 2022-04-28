@@ -4,7 +4,7 @@ public class PreloaderEvent {
 	public enum Type {
 		Success,
 		Progress,
-		Fail
+		Failure
 	}
 	private Type type;
 	private Double progress;
@@ -30,9 +30,9 @@ public class PreloaderEvent {
 		return event;
 	}
 
-	public static PreloaderEvent Fail(){
+	public static PreloaderEvent Failure(){
 		PreloaderEvent event = new PreloaderEvent();
-		event.type = Type.Fail;
+		event.type = Type.Failure;
 		return event;
 	}
 }

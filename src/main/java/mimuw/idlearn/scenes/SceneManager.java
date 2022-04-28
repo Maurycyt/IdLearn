@@ -5,12 +5,12 @@ import mimuw.idlearn.scenes.preloader.LoadTask;
 
 public class SceneManager extends StateMachine {
 	public void add(Scene scene, LoadTask task){
-		add(scene);
+		super.add(scene);
 		scene.load(task);
 	}
 
 	public void replace(Scene scene, LoadTask task){
-		replace(scene);
+		super.replace(scene);
 		scene.load(task);
 	}
 

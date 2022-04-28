@@ -4,54 +4,52 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SceneController {
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    public void loadInitialScene(String sceneName, Stage stage) throws IOException {
-        root = FXMLLoader.load(getClass().getResource(sceneName));
-        this.stage = stage;
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    private SceneManager sm = SceneManager.getInstance();
+    
+    private Stage getStage(ActionEvent event) {
+        return (Stage)((Node)event.getSource()).getScene().getWindow();
+    }
+    
+    private Scene getScene(String sceneName) throws IOException {
+        return new Scene(FXMLLoader.load(getClass().getResource(sceneName + ".fxml")));
     }
 
-    public void switchToScene(String sceneName, ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource(sceneName));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+    private void switchToScene(String sceneName, ActionEvent event) throws IOException {
+        Scene scene = getScene("MainMenu");
+        sm.pushScene(scene);
+
+        Stage stage = getStage(event);
         stage.setScene(scene);
         stage.show();
     }
 
     @FXML
     public void loadMainMenuScene(ActionEvent event) throws IOException {
-        switchToScene("MainMenu.fxml", event);
+        switchToScene("MainMenu", event);
     }
     @FXML
     public void loadGameMenuScene(ActionEvent event) throws IOException {
-        switchToScene("GameMenu.fxml", event);
+        switchToScene("GameMenu", event);
     }
     @FXML
     public void loadSettingsScene(ActionEvent event) throws IOException {
-        switchToScene("Settings.fxml", event);
+        switchToScene("Settings", event);
     }
     @FXML
     public void loadTaskSelectionScene(ActionEvent event) throws IOException {
-        switchToScene("TaskSelection.fxml", event);
+        switchToScene("TaskSelection", event);
     }
     @FXML
     public void loadStoreScene(ActionEvent event) throws IOException {
-        switchToScene("Store.fxml", event);
+        switchToScene("Store", event);
     }
+
     @FXML
     public void exitGame(ActionEvent event) throws IOException {
         //todo...

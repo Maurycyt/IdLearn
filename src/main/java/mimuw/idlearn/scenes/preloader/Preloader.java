@@ -20,7 +20,7 @@ public class Preloader extends Scene implements Listener {
 
 		getChildren().add(bar);
 
-		task.emitter = emitter;
+		task.setEmitter(emitter);
 		emitter.connect(this);
 
 		Thread loader = new Thread(task::load);
@@ -50,7 +50,7 @@ public class Preloader extends Scene implements Listener {
 				getSceneManager().pop();
 			} else if (preloaderEvent.type() == PreloaderEvent.Type.Progress) {
 				bar.setProgress(preloaderEvent.progress());
-			} else if (preloaderEvent.type() == PreloaderEvent.Type.Fail) {}
+			} else if (preloaderEvent.type() == PreloaderEvent.Type.Failure) {}
 		}
 	}
 }

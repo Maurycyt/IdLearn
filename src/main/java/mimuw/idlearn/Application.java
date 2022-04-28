@@ -22,7 +22,7 @@ public class Application extends javafx.application.Application{
 		stage.setTitle("IdLearn");
 
 		// Here add first scene
-		scenes.add(new MainMenu(scenes), new LoadTask() {
+		sceneManager.add(new MainMenu(sceneManager), new LoadTask() {
 			@Override
 			public void load() {
 				PackageManager.reloadProblemPackages();
@@ -41,7 +41,7 @@ public class Application extends javafx.application.Application{
 			}
 		});
 
-		javafx.scene.Scene fxScene = new javafx.scene.Scene(scenes.get(), 640, 480);
+		javafx.scene.Scene fxScene = new javafx.scene.Scene(sceneManager.get(), 640, 480);
 		fxScene.addEventHandler(EventType.ROOT, e -> ((Scene)fxScene.getRoot()).handleEvent(e));
 
 		stage.setScene(fxScene);
@@ -55,7 +55,7 @@ public class Application extends javafx.application.Application{
 				new KeyFrame(
 						Duration.seconds(1.0 / framesPerSecond), 
 						actionEvent -> {
-							var scene = scenes.get();
+							var scene = sceneManager.get();
 							stage.getScene().setRoot(scene);
 							scene.update(Duration.seconds(1.0 / framesPerSecond));
 						})
@@ -72,5 +72,5 @@ public class Application extends javafx.application.Application{
 	}
 	
 	private final int framesPerSecond = 60;
-	private final SceneManager scenes = new SceneManager();
+	private final SceneManager sceneManager = new SceneManager();
 }
