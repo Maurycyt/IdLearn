@@ -5,21 +5,18 @@ import javafx.util.Duration;
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Event;
 import mimuw.idlearn.core.Listener;
-import mimuw.idlearn.scenes.Scene;
 import mimuw.idlearn.scenes.SceneManager;
+import mimuw.idlearn.scenes.SceneRoot;
 
-public class Preloader extends Scene implements Listener {
+public class Preloader extends SceneRoot implements Listener {
 	private final ProgressBar bar;
 	private final Emitter emitter;
 
-	public Preloader(SceneManager sceneManager, LoadTask task) {
-		super(sceneManager);
+	public Preloader(LoadTask task) {
+		this.bar = new ProgressBar();
+		this.getChildren().add(bar);
 
 		emitter = new Emitter();
-		bar = new ProgressBar();
-
-		getChildren().add(bar);
-
 		task.setEmitter(emitter);
 		emitter.connect(this);
 
@@ -28,29 +25,28 @@ public class Preloader extends Scene implements Listener {
 		loader.start();
 	}
 
-	@Override
 	public void update(Duration time) {
-		synchronized (emitter){
+		synchronized (emitter) {
 			emitter.processEvents();
 		}
 	}
 
-	@Override
-	public void handleEvent(javafx.event.Event event) {
-
-	}
-
+	//TODO?
 	@Override
 	public void onNotify(Event event) {
-		// TODO: fill with content
 		if (event.type() == PreloaderEvent.class) {
 			PreloaderEvent preloaderEvent = (PreloaderEvent) event.value();
-			if (preloaderEvent.type() == PreloaderEvent.Type.Success) {
-				bar.setProgress(1);
-				getSceneManager().pop();
-			} else if (preloaderEvent.type() == PreloaderEvent.Type.Progress) {
-				bar.setProgress(preloaderEvent.progress());
-			} else if (preloaderEvent.type() == PreloaderEvent.Type.Failure) {}
+			switch (preloaderEvent.type()) {
+				case Success:
+					bar.setProgress(1);
+					SceneManager.getInstance().pop();
+					break;
+				case Progress:
+					bar.setProgress(preloaderEvent.progress());
+					break;
+				case Failure:
+					break;
+			}
 		}
 	}
 }
