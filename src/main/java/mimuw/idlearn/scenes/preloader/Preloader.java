@@ -1,52 +1,31 @@
 package mimuw.idlearn.scenes.preloader;
 
+import javafx.scene.Group;
 import javafx.scene.control.ProgressBar;
-import javafx.util.Duration;
-import mimuw.idlearn.core.Emitter;
-import mimuw.idlearn.core.Event;
-import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.scenes.SceneManager;
-import mimuw.idlearn.scenes.SceneRoot;
 
-public class Preloader extends SceneRoot implements Listener {
+public class Preloader extends Group {
 	private final ProgressBar bar;
-	private final Emitter emitter;
 
 	public Preloader(LoadTask task) {
 		this.bar = new ProgressBar();
 		this.getChildren().add(bar);
 
-		emitter = new Emitter();
-		task.setEmitter(emitter);
-		emitter.connect(this);
-
-		Thread loader = new Thread(task::load);
+		Thread loader = new Thread(() -> task.run(this));
 		loader.setDaemon(true);
 		loader.start();
 	}
 
-	public void update(Duration time) {
-		synchronized (emitter) {
-			emitter.processEvents();
-		}
+	void onSuccess() {
+		bar.setProgress(1);
+		SceneManager.getInstance().pop();
 	}
 
-	//TODO?
-	@Override
-	public void onNotify(Event event) {
-		if (event.type() == PreloaderEvent.class) {
-			PreloaderEvent preloaderEvent = (PreloaderEvent) event.value();
-			switch (preloaderEvent.type()) {
-				case Success:
-					bar.setProgress(1);
-					SceneManager.getInstance().pop();
-					break;
-				case Progress:
-					bar.setProgress(preloaderEvent.progress());
-					break;
-				case Failure:
-					break;
-			}
-		}
+	void onLogProgress(double progress) {
+		bar.setProgress(progress);
+	}
+
+	void onFail() {
+
 	}
 }

@@ -2,13 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import mimuw.idlearn.scenes.*?>
 
-<SceneRoot xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-        <children>
-            <Button layoutX="247.0" layoutY="200.0" mnemonicParsing="false" onAction="#loadMainMenuScene" text="Main Menu" />
-            <Button layoutX="271.0" layoutY="253.0" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
-        </children>
-    </AnchorPane>
-</SceneRoot>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
+    <children>
+        <Button layoutX="247.0" layoutY="200.0" mnemonicParsing="false" onAction="#loadMainMenuScene" text="Main Menu" />
+        <Button layoutX="271.0" layoutY="253.0" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
+    </children>
+</AnchorPane>

@@ -3,19 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import mimuw.idlearn.scenes.*?>
 
-<SceneRoot xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-        <children>
-            <Button layoutX="269.0" layoutY="150.0" mnemonicParsing="false" onAction="#loadGameMenuScene" text="Play" />
-            <Button layoutX="257.0" layoutY="200.0" mnemonicParsing="false" onAction="#loadSettingsScene" text="Settings" />
-            <Button layoutX="271.0" layoutY="253.0" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
-            <Label layoutX="173.0" layoutY="70.0" text="Welcome to IDLearn!">
-                <font>
-                    <Font size="24.0" />
-                </font>
-            </Label>
-        </children>
-    </AnchorPane>
-</SceneRoot>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
+    <children>
+        <Button layoutX="269.0" layoutY="150.0" mnemonicParsing="false" onAction="#loadGameMenuScene" text="Play" />
+        <Button layoutX="257.0" layoutY="200.0" mnemonicParsing="false" onAction="#loadSettingsScene" text="Settings" />
+        <Button layoutX="271.0" layoutY="253.0" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
+        <Label layoutX="173.0" layoutY="70.0" text="Welcome to IDLearn!">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
