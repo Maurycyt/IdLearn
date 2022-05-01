@@ -33,24 +33,4 @@ public class If implements Expression<Void> {
 			return onFalse.evaluate(new Scope(scope));
 		return new Value<>(null);
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		If other = (If) o;
-
-		if (!Objects.equals(condition, other.condition)) return false;
-		if (!Objects.equals(onTrue, other.onTrue)) return false;
-		return Objects.equals(onFalse, other.onFalse);
-	}
-
-	@Override
-	public int hashCode() {
-		int result = condition != null ? condition.hashCode() : 0;
-		result = 31 * result + (onTrue != null ? onTrue.hashCode() : 0);
-		result = 31 * result + (onFalse != null ? onFalse.hashCode() : 0);
-		return result;
-	}
 }
