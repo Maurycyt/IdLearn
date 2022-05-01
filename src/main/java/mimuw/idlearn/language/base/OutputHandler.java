@@ -1,6 +1,7 @@
 package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 import mimuw.idlearn.problems.ProblemPackage;
 
 import java.io.FileWriter;
@@ -21,15 +22,16 @@ public class OutputHandler implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope) throws RuntimeException {
+	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
 		FileWriter writer = pkg.getTestOutputWriter();
 		try {
 			for (var v : values) {
-				writer.write(separator + v.evaluate(scope).getValue());
+				counter.addTime(delay);
+				writer.write(separator + v.evaluate(scope, counter).getValue());
 			}
 			writer.flush();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(e); // TODO: clean-up
 		}
 		return new Value<>(null);
 	}

@@ -1,8 +1,10 @@
 package mimuw.idlearn.language.keywords;
 
 import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 
 import java.util.Objects;
 
@@ -24,13 +26,14 @@ public class If implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope) throws RuntimeException {
-		Boolean condEvaluation = condition.evaluate(scope).getValue();
+	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+		Boolean condEvaluation = condition.evaluate(scope, counter).getValue();
+		counter.addTime(delay);
 
 		if (condEvaluation)
-			return onTrue.evaluate(new Scope(scope));
+			return onTrue.evaluate(new Scope(scope), counter);
 		if (onFalse != null)
-			return onFalse.evaluate(new Scope(scope));
+			return onFalse.evaluate(new Scope(scope), counter);
 		return new Value<>(null);
 	}
 }

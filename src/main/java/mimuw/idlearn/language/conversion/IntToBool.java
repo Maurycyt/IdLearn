@@ -1,8 +1,10 @@
 package mimuw.idlearn.language.conversion;
 
 import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 
 public class IntToBool implements Expression<Boolean> {
 
@@ -13,13 +15,9 @@ public class IntToBool implements Expression<Boolean> {
 	}
 
 	@Override
-	public Value<Boolean> evaluate(Scope scope) throws RuntimeException {
-		Value<Integer> eval = expression.evaluate(scope);
+	public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+		Value<Integer> eval = expression.evaluate(scope, counter);
 
-		if (eval.getValue() != 0) {
-			return new Value<>(true);
-		} else {
-			return new Value<>(false);
-		}
+		return new Value<>(eval.getValue() != 0);
 	}
 }

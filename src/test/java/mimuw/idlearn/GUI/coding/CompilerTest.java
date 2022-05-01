@@ -5,7 +5,9 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.CodeSegment;
 import mimuw.idlearn.GUI.coding.codeblock.blocktypes.*;
 import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +24,7 @@ public class CompilerTest {
 	}
 
 	@Test
-	public void testBasicCompile() {
+	public void testBasicCompile() throws SimulationException {
 		preparePlatform();
 		CodeSegment segment = new CodeSegment();
 
@@ -51,7 +53,7 @@ public class CompilerTest {
 
 		Expression<Void> exp = segment.convert();
 		Scope scope = new Scope();
-		exp.evaluate(scope);
+		exp.evaluate(scope, new TimeCounter());
 		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").getValue());
 	}
 }

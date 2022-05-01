@@ -122,7 +122,7 @@ public class IfElse extends CodeBlock {
 		Block ifBody = ifSegment.convert();
 		Block elseBody = elseSegment.convert();
 		Expression<Boolean> condition = new IntToBool(new Variable<>(ifHead.getCond()));
-		return new If(OneArgOperator.newNot(condition), ifBody, elseBody);
+		return new If(condition, ifBody, elseBody);
 	}
 
 	/**
