@@ -5,7 +5,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
     <children>
-        <Button layoutX="247.0" layoutY="200.0" mnemonicParsing="false" onAction="#loadMainMenuScene" text="Main Menu" />
-        <Button layoutX="271.0" layoutY="253.0" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
+        <Button layoutX="51.0" layoutY="353.0" mnemonicParsing="false" onAction="#loadMainMenuScene" text="Main Menu" />
+        <Button layoutX="148.0" layoutY="353.0" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
+      <Label fx:id="example_label" layoutX="2.0" layoutY="141.0" prefHeight="32.0" prefWidth="600.0" text="This is some CSS" />
     </children>
 </AnchorPane>

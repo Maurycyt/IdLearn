@@ -29,14 +29,14 @@ public class Application extends javafx.application.Application {
 		stage.setHeight(screenBounds.getHeight());
 
 		// Set the app icon
-		Image icon = new Image(getClass().getResource("icon.png").toString());
+		Image icon = new Image(SceneUtils.AppIcon.toExternalForm());
 		stage.getIcons().add(icon);
 
 		sceneManager.setStage(stage);
 		stage.setScene(new Scene(new Group()));
 
 		// Add the main menu scene with preloading
-		sceneManager.add(SceneUtils.loadScene("Application"), new LoadTask() {
+		sceneManager.add(SceneUtils.loadScene(SceneUtils.MainMenu), new LoadTask() {
 			@Override
 			public void load() {
 				for(int i = 0; i < 1000000; i++){

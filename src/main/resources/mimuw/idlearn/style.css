@@ -1,0 +1,13 @@
+.root {
+    -fx-background-color: "black";
+}
+
+.label {
+    -fx-font-size: 20;
+    -fx-font-family: "Lucida Console";
+    -fx-alignment: center;
+}
+
+#example_label {
+    -fx-font-size: 60;
+}

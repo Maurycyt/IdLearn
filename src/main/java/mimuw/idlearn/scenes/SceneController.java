@@ -4,37 +4,38 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class SceneController {
 	private final SceneManager sm = SceneManager.getInstance();
 
-	private void switchToScene(String sceneName) throws IOException {
-		sm.replace(SceneUtils.loadScene(sceneName));
+	private void switchToScene(URL url) throws IOException {
+		sm.replace(SceneUtils.loadScene(url));
 	}
 
 	@FXML
 	public void loadMainMenuScene(ActionEvent event) throws IOException {
-		switchToScene("MainMenu");
+		switchToScene(SceneUtils.MainMenu);
 	}
 	@FXML
 	public void loadGameMenuScene(ActionEvent event) throws IOException {
-		switchToScene("GameMenu");
+		switchToScene(SceneUtils.GameMenu);
 	}
 	@FXML
 	public void loadSettingsScene(ActionEvent event) throws IOException {
-		switchToScene("Settings");
+		switchToScene(SceneUtils.Settings);
 	}
 	@FXML
 	public void loadTaskSelectionScene(ActionEvent event) throws IOException {
-		switchToScene("TaskSelection");
+		switchToScene(SceneUtils.TaskSelection);
 	}
 	@FXML
 	public void loadStoreScene(ActionEvent event) throws IOException {
-		switchToScene("Store");
+		switchToScene(SceneUtils.Store);
 	}
 
 	@FXML
-	public void exitGame(ActionEvent event) throws IOException {
+	public void exitGame(ActionEvent event) {
 		System.out.println("Exit game");
 		sm.exit();
 	}
