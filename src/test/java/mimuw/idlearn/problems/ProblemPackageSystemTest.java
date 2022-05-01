@@ -122,6 +122,9 @@ public class ProblemPackageSystemTest {
 
 		TestRunner testRunner = new TestRunner(pack, solution);
 
-		assertEquals(4, testRunner.aggregateTestTimes(), 0.5);
+		double result = testRunner.aggregateTestTimes();
+		System.out.println(pack.getTitle() + " ran with score: " + result);
+
+		assertEquals(4, result, 0.1);
 	}
 }
