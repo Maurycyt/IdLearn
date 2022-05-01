@@ -5,7 +5,6 @@ import mimuw.idlearn.utils.ShellExecutor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
-import java.util.Objects;
 
 /**
  * Static class, which manages problem packages.

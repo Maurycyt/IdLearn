@@ -1,0 +1,16 @@
+# This file indicates the paths to all files using symbolic variables in order to make the package more flexible.
+# Edit as necessary.
+
+INPUT=./input.in
+MODEL_OUT=./model.out
+USER_OUT=./user.out
+
+GEN_SOURCE=prog/generator.cpp
+MOD_SOURCE=prog/model.cpp
+CHE_SOURCE=prog/checker.cpp
+
+UTILS=../packageUtils.h
+
+GEN=./generator
+MOD=./model
+CHE=./checker

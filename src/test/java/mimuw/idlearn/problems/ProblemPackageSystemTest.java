@@ -26,12 +26,10 @@ public class ProblemPackageSystemTest {
 		assert contents != null;
 
 		boolean copiedUtils = false;
-		boolean didNotCopyTest = true;
 		for (String filename : contents) {
 			copiedUtils |= filename.equals("packageUtils.h");
-			didNotCopyTest &= !filename.equals("test");
 		}
-		assertTrue(copiedUtils && didNotCopyTest);
+		assertTrue(copiedUtils);
 
 		ProblemPackage[] problemPackages = PackageManager.getInitialProblemPackages();
 		assertEquals(problemPackages, PackageManager.getProblemPackages());
@@ -51,10 +49,17 @@ public class ProblemPackageSystemTest {
 						Output:
 						The only number outputted should be the value of a + b.
 
-						Example input:
+						Examples:
+						
+						Input:
 						3 -5
-						Example output:
-						-2""");
+						Output:
+						-2
+						
+						Input:
+						69 -27
+						Output:
+						42""");
 
 		pack.prepareTest(123);
 		Scanner scanner = pack.getTestInputScanner();
@@ -84,10 +89,12 @@ public class ProblemPackageSystemTest {
 		assert contents != null;
 		Arrays.sort(contents);
 		assertTrue(
-						contents.length == 3 &&
-						contents[0].equals("doc") &&
-						contents[1].equals("makefile") &&
-						contents[2].equals("prog")
+						contents.length == 5 &&
+						contents[0].equals("config.yml") &&
+						contents[1].equals("doc") &&
+						contents[2].equals("makefile") &&
+						contents[3].equals("makefile.in") &&
+						contents[4].equals("prog")
 		);
 	}
 }
