@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ExceptionTest {
 	@Test
 	public void testTimeLimit() {
-		final int N = (int)(TimeCounter.MAX_TIME);
+		final int N = (int)(TimeCounter.MAX_TIME / 3);
 		Scope scope = new Scope();
 
 		Variable<Integer> i = new Variable<>("i", scope, N);
