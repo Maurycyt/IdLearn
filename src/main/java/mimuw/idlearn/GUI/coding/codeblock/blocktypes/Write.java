@@ -19,8 +19,7 @@ public class Write extends CodeBlock {
 	@Override
 	public Expression<Void> convert() {
 		String name = varName.getText();
-		OutputHandler writer = new OutputHandler(pkg, new Variable<Integer>(name));
-		return writer;
+		return new OutputHandler(pkg, new Variable<Integer>(name));
 	}
 
 	/**

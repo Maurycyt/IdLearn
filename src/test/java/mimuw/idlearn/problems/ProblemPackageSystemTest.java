@@ -1,5 +1,14 @@
 package mimuw.idlearn.problems;
 
+import mimuw.idlearn.language.base.Expression;
+import mimuw.idlearn.language.base.InputHandler;
+import mimuw.idlearn.language.base.OutputHandler;
+import mimuw.idlearn.language.base.Variable;
+import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
+import mimuw.idlearn.language.keywords.Assignment;
+import mimuw.idlearn.language.keywords.Block;
+import mimuw.idlearn.language.operators.TwoArgOperator;
 import mimuw.idlearn.utils.ShellExecutor;
 import org.junit.jupiter.api.*;
 
@@ -97,5 +106,22 @@ public class ProblemPackageSystemTest {
 						contents[3].equals("makefile.in") &&
 						contents[4].equals("prog")
 		);
+	}
+
+	@Test
+	public void testTestRunner() throws SimulationException {
+		PackageManager.reloadProblemPackages();
+		ProblemPackage pack = PackageManager.getProblemPackages()[0];
+		assertEquals(pack.getTitle(), "Addition");
+
+		Expression<Void> solution = new Block(
+						new InputHandler(pack, new Variable<>("x"), new Variable<>("y")),
+						new Assignment<>("x", TwoArgOperator.newAdd(new Variable<>("x"), new Variable<>("y")), false),
+						new OutputHandler(pack, new Variable<>("x"))
+		);
+
+		TestRunner testRunner = new TestRunner(pack, solution);
+
+		assertEquals(4, testRunner.aggregateTestTimes(), 0.5);
 	}
 }

@@ -19,8 +19,7 @@ public class Read extends CodeBlock {
 	@Override
 	public Expression<Void> convert() {
 		String name = varName.getText();
-		InputHandler reader = new InputHandler(pkg, new Variable<Integer>(name));
-		return reader;
+		return new InputHandler(pkg, new Variable<Integer>(name));
 	}
 
 	/**
