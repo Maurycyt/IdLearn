@@ -89,7 +89,7 @@ public class Operation extends CodeBlock {
 			case "==" -> new BoolToInt(TwoArgOperator.newEqual(arg1, arg2));
 			default -> throw new Error("Invalid operand");
 		};
-		Expression<Void> result = new Assignment<>(assignee, op);
+		Expression<Void> result = new Assignment<>(assignee, op, false);
 		return result;
 	}
 

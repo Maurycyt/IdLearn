@@ -1,6 +1,7 @@
 package mimuw.idlearn.language.base;
 
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 
 public class Variable<T> implements Expression<T> {
 	private final String name;
@@ -24,7 +25,7 @@ public class Variable<T> implements Expression<T> {
 	}
 
 	@Override
-	public Value<T> evaluate(Scope scope) throws RuntimeException {
+	public Value<T> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
 		return scope.getVariable(name);
 	}
 }

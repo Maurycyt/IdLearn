@@ -1,6 +1,8 @@
 package mimuw.idlearn.language.environment;
 
 import mimuw.idlearn.language.base.Value;
+import mimuw.idlearn.language.exceptions.SimulationException;
+import mimuw.idlearn.language.exceptions.UndefinedException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,22 +10,15 @@ import java.util.Map;
 public class Scope {
 	private final Map<String, Value<?>> variables;
 	private final Scope parentScope;
-	private final Scope globalScope;
 
 	public Scope(Scope parentScope) {
 		this.variables = new HashMap<>();
 		this.parentScope = parentScope;
-		this.globalScope = parentScope.getGlobalScope();
 	}
 
 	public Scope() {
 		this.variables = new HashMap<>();
 		this.parentScope = null;
-		this.globalScope = this;
-	}
-
-	public Scope getGlobalScope() {
-		return globalScope;
 	}
 
 	public boolean isGlobal() {
@@ -38,10 +33,10 @@ public class Scope {
 		return variables.containsKey(name);
 	}
 
-	public <T> Value<T> getVariable(String name) throws RuntimeException {
+	public <T> Value<T> getVariable(String name) throws SimulationException {
 		Scope scope = getOriginScope(name);
 		if (scope == null)
-			throw new RuntimeException("Variable not found in scope");
+			throw new UndefinedException(name);
 		return (Value<T>) scope.variables.get(name);
 	}
 
