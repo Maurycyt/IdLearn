@@ -39,5 +39,5 @@ all-in-one-job:       # This job does all there is to be done, including testing
     - mv /usr/bin/g++-11 /usr/bin/g++
 
     # Install
-    - xvfb-run mvn clean install -X -B -Dstyle.color=always
+    - xvfb-run mvn clean install -B -Dstyle.color=always
     - echo "Maven execution complete."
