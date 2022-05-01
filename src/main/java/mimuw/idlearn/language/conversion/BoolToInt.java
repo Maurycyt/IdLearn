@@ -4,6 +4,7 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 
 public class BoolToInt implements Expression<Integer> {
 
@@ -14,13 +15,9 @@ public class BoolToInt implements Expression<Integer> {
 	}
 
 	@Override
-	public Value<Integer> evaluate(Scope scope, TimeCounter counter) throws RuntimeException {
+	public Value<Integer> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
 		Value<Boolean> eval = expression.evaluate(scope, counter);
 
-		if (eval.getValue()) {
-			return new Value<>(1);
-		} else {
-			return new Value<>(0);
-		}
+		return new Value<>(eval.getValue() ? 1 : 0);
 	}
 }

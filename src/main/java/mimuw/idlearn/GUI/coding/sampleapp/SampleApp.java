@@ -16,6 +16,7 @@ import mimuw.idlearn.GUI.coding.codeblock.CodeBlockSpawner;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
 
@@ -72,7 +73,11 @@ public class SampleApp extends Application {
 				e.printStackTrace();
 			}
 			TimeCounter counter = new TimeCounter();
-			exp.evaluate(scope, counter);
+			try {
+				exp.evaluate(scope, counter);
+			} catch (SimulationException e) {
+				e.printStackTrace();
+			}
 			if (pkg.checkTest()) {
 				System.out.println("Correct output");
 				System.out.println("Time: " + counter.getTime());

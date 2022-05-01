@@ -4,6 +4,7 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class If implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws RuntimeException {
+	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
 		Boolean condEvaluation = condition.evaluate(scope, counter).getValue();
 		counter.addTime(delay);
 

@@ -4,11 +4,12 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.base.Value;
 import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.exceptions.SimulationException;
 
 public class Assignment<T> implements Expression<Void> {
 	private final String name;
 	private final Expression<T> expression;
-	private boolean shouldTakeTime;
+	private final boolean shouldTakeTime;
 
 	public Assignment(String name, Expression<T> expression, boolean shouldTakeTime) {
 		this.name = name;
@@ -23,7 +24,7 @@ public class Assignment<T> implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws RuntimeException {
+	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
 		Value<T> eval = expression.evaluate(scope, counter);
 
 		Scope origin = scope.getOriginScope(name);
