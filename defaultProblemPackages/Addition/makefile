@@ -1,29 +1,30 @@
+include makefile.in
+
 CXX = g++
 CXXFLAGS = -O3 -Wall -Wextra -DNDEBUG -std=c++20
 TestID = 1
 
-.PHONY: all
-all: generator model checker
+.PHONY: all, clean, input, check
 
-.PHONY: clean
+all: $(GEN) $(MOD) $(CHE)
+
 clean:
-	rm -f generator model checker input.in model.out user.out
+	rm -f $(GEN) $(MOD) $(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)
 
-generator: prog/generator.cpp ../packageUtils.h
-	$(CXX) $(CXXFLAGS) prog/generator.cpp -o generator
+$(GEN): $(GEN_SOURCE) $(UTILS)
+	$(CXX) $(CXXFLAGS) $(GEN_SOURCE) -o $(GEN)
 
-model: prog/model.cpp ../packageUtils.h
-	$(CXX) $(CXXFLAGS) prog/model.cpp -o model
+$(MOD): $(MOD_SOURCE) $(UTILS)
+	$(CXX) $(CXXFLAGS) $(MOD_SOURCE) -o $(MOD)
 
-checker: prog/checker.cpp ../packageUtils.h
-	$(CXX) $(CXXFLAGS) prog/checker.cpp -o checker
+$(CHE): $(CHE_SOURCE) $(UTILS)
+	$(CXX) $(CXXFLAGS) $(CHE_SOURCE) -o $(CHE)
 
-input: generator
-	./generator $(TestID) > input.in
+input: $(GEN)
+	$(GEN) $(TestID) > $(INPUT)
 
-model.out: input.in model
-	./model < input.in > model.out
+$(MODEL_OUT): $(INPUT) $(MOD)
+	$(MOD) < $(INPUT) > $(MODEL_OUT)
 
-.PHONY: check
-check: checker
-	./checker input.in user.out model.out
+check: $(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)
+	$(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)
