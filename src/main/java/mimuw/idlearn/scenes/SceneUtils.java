@@ -33,7 +33,8 @@ public class SceneUtils {
 	public static Parent loadScene(URL url) throws IOException {
 		Scene scene = new Scene(FXMLLoader.load(url));
 		Parent root = scene.getRoot();
-		scene.getStylesheets().add(StyleSheet.toExternalForm());
+		root.getStylesheets().add(StyleSheet.toExternalForm());
+		//scene.getStylesheets().add(StyleSheet.toExternalForm());
 		scene.setRoot(new Group());
 		return root;
 	}

@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
-    <children>
-        <Button layoutX="269.0" layoutY="150.0" mnemonicParsing="false" onAction="#loadGameMenuScene" text="Play" />
-        <Button layoutX="257.0" layoutY="200.0" mnemonicParsing="false" onAction="#loadSettingsScene" text="Settings" />
-        <Button layoutX="271.0" layoutY="253.0" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
-        <Label layoutX="173.0" layoutY="70.0" text="Welcome to IDLearn!">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Label>
-    </children>
-</AnchorPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
+   <children>
+      <HBox prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="408.0" fitWidth="485.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../new-google-logo-2015.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox style="-fx-background-color: orange;" VBox.vgrow="ALWAYS">
+         <children>
+            <Pane layoutX="1009.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" HBox.hgrow="ALWAYS" />
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgreen; -fx-alignment: center; -fx-spacing: 30;" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#loadGameMenuScene" prefHeight="26.0" text="Play" />
+                  <Button mnemonicParsing="false" onAction="#loadSettingsScene" prefHeight="26.0" prefWidth="104.0" text="Settings" />
+                  <Button mnemonicParsing="false" onAction="#exitGame" prefHeight="26.0" text="Exit" />
+               </children>
+            </VBox>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
