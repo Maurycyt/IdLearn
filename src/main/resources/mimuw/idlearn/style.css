@@ -1,6 +1,22 @@
+@font-face {
+    src: url(fonts/Fantasque/fantasquesansmono-regular.otf);
+}
+
+@font-face {
+    src: url(fonts/Fantasque/fantasquesansmono-bold.otf);
+}
+
+@font-face {
+    src: url(fonts/Fantasque/fantasquesansmono-italic.otf);
+}
+
+@font-face {
+    src: url(fonts/Fantasque/fantasquesansmono-bolditalic.otf);
+}
+
 .menuButton {
-    -fx-font-family: "JetBrains Mono";
-    -fx-font-size: 25px;
+    -fx-font-family: "Fantasque Sans Mono Bold Italic";
+    -fx-font-size: 32px;
     -fx-font-weight: 400;
 
     -fx-pref-width: 350;
