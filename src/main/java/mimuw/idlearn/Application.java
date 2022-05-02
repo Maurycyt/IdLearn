@@ -1,5 +1,6 @@
 package mimuw.idlearn;
 
+import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -7,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import mimuw.idlearn.problems.PackageManager;
+import mimuw.idlearn.problems.ProblemPackage;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scenes.preloader.LoadTask;
@@ -30,13 +33,6 @@ public class Application extends javafx.application.Application {
 		stage.setWidth(screenBounds.getWidth());
 		stage.setHeight(screenBounds.getHeight());
 
-		//stage.setFullScreen(true);
-		//stage.setMaximized(true);
-
-		//Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-		//stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-		//stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
-
 		// Set the app icon
 		Image icon = new Image(SceneUtils.AppIcon.toExternalForm());
 		stage.getIcons().add(icon);
@@ -45,22 +41,39 @@ public class Application extends javafx.application.Application {
 		stage.setScene(new Scene(new Group()));
 
 		// Add the main menu scene with preloading
-/*		sceneManager.add(SceneUtils.loadScene(SceneUtils.MainMenu), new LoadTask() {
+		sceneManager.add(SceneUtils.loadScene(SceneUtils.MainMenu), new LoadTask() {
 			@Override
 			public void load() {
+				try {
+					PackageManager.reloadProblemPackages();
+				} catch (Exception e) {
+					System.out.println("Package directory altered. Reloading packages...");
+					PackageManager.reloadProblemPackageDirectory(true);
+					PackageManager.reloadProblemPackages();
+				}
+				ProblemPackage[] packages = PackageManager.getProblemPackages();
+				for (ProblemPackage p : packages) {
+					System.out.println(p.getTitle());
+					p.build();
+				}
+
 				for(int i = 0; i < 1000000; i++){
-					System.out.println("Loading big data " + i);
+					//System.out.println("Loading big data " + i);
 					logProgress(i / 1000000.0);
 				}
 				logSuccess();
 			}
-		});*/
-		sceneManager.add(SceneUtils.loadScene(SceneUtils.MainMenu));
+		});
 
 		stage.show();
 
+		final Timeline timeline = new Timeline();
+		timeline.setCycleCount(Timeline.INDEFINITE);
+
+
 		long loadEnd = System.currentTimeMillis();
 		System.out.println("Loaded app in " + (loadEnd - loadStart) + "ms.");
+		timeline.play();
 	}
 
 	public static void main(String[] args) {

@@ -22,7 +22,7 @@
       </HBox>
       <HBox style="-fx-background-color: orange;" VBox.vgrow="ALWAYS">
          <children>
-            <Pane layoutX="1009.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" HBox.hgrow="ALWAYS" />
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" HBox.hgrow="ALWAYS" />
             <VBox fx:id="menuCenterVBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgreen; -fx-alignment: center; -fx-spacing: 30;" styleClass="menuVBox" HBox.hgrow="ALWAYS">
                <children>
                   <Button mnemonicParsing="false" onAction="#loadGameMenuScene" prefHeight="40.0" prefWidth="203.0" styleClass="menuButton" stylesheets="@../style.css" text="Play" />
@@ -31,7 +31,7 @@
                   <Button layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" styleClass="menuButton" stylesheets="@../style.css" text="Exit" />
                </children>
             </VBox>
-            <Pane id="menuButton" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" stylesheets="@../style.css" HBox.hgrow="ALWAYS" />
+            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>
