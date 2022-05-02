@@ -6,6 +6,7 @@ import javafx.scene.text.Text;
 import mimuw.idlearn.GUI.coding.codeblock.BlockBase;
 import mimuw.idlearn.GUI.coding.codeblock.CodeBlock;
 import mimuw.idlearn.GUI.coding.codeblock.ResizableTextField;
+import mimuw.idlearn.GUI.coding.parser.StringToExpression;
 import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.OutputHandler;
 import mimuw.idlearn.language.base.Variable;
@@ -19,7 +20,8 @@ public class Write extends CodeBlock {
 	@Override
 	public Expression<Void> convert() {
 		String name = varName.getText();
-		return new OutputHandler(pkg, new Variable<Integer>(name));
+		Expression<Integer> val = StringToExpression.parse(name);
+		return new OutputHandler(pkg, val);
 	}
 
 	/**
