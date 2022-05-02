@@ -1,10 +1,6 @@
 package mimuw.idlearn.problems;
 
-import mimuw.idlearn.language.base.Expression;
-import mimuw.idlearn.language.base.InputHandler;
-import mimuw.idlearn.language.base.OutputHandler;
-import mimuw.idlearn.language.base.Variable;
-import mimuw.idlearn.language.environment.Scope;
+import mimuw.idlearn.language.base.*;
 import mimuw.idlearn.language.exceptions.SimulationException;
 import mimuw.idlearn.language.keywords.Assignment;
 import mimuw.idlearn.language.keywords.Block;
@@ -125,12 +121,19 @@ public class ProblemPackageSystemTest {
 		double result = 0;
 		try {
 			result = testRunner.aggregateTestTimes();
-		}
-		catch (WrongAnswerException e) {
+		} catch (WrongAnswerException e) {
 			fail();
 		}
 		System.out.println(pack.getTitle() + " ran with score: " + result);
 
 		assertEquals(4, result, 0.1);
+
+		Expression<Void> badSolution = new Block(
+						new OutputHandler(pack, new Value<>(0))
+		);
+
+		testRunner = new TestRunner(pack, badSolution);
+
+		assertThrows(WrongAnswerException.class, testRunner::aggregateTestTimes);
 	}
 }
