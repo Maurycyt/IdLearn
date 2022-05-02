@@ -1,5 +1,10 @@
 package mimuw.idlearn.problems;
 
+import mimuw.idlearn.language.base.*;
+import mimuw.idlearn.language.exceptions.SimulationException;
+import mimuw.idlearn.language.keywords.Assignment;
+import mimuw.idlearn.language.keywords.Block;
+import mimuw.idlearn.language.operators.TwoArgOperator;
 import mimuw.idlearn.utils.ShellExecutor;
 import org.junit.jupiter.api.*;
 
@@ -26,12 +31,10 @@ public class ProblemPackageSystemTest {
 		assert contents != null;
 
 		boolean copiedUtils = false;
-		boolean didNotCopyTest = true;
 		for (String filename : contents) {
 			copiedUtils |= filename.equals("packageUtils.h");
-			didNotCopyTest &= !filename.equals("test");
 		}
-		assertTrue(copiedUtils && didNotCopyTest);
+		assertTrue(copiedUtils);
 
 		ProblemPackage[] problemPackages = PackageManager.getProblemPackages();
 		assertEquals(problemPackages, PackageManager.getProblemPackages());
@@ -40,6 +43,7 @@ public class ProblemPackageSystemTest {
 
 	@Test
 	public void testProblemPackage() throws IOException {
+		PackageManager.reloadProblemPackages();
 		ProblemPackage pack = PackageManager.getProblemPackages()[0];
 		assertEquals(pack.getTitle(), "Addition");
 		assertEquals(pack.getStatement(), """
@@ -51,10 +55,17 @@ public class ProblemPackageSystemTest {
 						Output:
 						The only number outputted should be the value of a + b.
 
-						Example input:
+						Examples:
+						
+						Input:
 						3 -5
-						Example output:
-						-2""");
+						Output:
+						-2
+						
+						Input:
+						69 -27
+						Output:
+						42""");
 
 		pack.prepareTest(123);
 		Scanner scanner = pack.getTestInputScanner();
@@ -84,10 +95,45 @@ public class ProblemPackageSystemTest {
 		assert contents != null;
 		Arrays.sort(contents);
 		assertTrue(
-						contents.length == 3 &&
-						contents[0].equals("doc") &&
-						contents[1].equals("makefile") &&
-						contents[2].equals("prog")
+						contents.length == 5 &&
+						contents[0].equals("config.yml") &&
+						contents[1].equals("doc") &&
+						contents[2].equals("makefile") &&
+						contents[3].equals("makefile.in") &&
+						contents[4].equals("prog")
 		);
+	}
+
+	@Test
+	public void testTestRunner() throws SimulationException {
+		PackageManager.reloadProblemPackages();
+		ProblemPackage pack = PackageManager.getProblemPackages()[0];
+		assertEquals(pack.getTitle(), "Addition");
+
+		Expression<Void> solution = new Block(
+						new InputHandler(pack, new Variable<>("x"), new Variable<>("y")),
+						new Assignment<>("x", TwoArgOperator.newAdd(new Variable<>("x"), new Variable<>("y")), false),
+						new OutputHandler(pack, new Variable<>("x"))
+		);
+
+		TestRunner testRunner = new TestRunner(pack, solution);
+
+		double result = 0;
+		try {
+			result = testRunner.aggregateTestTimes();
+		} catch (WrongAnswerException e) {
+			fail();
+		}
+		System.out.println(pack.getTitle() + " ran with score: " + result);
+
+		assertEquals(4, result, 0.1);
+
+		Expression<Void> badSolution = new Block(
+						new OutputHandler(pack, new Value<>(0))
+		);
+
+		testRunner = new TestRunner(pack, badSolution);
+
+		assertThrows(WrongAnswerException.class, testRunner::aggregateTestTimes);
 	}
 }

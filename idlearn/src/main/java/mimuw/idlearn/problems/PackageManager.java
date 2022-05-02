@@ -5,7 +5,6 @@ import mimuw.idlearn.utils.ShellExecutor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
-import java.util.Objects;
 
 /**
  * Static class, which manages problem packages.
@@ -25,7 +24,7 @@ public class PackageManager {
 		if (result.mkdirs()) {
 			// If the problem package directory didn't exist, we need to initialize it.
 			// Copy the contents of defaultProblemPackages into the directory.
-			ShellExecutor.execute("cp -r src/main/resources/problem_packages/. " + problemPackageDirectoryPath);
+			ShellExecutor.execute("cp -r defaultProblemPackages/. " + problemPackageDirectoryPath);
 		}
 
 		problemPackageDirectory = result;
@@ -41,9 +40,10 @@ public class PackageManager {
 	 * Avoid using if problem packages do not need to be reloaded.
 	 */
 	public static void reloadProblemPackages() {
-		if (problemPackageDirectory == null) {
+		if (problemPackageDirectory == null || problemPackageDirectory.list() == null) {
 			reloadProblemPackageDirectory();
 		}
+
 		File [] packageDirectories = problemPackageDirectory.listFiles(File::isDirectory);
 		if (packageDirectories == null) {
 			throw new RuntimeException("Problem package directory empty");
@@ -67,8 +67,9 @@ public class PackageManager {
 	 * @return The problem package directory.
 	 */
 	public static File getProblemPackageDirectory() {
-		if (problemPackageDirectory == null)
+		if (problemPackageDirectory == null || problemPackageDirectory.list() == null) {
 			reloadProblemPackageDirectory();
+		}
 		return problemPackageDirectory;
 	}
 
@@ -77,8 +78,9 @@ public class PackageManager {
 	 * @return The array of problem packages.
 	 */
 	public static ProblemPackage [] getProblemPackages() {
-		if(problemPackages == null)
+		if(problemPackages == null) {
 			reloadProblemPackages();
+		}
 		return problemPackages;
 	}
 
@@ -88,6 +90,9 @@ public class PackageManager {
 	 * @return The requested package.
 	 */
 	public static ProblemPackage getProblemPackage(String title) throws FileNotFoundException {
+		if (problemPackages == null) {
+			reloadProblemPackages();
+		}
 		for (ProblemPackage pkg : problemPackages) {
 			if (pkg.getTitle().equals(title)) {
 				return pkg;

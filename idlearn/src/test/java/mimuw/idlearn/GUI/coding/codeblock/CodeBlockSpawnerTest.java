@@ -11,29 +11,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CodeBlockSpawnerTest {
 
-    private static void preparePlatform() {
-        try {
-            Platform.startup(() -> {
-            });
-        }
-        catch (IllegalStateException e) {
-            // Toolkit already initialized
-        }
+	private static void preparePlatform() {
+		try {
+			Platform.startup(() -> {
+			});
+		} catch (IllegalStateException e) {
+			// Toolkit already initialized
+		}
 
-    }
+	}
 
-    @Test
-    public void testSpawning() {
-        preparePlatform();
-        CodeBox codeBox = new CodeBox();
-        Group dragged = new Group();
-        CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
+	@Test
+	public void testSpawning() {
+		preparePlatform();
+		CodeBox codeBox = new CodeBox();
+		Group dragged = new Group();
+		CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
 
-        assertEquals(1, spawner.getChildren().size());
+		assertEquals(1, spawner.getChildren().size());
 
-        spawner.spawnBlock();
+		spawner.spawnBlock();
 
-        assertEquals(2, spawner.getChildren().size());
+		assertEquals(2, spawner.getChildren().size());
 
-    }
+	}
 }

@@ -8,30 +8,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BlockBaseTest {
-    @Test
-    public void testCompilation() {
-        BlockBase base = new BlockBase(50, Color.AQUA);
-        Text t = new Text("IdLang");
-        base.addChild(t);
-        base.update();
-    }
+	@Test
+	public void testCompilation() {
+		BlockBase base = new BlockBase(50, Color.AQUA);
+		Text t = new Text("IdLang");
+		base.addChild(t);
+		base.update();
+	}
 
-    @Test
-    public void testSize() {
-        BlockBase base = new BlockBase(50, Color.AQUA);
-        Text t = new Text("IdLang");
+	@Test
+	public void testSize() {
+		BlockBase base = new BlockBase(50, Color.AQUA);
+		Text t = new Text("IdLang");
 
-        double size0 = base.update();
+		double size0 = base.update();
 
-        base.addChild(t);
+		base.addChild(t);
 
-        double size1 = base.update();
+		double size1 = base.update();
 
-        assertEquals(size0 + t.getLayoutBounds().getWidth(), size1);
+		assertEquals(size0 + t.getLayoutBounds().getWidth(), size1);
 
-        t.setText("IdLang is very cool");
-        double size2 = base.update();
+		t.setText("IdLang is very cool");
+		double size2 = base.update();
 
-        assertTrue(size2 > size1);
-    }
+		assertTrue(size2 > size1);
+	}
 }

@@ -8,26 +8,34 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
+import java.util.*;
+
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
  * Represents a single algorithmic problem package.
  */
 public class ProblemPackage {
 	/**
-	 * The expected contents of a properly formatted package.
-	 * Lists all files in the form of arrays of subdirectories relative
-	 * to the package directory, for easy modification.
+	 * Represents an example file pair config.
+ 	 */
+	public static class Example {
+		public String input;
+		public String output;
+	}
+
+	/**
+	 * Represents a configuration of a package given in the config file.
 	 */
-	private static final String [] [] expectedContents = {
-					{"makefile"},
-					{"doc", "statement.txt"},
-					{"doc", "example.in"},
-					{"doc", "example.out"},
-					{"prog", "generator.cpp"},
-					{"prog", "model.cpp"},
-					{"prog", "checker.cpp"}
-	};
+	public static class Config {
+		public String title;
+		public String statement;
+		public ArrayList<Example> examples;
+		public String testInput;
+		public String userOutput;
+		public ArrayList<Integer> testData;
+	}
 
 	/**
 	 * The directory containing the package (one package).
@@ -35,9 +43,9 @@ public class ProblemPackage {
 	private final File packageDirectory;
 
 	/**
-	 * The title of the package, which is the name of the directory.
+	 * The parsed config.yml file.
 	 */
-	private final String title;
+	private final Config config;
 
 	/**
 	 * Scanner of the input file.
@@ -51,12 +59,19 @@ public class ProblemPackage {
 
 	/**
 	 * Interprets the given File as a directory containing one problem package.
-	 * The directory must follow the template as given here: https://gitlab.com/Maurycyt/idlearn/-/wikis/Problem-Packages
+	 * The directory must follow the template as given <a href="https://gitlab.com/Maurycyt/idlearn/-/wikis/Problem-Packages">here</a>
 	 * @param packageDirectory The File object representing the directory with the package.
 	 */
 	public ProblemPackage(File packageDirectory) {
 		this.packageDirectory = packageDirectory;
-		title = packageDirectory.getName();
+		Config tmpConfig;
+		try {
+			tmpConfig = (new Yaml(new Constructor(Config.class))).load(Files.readString(Path.of(packageDirectory.toString(), "config.yml")));
+		} catch (IOException e) {
+			tmpConfig = new Config();
+			e.printStackTrace();
+		}
+		config = tmpConfig;
 		if (!checkValidity()) {
 			throw new RuntimeException("Package directory invalid.");
 		}
@@ -71,7 +86,7 @@ public class ProblemPackage {
 	 * @return The problem title.
 	 */
 	public String getTitle() {
-		return title;
+		return config.title;
 	}
 
 	/**
@@ -81,14 +96,23 @@ public class ProblemPackage {
 	public String getStatement() {
 		StringBuilder sb = new StringBuilder();
 		try {
-			String contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "statement.txt"));
+			String contents = Files.readString(Path.of(packageDirectory.toString(), config.statement));
 			sb.append(contents);
-			sb.append("\n\nExample input:\n");
-			contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "example.in"));
-			sb.append(contents);
-			sb.append("\nExample output:\n");
-			contents = Files.readString(Path.of(packageDirectory.toString(), "doc", "example.out"));
-			sb.append(contents);
+			if (config.examples.size() > 0) {
+				if (config.examples.size() > 1) {
+					sb.append("\n\nExamples:");
+				} else {
+					sb.append("\n\nExample:");
+				}
+				for (Example example : config.examples) {
+					sb.append("\n\nInput:\n");
+					contents = Files.readString(Path.of(packageDirectory.toString(), example.input));
+					sb.append(contents);
+					sb.append("\nOutput:\n");
+					contents = Files.readString(Path.of(packageDirectory.toString(), example.output));
+					sb.append(contents);
+				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -100,14 +124,14 @@ public class ProblemPackage {
 	 * @return True if and only if the package contains all the necessary files.
 	 */
 	public boolean checkValidity() {
-		boolean result = true;
+		boolean result;
 
-		for (String [] pathArray : expectedContents) {
-			File expectedFile = packageDirectory;
-			for (String subdirectory : pathArray) {
-				expectedFile = new File(expectedFile, subdirectory);
-			}
-			result &= expectedFile.exists();
+		result = new File(packageDirectory, "makefile").exists();
+		result &= new File(packageDirectory, "config.yml").exists();
+		result &= new File(packageDirectory, config.statement).exists();
+		for (Example example : config.examples) {
+			result &= new File(packageDirectory, example.input).exists();
+			result &= new File(packageDirectory, example.output).exists();
 		}
 
 		return result;
@@ -215,14 +239,14 @@ public class ProblemPackage {
 	 * Resets the file scanner by creating a new one.
 	 */
 	public void resetScanner() throws FileNotFoundException {
-		inputScanner = new Scanner(new File(packageDirectory, "input.in"));
+		inputScanner = new Scanner(new File(packageDirectory, config.testInput));
 	}
 
 	/**
 	 * Resets the file writer by creating a new one.
 	 */
 	public void resetWriter() throws IOException {
-		outputWriter = new FileWriter(new File(packageDirectory, "user.out"));
+		outputWriter = new FileWriter(new File(packageDirectory, config.userOutput));
 	}
 
 	/**
@@ -231,5 +255,19 @@ public class ProblemPackage {
 	public void resetIO() throws IOException {
 		resetScanner();
 		resetWriter();
+	}
+
+	/**
+	 * Returns the config.
+	 */
+	public Config getConfig() {
+		return config;
+	}
+
+	/**
+	 * Returns the testData member of the config.
+	 */
+	public ArrayList<Integer> getTestData() {
+		return config.testData;
 	}
 }
