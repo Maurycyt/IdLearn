@@ -14,7 +14,7 @@
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" HBox.hgrow="ALWAYS" />
             <ImageView fitHeight="408.0" fitWidth="485.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../new-google-logo-2015.png" />
+                  <Image url="@../images/new-google-logo-2015.png" />
                </image>
             </ImageView>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgrey;" HBox.hgrow="ALWAYS" />
@@ -23,14 +23,15 @@
       <HBox style="-fx-background-color: orange;" VBox.vgrow="ALWAYS">
          <children>
             <Pane layoutX="1009.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" HBox.hgrow="ALWAYS" />
-            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgreen; -fx-alignment: center; -fx-spacing: 30;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="menuCenterVBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgreen; -fx-alignment: center; -fx-spacing: 30;" styleClass="menuVBox" HBox.hgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" onAction="#loadGameMenuScene" prefHeight="26.0" text="Play" />
-                  <Button mnemonicParsing="false" onAction="#loadSettingsScene" prefHeight="26.0" prefWidth="104.0" text="Settings" />
-                  <Button mnemonicParsing="false" onAction="#exitGame" prefHeight="26.0" text="Exit" />
+                  <Button mnemonicParsing="false" onAction="#loadGameMenuScene" prefHeight="40.0" prefWidth="203.0" styleClass="menuButton" stylesheets="@../style.css" text="Play" />
+                  <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#loadAchievementsScene" prefHeight="40.0" prefWidth="203.0" styleClass="menuButton" stylesheets="@../style.css" text="Achievements" />
+                  <Button layoutX="52.0" layoutY="324.0" mnemonicParsing="false" onAction="#loadSettingsScene" prefHeight="40.0" prefWidth="203.0" styleClass="menuButton" stylesheets="@../style.css" text="Settings" />
+                  <Button layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" styleClass="menuButton" stylesheets="@../style.css" text="Exit" />
                </children>
             </VBox>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" HBox.hgrow="ALWAYS" />
+            <Pane id="menuButton" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;" stylesheets="@../style.css" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>

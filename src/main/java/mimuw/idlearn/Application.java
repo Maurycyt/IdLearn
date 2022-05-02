@@ -12,6 +12,7 @@ import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scenes.preloader.LoadTask;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class Application extends javafx.application.Application {
 	private final SceneManager sceneManager = SceneManager.getInstance();

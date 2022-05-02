@@ -2,9 +2,13 @@ package mimuw.idlearn.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SceneController {
 	private final SceneManager sm = SceneManager.getInstance();
@@ -20,6 +24,10 @@ public class SceneController {
 	@FXML
 	public void loadGameMenuScene(ActionEvent event) throws IOException {
 		switchToScene(SceneUtils.GameMenu);
+	}
+	@FXML
+	public void loadAchievementsScene(ActionEvent event) throws IOException {
+		switchToScene(SceneUtils.Achievements);
 	}
 	@FXML
 	public void loadSettingsScene(ActionEvent event) throws IOException {

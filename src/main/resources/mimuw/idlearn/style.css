@@ -1,17 +1,13 @@
-.root {
-    -fx-background-color: lightblue;
+.menuButton {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 25px;
+    -fx-font-weight: 400;
+
+    -fx-pref-width: 350;
 }
 
-.label {
-    -fx-font-size: 20;
-    -fx-font-family: "Lucida Console";
+.menuVBox {
+    -fx-background-color: lightgreen;
     -fx-alignment: center;
-}
-
-.button {
-    -fx-font-size: 15px;
-}
-
-#example_label {
-    -fx-font-size: 60;
+    -fx-spacing: 75;
 }

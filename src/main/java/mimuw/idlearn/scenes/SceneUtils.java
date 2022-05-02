@@ -17,12 +17,13 @@ public class SceneUtils {
 	public static URL GameMenu = SceneUtils.class.getResource("GameMenu.fxml");
 	public static URL Preloader = SceneUtils.class.getResource("Preloader.fxml");
 	public static URL Settings = SceneUtils.class.getResource("Settings.fxml");
+	public static URL Achievements = SceneUtils.class.getResource("Achievements.fxml");
 	public static URL Store = SceneUtils.class.getResource("Store.fxml");
 	public static URL TaskSelection = SceneUtils.class.getResource("TaskSelection.fxml");
 
 	public static URL StyleSheet = Application.class.getResource("style.css");
-	public static URL AppIcon = Application.class.getResource("icon.png");
-	public static URL AppLogo = Application.class.getResource("logo.png");
+	public static URL AppIcon = Application.class.getResource("images/icon.png");
+	public static URL AppLogo = Application.class.getResource("images/logo.png");
 
 	/**
 	 * Load a scene from an .fxml file and return its root
