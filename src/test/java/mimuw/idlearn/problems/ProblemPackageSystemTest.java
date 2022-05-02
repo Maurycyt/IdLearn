@@ -122,7 +122,13 @@ public class ProblemPackageSystemTest {
 
 		TestRunner testRunner = new TestRunner(pack, solution);
 
-		double result = testRunner.aggregateTestTimes();
+		double result = 0;
+		try {
+			result = testRunner.aggregateTestTimes();
+		}
+		catch (WrongAnswerException e) {
+			fail();
+		}
 		System.out.println(pack.getTitle() + " ran with score: " + result);
 
 		assertEquals(4, result, 0.1);

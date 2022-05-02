@@ -21,7 +21,7 @@ public class TestRunner {
 		this.testData = pack.getTestData();
 	}
 
-	public double aggregateTestTimes() throws SimulationException {
+	public double aggregateTestTimes() throws SimulationException, WrongAnswerException {
 		double result = 1.0;
 
 		TimeCounter timeCounter = new TimeCounter();
@@ -29,6 +29,9 @@ public class TestRunner {
 			pack.prepareTest(TestID);
 			timeCounter.clear();
 			solution.evaluate(new Scope(), timeCounter);
+			if (!pack.checkTest()) {
+				throw new WrongAnswerException();
+			}
 			result *= timeCounter.getTime();
 		}
 
