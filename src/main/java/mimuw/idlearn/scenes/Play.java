@@ -19,6 +19,8 @@ import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.language.exceptions.SimulationException;
 import mimuw.idlearn.problems.PackageManager;
 import mimuw.idlearn.problems.ProblemPackage;
+import mimuw.idlearn.problems.TestRunner;
+import mimuw.idlearn.problems.WrongAnswerException;
 
 public class Play extends Scene {
 	public Play(SceneManager sceneManager) {
@@ -49,7 +51,6 @@ public class Play extends Scene {
 		assert pkg != null;
 		final TextArea statement = new TextArea(pkg.getStatement());
 		statement.setWrapText(true);
-		pkg.prepareTest(123);
 
 		statement.setTranslateX(100);
 		statement.setPrefWidth(700);
@@ -59,24 +60,17 @@ public class Play extends Scene {
 
 		button.setOnMousePressed(event -> {
 			Expression<Void> exp = codeBox.compile();
-			Scope scope = new Scope();
+			TestRunner testRunner = new TestRunner(pkg, exp);
+
 			try {
-				pkg.resetIO();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			TimeCounter counter = new TimeCounter();
-			try {
-				exp.evaluate(scope, counter);
-			} catch (SimulationException e) {
-				e.printStackTrace();
-			}
-			if (pkg.checkTest()) {
+				double meanTime = testRunner.aggregateTestTimes();
 				System.out.println("Correct output");
-				System.out.println("Time: " + counter.getTime());
-			} else {
-				System.out.println("Incorrect output");
+				System.out.println("Time: " + meanTime);
 			}
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
 		});
 
 		// Create spawners

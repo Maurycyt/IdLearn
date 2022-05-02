@@ -17,31 +17,25 @@ import org.yaml.snakeyaml.constructor.Constructor;
  * Represents a single algorithmic problem package.
  */
 public class ProblemPackage {
-	private static class Example {
+	/**
+	 * Represents an example file pair config.
+ 	 */
+	public static class Example {
 		public String input;
 		public String output;
 	}
-	private static class Config {
+
+	/**
+	 * Represents a configuration of a package given in the config file.
+	 */
+	public static class Config {
 		public String title;
 		public String statement;
 		public ArrayList<Example> examples;
 		public String testInput;
 		public String userOutput;
+		public ArrayList<Integer> testData;
 	}
-
-	/**
-	 * The expected contents of a properly formatted package.
-	 * Lists all files in the form of arrays of subdirectories relative
-	 * to the package directory, for easy modification.
-	 */
-	private static final String [] [] expectedContents = {
-					{"config.yml"},
-					{"makefile"},
-					{"doc", "statement.txt"},
-					{"prog", "generator.cpp"},
-					{"prog", "model.cpp"},
-					{"prog", "checker.cpp"}
-	};
 
 	/**
 	 * The directory containing the package (one package).
@@ -130,14 +124,14 @@ public class ProblemPackage {
 	 * @return True if and only if the package contains all the necessary files.
 	 */
 	public boolean checkValidity() {
-		boolean result = true;
+		boolean result;
 
-		for (String [] pathArray : expectedContents) {
-			File expectedFile = packageDirectory;
-			for (String subdirectory : pathArray) {
-				expectedFile = new File(expectedFile, subdirectory);
-			}
-			result &= expectedFile.exists();
+		result = new File(packageDirectory, "makefile").exists();
+		result &= new File(packageDirectory, "config.yml").exists();
+		result &= new File(packageDirectory, config.statement).exists();
+		for (Example example : config.examples) {
+			result &= new File(packageDirectory, example.input).exists();
+			result &= new File(packageDirectory, example.output).exists();
 		}
 
 		return result;
@@ -261,5 +255,19 @@ public class ProblemPackage {
 	public void resetIO() throws IOException {
 		resetScanner();
 		resetWriter();
+	}
+
+	/**
+	 * Returns the config.
+	 */
+	public Config getConfig() {
+		return config;
+	}
+
+	/**
+	 * Returns the testData member of the config.
+	 */
+	public ArrayList<Integer> getTestData() {
+		return config.testData;
 	}
 }
