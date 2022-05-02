@@ -8,9 +8,13 @@ import mimuw.idlearn.language.base.Expression;
 import mimuw.idlearn.language.base.TimeCounter;
 import mimuw.idlearn.language.environment.Scope;
 import mimuw.idlearn.language.exceptions.SimulationException;
+import mimuw.idlearn.problems.PackageManager;
+import mimuw.idlearn.problems.ProblemPackage;
+import mimuw.idlearn.problems.TestRunner;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CompilerTest {
 
@@ -55,5 +59,84 @@ public class CompilerTest {
 		Scope scope = new Scope();
 		exp.evaluate(scope, new TimeCounter());
 		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").getValue());
+	}
+
+	@Test
+	public void testSlowAddition() {
+		preparePlatform();
+
+		final ProblemPackage pkg;
+		ProblemPackage tmpPkg = null;
+		try {
+			tmpPkg = PackageManager.getProblemPackage("Addition");
+		} catch (Exception e) {
+			fail();
+		}
+
+		pkg = tmpPkg;
+
+		WhileBlock whilePositive = new WhileBlock();
+		whilePositive.setText("y");
+
+		Operation add1x = new Operation();
+		add1x.setType("+");
+		add1x.setText("x", "x", "1");
+		whilePositive.addChild(0, add1x);
+
+		Operation sub1y = new Operation();
+		sub1y.setType("-");
+		sub1y.setText("y", "y", "1");
+		whilePositive.addChild(0, sub1y);
+
+		WhileBlock whileNegative = new WhileBlock();
+		whileNegative.setText("y");
+
+		Operation sub1x = new Operation();
+		sub1x.setType("-");
+		sub1x.setText("x", "x", "1");
+		whileNegative.addChild(0, sub1x);
+
+		Operation add1y = new Operation();
+		add1y.setType("+");
+		add1y.setText("y", "1", "y");
+		whileNegative.addChild(0, add1y);
+
+		IfElse ifElse = new IfElse();
+		ifElse.setText("z");
+		ifElse.addChild(2*CodeBlock.HEIGHT, whileNegative);
+		ifElse.addChild(0, whilePositive);
+
+		CodeSegment segment = new CodeSegment();
+
+		Write writex = new Write(pkg);
+		writex.setText("x");
+		segment.addChild(0, writex);
+
+		segment.addChild(0, ifElse);
+
+		Operation compare = new Operation();
+		compare.setType(">");
+		compare.setText("z", "y", "0");
+		segment.addChild(0, compare);
+
+		Read readx = new Read(pkg);
+		readx.setText("x");
+
+		Read ready = new Read(pkg);
+		ready.setText("y");
+
+		segment.addChild(0, ready);
+		segment.addChild(0, readx);
+
+		Expression<Void> exp = segment.convert();
+
+		TestRunner testRunner = new TestRunner(pkg, exp);
+		try {
+			testRunner.aggregateTestTimes();
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			fail();
+		}
 	}
 }
