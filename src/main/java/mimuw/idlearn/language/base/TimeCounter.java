@@ -16,4 +16,8 @@ public class TimeCounter {
 	public double getTime() {
 		return time;
 	}
+
+	public void clear() {
+		time = 0;
+	}
 }

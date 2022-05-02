@@ -1,5 +1,10 @@
 package mimuw.idlearn.problems;
 
+import mimuw.idlearn.language.base.*;
+import mimuw.idlearn.language.exceptions.SimulationException;
+import mimuw.idlearn.language.keywords.Assignment;
+import mimuw.idlearn.language.keywords.Block;
+import mimuw.idlearn.language.operators.TwoArgOperator;
 import mimuw.idlearn.utils.ShellExecutor;
 import org.junit.jupiter.api.*;
 
@@ -97,5 +102,38 @@ public class ProblemPackageSystemTest {
 						contents[3].equals("makefile.in") &&
 						contents[4].equals("prog")
 		);
+	}
+
+	@Test
+	public void testTestRunner() throws SimulationException {
+		PackageManager.reloadProblemPackages();
+		ProblemPackage pack = PackageManager.getProblemPackages()[0];
+		assertEquals(pack.getTitle(), "Addition");
+
+		Expression<Void> solution = new Block(
+						new InputHandler(pack, new Variable<>("x"), new Variable<>("y")),
+						new Assignment<>("x", TwoArgOperator.newAdd(new Variable<>("x"), new Variable<>("y")), false),
+						new OutputHandler(pack, new Variable<>("x"))
+		);
+
+		TestRunner testRunner = new TestRunner(pack, solution);
+
+		double result = 0;
+		try {
+			result = testRunner.aggregateTestTimes();
+		} catch (WrongAnswerException e) {
+			fail();
+		}
+		System.out.println(pack.getTitle() + " ran with score: " + result);
+
+		assertEquals(4, result, 0.1);
+
+		Expression<Void> badSolution = new Block(
+						new OutputHandler(pack, new Value<>(0))
+		);
+
+		testRunner = new TestRunner(pack, badSolution);
+
+		assertThrows(WrongAnswerException.class, testRunner::aggregateTestTimes);
 	}
 }
