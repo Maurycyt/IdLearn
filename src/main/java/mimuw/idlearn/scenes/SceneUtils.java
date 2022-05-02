@@ -4,7 +4,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import mimuw.idlearn.Application;
+import mimuw.idlearn.scenes.preloader.LoadTask;
+import mimuw.idlearn.scenes.preloader.Preloader;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,4 +43,16 @@ public class SceneUtils {
 		scene.setRoot(new Group());
 		return root;
 	}
+
+	public static Parent createPreloader(LoadTask task) {
+		try {
+			VBox root = (VBox)loadScene(SceneUtils.Preloader);
+			root.getChildren().add(new Preloader(task));
+			return root;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new Preloader(task);
+		}
+	}
+
 }

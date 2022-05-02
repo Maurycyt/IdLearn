@@ -52,15 +52,14 @@ public class Application extends javafx.application.Application {
 					PackageManager.reloadProblemPackages();
 				}
 				ProblemPackage[] packages = PackageManager.getProblemPackages();
+				int i = 0, n = packages.length;
 				for (ProblemPackage p : packages) {
 					System.out.println(p.getTitle());
 					p.build();
+					logProgress(i / (float)n);
+					i++;
 				}
 
-				for(int i = 0; i < 1000000; i++){
-					//System.out.println("Loading big data " + i);
-					logProgress(i / 1000000.0);
-				}
 				logSuccess();
 			}
 		});

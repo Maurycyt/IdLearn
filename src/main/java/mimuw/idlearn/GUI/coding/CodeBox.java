@@ -33,7 +33,6 @@ public class CodeBox extends Group {
 	 * @return Whether it was in us
 	 */
 	public boolean removeChild(CodeBlock block) {
-
 		return segment.removeChild(block);
 	}
 

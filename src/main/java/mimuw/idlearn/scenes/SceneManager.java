@@ -35,9 +35,12 @@ public class SceneManager {
 	 * @param task task to execute in the background
 	 */
 	synchronized public void add(Parent sceneRoot, LoadTask task) {
+		//sceneRoots.pop();
 		sceneRoots.push(sceneRoot);
 		sceneRoots.push(new Preloader(task));
+		sceneRoots.push(SceneUtils.createPreloader(task));
 		updateStage();
+
 	}
 
 	/**

@@ -16,16 +16,16 @@ public class Preloader extends Group {
 		loader.start();
 	}
 
-	void onSuccess() {
+	synchronized void onSuccess() {
 		bar.setProgress(1);
 		SceneManager.getInstance().pop();
 	}
 
-	void onLogProgress(double progress) {
+	synchronized void onLogProgress(double progress) {
 		bar.setProgress(progress);
 	}
 
-	void onFail() {
+	synchronized void onFail() {
 
 	}
 }

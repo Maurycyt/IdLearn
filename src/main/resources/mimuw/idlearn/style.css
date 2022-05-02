@@ -1,29 +1,102 @@
+/* Load Fantasque font family */
 @font-face {
     src: url(fonts/Fantasque/fantasquesansmono-regular.otf);
 }
-
 @font-face {
     src: url(fonts/Fantasque/fantasquesansmono-bold.otf);
 }
-
 @font-face {
     src: url(fonts/Fantasque/fantasquesansmono-italic.otf);
 }
-
 @font-face {
     src: url(fonts/Fantasque/fantasquesansmono-bolditalic.otf);
 }
 
-.menuButton {
-    -fx-font-family: "Fantasque Sans Mono Bold Italic";
+/* Load Anonymous Pro font family */
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_B.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_BI.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_I.ttf);
+}
+
+/*
+10% - #00b167
+30% - #f2f2f5
+60% - #ffffff
+*/
+
+.button {
+    -fx-font-family: "Anonymous Pro Bold";
     -fx-font-size: 32px;
     -fx-font-weight: 400;
+    -fx-text-fill: #ffffff;
+    -fx-text-alignment: center;
+
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+.button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
+}
+
+.menuVBox {
+    -fx-background-color: #f2f2f5;
+    -fx-alignment: center;
+    -fx-spacing: 35px;
+}
+
+.backgroundHBox {
+    -fx-background-color: #f2f2f5;
+    -fx-alignment: center;
+}
+
+.headerHBox {
+    -fx-background-color: #f2f2f5;
+    -fx-alignment: center;
+    -fx-spacing: 40px;
+}
+
+.menuButton {
+    -fx-background-color: #00b167;
+    -fx-background-radius: 10px;
 
     -fx-pref-width: 350;
 }
 
-.menuVBox {
-    -fx-background-color: lightgreen;
+.storeTileButton {
+    -fx-background-color: #00b167;
+
+    -fx-pref-height: 250;
+    -fx-pref-width: 350;
+}
+
+.storeTilePane {
+    -fx-background-color: #f2f2f5;
+    -fx-orientation: horizontal;
     -fx-alignment: center;
-    -fx-spacing: 75;
+    -fx-pref-tile-height: 300px;
+    -fx-hgap: 30px;
+}
+/*#fbfb39*/
+
+.pointDisplayButton {
+    -fx-background-color: #00b167;
+    -fx-background-radius: 10px;
+
+    -fx-pref-width: 350;
+}
+
+.storeTileButton {
+    -fx-background-color: #00b167;
+
+    -fx-pref-height: 250;
+    -fx-pref-width: 350;
 }
