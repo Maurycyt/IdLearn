@@ -4,7 +4,7 @@ CXX = g++
 CXXFLAGS = -O3 -Wall -Wextra -DNDEBUG -std=c++20
 TestID = 1
 
-.PHONY: all, clean, input, check
+.PHONY: all, clean, modelOut, input, check
 
 all: $(GEN) $(MOD) $(CHE)
 
@@ -25,6 +25,8 @@ input: $(GEN)
 
 $(MODEL_OUT): $(INPUT) $(MOD)
 	$(MOD) < $(INPUT) > $(MODEL_OUT)
+
+modelOut: $(MODEL_OUT)
 
 check: $(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)
 	$(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)

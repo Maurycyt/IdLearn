@@ -126,16 +126,17 @@ public class ShellExecutor {
 	}
 
 	/**
-	 * Executes the given command and returns its output.
+	 * Executes the given command in given directory and returns its output.
 	 * @param command The command to execute.
+	 * @param directory The directory in which the command is to be executed.
 	 * @return The output of the executed command. Often empty.
 	 */
-	public static String execute(String command) {
+	public static String execute(String command, File directory) {
 		// StringBuilder for the output of the command.
 		StringBuilder output = new StringBuilder();
 
 		try {
-			Process p = Runtime.getRuntime().exec(command);
+			Process p = Runtime.getRuntime().exec(command, null, directory);
 			int exitCode = p.waitFor();
 			String line;
 
@@ -165,6 +166,15 @@ public class ShellExecutor {
 		}
 
 		return output.toString();
+	}
+
+	/**
+	 * Executes the given command in the working directory and returns its output.
+	 * @param command The command to execute.
+	 * @return The output of the executed command. Often empty.
+	 */
+	public static String execute(String command) {
+		return execute(command, null);
 	}
 
 	/**

@@ -141,10 +141,7 @@ public class ProblemPackage {
 	 * Builds the required executables.
 	 */
 	public void build() {
-		ShellExecutor se = new ShellExecutor();
-		se.addLineToScript("cd " + packageDirectory);
-		se.addLineToScript("make all -s");
-		se.execute();
+		ShellExecutor.execute("make all -s", packageDirectory);
 	}
 
 	/**
@@ -163,10 +160,7 @@ public class ProblemPackage {
 				e.printStackTrace();
 			}
 		}
-		ShellExecutor se = new ShellExecutor();
-		se.addLineToScript("cd " + packageDirectory);
-		se.addLineToScript("make input -s TestID=" + id);
-		se.execute();
+		ShellExecutor.execute("make input -s TestID=" + id, packageDirectory);
 		try {
 			resetIO();
 		} catch (IOException e) {
@@ -186,10 +180,7 @@ public class ProblemPackage {
 	 * Generates a test model output file.
 	 */
 	public void generateTestModelOutput() {
-		ShellExecutor se = new ShellExecutor();
-		se.addLineToScript("cd " + packageDirectory);
-		se.addLineToScript("make model.out -s");
-		se.execute();
+		ShellExecutor.execute("make modelOut -s", packageDirectory);
 	}
 
 	/**
@@ -217,11 +208,7 @@ public class ProblemPackage {
 	 * @return True if and only if the user output is correct.
 	 */
 	public boolean checkTest() {
-		String checkerOutput;
-		ShellExecutor se = new ShellExecutor();
-		se.addLineToScript("cd " + packageDirectory);
-		se.addLineToScript("make check -s");
-		checkerOutput = se.execute();
+		String checkerOutput = ShellExecutor.execute("make check -s", packageDirectory);
 		return checkerOutput.equals("OK\n");
 	}
 
@@ -229,10 +216,7 @@ public class ProblemPackage {
 	 * Cleans the contents of the package.
 	 */
 	public void clean() {
-		ShellExecutor se = new ShellExecutor();
-		se.addLineToScript("cd " + packageDirectory);
-		se.addLineToScript("make clean");
-		se.execute();
+		ShellExecutor.execute("make clean -s", packageDirectory);
 	}
 
 	/**
