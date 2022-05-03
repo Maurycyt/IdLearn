@@ -8,8 +8,9 @@
 !application/
 !core/
 !idlang/
-!problem_package_system/
+!packages/
 !scenes/
+!.package-development/
 
 # And the maven files
 !pom.xml
@@ -23,3 +24,4 @@
 # Finally, throw out all useless IDE files and CMake replies and stuff and target directories
 **/.idea/
 **/target/
+**/*.iml

@@ -1,5 +1,5 @@
 module mimuw.idlearn.idlang {
-	requires mimuw.idlearn.problem_package_system;
+	requires mimuw.idlearn.packages;
 
 	exports mimuw.idlearn.idlang.base;
 	exports mimuw.idlearn.idlang.conversion;
@@ -7,5 +7,4 @@ module mimuw.idlearn.idlang {
 	exports mimuw.idlearn.idlang.exceptions;
 	exports mimuw.idlearn.idlang.keywords;
 	exports mimuw.idlearn.idlang.operators;
-	exports mimuw.idlearn.idlang.parser;
 }

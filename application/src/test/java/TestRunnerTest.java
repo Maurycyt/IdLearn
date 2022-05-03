@@ -1,12 +1,12 @@
-import mimuw.idlearn.TestRunner;
-import mimuw.idlearn.WrongAnswerException;
+import mimuw.idlearn.testRunner.TestRunner;
+import mimuw.idlearn.testRunner.WrongAnswerException;
 import mimuw.idlearn.idlang.base.*;
 import mimuw.idlearn.idlang.exceptions.SimulationException;
 import mimuw.idlearn.idlang.keywords.Assignment;
 import mimuw.idlearn.idlang.keywords.Block;
 import mimuw.idlearn.idlang.operators.TwoArgOperator;
-import mimuw.idlearn.problem_package_system.PackageManager;
-import mimuw.idlearn.problem_package_system.ProblemPackage;
+import mimuw.idlearn.packages.PackageManager;
+import mimuw.idlearn.packages.ProblemPackage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

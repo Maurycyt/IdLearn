@@ -58,7 +58,7 @@
         <module>idlang</module>
         <module>scenes</module>
         <module>application</module>
-        <module>problem_package_system</module>
+        <module>packages</module>
     </modules>
 
     <build>
@@ -111,7 +111,7 @@
                             <!-- The classes to exclude -->
                             <excludes>
                                 <exclude>
-                                    idlearn
+                                    mimuw/idlearn/Application*.class
                                 </exclude>
                             </excludes>
                         </configuration>

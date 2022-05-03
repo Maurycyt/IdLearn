@@ -6,10 +6,10 @@ import javafx.scene.text.Text;
 import mimuw.idlearn.idlang_gui.codeblock.BlockBase;
 import mimuw.idlearn.idlang_gui.codeblock.CodeBlock;
 import mimuw.idlearn.idlang_gui.codeblock.ResizableTextField;
-import mimuw.idlearn.idlang.parser.StringToExpression;
+import mimuw.idlearn.idlang_gui.parser.StringToExpression;
 import mimuw.idlearn.idlang.base.Expression;
 import mimuw.idlearn.idlang.base.OutputHandler;
-import mimuw.idlearn.problem_package_system.ProblemPackage;
+import mimuw.idlearn.packages.ProblemPackage;
 
 public class Write extends CodeBlock {
 	private final BlockBase base = new BlockBase(HEIGHT, Color.BLUE);

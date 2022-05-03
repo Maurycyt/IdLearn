@@ -1,10 +1,10 @@
-package mimuw.idlearn;
+package mimuw.idlearn.testRunner;
 
 import mimuw.idlearn.idlang.base.Expression;
 import mimuw.idlearn.idlang.base.TimeCounter;
 import mimuw.idlearn.idlang.environment.Scope;
 import mimuw.idlearn.idlang.exceptions.SimulationException;
-import mimuw.idlearn.problem_package_system.ProblemPackage;
+import mimuw.idlearn.packages.ProblemPackage;
 
 import java.util.ArrayList;
 

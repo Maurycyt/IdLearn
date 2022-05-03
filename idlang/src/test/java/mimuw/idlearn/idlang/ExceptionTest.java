@@ -13,8 +13,8 @@ import mimuw.idlearn.idlang.keywords.Assignment;
 import mimuw.idlearn.idlang.keywords.Block;
 import mimuw.idlearn.idlang.keywords.While;
 import mimuw.idlearn.idlang.operators.TwoArgOperator;
-import mimuw.idlearn.problem_package_system.PackageManager;
-import mimuw.idlearn.problem_package_system.ProblemPackage;
+import mimuw.idlearn.packages.PackageManager;
+import mimuw.idlearn.packages.ProblemPackage;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;

@@ -8,8 +8,8 @@ import mimuw.idlearn.idlang_gui.codeblock.blocktypes.Write;
 import mimuw.idlearn.idlang.base.Expression;
 import mimuw.idlearn.idlang.base.TimeCounter;
 import mimuw.idlearn.idlang.environment.Scope;
-import mimuw.idlearn.problem_package_system.PackageManager;
-import mimuw.idlearn.problem_package_system.ProblemPackage;
+import mimuw.idlearn.packages.PackageManager;
+import mimuw.idlearn.packages.ProblemPackage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

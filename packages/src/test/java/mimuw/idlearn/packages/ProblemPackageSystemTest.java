@@ -1,4 +1,4 @@
-package mimuw.idlearn.problem_package_system;
+package mimuw.idlearn.packages;
 
 import mimuw.idlearn.utils.ShellExecutor;
 import org.junit.jupiter.api.Assertions;

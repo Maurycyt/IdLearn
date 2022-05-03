@@ -9,7 +9,7 @@ import mimuw.idlearn.idlang_gui.codeblock.ResizableTextField;
 import mimuw.idlearn.idlang.base.Expression;
 import mimuw.idlearn.idlang.base.InputHandler;
 import mimuw.idlearn.idlang.base.Variable;
-import mimuw.idlearn.problem_package_system.ProblemPackage;
+import mimuw.idlearn.packages.ProblemPackage;
 
 public class Read extends CodeBlock {
 	private final BlockBase base = new BlockBase(HEIGHT, Color.GREEN);
