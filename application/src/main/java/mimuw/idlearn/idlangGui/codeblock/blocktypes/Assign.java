@@ -1,12 +1,12 @@
-package mimuw.idlearn.idlang_gui.codeblock.blocktypes;
+package mimuw.idlearn.idlangGui.codeblock.blocktypes;
 
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import mimuw.idlearn.idlang_gui.codeblock.BlockBase;
-import mimuw.idlearn.idlang_gui.codeblock.CodeBlock;
-import mimuw.idlearn.idlang_gui.codeblock.ResizableTextField;
-import mimuw.idlearn.idlang_gui.parser.StringToExpression;
+import mimuw.idlearn.idlangGui.codeblock.BlockBase;
+import mimuw.idlearn.idlangGui.codeblock.CodeBlock;
+import mimuw.idlearn.idlangGui.codeblock.ResizableTextField;
+import mimuw.idlearn.idlangGui.parser.StringToExpression;
 import mimuw.idlearn.idlang.base.Expression;
 import mimuw.idlearn.idlang.keywords.Assignment;
 

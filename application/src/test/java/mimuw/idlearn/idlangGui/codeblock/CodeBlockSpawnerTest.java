@@ -1,11 +1,9 @@
-package mimuw.idlearn.idlang_gui.codeblock;
+package mimuw.idlearn.idlangGui.codeblock;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import mimuw.idlearn.idlang_gui.CodeBox;
-import mimuw.idlearn.idlang_gui.codeblock.CodeBlockSpawner;
-import mimuw.idlearn.idlang_gui.codeblock.blocktypes.Assign;
-import org.junit.jupiter.api.BeforeAll;
+import mimuw.idlearn.idlangGui.CodeBox;
+import mimuw.idlearn.idlangGui.codeblock.blocktypes.Assign;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

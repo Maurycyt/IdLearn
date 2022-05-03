@@ -1,9 +1,9 @@
-package mimuw.idlearn.idlang_gui;
+package mimuw.idlearn.idlangGui;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import mimuw.idlearn.idlang_gui.codeblock.CodeBlock;
-import mimuw.idlearn.idlang_gui.codeblock.CodeSegment;
+import mimuw.idlearn.idlangGui.codeblock.CodeBlock;
+import mimuw.idlearn.idlangGui.codeblock.CodeSegment;
 import mimuw.idlearn.idlang.base.Expression;
 
 public class CodeBox extends Group {
