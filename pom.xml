@@ -56,9 +56,10 @@
     <modules>
         <module>core</module>
         <module>idlang</module>
+        <module>packages</module>
+        <module>scoring</module>
         <module>scenes</module>
         <module>application</module>
-        <module>problem_package_system</module>
     </modules>
 
     <build>
@@ -111,7 +112,7 @@
                             <!-- The classes to exclude -->
                             <excludes>
                                 <exclude>
-                                    idlearn
+                                    mimuw/idlearn/Application*.class
                                 </exclude>
                             </excludes>
                         </configuration>

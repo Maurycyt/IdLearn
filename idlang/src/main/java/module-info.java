@@ -1,11 +1,17 @@
 module mimuw.idlearn.idlang {
-	requires mimuw.idlearn.problem_package_system;
+	requires javafx.controls;
+	requires javafx.fxml;
+	requires mimuw.idlearn.packages;
 
-	exports mimuw.idlearn.idlang.base;
-	exports mimuw.idlearn.idlang.conversion;
-	exports mimuw.idlearn.idlang.environment;
-	exports mimuw.idlearn.idlang.exceptions;
-	exports mimuw.idlearn.idlang.keywords;
-	exports mimuw.idlearn.idlang.operators;
-	exports mimuw.idlearn.idlang.parser;
+	exports mimuw.idlearn.idlang.logic.base;
+	exports mimuw.idlearn.idlang.logic.conversion;
+	exports mimuw.idlearn.idlang.logic.environment;
+	exports mimuw.idlearn.idlang.logic.exceptions;
+	exports mimuw.idlearn.idlang.logic.keywords;
+	exports mimuw.idlearn.idlang.logic.operators;
+
+	exports mimuw.idlearn.idlang.GUI;
+	exports mimuw.idlearn.idlang.GUI.parser;
+	exports mimuw.idlearn.idlang.GUI.codeblocks;
+	exports mimuw.idlearn.idlang.GUI.codeblocks.blocktypes;
 }

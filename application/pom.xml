@@ -27,8 +27,14 @@
         </dependency>
         <dependency>
             <groupId>mimuw</groupId>
-            <artifactId>problem_package_system</artifactId>
+            <artifactId>packages</artifactId>
             <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>mimuw</groupId>
+            <artifactId>scoring</artifactId>
+            <version>2.0.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>mimuw</groupId>

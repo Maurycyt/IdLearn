@@ -13,15 +13,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import mimuw.idlearn.idlang.base.Expression;
-import mimuw.idlearn.idlang_gui.CodeBox;
-import mimuw.idlearn.idlang_gui.codeblock.CodeBlockSpawner;
-import mimuw.idlearn.idlang_gui.codeblock.blocktypes.*;
-import mimuw.idlearn.problem_package_system.PackageManager;
-import mimuw.idlearn.problem_package_system.ProblemPackage;
+import mimuw.idlearn.idlang.logic.base.Expression;
+import mimuw.idlearn.idlang.GUI.CodeBox;
+import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
+import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
+import mimuw.idlearn.packages.PackageManager;
+import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scenes.preloader.LoadTask;
+import mimuw.idlearn.scoring.TestRunner;
 
 import java.io.IOException;
 

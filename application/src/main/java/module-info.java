@@ -3,10 +3,11 @@ module mimuw.idlearn.application {
 	requires javafx.fxml;
 	requires mimuw.idlearn.core;
 	requires mimuw.idlearn.idlang;
-    requires mimuw.idlearn.problem_package_system;
+	requires mimuw.idlearn.packages;
+	requires mimuw.idlearn.scoring;
 	requires mimuw.idlearn.scenes;
 
-    opens mimuw.idlearn to javafx.fxml;
+	opens mimuw.idlearn to javafx.fxml;
 
 	exports mimuw.idlearn;
 }

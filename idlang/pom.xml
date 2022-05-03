@@ -17,8 +17,18 @@
     <dependencies>
         <dependency>
             <groupId>mimuw</groupId>
-            <artifactId>problem_package_system</artifactId>
+            <artifactId>packages</artifactId>
             <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
