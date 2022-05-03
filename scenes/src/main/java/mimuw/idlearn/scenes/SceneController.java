@@ -1,15 +1,14 @@
 package mimuw.idlearn.scenes;
 
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
 
 public class SceneController {
 	private final SceneManager sm = SceneManager.getInstance();
@@ -28,10 +27,18 @@ public class SceneController {
 	public void addAchievementsScene(ActionEvent event) throws IOException {
 		enterNextScene(SceneUtils.Achievements);
 	}
-/*	@FXML
+	@FXML
 	public void addAdditionTaskScene(ActionEvent event) throws IOException {
-		add(SceneUtils.AdditionTask);
-	}*/
+		/* Will be replaced by:
+		```
+			enterNextScene(SceneUtils.AdditionTask);
+		```*/
+		Scene scene = SceneUtils.createAdditionTaskScene();
+		Parent root = scene.getRoot();
+		scene.setRoot(new Group());
+		sm.push(root);
+
+	}
 	@FXML
 	public void addGameMenuScene(ActionEvent event) throws IOException {
 		enterNextScene(SceneUtils.GameMenu);

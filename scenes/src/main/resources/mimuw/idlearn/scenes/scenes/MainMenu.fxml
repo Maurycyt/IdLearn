@@ -10,7 +10,7 @@
    <children>
       <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
          <children>
-            <ImageView fitHeight="235.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="361.0" fitWidth="609.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/logo.png" />
                </image>
@@ -20,7 +20,7 @@
             </ImageView>
          </children>
          <VBox.margin>
-            <Insets top="50.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
       <HBox styleClass="menuVBox" stylesheets="@../style.css" VBox.vgrow="ALWAYS">
