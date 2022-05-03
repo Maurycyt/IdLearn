@@ -37,7 +37,6 @@ public class SceneUtils {
 		Scene scene = new Scene(FXMLLoader.load(url));
 		Parent root = scene.getRoot();
 		root.getStylesheets().add(StyleSheet.toExternalForm());
-		//scene.getStylesheets().add(StyleSheet.toExternalForm());
 		scene.setRoot(new Group());
 		return root;
 	}

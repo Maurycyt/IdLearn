@@ -131,6 +131,13 @@ public class FlowTest {
 	@Test
 	public void testInputAndOutput() throws SimulationException {
 		try {
+			try {
+				PackageManager.reloadProblemPackages();
+			} catch (RuntimeException e) {
+				System.out.println("Package directory altered. Reloading packages...");
+				PackageManager.reloadProblemPackageDirectory(true);
+				PackageManager.reloadProblemPackages();
+			}
 			ProblemPackage pkg = PackageManager.getProblemPackage("Addition");
 			pkg.prepareTest(123);
 

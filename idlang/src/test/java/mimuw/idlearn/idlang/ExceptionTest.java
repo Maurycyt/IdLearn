@@ -59,6 +59,13 @@ public class ExceptionTest {
 	@Test
 	public void testEndOfInput() throws SimulationException {
 		try {
+			try {
+				PackageManager.reloadProblemPackages();
+			} catch (RuntimeException e) {
+				System.out.println("Package directory altered. Reloading packages...");
+				PackageManager.reloadProblemPackageDirectory(true);
+				PackageManager.reloadProblemPackages();
+			}
 			ProblemPackage pkg = PackageManager.getProblemPackage("Addition");
 			pkg.prepareTest(123);
 

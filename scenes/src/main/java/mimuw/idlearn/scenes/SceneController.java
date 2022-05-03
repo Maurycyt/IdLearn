@@ -1,9 +1,10 @@
 package mimuw.idlearn.scenes;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -13,38 +14,53 @@ import java.util.ResourceBundle;
 public class SceneController {
 	private final SceneManager sm = SceneManager.getInstance();
 
-	private void switchToScene(URL url) throws IOException {
+	private void replaceCurrentScene(URL url) throws IOException {
 		sm.replace(SceneUtils.loadScene(url));
+	}
+	private void enterNextScene(URL url) throws IOException {
+		sm.push(SceneUtils.loadScene(url));
+	}
+	private void returnToPreviousScene() {
+		sm.pop();
 	}
 
 	@FXML
-	public void loadMainMenuScene(ActionEvent event) throws IOException {
-		switchToScene(SceneUtils.MainMenu);
+	public void addAchievementsScene(ActionEvent event) throws IOException {
+		enterNextScene(SceneUtils.Achievements);
+	}
+/*	@FXML
+	public void addAdditionTaskScene(ActionEvent event) throws IOException {
+		add(SceneUtils.AdditionTask);
+	}*/
+	@FXML
+	public void addGameMenuScene(ActionEvent event) throws IOException {
+		enterNextScene(SceneUtils.GameMenu);
 	}
 	@FXML
-	public void loadGameMenuScene(ActionEvent event) throws IOException {
-		switchToScene(SceneUtils.GameMenu);
+	public void addPreloaderScene(ActionEvent event) throws IOException {
+		enterNextScene(SceneUtils.Preloader);
 	}
 	@FXML
-	public void loadAchievementsScene(ActionEvent event) throws IOException {
-		switchToScene(SceneUtils.Achievements);
+	public void addSettingsScene(ActionEvent event) throws IOException {
+		enterNextScene(SceneUtils.Settings);
 	}
 	@FXML
-	public void loadSettingsScene(ActionEvent event) throws IOException {
-		switchToScene(SceneUtils.Settings);
+	public void addStoreScene(ActionEvent event) throws IOException {
+		enterNextScene(SceneUtils.Store);
 	}
 	@FXML
-	public void loadTaskSelectionScene(ActionEvent event) throws IOException {
-		switchToScene(SceneUtils.TaskSelection);
+	public void addTaskSelectionScene(ActionEvent event) throws IOException {
+		enterNextScene(SceneUtils.TaskSelection);
 	}
+
 	@FXML
-	public void loadStoreScene(ActionEvent event) throws IOException {
-		switchToScene(SceneUtils.Store);
+	public void goBack(ActionEvent event) {
+		returnToPreviousScene();
 	}
 
 	@FXML
 	public void exitGame(ActionEvent event) {
-		System.out.println("Exit game");
+		System.out.println("Exiting game...");
 		sm.exit();
 	}
 }

@@ -16,7 +16,7 @@ public class SceneManager {
 	}
 
 	private void updateStage(){
-		if(stage != null)
+		if (stage != null)
 			stage.getScene().setRoot(sceneRoots.peek());
 	}
 
@@ -24,7 +24,7 @@ public class SceneManager {
 	 * Add a sceneRoot to the sceneRoot machine
 	 * @param sceneRoot new sceneRoot
 	 */
-	synchronized public void add(Parent sceneRoot){
+	synchronized public void push(Parent sceneRoot){
 		sceneRoots.push(sceneRoot);
 		updateStage();
 	}
@@ -34,10 +34,8 @@ public class SceneManager {
 	 * @param sceneRoot new sceneRoot
 	 * @param task task to execute in the background
 	 */
-	synchronized public void add(Parent sceneRoot, LoadTask task) {
-		//sceneRoots.pop();
+	synchronized public void push(Parent sceneRoot, LoadTask task) {
 		sceneRoots.push(sceneRoot);
-		sceneRoots.push(new Preloader(task));
 		sceneRoots.push(SceneUtils.createPreloader(task));
 		updateStage();
 
