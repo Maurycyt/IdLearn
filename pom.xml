@@ -14,7 +14,7 @@
     <properties>
         <revision>2.0.0</revision>
         <junit.version>5.8.1</junit.version>
-        <javafx.version>11.0.1</javafx.version>
+        <javafx.version>18.0.1</javafx.version>
         <snakeyaml.version>1.30</snakeyaml.version>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
@@ -56,9 +56,10 @@
     <modules>
         <module>core</module>
         <module>idlang</module>
+        <module>packages</module>
+        <module>scoring</module>
         <module>scenes</module>
         <module>application</module>
-        <module>packages</module>
     </modules>
 
     <build>
@@ -111,7 +112,7 @@
                             <!-- The classes to exclude -->
                             <excludes>
                                 <exclude>
-                                    mimuw/idlearn/Application*.class
+                                    mimuw/idlearn/*Application*.class
                                 </exclude>
                             </excludes>
                         </configuration>

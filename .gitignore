@@ -10,6 +10,7 @@
 !idlang/
 !packages/
 !scenes/
+!scoring/
 !.package-development/
 
 # And the maven files

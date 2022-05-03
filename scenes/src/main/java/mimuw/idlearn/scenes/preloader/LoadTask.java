@@ -1,23 +1,41 @@
 package mimuw.idlearn.scenes.preloader;
 
-import mimuw.idlearn.core.Emitter;
-
 public abstract class LoadTask {
-	Emitter emitter;
+	private Preloader preloader;
+
+	/**
+	 * Internal execution of this task
+	 * @param preloader preloader that executed this task
+	 */
+	void run(Preloader preloader) {
+		this.preloader = preloader;
+		load();
+	}
+
+	/**
+	 * Log that some progress has been made
+	 * @param progress total progress in percents
+	 */
 	protected void logProgress(double progress){
-		synchronized (emitter) {
-			emitter.notify(PreloaderEvent.Progress(progress));
-		}
+		preloader.onLogProgress(progress);
 	}
+
+	/**
+	 * Log that task finished successfully
+	 */
 	protected void logSuccess(){
-		synchronized (emitter) {
-			emitter.notify(PreloaderEvent.Success());
-		}
+		preloader.onSuccess();
 	}
+
+	/**
+	 * Log that task failed its execution
+	 */
 	protected void logFail(){
-		synchronized (emitter) {
-			emitter.notify(PreloaderEvent.Fail());
-		}
+		preloader.onFail();
 	}
+
+	/**
+	 * Task to execute
+	 */
 	public abstract void load();
 }

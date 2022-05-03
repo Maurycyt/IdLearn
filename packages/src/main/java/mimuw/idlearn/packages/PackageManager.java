@@ -18,13 +18,13 @@ public class PackageManager {
 	 * Will be invoked before the first use of the PackageManager class to initialize `problemPackageDirectory`.
 	 * Avoid using if the problem package directory does not need to be reloaded.
 	 * Checks for the existence of problem "program files". If the directory
-	 * doesn't exist, it creates it and copies the default contents into it.
+	 * doesn't exist or `forceCopy` is true, it creates it and copies the default contents into it.
 	 */
-	public static void reloadProblemPackageDirectory() {
+	public static void reloadProblemPackageDirectory(boolean forceCopy) {
 		Path problemPackageDirectoryPath = Path.of(System.getProperty("user.home"), ".idlearn", "problems");
 		File result = problemPackageDirectoryPath.toFile();
 
-		if (result.mkdirs()) {
+		if (result.mkdirs() || forceCopy) {
 			// If the problem package directory didn't exist, we need to initialize it.
 			// Copy the contents of defaultProblemPackages into the directory.
 			ShellExecutor.execute("cp -r " +
@@ -35,6 +35,11 @@ public class PackageManager {
 
 		problemPackageDirectory = result;
 	}
+
+	public static void reloadProblemPackageDirectory() {
+		reloadProblemPackageDirectory(false);
+	}
+
 
 	/**
 	 * The problem package directory.
