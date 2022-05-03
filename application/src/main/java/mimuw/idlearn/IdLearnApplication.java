@@ -3,107 +3,21 @@ package mimuw.idlearn;
 import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.GUI.CodeBox;
-import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
-import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scenes.preloader.LoadTask;
-import mimuw.idlearn.scoring.TestRunner;
 
 import java.io.IOException;
 
 public class IdLearnApplication extends javafx.application.Application {
 	private final SceneManager sceneManager = SceneManager.getInstance();
 	private final int framesPerSecond = 60;
-
-	private static Parent createAdditionTask() {
-		// Create base elements
-		final CodeBox codeBox = new CodeBox();
-		final Pane codeBlocks = new VBox();
-		final Group dragged = new Group();
-
-		// Set positions
-		codeBlocks.setTranslateX(50);
-		codeBlocks.setTranslateY(200);
-
-		codeBox.setTranslateX(300);
-		codeBox.setTranslateY(200);
-
-		//codeBox.setPrefSize(300, 400);
-		final ProblemPackage pkg;
-		ProblemPackage tmpPkg = null;
-		try {
-			tmpPkg = PackageManager.getProblemPackage("Addition");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		pkg = tmpPkg;
-		assert pkg != null;
-		final TextArea statement = new TextArea(pkg.getStatement());
-		statement.setWrapText(true);
-
-		statement.setTranslateX(100);
-		statement.setPrefWidth(700);
-
-		final Button button = new Button("Convert");
-		//getChildren().add(button);
-
-		button.setOnMousePressed(event -> {
-			Expression<Void> exp = codeBox.compile();
-			TestRunner testRunner = new TestRunner(pkg, exp);
-
-			try {
-				double meanTime = testRunner.aggregateTestTimes();
-				System.out.println("Correct output");
-				System.out.println("Time: " + meanTime);
-			}
-			catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-
-		});
-
-		// Create spawners
-		Node readSpawner = new CodeBlockSpawner(codeBox, dragged, () -> new Read(pkg));
-		Node writeSpawner = new CodeBlockSpawner(codeBox, dragged, () -> new Write(pkg));
-		Node assignSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
-		Node operationSpawner = new CodeBlockSpawner(codeBox, dragged, Operation::new);
-		Node whileSpawner = new CodeBlockSpawner(codeBox, dragged, WhileBlock::new);
-		Node ifSpawner = new CodeBlockSpawner(codeBox, dragged, IfElse::new);
-
-		// Link spawners
-		codeBlocks.getChildren().addAll(readSpawner, writeSpawner, assignSpawner, operationSpawner, whileSpawner, ifSpawner);
-
-		// Link everything else
-		//getChildren().addAll(statement, codeBlocks, codeBox, dragged);
-
-		return null;
-	}
-
-/*		@Override
-		public void handleEvent(Event event) {
-			if(event instanceof KeyEvent e) {
-				if (e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
-					if (e.getCode() == KeyCode.ESCAPE)
-						getSceneManager().add(new Pause(getSceneManager()));
-				}
-			}
-		}*/
 
 	@Override
 	public void start(Stage stage) throws IOException {
