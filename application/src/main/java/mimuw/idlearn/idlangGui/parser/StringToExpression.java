@@ -1,4 +1,4 @@
-package mimuw.idlearn.idlang_gui.parser;
+package mimuw.idlearn.idlangGui.parser;
 
 import mimuw.idlearn.idlang.base.Expression;
 import mimuw.idlearn.idlang.base.Value;

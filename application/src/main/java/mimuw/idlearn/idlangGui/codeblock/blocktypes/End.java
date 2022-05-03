@@ -1,8 +1,8 @@
-package mimuw.idlearn.idlang_gui.codeblock.blocktypes;
+package mimuw.idlearn.idlangGui.codeblock.blocktypes;
 
 import javafx.scene.paint.Color;
-import mimuw.idlearn.idlang_gui.codeblock.BlockBase;
-import mimuw.idlearn.idlang_gui.codeblock.CodeBlock;
+import mimuw.idlearn.idlangGui.codeblock.BlockBase;
+import mimuw.idlearn.idlangGui.codeblock.CodeBlock;
 
 public class End extends CodeBlock {
 	private final BlockBase base;
