@@ -14,7 +14,7 @@
     <properties>
         <revision>2.0.0</revision>
         <junit.version>5.8.1</junit.version>
-        <javafx.version>11.0.1</javafx.version>
+        <javafx.version>18.0.1</javafx.version>
         <snakeyaml.version>1.30</snakeyaml.version>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
@@ -98,7 +98,7 @@
                         <configuration>
                             <rules>
                                 <rule>
-                                    <element>BUNDLE</element>
+                                    <element>PACKAGE</element>
                                     <limits>
                                         <limit>
                                             <counter>LINE</counter>
