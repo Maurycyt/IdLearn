@@ -12,10 +12,9 @@ public class PointsGiver {
 
 	private static class PointsTimerTask extends TimerTask {
 		long timeMillis;
-		public PointsTimerTask(double time) {
+		public PointsTimerTask(long time) {
 			super();
-			timeMillis = (long) (1000 * time);
-			System.out.println(timeMillis);
+			timeMillis = time;
 		}
 
 		@Override
@@ -28,7 +27,7 @@ public class PointsGiver {
 		}
 	}
 
-	public static void setSolutionSpeed(String problem, double timeInSecs) {
+	public static void setSolutionSpeed(String problem, long timeInMillis) {
 
 		PointsTimerTask task = givingTasks.get(problem);
 
@@ -36,8 +35,15 @@ public class PointsGiver {
 			task.cancel();
 		}
 
-		task = new PointsTimerTask(timeInSecs);
+		task = new PointsTimerTask(timeInMillis);
 		task.start();
 		givingTasks.put(problem, task);
+	}
+
+	public static void resetSolution(String problem) {
+		PointsTimerTask task = givingTasks.get(problem);
+		if (task != null) {
+			task.cancel();
+		}
 	}
 }

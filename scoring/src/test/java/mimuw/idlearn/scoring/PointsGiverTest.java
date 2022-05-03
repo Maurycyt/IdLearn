@@ -11,7 +11,7 @@ public class PointsGiverTest {
 	@Test
 	public void testPointsGiver() {
 		PointsManager.setPoints(0);
-		PointsGiver.setSolutionSpeed("a", 0.01);
+		PointsGiver.setSolutionSpeed("a", 10);
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -21,7 +21,7 @@ public class PointsGiverTest {
 		long points1 = PointsManager.showPoints();
 		assertTrue(points1 > 0);
 
-		PointsGiver.setSolutionSpeed("a", 0.001);
+		PointsGiver.setSolutionSpeed("a", 1);
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -31,5 +31,29 @@ public class PointsGiverTest {
 
 		long points2 = PointsManager.showPoints();
 		assertTrue(points2 > 5 * points1);
+
+		PointsGiver.resetSolution("a");
+		PointsManager.setPoints(0);
+
+		PointsGiver.setSolutionSpeed("a", 10);
+		try {
+			TimeUnit.MILLISECONDS.sleep(20);
+		}
+		catch (InterruptedException e) {
+			fail();
+		}
+
+		PointsGiver.setSolutionSpeed("b", 1);
+		try {
+			TimeUnit.MILLISECONDS.sleep(20);
+		}
+		catch (InterruptedException e) {
+			fail();
+		}
+
+		long points3 = PointsManager.showPoints();
+
+		assertTrue(points3 > points2);
 	}
+
 }
