@@ -112,7 +112,7 @@
                             <!-- The classes to exclude -->
                             <excludes>
                                 <exclude>
-                                    mimuw/idlearn/Application*.class
+                                    mimuw/idlearn/*Application*.class
                                 </exclude>
                             </excludes>
                         </configuration>
