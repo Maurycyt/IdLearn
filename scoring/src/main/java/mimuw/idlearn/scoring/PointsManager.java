@@ -1,10 +1,11 @@
 package mimuw.idlearn.scoring;
 
 import mimuw.idlearn.core.Emitter;
+import mimuw.idlearn.core.Listener;
 
 public class PointsManager {
 	static private long points = 0;
-	static public Emitter pointsChangeEmitter = new Emitter();
+	static private Emitter pointsChangeEmitter = new Emitter();
 
 	public static long showPoints() {
 		return points;
@@ -26,5 +27,9 @@ public class PointsManager {
 	public static void setPoints(long amount) {
 		points = amount;
 		pointsChangeEmitter.fire(points);
+	}
+
+	public static void connect(Listener listener) {
+		pointsChangeEmitter.connect(listener);
 	}
 }

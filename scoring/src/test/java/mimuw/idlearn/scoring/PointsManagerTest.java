@@ -45,7 +45,7 @@ public class PointsManagerTest {
 		PointsManager.setPoints(0);
 		final LongWrapper log = new LongWrapper();
 		Listener listener = event -> log.value = (long)(event.value());
-		PointsManager.pointsChangeEmitter.connect(listener);
+		PointsManager.connect(listener);
 
 		PointsManager.addPoints(50);
 		assertEquals(50, log.value);
