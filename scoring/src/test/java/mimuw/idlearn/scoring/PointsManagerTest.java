@@ -1,12 +1,9 @@
 package mimuw.idlearn.scoring;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 
-import mimuw.idlearn.core.Event;
 import mimuw.idlearn.core.Listener;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
 
 public class PointsManagerTest {
 	@Test

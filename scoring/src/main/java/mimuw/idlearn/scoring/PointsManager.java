@@ -5,7 +5,7 @@ import mimuw.idlearn.core.Listener;
 
 public class PointsManager {
 	static private long points = 0;
-	static private Emitter pointsChangeEmitter = new Emitter();
+	static private final Emitter pointsChangeEmitter = new Emitter();
 
 	public static long showPoints() {
 		return points;
