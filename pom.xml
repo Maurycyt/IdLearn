@@ -60,6 +60,7 @@
         <module>scoring</module>
         <module>scenes</module>
         <module>application</module>
+        <module>userdata</module>
     </modules>
 
     <build>
