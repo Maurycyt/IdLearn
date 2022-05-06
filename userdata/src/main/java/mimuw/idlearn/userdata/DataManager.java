@@ -12,13 +12,15 @@ import java.util.TimerTask;
 
 public class DataManager {
 
-	private static final String SAVE_LOCATION = "/user.savedata";
+	private static final String SAVE_LOCATION = "../savefile/user.savedata";
 	private static final long AUTOSAVE_TIMER = 30000;
 	private static final Timer autosave_timer = new Timer();
 
-	// Points
 	private static long points = 0;
+	private static ArrayList<String> unlockedTasks = new ArrayList<>();
 	private static final Emitter pointsChangeEmitter = new Emitter();
+
+	// Points
 
 	public static long showPoints() {
 		return points;
@@ -48,7 +50,6 @@ public class DataManager {
 
 
 	// Tasks
-	private static ArrayList<String> unlockedTasks;
 	public static void unlockTask(String task) throws IOException {
 		unlockedTasks.add(task);
 		saveData();
@@ -56,15 +57,27 @@ public class DataManager {
 	public static ArrayList<String> getUnlockedTasks() {
 		return new ArrayList<>(unlockedTasks);
 	}
+	public static void resetUnlockedTasks() throws IOException {
+		unlockedTasks.clear();
+		saveData();
+	}
 
-	private static class Data {
-		long points;
-		ArrayList<String> unlockedTasks;
+	public static class Data {
+		public long points;
+		public ArrayList<String> unlockedTasks;
 	}
 	private static void saveData() throws IOException {
 
 
 		File saveFile = new File(SAVE_LOCATION);
+		System.out.println("Using a file: " + saveFile.getAbsolutePath());
+		if (!saveFile.isFile()) {
+			File directory = saveFile.getParentFile();
+			if (!directory.exists()) {
+				directory.mkdir();
+			}
+			saveFile.createNewFile();
+		}
 
 		Gson gson = new Gson();
 
@@ -72,16 +85,26 @@ public class DataManager {
 		data.points = points;
 		data.unlockedTasks = unlockedTasks;
 
-		FileWriter writer = new FileWriter(SAVE_LOCATION);
-		gson.toJson(data, writer);
+		try (FileWriter writer = new FileWriter(SAVE_LOCATION)) {
+			gson.toJson(data, writer);
+		}
 
 	}
 	private static void loadData() throws IOException {
 		Gson gson = new Gson();
-		JsonReader reader = new JsonReader(new FileReader(SAVE_LOCATION));
-		Data data = gson.fromJson(reader, Data.class);
-		points = data.points;
-		unlockedTasks = data.unlockedTasks;
+
+		File saveFile = new File(SAVE_LOCATION);
+		System.out.println("Using a file: " + saveFile.getAbsolutePath());
+		if (!(saveFile.isFile())) {
+			return;
+		}
+
+		try (JsonReader reader = new JsonReader(new FileReader(SAVE_LOCATION))) {
+			Data data = gson.fromJson(reader, Data.class);
+			System.out.println(data);
+			points = data.points;
+			unlockedTasks = data.unlockedTasks;
+		}
 	}
 
 	private static void setupAutosaveTimer() {

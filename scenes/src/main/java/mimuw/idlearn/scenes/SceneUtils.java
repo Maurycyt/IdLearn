@@ -13,16 +13,13 @@ import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
-import mimuw.idlearn.idlang.logic.environment.Scope;
-import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.preloader.LoadTask;
 import mimuw.idlearn.scenes.preloader.Preloader;
-import mimuw.idlearn.scoring.TestRunner;
-import mimuw.idlearn.scoring.WrongAnswerException;
+import mimuw.idlearn.userdata.TestRunner;
+import mimuw.idlearn.userdata.WrongAnswerException;
 
 import java.io.IOException;
 import java.net.URL;

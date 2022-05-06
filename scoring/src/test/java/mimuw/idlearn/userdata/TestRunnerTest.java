@@ -1,4 +1,4 @@
-package mimuw.idlearn.scoring;
+package mimuw.idlearn.userdata;
 
 import mimuw.idlearn.idlang.logic.base.*;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;

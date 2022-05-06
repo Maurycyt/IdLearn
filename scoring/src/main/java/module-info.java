@@ -3,5 +3,5 @@ module mimuw.idlearn.scoring {
 	requires mimuw.idlearn.idlang;
 	requires mimuw.idlearn.packages;
 
-	exports mimuw.idlearn.scoring;
+	exports mimuw.idlearn.userdata;
 }

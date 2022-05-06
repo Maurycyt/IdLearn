@@ -1,4 +1,4 @@
-package mimuw.idlearn.scoring;
+package mimuw.idlearn.userdata;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.TimeCounter;

@@ -1,4 +1,4 @@
-package mimuw.idlearn.scoring;
+package mimuw.idlearn.userdata;
 
 public class WrongAnswerException extends Exception {
 	public WrongAnswerException() {
