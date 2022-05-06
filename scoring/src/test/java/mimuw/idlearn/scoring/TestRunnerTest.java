@@ -1,4 +1,4 @@
-package mimuw.idlearn.userdata;
+package mimuw.idlearn.scoring;
 
 import mimuw.idlearn.idlang.logic.base.*;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
@@ -7,6 +7,7 @@ import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scoring.WrongAnswerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

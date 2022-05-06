@@ -18,8 +18,8 @@ import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.preloader.LoadTask;
 import mimuw.idlearn.scenes.preloader.Preloader;
-import mimuw.idlearn.userdata.TestRunner;
-import mimuw.idlearn.userdata.WrongAnswerException;
+import mimuw.idlearn.scoring.TestRunner;
+import mimuw.idlearn.scoring.WrongAnswerException;
 
 import java.io.IOException;
 import java.net.URL;
