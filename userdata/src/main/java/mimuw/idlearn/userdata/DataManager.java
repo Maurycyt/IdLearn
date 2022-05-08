@@ -15,7 +15,7 @@ import java.util.TimerTask;
 public class DataManager {
 
 	private static final File saveFile = Path.of(System.getProperty("user.home"), ".idlearn", "savefile/user.savedata").toFile();
-	private static final long autosaveInterval = 30000;
+	private static final long AUTOSAVE_INTERVAL = 30000;
 	private static final Timer autosaveTimer = new Timer();
 
 	private static class Data {
@@ -69,8 +69,8 @@ public class DataManager {
 		saveData();
 	}
 
-	public static void saveData() throws IOException {
-		System.out.println("Using file: " + saveFile.getAbsolutePath());
+	private static void saveData() throws IOException {
+		System.out.println("Saving to file: " + saveFile.getAbsolutePath());
 		if (!saveFile.isFile()) {
 			saveFile.getParentFile().mkdirs();
 			saveFile.createNewFile();
@@ -79,7 +79,7 @@ public class DataManager {
 		(new Yaml()).dump(data, new FileWriter(saveFile));
 	}
 	private static void loadData() throws IOException {
-		System.out.println("Using file: " + saveFile.getAbsolutePath());
+		System.out.println("Loading from file: " + saveFile.getAbsolutePath());
 		if (!saveFile.isFile()) {
 			return;
 		}
@@ -100,11 +100,20 @@ public class DataManager {
 				}
 			}
 		};
-		autosaveTimer.scheduleAtFixedRate(autosave, autosaveInterval, autosaveInterval);
+		autosaveTimer.scheduleAtFixedRate(autosave, AUTOSAVE_INTERVAL, AUTOSAVE_INTERVAL);
+	}
+
+	private static void stopAutosaveTimer() {
+		autosaveTimer.cancel();
 	}
 
 	public static void init() throws IOException {
 		loadData();
 		setupAutosaveTimer();
+	}
+
+	public static void exit() throws IOException {
+		saveData();
+		stopAutosaveTimer();
 	}
 }
