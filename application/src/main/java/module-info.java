@@ -6,6 +6,7 @@ module mimuw.idlearn.application {
 	requires mimuw.idlearn.packages;
 	requires mimuw.idlearn.scoring;
 	requires mimuw.idlearn.scenes;
+	requires mimuw.idlearn.userdata;
 
 	opens mimuw.idlearn to javafx.fxml;
 

@@ -24,13 +24,11 @@
             <groupId>mimuw</groupId>
             <artifactId>idlang</artifactId>
             <version>${revision}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>mimuw</groupId>
             <artifactId>scoring</artifactId>
             <version>${revision}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
