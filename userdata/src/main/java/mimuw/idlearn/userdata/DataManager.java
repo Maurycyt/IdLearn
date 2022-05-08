@@ -2,46 +2,53 @@ package mimuw.idlearn.userdata;
 
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Listener;
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class DataManager {
 
-	private static final File saveFile = new File("../savefile/user.savedata");
-	private static final long AUTOSAVE_TIMER = 30000;
-	private static final Timer autosave_timer = new Timer();
+	private static final File saveFile = Path.of(System.getProperty("user.home"), ".idlearn", "savefile/user.savedata").toFile();
+	private static final long autosaveInterval = 30000;
+	private static final Timer autosaveTimer = new Timer();
 
-	private static long points = 0;
-	private static ArrayList<String> unlockedTasks = new ArrayList<>();
+	private static class Data {
+		public long points = 0;
+		public ArrayList<String> unlockedTasks = new ArrayList<>();
+	}
+
+	private static Data data = new Data();
+
 	private static final Emitter pointsChangeEmitter = new Emitter();
 
 	// Points
 
 	public static long showPoints() {
-		return points;
+		return data.points;
 	}
 
 	public static void payPoints(long amount) throws NotEnoughPointsException {
-		if (amount > points) {
+		if (amount > data.points) {
 			throw new NotEnoughPointsException();
 		}
-		points -= amount;
-		pointsChangeEmitter.fire(points);
+		data.points -= amount;
+		pointsChangeEmitter.fire(data.points);
 	}
 
 	public static void addPoints(long amount) {
-		points += amount;
-		pointsChangeEmitter.fire(points);
+		data.points += amount;
+		pointsChangeEmitter.fire(data.points);
 	}
 
 	public static void setPoints(long amount) {
-		points = amount;
-		pointsChangeEmitter.fire(points);
+		data.points = amount;
+		pointsChangeEmitter.fire(data.points);
 	}
 
 	public static void connectToPoints(Listener listener) {
@@ -51,56 +58,33 @@ public class DataManager {
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {
-		unlockedTasks.add(task);
+		data.unlockedTasks.add(task);
 		saveData();
 	}
 	public static ArrayList<String> getUnlockedTasks() {
-		return new ArrayList<>(unlockedTasks);
+		return new ArrayList<>(data.unlockedTasks);
 	}
 	public static void resetUnlockedTasks() throws IOException {
-		unlockedTasks.clear();
+		data.unlockedTasks.clear();
 		saveData();
 	}
 
-	public static class Data {
-		public long points;
-		public ArrayList<String> unlockedTasks;
-	}
-	private static void saveData() throws IOException {
+	public static void saveData() throws IOException {
 		System.out.println("Using file: " + saveFile.getAbsolutePath());
 		if (!saveFile.isFile()) {
-			File directory = saveFile.getParentFile();
-			if (!directory.exists()) {
-				directory.mkdir();
-			}
+			saveFile.getParentFile().mkdirs();
 			saveFile.createNewFile();
 		}
 
-		Gson gson = new Gson();
-
-		Data data = new Data();
-		data.points = points;
-		data.unlockedTasks = unlockedTasks;
-
-		try (FileWriter writer = new FileWriter(saveFile)) {
-			gson.toJson(data, writer);
-		}
-
+		(new Yaml()).dump(data, new FileWriter(saveFile));
 	}
 	private static void loadData() throws IOException {
-		Gson gson = new Gson();
-
 		System.out.println("Using file: " + saveFile.getAbsolutePath());
-		if (!(saveFile.isFile())) {
+		if (!saveFile.isFile()) {
 			return;
 		}
 
-		try (JsonReader reader = new JsonReader(new FileReader(saveFile))) {
-			Data data = gson.fromJson(reader, Data.class);
-			System.out.println(data);
-			points = data.points;
-			unlockedTasks = data.unlockedTasks;
-		}
+		data = (new Yaml(new Constructor(Data.class))).load(Files.readString(Path.of(saveFile.toString())));
 	}
 
 	private static void setupAutosaveTimer() {
@@ -116,7 +100,7 @@ public class DataManager {
 				}
 			}
 		};
-		autosave_timer.scheduleAtFixedRate(autosave, AUTOSAVE_TIMER, AUTOSAVE_TIMER);
+		autosaveTimer.scheduleAtFixedRate(autosave, autosaveInterval, autosaveInterval);
 	}
 
 	public static void init() throws IOException {
