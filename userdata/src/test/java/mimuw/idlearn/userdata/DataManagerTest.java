@@ -19,7 +19,7 @@ public class DataManagerTest {
 		try {
 			DataManager.payPoints(60);
 		}
-		catch (NotEnoughException e) {
+		catch (NotEnoughPointsException e) {
 			fail();
 		}
 		assertEquals(40, DataManager.showPoints());
@@ -43,7 +43,7 @@ public class DataManagerTest {
 			DataManager.payPoints(10);
 			fail();
 		}
-		catch (NotEnoughException e) {
+		catch (NotEnoughPointsException e) {
 		}
 		assertEquals(0, DataManager.showPoints());
 	}
@@ -65,7 +65,7 @@ public class DataManagerTest {
 		try {
 			DataManager.payPoints(40);
 		}
-		catch (NotEnoughException e) {
+		catch (NotEnoughPointsException e) {
 			fail();
 		}
 		assertEquals(10, log.value);

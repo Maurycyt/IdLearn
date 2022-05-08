@@ -12,7 +12,7 @@ import java.util.TimerTask;
 
 public class DataManager {
 
-	private static final String SAVE_LOCATION = "../savefile/user.savedata";
+	private static final File saveFile = new File("../savefile/user.savedata");
 	private static final long AUTOSAVE_TIMER = 30000;
 	private static final Timer autosave_timer = new Timer();
 
@@ -26,9 +26,9 @@ public class DataManager {
 		return points;
 	}
 
-	public static void payPoints(long amount) throws NotEnoughException {
+	public static void payPoints(long amount) throws NotEnoughPointsException {
 		if (amount > points) {
-			throw new NotEnoughException();
+			throw new NotEnoughPointsException();
 		}
 		points -= amount;
 		pointsChangeEmitter.fire(points);
@@ -67,10 +67,7 @@ public class DataManager {
 		public ArrayList<String> unlockedTasks;
 	}
 	private static void saveData() throws IOException {
-
-
-		File saveFile = new File(SAVE_LOCATION);
-		System.out.println("Using a file: " + saveFile.getAbsolutePath());
+		System.out.println("Using file: " + saveFile.getAbsolutePath());
 		if (!saveFile.isFile()) {
 			File directory = saveFile.getParentFile();
 			if (!directory.exists()) {
@@ -85,7 +82,7 @@ public class DataManager {
 		data.points = points;
 		data.unlockedTasks = unlockedTasks;
 
-		try (FileWriter writer = new FileWriter(SAVE_LOCATION)) {
+		try (FileWriter writer = new FileWriter(saveFile)) {
 			gson.toJson(data, writer);
 		}
 
@@ -93,13 +90,12 @@ public class DataManager {
 	private static void loadData() throws IOException {
 		Gson gson = new Gson();
 
-		File saveFile = new File(SAVE_LOCATION);
-		System.out.println("Using a file: " + saveFile.getAbsolutePath());
+		System.out.println("Using file: " + saveFile.getAbsolutePath());
 		if (!(saveFile.isFile())) {
 			return;
 		}
 
-		try (JsonReader reader = new JsonReader(new FileReader(SAVE_LOCATION))) {
+		try (JsonReader reader = new JsonReader(new FileReader(saveFile))) {
 			Data data = gson.fromJson(reader, Data.class);
 			System.out.println(data);
 			points = data.points;
@@ -121,7 +117,6 @@ public class DataManager {
 			}
 		};
 		autosave_timer.scheduleAtFixedRate(autosave, AUTOSAVE_TIMER, AUTOSAVE_TIMER);
-
 	}
 
 	public static void init() throws IOException {
