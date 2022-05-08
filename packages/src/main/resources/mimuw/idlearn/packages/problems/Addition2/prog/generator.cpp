@@ -15,27 +15,22 @@ struct TestSize {
 };
 
 struct TestCase {
-	unsigned int a, b;
+	unsigned int n;
+	vector<unsigned int> A;
 
 	friend ostream & operator<< (ostream & out, const TestCase & t) {
-		return out << t.a << " " << t.b << "\n";
+		out << t.n << "\n";
+		for (int i : t.A) {
+			out << i << " ";
+		}
+		return out;
 	}
 
-	TestCase(TestSize ts) : {
-		if (Random::rand<ui> % 2) {
-			// Random test case
-			a = Random::rand<ui> % ts.n + 1;
-			b = Random::rand<ui> % ts.n + 1;
-		} else {
-			// Fibonacci test case
-			a = 0, b = 1;
-			while (a + b <= ts.n) {
-				a = a + b;
-				swap(a, b);
-			}
-			if (Random::rand<ui> % 2) {
-				swap(a, b);
-			}
+	TestCase(TestSize ts) :
+	n(ts.n) {
+		A.resize(n);
+		for (int i = 0; i < n; i++) {
+			A[i] = Random::rand<ui> % min(n, 1000);
 		}
 	}
 };

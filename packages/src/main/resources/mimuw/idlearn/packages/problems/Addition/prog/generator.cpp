@@ -21,7 +21,9 @@ struct TestCase {
 		return out << t.a << " " << t.b << "\n";
 	}
 
-	TestCase(TestSize ts) : a(Random::rand<si>() % ts.n), b(Random::rand<si>() % ts.n) {
+	TestCase(TestSize ts) :
+	a(Random::rand<si>() % ts.n),
+	b(Random::rand<si>() % ts.n) {
 	}
 };
 
