@@ -1,0 +1,7 @@
+Johnny needs help with his maths homework again! This time, he is comparing numbers. Write a program, which will read two numbers and output their minimum or maximum, depending on Johnny's needs.
+
+Input:
+The first and only line of input contains three numbers, q, a and b, where q is either 1 or 2, and a and b are in the range [-10^9, 10^9].
+
+Output:
+The only number outputted should be the value of min(a,b) if q is equal to 1, ot max(a,b) if q is equal to 2.

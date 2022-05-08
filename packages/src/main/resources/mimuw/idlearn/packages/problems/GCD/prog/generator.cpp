@@ -15,13 +15,16 @@ struct TestSize {
 };
 
 struct TestCase {
-	int a, b;
+	int q, a, b;
 
 	friend ostream & operator<< (ostream & out, const TestCase & t) {
-		return out << t.a << " " << t.b << "\n";
+		return out << t.q << " " << t.a << " " << t.b << "\n";
 	}
 
-	TestCase(TestSize ts) : a(Random::rand<si>() % ts.n), b(Random::rand<si>() % ts.n) {
+	TestCase(TestSize ts) :
+	q(Random::rand<si>() % 2 + 1),
+	a(Random::rand<si>() % ts.n),
+	b(Random::rand<si>() % ts.n) {
 	}
 };
 
