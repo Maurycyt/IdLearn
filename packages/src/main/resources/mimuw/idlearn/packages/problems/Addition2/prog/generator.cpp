@@ -1,14 +1,17 @@
 #include <iostream>
+#include <vector>
 #include <cstring>
 #include "../../packageUtils.h"
 
 using namespace std;
 using namespace pUtils;
 
+const int MaxN = 1e6;
+
 struct TestSize {
 	int n;
 
-	TestSize(size_t id) : n(min(id, size_t(1e9))) {
+	TestSize(size_t id) : n(min(id, size_t(MaxN))) {
 		// Seed the RNG.
 		Random::seed(id);
 	}
@@ -20,17 +23,17 @@ struct TestCase {
 
 	friend ostream & operator<< (ostream & out, const TestCase & t) {
 		out << t.n << "\n";
-		for (int i : t.A) {
-			out << i << " ";
+		for (int a : t.A) {
+			out << a << " ";
 		}
-		return out;
+		return out << "\n";
 	}
 
 	TestCase(TestSize ts) :
 	n(ts.n) {
 		A.resize(n);
-		for (int i = 0; i < n; i++) {
-			A[i] = Random::rand<ui> % min(n, 1000);
+		for (unsigned int i = 0; i < n; i++) {
+			A[i] = Random::rand<ui>() % min(n, (ui)1000);
 		}
 	}
 };

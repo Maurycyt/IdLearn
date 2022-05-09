@@ -3,17 +3,15 @@
 # 2. It contains the filename of the output file. This is to make the package structure independent of the application.
 # 3. It contains basic information about the tests which need to be run.
 
-title: 'Addition 2 : Electric Boogaloo'
+title: Wackamole
 
-difficulty: Medium
+difficulty: Hard
 
 statement: doc/statement.txt
 
 examples:
   - input: doc/example1.in
     output: doc/example1.out
-  - input: doc/example2.in
-    output: doc/example2.out
 
 testInput: input.in
 userOutput: user.out
