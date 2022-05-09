@@ -35,7 +35,6 @@ public class TestRunnerTest {
 			fail();
 		}
 		System.out.println(pack.getTitle() + " ran with score: " + result);
-		System.out.println();
 
 		assertEquals(4, result, 0.1);
 
