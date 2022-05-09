@@ -10,8 +10,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>scoring</artifactId>
-    <name>scoring</name>
+    <artifactId>userdata</artifactId>
+    <name>userdata</name>
     <version>${revision}</version>
 
     <dependencies>
@@ -21,9 +21,9 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>mimuw</groupId>
-            <artifactId>idlang</artifactId>
-            <version>${revision}</version>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

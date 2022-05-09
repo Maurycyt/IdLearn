@@ -12,6 +12,7 @@ import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scenes.preloader.LoadTask;
+import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
 import java.util.Map;
@@ -39,6 +40,9 @@ public class IdLearnApplication extends javafx.application.Application {
 
 		sceneManager.setStage(stage);
 		stage.setScene(new Scene(new Group()));
+
+		// Start data manager
+		DataManager.init();
 
 		// Add the main menu scene with preloading
 		sceneManager.push(SceneUtils.loadScene(SceneUtils.MainMenu), new LoadTask() {
@@ -77,6 +81,8 @@ public class IdLearnApplication extends javafx.application.Application {
 	public static void main(String[] args) {
 		try {
 			launch(args);
+			// Make sure to save progress on exit.
+			DataManager.exit();
 		} catch (Exception e){
 			e.printStackTrace();
 		}
