@@ -4,13 +4,10 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.layout.VBox;
 import mimuw.idlearn.idlang.GUI.CodeBox;
-import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
-import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.Assign;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CodeBlockTest {
 
@@ -34,22 +31,22 @@ public class CodeBlockTest {
 
 		codeBlocks.getChildren().add(blockSpawner);
 
-		Assertions.assertEquals(0, dragged.getChildren().size());
+		assertEquals(0, dragged.getChildren().size());
 		assertEquals(1, blockSpawner.getChildren().size());
 
 		block.pressMouse(0, 0);
 
-		Assertions.assertEquals(1, dragged.getChildren().size());
+		assertEquals(1, dragged.getChildren().size());
 		assertEquals(1, blockSpawner.getChildren().size());
 
 		block.moveMouse(100, 100);
 
-		Assertions.assertEquals(1, dragged.getChildren().size());
+		assertEquals(1, dragged.getChildren().size());
 		assertEquals(1, blockSpawner.getChildren().size());
 
 		block.releaseMouse();
 
-		Assertions.assertEquals(0, dragged.getChildren().size());
+		assertEquals(0, dragged.getChildren().size());
 		assertEquals(1, blockSpawner.getChildren().size());
 
 	}

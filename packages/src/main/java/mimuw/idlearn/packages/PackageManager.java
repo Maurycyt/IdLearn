@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Static class, which manages problem packages.
@@ -60,9 +62,10 @@ public class PackageManager {
 			throw new RuntimeException("Problem package directory empty");
 		}
 
-		ProblemPackage[] result = new ProblemPackage [packageDirectories.length];
-		for (int i = 0; i < result.length; i++) {
-			result[i] = new ProblemPackage(packageDirectories[i]);
+		HashMap<String, ProblemPackage> result = new HashMap<>();
+		for (File packageDirectory : packageDirectories) {
+			ProblemPackage pack = new ProblemPackage(packageDirectory);
+			result.put(pack.getTitle(), pack);
 		}
 
 		problemPackages = result;
@@ -71,7 +74,7 @@ public class PackageManager {
 	/**
 	 * The problem package directory.
 	 */
-	private static ProblemPackage [] problemPackages = null;
+	private static HashMap<String, ProblemPackage> problemPackages = null;
 
 	/**
 	 * Gets the problem package directory.
@@ -88,7 +91,7 @@ public class PackageManager {
 	 * Gets the array of problem packages.
 	 * @return The array of problem packages.
 	 */
-	public static ProblemPackage [] getProblemPackages() {
+	public static Map<String, ProblemPackage> getProblemPackages() {
 		if(problemPackages == null) {
 			reloadProblemPackages();
 		}
@@ -104,10 +107,8 @@ public class PackageManager {
 		if (problemPackages == null) {
 			reloadProblemPackages();
 		}
-		for (ProblemPackage pkg : problemPackages) {
-			if (pkg.getTitle().equals(title)) {
-				return pkg;
-			}
+		if (problemPackages.containsKey(title)) {
+			return problemPackages.get(title);
 		}
 		throw new FileNotFoundException("Package not found.");
 	}

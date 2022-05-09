@@ -3,12 +3,9 @@ package mimuw.idlearn.idlang.GUI.codeblocks;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import mimuw.idlearn.idlang.GUI.codeblocks.BlockBase;
-import mimuw.idlearn.idlang.GUI.codeblocks.ResizableTextField;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ResizableTextFieldTest {
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
-   <children>
+\t<children>
       <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
          <children>
             <ImageView fitHeight="361.0" fitWidth="609.0" pickOnBounds="true" preserveRatio="true">
@@ -47,5 +47,5 @@
             <Label text="Copyright: Faculty of Mathematics, Informatics and Mechanics of the University of Warsaw (MIM UW)" />
          </children>
       </HBox>
-   </children>
+\t</children>
 </VBox>

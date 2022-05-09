@@ -2,12 +2,9 @@ package mimuw.idlearn.idlang.GUI.codeblocks;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import mimuw.idlearn.idlang.GUI.codeblocks.BlockBase;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BlockBaseTest {
 	@Test
@@ -29,7 +26,7 @@ public class BlockBaseTest {
 
 		double size1 = base.update();
 
-		Assertions.assertEquals(size0 + t.getLayoutBounds().getWidth(), size1);
+		assertEquals(size0 + t.getLayoutBounds().getWidth(), size1);
 
 		t.setText("IdLang is very cool");
 		double size2 = base.update();
