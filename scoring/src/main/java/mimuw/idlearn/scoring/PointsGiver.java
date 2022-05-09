@@ -2,10 +2,7 @@ package mimuw.idlearn.scoring;
 
 import mimuw.idlearn.userdata.DataManager;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class PointsGiver {
@@ -30,6 +27,11 @@ public class PointsGiver {
 		public void start() {
 			givingTimer.scheduleAtFixedRate(this, timeMillis, timeMillis);
 		}
+	}
+
+	public static void setSolutionSpeed(String problem, long timeInMillis) {
+		Date date = new Date();
+		setSolutionSpeed(problem, timeInMillis, date.getTime());
 	}
 
 	public static void setSolutionSpeed(String problem, long timeInMillis, long timeStamp) {

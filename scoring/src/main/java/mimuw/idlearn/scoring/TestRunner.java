@@ -37,6 +37,10 @@ public class TestRunner {
 			result *= timeCounter.getTime();
 		}
 
-		return Math.pow(result, 1.0 / testData.size());
+		double aggregateTime = Math.pow(result, 1.0 / testData.size());
+
+		PointsGiver.setSolutionSpeed(pack.getTitle(), (long) (aggregateTime * 1000));
+
+		return aggregateTime;
 	}
 }
