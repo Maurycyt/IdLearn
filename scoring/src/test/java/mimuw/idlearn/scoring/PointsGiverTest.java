@@ -1,5 +1,6 @@
 package mimuw.idlearn.scoring;
 
+import mimuw.idlearn.userdata.DataManager;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -11,7 +12,7 @@ public class PointsGiverTest {
 	@Test
 	public void testPointsGiver() {
 		PointsGiver.resetSolutions();
-		PointsManager.setPoints(0);
+		DataManager.setPoints(0);
 
 		PointsGiver.setSolutionSpeed("a", 10, 0);
 		try {
@@ -20,7 +21,7 @@ public class PointsGiverTest {
 		catch (InterruptedException e) {
 			fail();
 		}
-		long points1 = PointsManager.showPoints();
+		long points1 = DataManager.showPoints();
 		assertTrue(points1 > 0);
 
 		PointsGiver.setSolutionSpeed("a", 1, 1);
@@ -31,11 +32,11 @@ public class PointsGiverTest {
 			fail();
 		}
 
-		long points2 = PointsManager.showPoints();
+		long points2 = DataManager.showPoints();
 		assertTrue(points2 > 5 * points1);
 
 		PointsGiver.resetSolutions();
-		PointsManager.setPoints(0);
+		DataManager.setPoints(0);
 
 		PointsGiver.setSolutionSpeed("a", 10, 0);
 		try {
@@ -53,7 +54,7 @@ public class PointsGiverTest {
 			fail();
 		}
 
-		long points3 = PointsManager.showPoints();
+		long points3 = DataManager.showPoints();
 
 		assertTrue(points3 > points2);
 	}
@@ -61,7 +62,7 @@ public class PointsGiverTest {
 	@Test
 	public void testTimeStamps() {
 		PointsGiver.resetSolutions();
-		PointsManager.setPoints(0);
+		DataManager.setPoints(0);
 
 		PointsGiver.setSolutionSpeed("a", 1, 1);
 		PointsGiver.setSolutionSpeed("a", 1000, 0);
@@ -73,10 +74,10 @@ public class PointsGiverTest {
 			fail();
 		}
 
-		assertTrue(PointsManager.showPoints() > 10);
+		assertTrue(DataManager.showPoints() > 10);
 
 		PointsGiver.resetSolutions();
-		PointsManager.setPoints(0);
+		DataManager.setPoints(0);
 
 		PointsGiver.setSolutionSpeed("a", 1, 0);
 		PointsGiver.setSolutionSpeed("a", 1000, 1);
@@ -88,6 +89,6 @@ public class PointsGiverTest {
 			fail();
 		}
 
-		assertTrue(PointsManager.showPoints() < 5);
+		assertTrue(DataManager.showPoints() < 5);
 	}
 }

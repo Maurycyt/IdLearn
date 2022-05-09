@@ -1,5 +1,7 @@
 package mimuw.idlearn.scoring;
 
+import mimuw.idlearn.userdata.DataManager;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -22,7 +24,7 @@ public class PointsGiver {
 
 		@Override
 		public void run() {
-			PointsManager.addPoints(POINTS_PER_TICK);
+			DataManager.addPoints(POINTS_PER_TICK);
 		}
 
 		public void start() {
