@@ -8,6 +8,7 @@ import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scoring.WrongAnswerException;
+import mimuw.idlearn.userdata.DataManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -43,5 +44,8 @@ public class TestRunnerTest {
         testRunner = new TestRunner(pack, badSolution);
 
         Assertions.assertThrows(WrongAnswerException.class, testRunner::aggregateTestTimes);
+
+        PointsGiver.resetSolutions();
+        DataManager.setPoints(0);
     }
 }
