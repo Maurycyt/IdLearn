@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GenericController">
     <children>
         <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
             <VBox.margin>
@@ -24,65 +24,7 @@
                 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" stylesheets="@../style.css">
                     <children>
                         <ScrollBar disable="true" orientation="VERTICAL" visible="false" />
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="600.0" styleClass="menuVBox" stylesheets="@../style.css">
-                            <children>
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAdditionTaskScene" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 1: Addition">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                                <Button layoutX="10.0" layoutY="82.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 2: (In development...)">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                                <Button layoutX="10.0" layoutY="127.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 3: (In development...)">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                                <Button layoutX="10.0" layoutY="190.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 4: (In development...)">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                                <Button layoutX="10.0" layoutY="190.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 5: (In development...)">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                                <Button layoutX="10.0" layoutY="387.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 6: (In development...)">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                                <Button layoutX="10.0" layoutY="460.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 7: (In development...)">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Button>
-                        <Button layoutX="10.0" layoutY="550.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 7: (In development...)">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="10.0" layoutY="550.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 8: (In development...)">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="10.0" layoutY="550.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 9: (In development...)">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="10.0" layoutY="550.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="55.0" prefWidth="365.0" stylesheets="@../style.css" text="Task 10: (In development...)">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Button>
-                            </children>
-                        </VBox>
+                        <VBox fx:id="tasksVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="600.0" styleClass="menuVBox" stylesheets="@../style.css" />
                     </children>
                 </HBox>
             </content>

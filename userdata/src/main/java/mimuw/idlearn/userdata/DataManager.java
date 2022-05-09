@@ -2,15 +2,15 @@ package mimuw.idlearn.userdata;
 
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Listener;
+import mimuw.idlearn.packages.PackageManager;
+import mimuw.idlearn.packages.ProblemPackage;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class DataManager {
 
@@ -20,7 +20,7 @@ public class DataManager {
 
 	private static class Data {
 		public long points = 0;
-		public ArrayList<String> unlockedTasks = new ArrayList<>();
+		public Map<String, ProblemPackage> unlockedTasks = new HashMap<>();
 	}
 
 	private static Data data = new Data();
@@ -58,11 +58,11 @@ public class DataManager {
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {
-		data.unlockedTasks.add(task);
+		data.unlockedTasks.put(task, PackageManager.getProblemPackage(task));
 		saveData();
 	}
-	public static ArrayList<String> getUnlockedTasks() {
-		return new ArrayList<>(data.unlockedTasks);
+	public static Map<String, ProblemPackage> getUnlockedTasks() {
+		return data.unlockedTasks;
 	}
 	public static void resetUnlockedTasks() throws IOException {
 		data.unlockedTasks.clear();

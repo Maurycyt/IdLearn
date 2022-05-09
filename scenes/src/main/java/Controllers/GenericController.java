@@ -1,16 +1,17 @@
-package mimuw.idlearn.scenes;
+package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import mimuw.idlearn.scenes.SceneManager;
+import mimuw.idlearn.scenes.SceneUtils;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class SceneController {
+public class GenericController {
 	private final SceneManager sm = SceneManager.getInstance();
 
 	private void replaceCurrentScene(URL url) throws IOException {
