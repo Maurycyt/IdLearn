@@ -6,6 +6,7 @@ import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.packages.ProblemPackage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class TestRunner {
 		this.testData = pack.getTestData();
 	}
 
-	public double aggregateTestTimes() throws SimulationException, WrongAnswerException {
+	public double aggregateTestTimes() throws SimulationException, WrongAnswerException, IOException {
 		double result = 1.0;
 
 		TimeCounter timeCounter = new TimeCounter();

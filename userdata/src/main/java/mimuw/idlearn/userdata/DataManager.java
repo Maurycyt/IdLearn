@@ -9,6 +9,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,6 +22,7 @@ public class DataManager {
 	private static class Data {
 		public long points = 0;
 		public ArrayList<String> unlockedTasks = new ArrayList<>();
+		public HashMap<String, Long> solutionSpeed = new HashMap<>();
 	}
 
 	private static Data data = new Data();
@@ -69,6 +71,13 @@ public class DataManager {
 		saveData();
 	}
 
+	// Speeds
+	public static void setSpeed(String task, long time) throws IOException {
+		data.solutionSpeed.put(task, time);
+		saveData();
+	}
+	public static HashMap<String, Long> getSpeeds() {return new HashMap<>(data.solutionSpeed);}
+
 	private static void saveData() throws IOException {
 		System.out.println("Saving to file: " + saveFile.getAbsolutePath());
 		if (!saveFile.isFile()) {
@@ -85,6 +94,13 @@ public class DataManager {
 		}
 
 		data = (new Yaml(new Constructor(Data.class))).load(Files.readString(Path.of(saveFile.toString())));
+	}
+
+	public static void resetData() throws IOException {
+		data.points = 0;
+		data.unlockedTasks = new ArrayList<>();
+		data.solutionSpeed = new HashMap<>();
+		saveData();
 	}
 
 	private static void setupAutosaveTimer() {

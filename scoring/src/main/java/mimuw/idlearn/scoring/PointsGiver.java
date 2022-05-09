@@ -2,6 +2,7 @@ package mimuw.idlearn.scoring;
 
 import mimuw.idlearn.userdata.DataManager;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
@@ -29,12 +30,12 @@ public class PointsGiver {
 		}
 	}
 
-	public static void setSolutionSpeed(String problem, long timeInMillis) {
+	public static void setSolutionSpeed(String problem, long timeInMillis) throws IOException {
 		Date date = new Date();
 		setSolutionSpeed(problem, timeInMillis, date.getTime());
 	}
 
-	public static void setSolutionSpeed(String problem, long timeInMillis, long timeStamp) {
+	public static void setSolutionSpeed(String problem, long timeInMillis, long timeStamp) throws IOException {
 
 		try {
 			mutex.acquire();
@@ -49,6 +50,7 @@ public class PointsGiver {
 			return;
 		}
 
+		DataManager.setSpeed(problem, timeInMillis);
 		PointsTimerTask task = givingTasks.get(problem);
 
 		if (task != null) {
@@ -82,7 +84,7 @@ public class PointsGiver {
 
 		mutex.release();
 	}
-	public static void resetSolutions() {
+	public static void exit() {
 
 		try {
 			mutex.acquire();
@@ -98,5 +100,17 @@ public class PointsGiver {
 		givingTasks.clear();
 
 		mutex.release();
+	}
+
+	public static void loadSpeeds() {
+		HashMap<String, Long> speeds = DataManager.getSpeeds();
+		Date date = new Date();
+
+		for (Map.Entry<String, Long> entry : speeds.entrySet()) {
+			PointsTimerTask task = new PointsTimerTask(entry.getValue());
+			task.start();
+			givingTasks.put(entry.getKey(), task);
+			timeStamps.put(entry.getKey(), date.getTime());
+		}
 	}
 }
