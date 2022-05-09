@@ -92,8 +92,8 @@ public class PointsGiver {
 		for (Map.Entry<String, PointsTimerTask> entry : givingTasks.entrySet()) {
 			entry.getValue().cancel();
 			timeStamps.remove(entry.getKey());
-			givingTasks.remove(entry.getKey(), entry.getValue());
 		}
+		givingTasks.clear();
 
 		mutex.release();
 	}

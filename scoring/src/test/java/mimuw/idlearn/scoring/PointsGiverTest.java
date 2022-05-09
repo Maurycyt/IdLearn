@@ -57,6 +57,9 @@ public class PointsGiverTest {
 		long points3 = DataManager.showPoints();
 
 		assertTrue(points3 > points2);
+
+		PointsGiver.resetSolutions();
+		DataManager.setPoints(0);
 	}
 
 	@Test
@@ -90,5 +93,8 @@ public class PointsGiverTest {
 		}
 
 		assertTrue(DataManager.showPoints() < 5);
+
+		PointsGiver.resetSolutions();
+		DataManager.setPoints(0);
 	}
 }
