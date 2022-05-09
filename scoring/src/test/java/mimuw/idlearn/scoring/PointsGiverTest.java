@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PointsGiverTest {
 	@Test
@@ -34,7 +33,7 @@ public class PointsGiverTest {
 		long points2 = DataManager.showPoints();
 		assertTrue(points2 > 5 * points1);
 
-		PointsGiver.exit();
+		PointsGiver.resetSolutions();
 		DataManager.setPoints(0);
 
 		PointsGiver.setSolutionSpeed("a", 10, 0);
@@ -57,7 +56,7 @@ public class PointsGiverTest {
 
 		assertTrue(points3 > points2);
 
-		PointsGiver.exit();
+		PointsGiver.resetSolutions();
 		DataManager.resetData();
 	}
 
@@ -67,6 +66,8 @@ public class PointsGiverTest {
 		PointsGiver.setSolutionSpeed("a", 1, 1);
 		PointsGiver.setSolutionSpeed("a", 1000, 0);
 
+		long points0 = DataManager.showPoints();
+
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -74,14 +75,16 @@ public class PointsGiverTest {
 			fail();
 		}
 
-		assertTrue(DataManager.showPoints() > 10);
+		assertTrue(DataManager.showPoints() - points0 > 10);
 
-		PointsGiver.exit();
+		PointsGiver.resetSolutions();
 		DataManager.setPoints(0);
 
 		PointsGiver.setSolutionSpeed("a", 1, 0);
 		PointsGiver.setSolutionSpeed("a", 1000, 1);
 
+		points0 = DataManager.showPoints();
+
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -89,10 +92,32 @@ public class PointsGiverTest {
 			fail();
 		}
 
-		assertTrue(DataManager.showPoints() < 5);
+		assertTrue(DataManager.showPoints() - points0 < 5);
 
-		PointsGiver.exit();
+		PointsGiver.resetSolutions();
 		DataManager.resetData();
+	}
+
+	@Test
+	public void testLoadSpeeds() throws IOException {
+		PointsGiver.setSolutionSpeed("a", 1);
+		PointsGiver.resetSolutions();
+
+		DataManager.init();
+		long points0 = DataManager.showPoints();
+		PointsGiver.loadSpeeds();
+
+
+		try {
+			TimeUnit.MILLISECONDS.sleep(20);
+		}
+		catch (InterruptedException e) {
+			fail();
+		}
+
+		long points = DataManager.showPoints();
+		assertTrue(points >= points0 + 150);
+
 	}
 }
 

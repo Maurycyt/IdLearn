@@ -84,7 +84,8 @@ public class PointsGiver {
 
 		mutex.release();
 	}
-	public static void exit() {
+
+	public static void resetSolutions() {
 
 		try {
 			mutex.acquire();
@@ -95,11 +96,15 @@ public class PointsGiver {
 
 		for (Map.Entry<String, PointsTimerTask> entry : givingTasks.entrySet()) {
 			entry.getValue().cancel();
-			timeStamps.remove(entry.getKey());
 		}
+		timeStamps.clear();
 		givingTasks.clear();
 
 		mutex.release();
+	}
+
+	public static void exit() {
+		givingTimer.cancel();
 	}
 
 	public static void loadSpeeds() {
