@@ -4,11 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import mimuw.idlearn.packages.PackageManager;
-import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.userdata.DataManager;
 
-import java.net.URL;
-import java.util.Map;
+import java.net.URL;;
 import java.util.ResourceBundle;
 
 public class TaskSelectionController extends GenericController implements Initializable {
@@ -18,12 +16,11 @@ public class TaskSelectionController extends GenericController implements Initia
     /** Loads all tasks from the `PackageManager`'s array as clickable buttons**/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Map<String, ProblemPackage> packages = PackageManager.getProblemPackages();
+        var packages = DataManager.getUnlockedTasks();
         var btnWidth = tasksVBox.getMaxWidth();
-        final int NUM_BUTTONS = 30; // packages.length
 
-        for (int i = 0; i < NUM_BUTTONS; i++) {
-            Button btn = new Button("Task #" + i + ": <title>");
+        for (int i = 0; i <  packages.size(); i++) {
+            Button btn = new Button("Task " + i + ": " + packages.get(i));
             int finalI = i;
             btn.setOnMouseClicked((event) -> System.out.println("clicked on task #" + finalI));
             btn.setMaxWidth(btnWidth);

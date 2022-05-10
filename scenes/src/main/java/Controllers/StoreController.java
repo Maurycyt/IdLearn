@@ -23,13 +23,13 @@ public class StoreController extends GenericController {
      */
     private Optional<ProblemPackage> getRandomTaskOfDifficulty(Difficulty difficulty) {
         Map<String, ProblemPackage> allTasks = PackageManager.getProblemPackages();
-        Map<String, ProblemPackage> userTasks = DataManager.getUnlockedTasks();
+        var userTasks = DataManager.getUnlockedTasks();
 
         var availableTasks =
                 allTasks
                 .entrySet()
                 .stream()
-                .filter(entry -> /*entry.getValue().getDifficulty() == difficulty && */!userTasks.containsKey(entry.getKey())) //todo: uncomment
+                .filter(entry -> /*entry.getValue().getDifficulty() == difficulty && */!userTasks.contains(entry.getKey())) //todo: uncomment
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toCollection(ArrayList::new));
 
@@ -46,7 +46,7 @@ public class StoreController extends GenericController {
         }
         else {
             try {
-                DataManager.payPoints(/*task.getCost()*/ 1); //todo: uncomment
+                DataManager.payPoints(/*task.getCost()*/ 0); //todo: uncomment
             } catch (NotEnoughPointsException e) {
                 System.out.println("Not enough points!");
                 return;

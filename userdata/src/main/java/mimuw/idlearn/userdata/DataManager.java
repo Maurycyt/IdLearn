@@ -20,7 +20,7 @@ public class DataManager {
 
 	private static class Data {
 		public long points = 0;
-		public Map<String, ProblemPackage> unlockedTasks = new HashMap<>();
+		public ArrayList<String> unlockedTasks = new ArrayList<>();
 	}
 
 	private static Data data = new Data();
@@ -58,11 +58,11 @@ public class DataManager {
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {
-		data.unlockedTasks.put(task, PackageManager.getProblemPackage(task));
+		data.unlockedTasks.add(task);
 		saveData();
 	}
-	public static Map<String, ProblemPackage> getUnlockedTasks() {
-		return data.unlockedTasks;
+	public static List<String> getUnlockedTasks() {
+		return Collections.unmodifiableList(data.unlockedTasks);
 	}
 	public static void resetUnlockedTasks() throws IOException {
 		data.unlockedTasks.clear();
