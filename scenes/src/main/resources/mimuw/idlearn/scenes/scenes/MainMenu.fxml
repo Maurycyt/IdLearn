@@ -6,46 +6,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GenericController">
-   <children>
-      <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GenericController">
+   <top>
+      <ImageView fitHeight="296.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+         <BorderPane.margin>
+            <Insets bottom="-40.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </top>
+   <bottom>
+      <Label text="Copyright: Faculty of Mathematics, Informatics and Mechanics of the University of Warsaw (MIM UW)" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin></Label>
+   </bottom>
+   <center>
+      <VBox fx:id="menuCenterVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="361.0" fitWidth="609.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/logo.png" />
-               </image>
-               <HBox.margin>
+            <Button mnemonicParsing="false" onAction="#addGameMenuScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Play">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <VBox.margin>
                   <Insets />
-               </HBox.margin>
-            </ImageView>
+               </VBox.margin>
+            </Button>
+            <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addAchievementsScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Achievements" />
+            <Button layoutX="52.0" layoutY="324.0" mnemonicParsing="false" onAction="#addSettingsScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Settings" />
+            <Button layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Exit" />
          </children>
-         <VBox.margin>
+         <BorderPane.margin>
             <Insets />
-         </VBox.margin>
-      </HBox>
-      <HBox styleClass="menuVBox" stylesheets="@../style.css" VBox.vgrow="ALWAYS">
-         <children>
-            <VBox fx:id="menuCenterVBox" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="menuVBox" stylesheets="@../style.css" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#addGameMenuScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Play">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addAchievementsScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Achievements" />
-                  <Button layoutX="52.0" layoutY="324.0" mnemonicParsing="false" onAction="#addSettingsScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Settings" />
-                  <Button layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Exit" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox layoutX="10.0" layoutY="60.0" maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
-         <children>
-            <Label text="Copyright: Faculty of Mathematics, Informatics and Mechanics of the University of Warsaw (MIM UW)" />
-         </children>
-      </HBox>
-   </children>
-</VBox>
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>

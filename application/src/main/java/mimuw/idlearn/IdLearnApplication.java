@@ -58,7 +58,7 @@ public class IdLearnApplication extends javafx.application.Application {
 				Map<String, ProblemPackage> packages = PackageManager.getProblemPackages();
 				int i = 0, n = packages.size();
 				for (ProblemPackage p : packages.values()) {
-					System.out.println(p.getTitle());
+					System.out.println("Building package " + "\"" + p.getTitle() + "\"...");
 					p.build();
 					logProgress(i / (float)n);
 					i++;
@@ -74,7 +74,7 @@ public class IdLearnApplication extends javafx.application.Application {
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
 		long loadEnd = System.currentTimeMillis();
-		System.out.println("Loaded app in " + (loadEnd - loadStart) + "ms.");
+		System.out.println("Loaded app in " + (loadEnd - loadStart) + "ms");
 		timeline.play();
 	}
 

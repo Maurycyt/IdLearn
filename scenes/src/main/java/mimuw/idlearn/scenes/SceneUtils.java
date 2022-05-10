@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import mimuw.idlearn.idlang.GUI.CodeBox;
@@ -58,7 +59,7 @@ public class SceneUtils {
 
 	public static Parent createPreloader(LoadTask task) {
 		try {
-			VBox root = (VBox)loadScene(SceneUtils.Preloader);
+			BorderPane root = (BorderPane)loadScene(SceneUtils.Preloader);
 			root.getChildren().add(new Preloader(task));
 			return root;
 		} catch (IOException e) {
