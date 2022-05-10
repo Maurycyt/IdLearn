@@ -9,7 +9,7 @@
     <children>
         <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
             <VBox.margin>
-                <Insets top="50.0" />
+                <Insets />
             </VBox.margin>
         </HBox>
         <HBox styleClass="menuVBox" stylesheets="@../style.css" VBox.vgrow="ALWAYS">

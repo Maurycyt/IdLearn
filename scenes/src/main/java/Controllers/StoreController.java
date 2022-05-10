@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// todo: make every scene based on GridPane
 public class StoreController extends GenericController {
     private Random rand = new Random();
 

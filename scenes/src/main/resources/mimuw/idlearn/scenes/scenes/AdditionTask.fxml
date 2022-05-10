@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GenericController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GenericController">
     <children>
         <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
             <VBox.margin>
-                <Insets top="50.0" />
+                <Insets />
             </VBox.margin>
         </HBox>
         <HBox styleClass="menuVBox" stylesheets="@../style.css" VBox.vgrow="ALWAYS">
@@ -24,7 +25,6 @@
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Button>
-            </children>
-        </HBox>
+            </children></HBox>
     </children>
 </VBox>

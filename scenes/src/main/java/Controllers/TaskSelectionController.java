@@ -21,7 +21,7 @@ public class TaskSelectionController extends GenericController implements Initia
 
         for (int i = 0; i <  packages.size(); i++) {
             Button btn = new Button("Task " + i + ": " + packages.get(i));
-            int finalI = i;
+            final int finalI = i;
             btn.setOnMouseClicked((event) -> System.out.println("clicked on task #" + finalI));
             btn.setMaxWidth(btnWidth);
             tasksVBox.getChildren().add(btn);
