@@ -40,8 +40,6 @@ public class TestRunner {
 
 		double aggregateTime = Math.pow(result, 1.0 / testData.size());
 
-		PointsGiver.setSolutionSpeed(pack.getTitle(), (long) (aggregateTime * 1000));
-
 		return aggregateTime;
 	}
 }

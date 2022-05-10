@@ -12,7 +12,7 @@ public class PointsGiverTest {
 	@Test
 	public void testPointsGiver() throws IOException {
 
-		PointsGiver.setSolutionSpeed("a", 10, 0);
+		PointsGiver.setSolutionSpeed("a", 10, 0, 10);
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -22,7 +22,7 @@ public class PointsGiverTest {
 		long points1 = DataManager.showPoints();
 		assertTrue(points1 > 0);
 
-		PointsGiver.setSolutionSpeed("a", 1, 1);
+		PointsGiver.setSolutionSpeed("a", 1, 1, 10);
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -36,7 +36,7 @@ public class PointsGiverTest {
 		PointsGiver.resetSolutions();
 		DataManager.setPoints(0);
 
-		PointsGiver.setSolutionSpeed("a", 10, 0);
+		PointsGiver.setSolutionSpeed("a", 10, 0, 10);
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -44,7 +44,7 @@ public class PointsGiverTest {
 			fail();
 		}
 
-		PointsGiver.setSolutionSpeed("b", 1, 1);
+		PointsGiver.setSolutionSpeed("b", 1, 1, 10);
 		try {
 			TimeUnit.MILLISECONDS.sleep(20);
 		}
@@ -63,8 +63,8 @@ public class PointsGiverTest {
 	@Test
 	public void testTimeStamps() throws IOException {
 
-		PointsGiver.setSolutionSpeed("a", 1, 1);
-		PointsGiver.setSolutionSpeed("a", 1000, 0);
+		PointsGiver.setSolutionSpeed("a", 1, 1, 10);
+		PointsGiver.setSolutionSpeed("a", 1000, 0, 10);
 
 		long points0 = DataManager.showPoints();
 
@@ -80,8 +80,8 @@ public class PointsGiverTest {
 		PointsGiver.resetSolutions();
 		DataManager.setPoints(0);
 
-		PointsGiver.setSolutionSpeed("a", 1, 0);
-		PointsGiver.setSolutionSpeed("a", 1000, 1);
+		PointsGiver.setSolutionSpeed("a", 1, 0, 10);
+		PointsGiver.setSolutionSpeed("a", 1000, 1, 10);
 
 		points0 = DataManager.showPoints();
 
@@ -100,7 +100,7 @@ public class PointsGiverTest {
 
 	@Test
 	public void testLoadSpeeds() throws IOException {
-		PointsGiver.setSolutionSpeed("a", 1);
+		PointsGiver.setSolutionSpeed("a", 1, 10);
 		PointsGiver.resetSolutions();
 
 		DataManager.init();

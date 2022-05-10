@@ -46,7 +46,5 @@ public class TestRunnerTest {
 
         Assertions.assertThrows(WrongAnswerException.class, testRunner::aggregateTestTimes);
 
-        PointsGiver.resetSolutions();
-        DataManager.resetData();
     }
 }

@@ -19,10 +19,14 @@ public class DataManager {
 	private static final long AUTOSAVE_INTERVAL = 30000;
 	private static final Timer autosaveTimer = new Timer();
 
+	public static class PointsGiving {
+		public long timeInterval;
+		public long points;
+	}
 	private static class Data {
 		public long points = 0;
 		public ArrayList<String> unlockedTasks = new ArrayList<>();
-		public HashMap<String, Long> solutionSpeed = new HashMap<>();
+		public HashMap<String, PointsGiving> pointsGiving = new HashMap<>();
 	}
 
 	private static Data data = new Data();
@@ -71,12 +75,15 @@ public class DataManager {
 		saveData();
 	}
 
-	// Speeds
-	public static void setSpeed(String task, long time) throws IOException {
-		data.solutionSpeed.put(task, time);
+	// Points giving data
+	public static void setGiverData(String task, long time, long points) throws IOException {
+		PointsGiving pg = new PointsGiving();
+		pg.timeInterval = time;
+		pg.points = points;
+		data.pointsGiving.put(task, pg);
 		saveData();
 	}
-	public static HashMap<String, Long> getSpeeds() {return new HashMap<>(data.solutionSpeed);}
+	public static HashMap<String, PointsGiving> getPointsGiving() {return new HashMap<>(data.pointsGiving);}
 
 	private static void saveData() throws IOException {
 		System.out.println("Saving to file: " + saveFile.getAbsolutePath());
@@ -99,7 +106,7 @@ public class DataManager {
 	public static void resetData() throws IOException {
 		data.points = 0;
 		data.unlockedTasks = new ArrayList<>();
-		data.solutionSpeed = new HashMap<>();
+		data.pointsGiving = new HashMap<>();
 		saveData();
 	}
 

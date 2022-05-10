@@ -7,7 +7,6 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class PointsGiver {
-	private static final long POINTS_PER_TICK = 10;
 	private static final Timer givingTimer = new Timer();
 	private static final Map<String, PointsTimerTask> givingTasks = new HashMap<>();
 	private static final Map<String, Long> timeStamps = new HashMap<>();
@@ -15,14 +14,16 @@ public class PointsGiver {
 
 	private static class PointsTimerTask extends TimerTask {
 		long timeMillis;
-		public PointsTimerTask(long time) {
+		long points;
+		public PointsTimerTask(long time, long pointsPerGiving) {
 			super();
 			timeMillis = time;
+			points = pointsPerGiving;
 		}
 
 		@Override
 		public void run() {
-			DataManager.addPoints(POINTS_PER_TICK);
+			DataManager.addPoints(points);
 		}
 
 		public void start() {
@@ -30,19 +31,14 @@ public class PointsGiver {
 		}
 	}
 
-	public static void setSolutionSpeed(String problem, long timeInMillis) throws IOException {
+	public static void setSolutionSpeed(String problem, long timeInMillis, long pointsPerGiving) throws IOException {
 		Date date = new Date();
-		setSolutionSpeed(problem, timeInMillis, date.getTime());
+		setSolutionSpeed(problem, timeInMillis, date.getTime(), pointsPerGiving);
 	}
 
-	public static void setSolutionSpeed(String problem, long timeInMillis, long timeStamp) throws IOException {
+	public static void setSolutionSpeed(String problem, long timeInMillis, long timeStamp, long pointsPerGiving) throws IOException {
 
-		try {
-			mutex.acquire();
-		}
-		catch (InterruptedException e) {
-			throw new RuntimeException("Process interrupted");
-		}
+		mutex.acquireUninterruptibly();
 
 		Long oldStamp = timeStamps.get(problem);
 		if (oldStamp != null && oldStamp > timeStamp) {
@@ -50,14 +46,14 @@ public class PointsGiver {
 			return;
 		}
 
-		DataManager.setSpeed(problem, timeInMillis);
+		DataManager.setGiverData(problem, timeInMillis, pointsPerGiving);
 		PointsTimerTask task = givingTasks.get(problem);
 
 		if (task != null) {
 			task.cancel();
 		}
 
-		task = new PointsTimerTask(timeInMillis);
+		task = new PointsTimerTask(timeInMillis, pointsPerGiving);
 		task.start();
 		givingTasks.put(problem, task);
 		timeStamps.put(problem, timeStamp);
@@ -68,12 +64,7 @@ public class PointsGiver {
 
 	public static void resetSolution(String problem) {
 
-		try {
-			mutex.acquire();
-		}
-		catch (InterruptedException e) {
-			throw new RuntimeException("Process interrupted");
-		}
+		mutex.acquireUninterruptibly();
 
 		PointsTimerTask task = givingTasks.get(problem);
 		if (task != null) {
@@ -87,12 +78,7 @@ public class PointsGiver {
 
 	public static void resetSolutions() {
 
-		try {
-			mutex.acquire();
-		}
-		catch (InterruptedException e) {
-			throw new RuntimeException("Process interrupted");
-		}
+		mutex.acquireUninterruptibly();
 
 		for (Map.Entry<String, PointsTimerTask> entry : givingTasks.entrySet()) {
 			entry.getValue().cancel();
@@ -108,11 +94,11 @@ public class PointsGiver {
 	}
 
 	public static void loadSpeeds() {
-		HashMap<String, Long> speeds = DataManager.getSpeeds();
+		HashMap<String, DataManager.PointsGiving> speeds = DataManager.getPointsGiving();
 		Date date = new Date();
 
-		for (Map.Entry<String, Long> entry : speeds.entrySet()) {
-			PointsTimerTask task = new PointsTimerTask(entry.getValue());
+		for (Map.Entry<String, DataManager.PointsGiving> entry : speeds.entrySet()) {
+			PointsTimerTask task = new PointsTimerTask(entry.getValue().timeInterval, entry.getValue().points);
 			task.start();
 			givingTasks.put(entry.getKey(), task);
 			timeStamps.put(entry.getKey(), date.getTime());
