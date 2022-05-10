@@ -9,6 +9,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,9 +19,14 @@ public class DataManager {
 	private static final long AUTOSAVE_INTERVAL = 30000;
 	private static final Timer autosaveTimer = new Timer();
 
+	public static class PointsGiving {
+		public long timeInterval;
+		public long points;
+	}
 	private static class Data {
 		public long points = 0;
 		public ArrayList<String> unlockedTasks = new ArrayList<>();
+		public HashMap<String, PointsGiving> pointsGiving = new HashMap<>();
 	}
 
 	private static Data data = new Data();
@@ -69,6 +75,16 @@ public class DataManager {
 		saveData();
 	}
 
+	// Points giving data
+	public static void setGiverData(String task, long time, long points) throws IOException {
+		PointsGiving pg = new PointsGiving();
+		pg.timeInterval = time;
+		pg.points = points;
+		data.pointsGiving.put(task, pg);
+		saveData();
+	}
+	public static HashMap<String, PointsGiving> getPointsGiving() {return new HashMap<>(data.pointsGiving);}
+
 	private static void saveData() throws IOException {
 		System.out.println("Saving to file: " + saveFile.getAbsolutePath());
 		if (!saveFile.isFile()) {
@@ -85,6 +101,13 @@ public class DataManager {
 		}
 
 		data = (new Yaml(new Constructor(Data.class))).load(Files.readString(Path.of(saveFile.toString())));
+	}
+
+	public static void resetData() throws IOException {
+		data.points = 0;
+		data.unlockedTasks = new ArrayList<>();
+		data.pointsGiving = new HashMap<>();
+		saveData();
 	}
 
 	private static void setupAutosaveTimer() {

@@ -7,13 +7,15 @@ import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
-import mimuw.idlearn.scoring.WrongAnswerException;
+import mimuw.idlearn.userdata.DataManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class TestRunnerTest {
     @Test
-    public void testTestRunner() throws SimulationException {
+    public void testTestRunner() throws SimulationException, IOException {
         PackageManager.reloadProblemPackages();
         ProblemPackage pack = PackageManager.getProblemPackages()[0];
         Assertions.assertEquals(pack.getTitle(), "Addition");
@@ -43,5 +45,6 @@ public class TestRunnerTest {
         testRunner = new TestRunner(pack, badSolution);
 
         Assertions.assertThrows(WrongAnswerException.class, testRunner::aggregateTestTimes);
+
     }
 }

@@ -37,5 +37,10 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>mimuw</groupId>
+            <artifactId>userdata</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 </project>
