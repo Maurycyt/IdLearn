@@ -12,6 +12,7 @@ import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scenes.preloader.LoadTask;
+import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
@@ -43,6 +44,9 @@ public class IdLearnApplication extends javafx.application.Application {
 
 		// Start data manager
 		DataManager.init();
+
+		// Start points giver
+		PointsGiver.loadSpeeds();
 
 		// Add the main menu scene with preloading
 		sceneManager.push(SceneUtils.loadScene(SceneUtils.MainMenu), new LoadTask() {
@@ -82,6 +86,7 @@ public class IdLearnApplication extends javafx.application.Application {
 		try {
 			launch(args);
 			// Make sure to save progress on exit.
+			PointsGiver.exit();
 			DataManager.exit();
 			System.out.println("BYE BYE!");
 		} catch (Exception e){

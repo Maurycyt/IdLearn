@@ -7,15 +7,14 @@ import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
-
-import java.io.FileNotFoundException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestRunnerTest {
 	@Test
-	public void testTestRunner() throws SimulationException, FileNotFoundException {
+	public void testTestRunner() throws SimulationException, IOException {
 		PackageManager.reloadProblemPackages();
 		ProblemPackage pack = PackageManager.getProblemPackage("Addition");
 		assertEquals(pack.getTitle(), "Addition");

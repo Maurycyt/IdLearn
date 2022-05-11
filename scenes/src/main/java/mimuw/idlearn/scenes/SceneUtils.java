@@ -19,6 +19,7 @@ import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.preloader.LoadTask;
 import mimuw.idlearn.scenes.preloader.Preloader;
+import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
 import mimuw.idlearn.scoring.WrongAnswerException;
 
@@ -109,6 +110,7 @@ public class SceneUtils {
 				double time = runner.aggregateTestTimes();
 				System.out.println("Correct output!");
 				System.out.println("Time: " + time);
+				PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
 			} catch (WrongAnswerException e) {
 				System.out.println("Incorrect output!");
 			} catch (TimeoutException e) {
