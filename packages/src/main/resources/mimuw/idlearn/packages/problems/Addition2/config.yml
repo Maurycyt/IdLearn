@@ -1,0 +1,51 @@
+# This file has three standard purposes:
+# 1. It contains the title of the package.
+# 2. It contains the filename of the output file. This is to make the package structure independent of the application.
+# 3. It contains basic information about the tests which need to be run.
+
+title: 'Addition 2 : Electric Boogaloo'
+
+difficulty: Medium
+
+statement: doc/statement.txt
+
+examples:
+  - input: doc/example1.in
+    output: doc/example1.out
+  - input: doc/example2.in
+    output: doc/example2.out
+
+testInput: input.in
+userOutput: user.out
+
+# very primitive for the time being
+testData:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 16
+  - 32
+  - 64
+  - 128
+  - 256
+  - 512
+  - 1024
+  - 2048
+  - 4096
+  - 8192
+  - 16384
+  - 32768
+  - 65536
+  - 131072
+  - 262144
+  - 524288
+  - 1048572
+  - 1048573
+  - 1048574
+  - 1048575
+  - 1048576

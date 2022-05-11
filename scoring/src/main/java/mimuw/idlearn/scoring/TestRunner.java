@@ -14,9 +14,9 @@ import java.util.ArrayList;
  * Aggregates time statistics.
  */
 public class TestRunner {
-	private ProblemPackage pack;
-	private Expression<Void> solution;
-	private ArrayList<Integer> testData;
+	private final ProblemPackage pack;
+	private final Expression<Void> solution;
+	private final ArrayList<Integer> testData;
 
 	public TestRunner(ProblemPackage pack, Expression<Void> solution) {
 		this.pack = pack;

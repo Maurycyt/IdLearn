@@ -29,7 +29,14 @@ public class ProblemPackage {
 	 * Represents a configuration of a package given in the config file.
 	 */
 	public static class Config {
+		public enum Difficulty {
+			Easy,
+			Medium,
+			Hard
+		};
+
 		public String title;
+		public Difficulty difficulty;
 		public String statement;
 		public ArrayList<Example> examples;
 		public String testInput;
@@ -242,14 +249,24 @@ public class ProblemPackage {
 	}
 
 	/**
-	 * Returns the config.
+	 * Returns the config of the package.
+	 * @return The config.
 	 */
 	public Config getConfig() {
 		return config;
 	}
 
 	/**
+	 * Returns the difficulty of the problem as a member of Config.Difficulty.
+	 * @return The difficulty.
+	 */
+	public Config.Difficulty getDifficulty() {
+		return config.difficulty;
+	}
+
+	/**
 	 * Returns the testData member of the config.
+	 * @return The test data.
 	 */
 	public ArrayList<Integer> getTestData() {
 		return config.testData;

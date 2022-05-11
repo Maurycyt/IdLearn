@@ -16,6 +16,7 @@ import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class IdLearnApplication extends javafx.application.Application {
 	private final SceneManager sceneManager = SceneManager.getInstance();
@@ -58,9 +59,9 @@ public class IdLearnApplication extends javafx.application.Application {
 					PackageManager.reloadProblemPackageDirectory(true);
 					PackageManager.reloadProblemPackages();
 				}
-				ProblemPackage[] packages = PackageManager.getProblemPackages();
-				int i = 0, n = packages.length;
-				for (ProblemPackage p : packages) {
+				Map<String, ProblemPackage> packages = PackageManager.getProblemPackages();
+				int i = 0, n = packages.size();
+				for (ProblemPackage p : packages.values()) {
 					System.out.println(p.getTitle());
 					p.build();
 					logProgress(i / (float)n);

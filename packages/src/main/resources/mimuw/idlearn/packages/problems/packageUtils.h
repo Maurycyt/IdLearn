@@ -147,6 +147,10 @@ public:
 
 	Random(Random &r) = delete;
 
+	static void seed(int seed) {
+		rng = std::mt19937_64(seed);
+	}
+
 	template<packageType T>
 	static T rand() {
 		if constexpr (integral<T>) {

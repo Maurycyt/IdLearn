@@ -1,0 +1,9 @@
+Johnny got a D at school and as a reward, he was allowed to go to the arcade. He decided to play Whack-a-mole. This is a game in which the player (Johnny) has a rubber hammer and stands in front of a board with holes in it. Out of these holes, randomly, rubber or plastic figures (moles) pop out. Johnny's task is to hit (whack) the moles with his hammer, as quickly as possible. Alas, Johnny isn't very good at this game. However, he noticed that the higher a mole sticks out from the board, the longer it takes for it to drop down, so Johnny decided he will prioritise whacking the tallest moles.
+
+He needs your help to determine the height of the tallest mole. You need to answer his queries quickly, so that he has as much time as possible to actually whack the mole. The moles' heights change too, so you must take these changes into account when computing the height of the tallest mole. At the beginning of the game, all the moles are hidden, so they have height 0.
+
+Input:
+The first line of input contains two numbers, n in the range [0, 10^5] and q in the range [0, 10^5]. The first one signifies the number of moles and the second one is the number of queries. The next q lines contain the queries. Each query contains two numbers. The first is the number p in the range [1, n], which is followed by h in the range [0, 10^9]. This means that the height of the p-th mole changes to h.
+
+Output:
+For each query, print the height of the tallest mole in the game.

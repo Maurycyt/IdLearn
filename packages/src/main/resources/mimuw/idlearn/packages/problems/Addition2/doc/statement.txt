@@ -1,0 +1,7 @@
+You went to visit Johnny one day but encountered the door to his house ajar, with nobody inside. Curious, and slightly frightened, you went inside and headed for Johnny's room. There, on the white walls and ceiling, you noticed numbers. Lots and lots of numbers, scratched onto the surfaces. You decided that it would be fun to compute their sum, while you wait for Johnny to return.
+
+Input:
+The first line of input contains one number n in the range of [0, 10^6] indicating how many numbers there are. In the second line of input there are numbers a_1, a_2, ..., a_n, which are the numbers on the walls and ceiling in the range of [0,999].
+
+Output:
+The only number outputted should be equal to a_1 + a_2 + ... + a_n.

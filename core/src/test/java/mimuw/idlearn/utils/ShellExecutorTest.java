@@ -1,6 +1,6 @@
 package mimuw.idlearn.utils;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -22,10 +22,10 @@ public class ShellExecutorTest {
 	@Test
 	public void testFileCreation() throws IOException {
 		init();
-		Assertions.assertTrue(scriptFile.canRead() && scriptFile.canWrite() && scriptFile.canExecute());
+		assertTrue(scriptFile.canRead() && scriptFile.canWrite() && scriptFile.canExecute());
 		String expectedContents = ShellExecutor.getDefaultScriptContents();
 		String actualContents = Files.readString(scriptFilePath);
-		Assertions.assertEquals(expectedContents, actualContents);
+		assertEquals(expectedContents, actualContents);
 	}
 
 	@Test
@@ -37,26 +37,26 @@ public class ShellExecutorTest {
 
 		// Check execution of single command.
 		output = ShellExecutor.execute("echo " + someText);
-		Assertions.assertEquals(expectedOutput, output);
+		assertEquals(expectedOutput, output);
 
 		// Check execution of wrong command.
-		Assertions.assertThrows(CommandException.class, () -> ShellExecutor.execute("rm /"));
+		assertThrows(CommandException.class, () -> ShellExecutor.execute("rm /"));
 
 		// Check script appending and script execution.
 		se.addLineToScript("echo " + someText);
 		output = se.execute();
-		Assertions.assertEquals(expectedOutput, output);
+		assertEquals(expectedOutput, output);
 
 		// Now check if appending to a script which was executed works properly.
 		se.addLineToScript("echo " + someText);
 		expectedOutput += someText + "\n";
 		output = se.execute();
-		Assertions.assertEquals(expectedOutput, output);
+		assertEquals(expectedOutput, output);
 
 		// Now check if cleaning a script works as intended.
 		se.clearScript();
 		expectedOutput = "";
 		output = se.execute();
-		Assertions.assertEquals(expectedOutput, output);
+		assertEquals(expectedOutput, output);
 	}
 }

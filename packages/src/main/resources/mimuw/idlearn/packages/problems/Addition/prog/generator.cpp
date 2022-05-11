@@ -9,10 +9,8 @@ struct TestSize {
 	int n;
 
 	TestSize(size_t id) : n(min(id, size_t(1e9))) {
-	    // To change the rng seed between tests.
-	    for (size_t i = 0; i < id % 1000; i++) {
-	        Random::rand<ull>();
-	    }
+		// Seed the RNG.
+		Random::seed(id);
 	}
 };
 
@@ -23,7 +21,9 @@ struct TestCase {
 		return out << t.a << " " << t.b << "\n";
 	}
 
-	TestCase(TestSize ts) : a(Random::rand<si>() % ts.n), b(Random::rand<si>() % ts.n) {
+	TestCase(TestSize ts) :
+	a(Random::rand<si>() % ts.n),
+	b(Random::rand<si>() % ts.n) {
 	}
 };
 
