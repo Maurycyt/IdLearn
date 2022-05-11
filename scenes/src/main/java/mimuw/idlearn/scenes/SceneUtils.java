@@ -60,11 +60,11 @@ public class SceneUtils {
 	public static Parent createPreloader(LoadTask task) {
 		try {
 			VBox root = (VBox)loadScene(SceneUtils.Preloader);
-			root.getChildren().add(new Preloader(task));
+			root.getChildren().add(new Preloader(root, task));
 			return root;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new Preloader(task);
+			return new Preloader(null, task);
 		}
 	}
 
