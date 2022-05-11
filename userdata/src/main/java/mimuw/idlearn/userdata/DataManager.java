@@ -14,7 +14,7 @@ public class DataManager {
 
 	private static final File saveFile = Path.of(System.getProperty("user.home"), ".idlearn", "savefile/user.savedata").toFile();
 	private static final long AUTOSAVE_INTERVAL = 30000;
-	private static final Timer autoSaveTimer = new Timer();
+	private static final Timer autosaveTimer = new Timer();
 
 	public static class PointsGiving {
 		public long timeInterval;
@@ -120,20 +120,20 @@ public class DataManager {
 				}
 			}
 		};
-		autoSaveTimer.scheduleAtFixedRate(autosave, AUTOSAVE_INTERVAL, AUTOSAVE_INTERVAL);
+		autosaveTimer.scheduleAtFixedRate(autosave, AUTOSAVE_INTERVAL, AUTOSAVE_INTERVAL);
 	}
 
-	private static void stopAutoSaveTimer() {
-		autoSaveTimer.cancel();
+	private static void stopAutosaveTimer() {
+		autosaveTimer.cancel();
 	}
 
 	public static void init() throws IOException {
 		loadData();
-		setupAutoSaveTimer();
+		setupAutosaveTimer();
 	}
 
 	public static void exit() throws IOException {
 		saveData();
-		stopAutoSaveTimer();
+		stopAutosaveTimer();
 	}
 }
