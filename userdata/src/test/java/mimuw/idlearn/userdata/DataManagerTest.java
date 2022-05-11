@@ -11,8 +11,7 @@ import java.util.List;
 
 public class DataManagerTest {
 	@Test
-	public void testBasicPoints() {
-		DataManager.setPoints(0);
+	public void testBasicPoints() throws IOException {
 		assertEquals(0, DataManager.showPoints());
 		DataManager.addPoints(100);
 		assertEquals(100, DataManager.showPoints());
@@ -23,22 +22,21 @@ public class DataManagerTest {
 			fail();
 		}
 		assertEquals(40, DataManager.showPoints());
+		DataManager.resetData();
 	}
 
 	@Test
 	public void testBasicTasks() throws IOException {
-		DataManager.setPoints(0);
-		DataManager.resetUnlockedTasks();
 		assertEquals(new ArrayList<>(), DataManager.getUnlockedTasks());
 		DataManager.unlockTask("A");
 		assertEquals(new ArrayList<>(List.of(new String[]{"A"})), DataManager.getUnlockedTasks());
 		DataManager.resetUnlockedTasks();
 		assertEquals(new ArrayList<>(), DataManager.getUnlockedTasks());
+		DataManager.resetData();
 	}
 
 	@Test
-	public void testNotEnoughException() {
-		DataManager.setPoints(0);
+	public void testNotEnoughException() throws IOException {
 		try {
 			DataManager.payPoints(10);
 			fail();
@@ -46,6 +44,7 @@ public class DataManagerTest {
 		catch (NotEnoughPointsException e) {
 		}
 		assertEquals(0, DataManager.showPoints());
+		DataManager.resetData();
 	}
 
 	private static class LongWrapper {
@@ -53,7 +52,7 @@ public class DataManagerTest {
 	}
 
 	@Test
-	public void testPointsEmitter() {
+	public void testPointsEmitter() throws IOException {
 		DataManager.setPoints(0);
 		final LongWrapper log = new LongWrapper();
 		Listener listener = event -> log.value = (long)(event.value());
@@ -69,12 +68,12 @@ public class DataManagerTest {
 			fail();
 		}
 		assertEquals(10, log.value);
+		DataManager.resetData();
 	}
 
 	@Test
 	public void testLoad() throws IOException {
-		DataManager.setPoints(0);
-		DataManager.resetUnlockedTasks();
+
 		DataManager.init();
 		assertEquals(0, DataManager.showPoints());
 
@@ -88,6 +87,8 @@ public class DataManagerTest {
 		DataManager.setPoints(0);
 		DataManager.init();
 		assertEquals(100, DataManager.showPoints());
+
+		DataManager.resetData();
 	}
 
 }
