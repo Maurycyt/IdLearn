@@ -20,7 +20,6 @@ import java.util.Map;
 
 public class IdLearnApplication extends javafx.application.Application {
 	private final SceneManager sceneManager = SceneManager.getInstance();
-	private final int framesPerSecond = 60;
 
 	@Override
 	public void start(Stage stage) throws IOException {
