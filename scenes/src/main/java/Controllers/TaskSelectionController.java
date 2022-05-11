@@ -13,16 +13,16 @@ public class TaskSelectionController extends GenericController implements Initia
     @FXML
     private VBox tasksVBox;
 
-    /** Loads all tasks from the `PackageManager`'s array as clickable buttons**/
+    /** Loads all the user's available tasks as clickable buttons **/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        var packages = DataManager.getUnlockedTasks();
+        var tasks = DataManager.getUnlockedTasks();
         var btnWidth = tasksVBox.getMaxWidth();
 
-        for (int i = 0; i <  packages.size(); i++) {
-            Button btn = new Button(packages.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            Button btn = new Button(tasks.get(i));
             final int finalI = i;
-            btn.setOnMouseClicked((event) -> System.out.println("clicked on task #" + finalI));
+            btn.setOnMouseClicked((event) -> System.out.println("Selected task \"" + finalI + "\""));
             btn.setMaxWidth(btnWidth);
             tasksVBox.getChildren().add(btn);
         }

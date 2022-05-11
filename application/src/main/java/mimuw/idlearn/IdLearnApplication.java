@@ -83,6 +83,7 @@ public class IdLearnApplication extends javafx.application.Application {
 			launch(args);
 			// Make sure to save progress on exit.
 			DataManager.exit();
+			System.out.println("BYE BYE!");
 		} catch (Exception e){
 			e.printStackTrace();
 		}
