@@ -16,11 +16,13 @@ import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class IdLearnApplication extends javafx.application.Application {
 	private final SceneManager sceneManager = SceneManager.getInstance();
-	private final int framesPerSecond = 60;
 
 	@Override
 	public void start(Stage stage) throws IOException {
@@ -60,13 +62,26 @@ public class IdLearnApplication extends javafx.application.Application {
 					PackageManager.reloadProblemPackages();
 				}
 				Map<String, ProblemPackage> packages = PackageManager.getProblemPackages();
-				int i = 0, n = packages.size();
+				ArrayList<CompletableFuture<Void>> futures = new ArrayList<>();
+				long start = System.currentTimeMillis();
+				AtomicInteger i = new AtomicInteger(0);
+				int n = packages.size();
+
 				for (ProblemPackage p : packages.values()) {
-					System.out.println(p.getTitle());
-					p.build();
-					logProgress(i / (float)n);
-					i++;
+					futures.add(CompletableFuture.supplyAsync(() -> {
+						System.out.println(p.getTitle());
+						p.build();
+						logProgress(i.incrementAndGet() / (float)n);
+						return null;
+					}));
 				}
+
+				try {
+					CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).get();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				System.out.println("Problem packages built in " + (System.currentTimeMillis() - start) + "ms");
 
 				logSuccess();
 			}
