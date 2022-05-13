@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class GenericController {
-	private final SceneManager sm = SceneManager.getInstance();
+	protected final SceneManager sm = SceneManager.getInstance();
 
 	private void replaceCurrentScene(URL url) throws IOException {
 		sm.replace(SceneUtils.loadScene(url));

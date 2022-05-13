@@ -12,9 +12,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// todo: make every scene based on GridPane
-public class StoreController extends GenericController {
-    private Random rand = new Random();
+public class StoreSceneController extends GenericController {
+    private static final Random rand = new Random();
 
     /**
      * Return a random task of the provided difficulty that the user hasn't yet unlocked, if such a task exists.
@@ -24,13 +23,13 @@ public class StoreController extends GenericController {
      */
     private Optional<ProblemPackage> getRandomTaskOfDifficulty(Difficulty difficulty) {
         Map<String, ProblemPackage> allTasks = PackageManager.getProblemPackages();
-        var userTasks = DataManager.getUnlockedTasks();
+        List<String> userTasks = DataManager.getUnlockedTasks();
 
         var availableTasks =
                 allTasks
                 .entrySet()
                 .stream()
-                .filter(entry -> /*entry.getValue().getDifficulty() == difficulty && */!userTasks.contains(entry.getKey())) //todo: uncomment
+                .filter(entry -> entry.getValue().getDifficulty() == difficulty && !userTasks.contains(entry.getKey()))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toCollection(ArrayList::new));
 

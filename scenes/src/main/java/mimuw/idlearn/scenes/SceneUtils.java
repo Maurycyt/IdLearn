@@ -1,5 +1,6 @@
 package mimuw.idlearn.scenes;
 
+import Controllers.TaskSceneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -36,6 +37,7 @@ public class SceneUtils {
 	public static URL Achievements = SceneUtils.class.getResource("scenes/Achievements.fxml");
 	public static URL Store = SceneUtils.class.getResource("scenes/Store.fxml");
 	public static URL TaskSelection = SceneUtils.class.getResource("scenes/TaskSelection.fxml");
+	public static URL Task = SceneUtils.class.getResource("scenes/Task.fxml");
 
 	//public static URL AdditionTask = SceneUtils.class.getResource("scenes/AdditionTask.fxml");
 
@@ -51,6 +53,13 @@ public class SceneUtils {
 	 */
 	public static Parent loadScene(URL url) throws IOException {
 		Scene scene = new Scene(FXMLLoader.load(url));
+		Parent root = scene.getRoot();
+		root.getStylesheets().add(StyleSheet.toExternalForm());
+		scene.setRoot(new Group());
+		return root;
+	}
+	public static Parent loadScene(FXMLLoader loader) throws IOException {
+		Scene scene = new Scene(loader.load());
 		Parent root = scene.getRoot();
 		root.getStylesheets().add(StyleSheet.toExternalForm());
 		scene.setRoot(new Group());
