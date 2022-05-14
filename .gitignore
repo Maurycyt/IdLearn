@@ -12,6 +12,7 @@
 !scenes/
 !scoring/
 !userdata/
+!properties
 !.package-development/
 
 # And the maven files

@@ -1,6 +1,7 @@
 package mimuw.idlearn.packages;
 
 import mimuw.idlearn.utils.ShellExecutor;
+import mimuw.idlearn.properties.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,7 @@ public class PackageManager {
 	 * doesn't exist or `forceCopy` is true, it creates it and copies the default contents into it.
 	 */
 	public static void reloadProblemPackageDirectory(boolean forceCopy) {
-		Path problemPackageDirectoryPath = Path.of(System.getProperty("user.home"), ".idlearn", "problems");
+		Path problemPackageDirectoryPath = Path.of(Config.getInstance().getDataPath(), "problems");
 		File result = problemPackageDirectoryPath.toFile();
 
 		if (result.mkdirs() || forceCopy) {
