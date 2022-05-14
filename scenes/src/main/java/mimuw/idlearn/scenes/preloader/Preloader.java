@@ -31,7 +31,11 @@ public class Preloader extends Group implements Listener {
 		timeline.getKeyFrames().add(
 				new KeyFrame(
 						Duration.seconds(1.0 / 60),
-						actionEvent -> emitter.processEvents()));
+						actionEvent -> {
+							synchronized (emitter) {
+								emitter.processEvents();
+							}
+						}));
 		timeline.play();
 	}
 
