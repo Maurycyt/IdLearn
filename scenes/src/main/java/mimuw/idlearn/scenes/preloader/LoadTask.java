@@ -17,21 +17,27 @@ public abstract class LoadTask {
 	 * @param progress total progress in percents
 	 */
 	protected void logProgress(double progress){
-		preloader.onLogProgress(progress);
+		synchronized (preloader.getEmitter()) {
+			preloader.getEmitter().notify(PreloaderEvent.Progress(progress));
+		}
 	}
 
 	/**
 	 * Log that task finished successfully
 	 */
 	protected void logSuccess(){
-		preloader.onSuccess();
+		synchronized (preloader.getEmitter()) {
+			preloader.getEmitter().notify(PreloaderEvent.Success());
+		}
 	}
 
 	/**
 	 * Log that task failed its execution
 	 */
 	protected void logFail(){
-		preloader.onFail();
+		synchronized (preloader.getEmitter()) {
+			preloader.getEmitter().notify(PreloaderEvent.Fail());
+		}
 	}
 
 	/**

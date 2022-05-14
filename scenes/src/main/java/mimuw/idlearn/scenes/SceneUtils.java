@@ -74,7 +74,7 @@ public class SceneUtils {
 			return root;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new Preloader(task);
+			return new Preloader(null, task);
 		}
 	}
 

@@ -59,7 +59,7 @@ public class SceneManager {
 	synchronized public void replace(Parent sceneRoot, LoadTask task) {
 		sceneRoots.pop();
 		sceneRoots.push(sceneRoot);
-		sceneRoots.push(new Preloader(task));
+		sceneRoots.push(SceneUtils.createPreloader(task));
 		updateStage();
 	}
 
