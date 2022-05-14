@@ -81,6 +81,7 @@ public class SceneUtils {
 	public static Scene createAdditionTaskScene() {
 		// Create base elements
 		final Group root = new Group();
+
 		final CodeBox codeBox = new CodeBox();
 		final Pane codeBlocks = new VBox();
 		final Group dragged = new Group();

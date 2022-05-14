@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -49,7 +50,7 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </Button>
-            <ScrollPane fx:id="codeBoxScrollPane1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <HBox fx:id="blockSelectionHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
             <Button fx:id="submitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />
