@@ -77,7 +77,7 @@ public class TaskSceneController extends GenericController implements Initializa
         });
 
         final CodeBox codeBox = new CodeBox(); //todo: pin this somewhere. Perhaps also change the parent class of CodeBox so it's Pane instead of Group
-        final Group dragged = new Group();
+        final Group dragged = new Group(); // todo: @Antek, te dwie rzeczy nie są nigdzie dodane. Nie wiem gdzie to ma być. Robię na Ciebie taska
 
         // Create spawners
         Node readSpawner = new CodeBlockSpawner(codeBox, dragged, () -> new Read(pkg));
