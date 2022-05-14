@@ -3,8 +3,17 @@ package Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.text.Text;
+import mimuw.idlearn.idlang.logic.base.Expression;
+import mimuw.idlearn.idlang.logic.base.Value;
+import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
+import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scoring.PointsGiver;
+import mimuw.idlearn.scoring.TestRunner;
+import mimuw.idlearn.scoring.WrongAnswerException;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -19,19 +28,44 @@ public class TaskSceneController extends GenericController implements Initializa
         this.pkg = PackageManager.getProblemPackage(taskName);
     }
 
+    private String loremGen(int n) {
+        return loremIpsum.repeat(Math.max(0, n));
+    }
+
     /*@FXML
     private Button blockSelector;*/
     @FXML
-    private Button backBtn;
+    private ScrollPane statementScrollPane;
     @FXML
-    private Button statementField;
+    private Text statementText;
+
     @FXML
-    private Button codeField;
+    private ScrollPane codeBoxScrollPane;
+
+    @FXML
+    private Button submitBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        backBtn.setOnMouseClicked(e -> goBack(null));
-        statementField.setText(pkg.getStatement());
-        codeField.setText(loremIpsum);
+        statementText.setText(pkg.getStatement());
+        statementText.wrappingWidthProperty().bind(statementScrollPane.widthProperty());
+
+        submitBtn.setOnMousePressed(event -> {
+            //Expression<Void> exp = codeBox.compile();
+            Expression<Void> exp = new Block();
+            try {
+                TestRunner runner = new TestRunner(pkg, exp);
+                double time = runner.aggregateTestTimes();
+                System.out.println("Correct output!");
+                System.out.println("Time: " + time);
+                PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
+            } catch (WrongAnswerException e) {
+                System.out.println("Incorrect output!");
+            } catch (TimeoutException e) {
+                System.out.println("Time out!");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 }

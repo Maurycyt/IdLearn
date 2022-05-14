@@ -24,21 +24,19 @@ public class GenericController {
 		sm.pop();
 	}
 
-	@FXML
-	public void addAchievementsScene(ActionEvent event) throws IOException {
-		enterNextScene(SceneUtils.Achievements);
-	}
+
+	/* is to be deprecated */
 	@FXML
 	public void addAdditionTaskScene(ActionEvent event) throws IOException {
-		/* Will be replaced by:
-		```
-			enterNextScene(SceneUtils.AdditionTask);
-		```*/
+
 		Scene scene = SceneUtils.createAdditionTaskScene();
 		Parent root = scene.getRoot();
 		scene.setRoot(new Group());
 		sm.push(root);
-
+	}
+	@FXML
+	public void addAchievementsScene(ActionEvent event) throws IOException {
+		enterNextScene(SceneUtils.Achievements);
 	}
 	@FXML
 	public void addGameMenuScene(ActionEvent event) throws IOException {
