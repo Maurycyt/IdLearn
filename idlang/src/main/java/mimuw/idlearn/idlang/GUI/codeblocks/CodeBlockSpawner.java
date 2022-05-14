@@ -28,7 +28,7 @@ public class CodeBlockSpawner extends AnchorPane {
 	 *
 	 * @param codeBox The box for code our CodeBlocks will interact with
 	 * @param dragged The parent for nodes being dragged
-	 * @param spawn The function for spawning new CodeBlocks
+	 * @param spawn   The function for spawning new CodeBlocks
 	 */
 	public CodeBlockSpawner(CodeBox codeBox, Group dragged, Supplier<CodeBlock> spawn) {
 		super();

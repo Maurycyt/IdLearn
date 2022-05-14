@@ -2,9 +2,6 @@ package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.SceneUtils;
 
@@ -14,26 +11,19 @@ import java.net.URL;
 public class GenericController {
 	protected final SceneManager sm = SceneManager.getInstance();
 
-	private void replaceCurrentScene(URL url) throws IOException {
+	protected void replaceCurrentScene(URL url) throws IOException {
 		sm.replace(SceneUtils.loadScene(url));
 	}
-	private void enterNextScene(URL url) throws IOException {
+	protected void enterNextScene(URL url) throws IOException {
 		sm.push(SceneUtils.loadScene(url));
 	}
-	private void returnToPreviousScene() {
+	protected void enterNextScene(URL url, GenericController controller) throws IOException {
+		sm.push(SceneUtils.loadScene(url, controller));
+	}
+	protected void returnToPreviousScene() {
 		sm.pop();
 	}
 
-
-	/* is to be deprecated */
-	@FXML
-	public void addAdditionTaskScene(ActionEvent event) throws IOException {
-
-		Scene scene = SceneUtils.createAdditionTaskScene();
-		Parent root = scene.getRoot();
-		scene.setRoot(new Group());
-		sm.push(root);
-	}
 	@FXML
 	public void addAchievementsScene(ActionEvent event) throws IOException {
 		enterNextScene(SceneUtils.Achievements);
