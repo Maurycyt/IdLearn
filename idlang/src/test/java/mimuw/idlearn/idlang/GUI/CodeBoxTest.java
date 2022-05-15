@@ -30,7 +30,7 @@ public class CodeBoxTest {
 		Group codeBlocks = new Group();
 		CodeBox codeBox = new CodeBox();
 		Group dragged = new Group();
-		CodeBlockSpawner blockSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
+		CodeBlockSpawner blockSpawner = new CodeBlockSpawner(codeBox, Assign::new);
 		CodeBlock block = (CodeBlock) blockSpawner.getChildren().get(0);
 
 		root.getChildren().add(codeBlocks);
@@ -59,7 +59,7 @@ public class CodeBoxTest {
 		assertEquals(0, block.getIndent());
 
 
-		CodeBlockSpawner whileSpawner = new CodeBlockSpawner(codeBox, dragged, WhileBlock::new);
+		CodeBlockSpawner whileSpawner = new CodeBlockSpawner(codeBox, WhileBlock::new);
 		CodeBlock whileBlock = (CodeBlock) whileSpawner.getChildren().get(0);
 
 		codeBlocks.getChildren().add(whileSpawner);

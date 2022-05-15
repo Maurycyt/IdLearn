@@ -14,7 +14,6 @@ public abstract class CodeBlock extends Group {
 
 	private DragData dragData;
 	private CodeBox codeBox;
-	private Group dragged;
 	private int indent = 0;
 	private boolean isNew = true;
 
@@ -126,10 +125,6 @@ public abstract class CodeBlock extends Group {
 	 * Drops us, possibly into the CodeBox
 	 */
 	public void releaseMouse() {
-
-		// Remove from parent
-		dragged.getChildren().remove(this);
-
 		// Check if we should be added to the code section
 		if (codeBox.shouldDrop(this.localToScene(0, 0))) {
 
@@ -161,7 +156,6 @@ public abstract class CodeBlock extends Group {
 		// Switch parent
 		Pane parent = ((Pane) this.getParent());
 		parent.getChildren().remove(this);
-		dragged.getChildren().add(this);
 
 		if (isNew) {
 			isNew = false;
@@ -197,13 +191,10 @@ public abstract class CodeBlock extends Group {
 	 * Makes our CodeBlock draggable
 	 *
 	 * @param codeBox The CodeBox we can be dropped in
-	 * @param dragged The parent for dragged CodeBlocks
 	 */
-	public void makeDraggable(CodeBox codeBox, Group dragged) {
-
+	public void makeDraggable(CodeBox codeBox) {
 		dragData = new DragData();
 		this.codeBox = codeBox;
-		this.dragged = dragged;
 
 		this.addEventHandler(
 				MouseEvent.MOUSE_PRESSED,

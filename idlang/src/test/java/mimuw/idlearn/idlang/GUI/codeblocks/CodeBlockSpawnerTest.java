@@ -25,8 +25,7 @@ public class CodeBlockSpawnerTest {
 	public void testSpawning() {
 		preparePlatform();
 		CodeBox codeBox = new CodeBox();
-		Group dragged = new Group();
-		CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
+		CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, Assign::new);
 
 		assertEquals(1, spawner.getChildren().size());
 

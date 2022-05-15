@@ -25,8 +25,6 @@ public class SceneUtils {
 	public static URL TaskSelection = SceneUtils.class.getResource("scenes/TaskSelection.fxml");
 	public static URL Task = SceneUtils.class.getResource("scenes/Task.fxml");
 
-	//public static URL AdditionTask = SceneUtils.class.getResource("scenes/AdditionTask.fxml");
-
 	public static URL StyleSheet = SceneUtils.class.getResource("style.css");
 	public static URL AppIcon = SceneUtils.class.getResource("images/icon.png");
 	public static URL AppLogo = SceneUtils.class.getResource("images/logo.png");
@@ -40,6 +38,13 @@ public class SceneUtils {
 	public static Parent loadScene(URL url) throws IOException {
 		return loadScene(url, null);
 	}
+
+	/**
+	 * Same as above, but sets the scene's controller based on its 2nd argument.
+	 * @param url url of the file
+	 * @return root of loaded scene
+	 * @throws IOException thrown when loading of the file fails
+	 */
 	public static Parent loadScene(URL url, GenericController controller) throws IOException {
 		FXMLLoader loader = new FXMLLoader(url);
 		if (controller != null) {
@@ -47,10 +52,13 @@ public class SceneUtils {
 		}
 		Scene scene = new Scene(loader.load());
 		Parent root = scene.getRoot();
-		root.getStylesheets().add(StyleSheet.toExternalForm());
+		if (url != Task){
+			root.getStylesheets().add(StyleSheet.toExternalForm());
+		}
 		scene.setRoot(new Group());
 		return root;
 	}
+
 	public static Parent createPreloader(LoadTask task) {
 		try {
 			BorderPane root = (BorderPane)loadScene(SceneUtils.Preloader);
