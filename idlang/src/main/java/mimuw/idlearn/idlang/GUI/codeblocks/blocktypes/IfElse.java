@@ -154,6 +154,7 @@ public class IfElse extends CodeBlock {
 	@Override
 	public void releaseMouse() {
 		super.releaseMouse();
+		elseHead.setVisible(true);
 		foot.setVisible(true);
 	}
 }

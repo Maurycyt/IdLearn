@@ -132,6 +132,7 @@ public abstract class CodeBlock extends Group {
 	 * Drops us, possibly into the CodeBox
 	 */
 	public void releaseMouse() {
+		System.out.println("Mouse released");
 		Pane parent = ((Pane) this.getParent());
 
 		// Check if we should be added to the code section
@@ -139,17 +140,20 @@ public abstract class CodeBlock extends Group {
 
 			// Add us at the proper position
 			codeBox.addChild(this.localToScene(0, 0).getY(), this);
+
+			parent.getChildren().remove(this);
 		}
 		else {
 			this.relocate(0, 1000000);
+			Node pray = this;
+			killer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					Platform.runLater(() -> parent.getChildren().remove(pray));
+				}
+			}, 1000);
 		}
-		Node pray = this;
-		killer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				Platform.runLater(() -> parent.getChildren().remove(pray));
-			}
-		}, 1000);
+
 
 		codeBox.removeChild(dragData.ghost);
 		codeBox.updateIndent();

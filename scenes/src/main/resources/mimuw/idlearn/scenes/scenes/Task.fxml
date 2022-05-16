@@ -33,7 +33,11 @@
                      </font></Text>
                </content>
             </ScrollPane>
-            <ScrollPane fx:id="codeBoxScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" GridPane.columnIndex="2" />
+            <ScrollPane fx:id="codeBoxScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" GridPane.columnIndex="2">
+               <content>
+                  <VBox fx:id="codeBoxBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" />
+               </content>
+            </ScrollPane>
          </children>
       </GridPane>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">

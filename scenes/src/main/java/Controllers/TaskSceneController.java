@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
@@ -49,6 +50,8 @@ public class TaskSceneController extends GenericController implements Initializa
     @FXML
     private ScrollPane codeBoxScrollPane;
     @FXML
+    private VBox codeBoxBox;
+    @FXML
     private Button submitBtn;
     @FXML
     private AnchorPane dummyDragPane;
@@ -84,6 +87,7 @@ public class TaskSceneController extends GenericController implements Initializa
         blockSelectionHBox.setStyle("-fx-alignment: center; -fx-spacing: 35px");
 
         final CodeBox codeBox = new CodeBox();
+        codeBoxBox.getChildren().add(codeBox);
 
         // Create and link spawners
         List<Node> availableBlocks = blockSelectionHBox.getChildren();
