@@ -14,6 +14,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" styleClass="pane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <AnchorPane fx:id="dummyDragPane" prefHeight="200.0" prefWidth="200.0" />
       <GridPane VBox.vgrow="ALWAYS">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
@@ -53,7 +54,6 @@
             </Button>
             <HBox fx:id="blockSelectionHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="blockSelectionHBox" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                <children>
-                  <AnchorPane fx:id="dummyDragPane" prefHeight="200.0" prefWidth="200.0" />
                </children></HBox>
             <Button fx:id="submitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>

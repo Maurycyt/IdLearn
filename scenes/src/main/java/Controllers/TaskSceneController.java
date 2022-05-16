@@ -76,24 +76,23 @@ public class TaskSceneController extends GenericController implements Initializa
             }
         });
 
-        dummyDragPane.setVisible(false);
-        dummyDragPane.managedProperty().bind(dummyDragPane.visibleProperty());
+        dummyDragPane.setVisible(true);
+        dummyDragPane.managedProperty().set(false);
 
         //blockSelectionHBox.getStylesheets().add(SceneUtils.StyleSheet.toExternalForm());
         blockSelectionHBox.setStyle("-fx-alignment: center; -fx-spacing: 35px");
 
         final CodeBox codeBox = new CodeBox();
-        final Group dragged = new Group(); //todo: get rid of this
 
         // Create and link spawners
         List<Node> availableBlocks = blockSelectionHBox.getChildren();
         availableBlocks.addAll(List.of(
-                new CodeBlockSpawner(codeBox, () -> new Read(pkg)),
-                new CodeBlockSpawner(codeBox, () -> new Write(pkg)),
-                new CodeBlockSpawner(codeBox, Assign::new),
-                new CodeBlockSpawner(codeBox, Operation::new),
-                new CodeBlockSpawner(codeBox, WhileBlock::new),
-                new CodeBlockSpawner(codeBox, IfElse::new)
+                new CodeBlockSpawner(codeBox, () -> new Read(pkg), dummyDragPane),
+                new CodeBlockSpawner(codeBox, () -> new Write(pkg), dummyDragPane),
+                new CodeBlockSpawner(codeBox, Assign::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, Operation::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, WhileBlock::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, IfElse::new, dummyDragPane)
         ));
     }
 }

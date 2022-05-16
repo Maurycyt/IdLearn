@@ -14,6 +14,7 @@ public abstract class CodeBlock extends Group {
 	private static final double INDENT = 40;
 
 	private DragData dragData;
+	private Pane dragged;
 	private CodeBox codeBox;
 	private int indent = 0;
 	private boolean isNew = true;
@@ -126,7 +127,7 @@ public abstract class CodeBlock extends Group {
 	 * Drops us, possibly into the CodeBox
 	 */
 	public void releaseMouse() {
-
+		System.out.println("Dropped a block");
 		Pane parent = ((Pane) this.getParent());
 		parent.getChildren().remove(this);
 
@@ -149,7 +150,7 @@ public abstract class CodeBlock extends Group {
 	 * @param mouseAY Starting mouse Y position
 	 */
 	public void pressMouse(double mouseAX, double mouseAY) {
-
+		System.out.println("Pressed a block");
 		// Set dragging info
 		dragData.mouseAnchorX = mouseAX;
 		dragData.mouseAnchorY = mouseAY;
@@ -160,6 +161,8 @@ public abstract class CodeBlock extends Group {
 		dragData.ghost = new Ghost(getEffectiveHeight());
 
 		Pane parent = ((Pane) this.getParent());
+		parent.getChildren().remove(this);
+		dragged.getChildren().add(this);
 
 		if (isNew) {
 			isNew = false;
@@ -196,9 +199,10 @@ public abstract class CodeBlock extends Group {
 	 *
 	 * @param codeBox The CodeBox we can be dropped in
 	 */
-	public void makeDraggable(CodeBox codeBox) {
+	public void makeDraggable(CodeBox codeBox, Pane dragged) {
 		dragData = new DragData();
 		this.codeBox = codeBox;
+		this.dragged = dragged;
 
 		this.addEventHandler(
 				MouseEvent.MOUSE_PRESSED,
