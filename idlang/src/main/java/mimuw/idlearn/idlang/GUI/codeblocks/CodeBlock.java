@@ -8,6 +8,9 @@ import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.Ghost;
 import mimuw.idlearn.idlang.logic.base.Expression;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public abstract class CodeBlock extends Group {
 	public static final double HEIGHT = 50;
 	private static final double INDENT = 40;
@@ -17,6 +20,7 @@ public abstract class CodeBlock extends Group {
 	private CodeBox codeBox;
 	private int indent = 0;
 	private boolean isNew = true;
+	private static Timer killer = new Timer();
 
 	/**
 	 * Return the height of this CodeBlock
@@ -127,8 +131,6 @@ public abstract class CodeBlock extends Group {
 	 */
 	public void releaseMouse() {
 		Pane parent = ((Pane) this.getParent());
-		parent.getChildren().remove(this);
-
 
 		// Check if we should be added to the code section
 		if (codeBox.shouldDrop(this.localToScene(0, 0))) {
@@ -136,6 +138,16 @@ public abstract class CodeBlock extends Group {
 			// Add us at the proper position
 			codeBox.addChild(this.localToScene(0, 0).getY(), this);
 		}
+		else {
+			this.relocate(0, 1000000);
+		}
+
+		killer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				parent.getChildren().remove(this);
+			}
+		}, 0);
 
 		codeBox.removeChild(dragData.ghost);
 		codeBox.updateIndent();
