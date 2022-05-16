@@ -126,6 +126,11 @@ public abstract class CodeBlock extends Group {
 	 * Drops us, possibly into the CodeBox
 	 */
 	public void releaseMouse() {
+
+		Pane parent = ((Pane) this.getParent());
+		parent.getChildren().remove(this);
+
+
 		// Check if we should be added to the code section
 		if (codeBox.shouldDrop(this.localToScene(0, 0))) {
 
@@ -154,9 +159,7 @@ public abstract class CodeBlock extends Group {
 
 		dragData.ghost = new Ghost(getEffectiveHeight());
 
-		// Switch parent
 		Pane parent = ((Pane) this.getParent());
-		parent.getChildren().remove(this);
 
 		if (isNew) {
 			isNew = false;
