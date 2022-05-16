@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.TaskSelectionSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.TaskSelectionSceneController">
    <bottom>
       <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" BorderPane.alignment="CENTER">
          <font>
@@ -17,7 +17,7 @@
       </Button>
    </bottom>
    <top>
-      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

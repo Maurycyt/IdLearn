@@ -1,4 +1,4 @@
-package mimuw.idlearn.scenes.preloader;
+package mimuw.idlearn.scenes.preloading;
 
 public class PreloaderEvent {
 	public enum Type {

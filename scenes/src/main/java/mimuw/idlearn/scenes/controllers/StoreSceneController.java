@@ -1,4 +1,4 @@
-package Controllers;
+package mimuw.idlearn.scenes.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

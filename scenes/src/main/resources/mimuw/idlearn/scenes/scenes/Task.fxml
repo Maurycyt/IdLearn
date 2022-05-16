@@ -17,51 +17,50 @@
       <AnchorPane fx:id="dummyDragPane" prefHeight="200.0" prefWidth="200.0" />
       <GridPane VBox.vgrow="ALWAYS">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="1.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ScrollPane fx:id="statementScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane">
+            <ScrollPane fx:id="statementScrollPane" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="borderedScrollPane" stylesheets="@../style.css">
                <content>
-                  <Text fx:id="statementText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample text" wrappingWidth="479.38671875">
+                  <Text fx:id="statementText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample text" wrappingWidth="103.38671875">
                      <font>
                         <Font size="16.0" />
                      </font></Text>
                </content>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </ScrollPane>
-            <ScrollPane fx:id="codeBoxScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" GridPane.columnIndex="2">
-               <content>
-                  <VBox fx:id="codeBoxBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" />
-               </content>
-            </ScrollPane>
+            <ScrollPane fx:id="codeBoxScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="203.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="203.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="backBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goBack" text="Back" GridPane.rowIndex="1">
+            <Button fx:id="backBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goBack" stylesheets="@../style.css" text="Back" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets right="5.0" />
+                  <Insets />
                </GridPane.margin>
             </Button>
             <HBox fx:id="blockSelectionHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="blockSelectionHBox" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                <children>
                </children></HBox>
-            <Button fx:id="submitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="submitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../style.css" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="5.0" />
+                  <Insets />
                </GridPane.margin></Button>
          </children>
          <VBox.margin>

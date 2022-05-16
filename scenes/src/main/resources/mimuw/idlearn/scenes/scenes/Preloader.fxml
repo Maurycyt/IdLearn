@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GenericController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.GenericController">
     <center>
         <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER">
          <children>
-              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Loading...">
+              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Loading...">
                   <font>
                       <Font name="System Bold" size="13.0" />
                   </font>

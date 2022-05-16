@@ -9,8 +9,8 @@ module mimuw.idlearn.scenes {
 
     exports mimuw.idlearn.scenes;
 	opens mimuw.idlearn.scenes to javafx.fxml;
-	exports mimuw.idlearn.scenes.preloader;
-	opens mimuw.idlearn.scenes.preloader to javafx.fxml;
-    exports Controllers;
-    opens Controllers to javafx.fxml;
+	exports mimuw.idlearn.scenes.preloading;
+	opens mimuw.idlearn.scenes.preloading to javafx.fxml;
+    exports mimuw.idlearn.scenes.controllers;
+    opens mimuw.idlearn.scenes.controllers to javafx.fxml;
 }

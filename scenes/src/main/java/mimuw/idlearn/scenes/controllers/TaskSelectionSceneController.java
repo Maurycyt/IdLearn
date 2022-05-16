@@ -1,19 +1,14 @@
-package Controllers;
+package mimuw.idlearn.scenes.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import mimuw.idlearn.scenes.SceneManager;
-import mimuw.idlearn.scenes.SceneUtils;
+import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
-import java.net.URL;;
+import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,7 +28,7 @@ public class TaskSelectionSceneController extends GenericController implements I
 			btn.setOnMouseClicked((event) -> {
 				System.out.println("Selected task \"" + title + "\"");
 				try {
-					enterNextScene(SceneUtils.Task, new TaskSceneController(title));
+					enterNextScene(ResourceHandler.Task, new TaskSceneController(title));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

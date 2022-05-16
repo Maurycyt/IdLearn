@@ -1,4 +1,4 @@
-package mimuw.idlearn.scenes.preloader;
+package mimuw.idlearn.scenes.preloading;
 
 public abstract class LoadTask {
 	private Preloader preloader;

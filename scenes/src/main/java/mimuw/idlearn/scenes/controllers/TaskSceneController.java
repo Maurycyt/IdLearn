@@ -1,12 +1,18 @@
-package Controllers;
+package mimuw.idlearn.scenes.controllers;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,7 +24,6 @@ import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
 import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
-import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
 import mimuw.idlearn.scoring.WrongAnswerException;
@@ -50,20 +55,38 @@ public class TaskSceneController extends GenericController implements Initializa
     @FXML
     private ScrollPane codeBoxScrollPane;
     @FXML
-    private VBox codeBoxBox;
-    @FXML
     private Button submitBtn;
     @FXML
     private AnchorPane dummyDragPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Statement field
         statementText.setText(pkg.getStatement());
+//        statementText.setText(loremGen(45));
         statementText.wrappingWidthProperty().bind(statementScrollPane.widthProperty());
 
+        // these two lines are an attempt to fix the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
+        statementText.setOnMousePressed(Event::consume);
+        statementScrollPane.setOnMousePressed(Event::consume);
+
+        // Code box
+        final CodeBox codeBox = new CodeBox();
+        codeBox.setStyle(
+                "-fx-border-color: #00b167;" +
+                "-fx-border-width: 4px;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;" +
+                "-fx-background-color: #f2f2f5;"
+        );
+        codeBoxScrollPane.setContent(codeBox);
+        codeBoxScrollPane.setStyle(
+                "-fx-background-color: transparent;"
+        );
+
+        // Submit button
         submitBtn.setOnMousePressed(event -> {
-            //Expression<Void> exp = codeBox.compile();
-            Expression<Void> exp = new Block(); //todo: replace with actual compilation
+            Expression<Void> exp = codeBox.compile();
             try {
                 TestRunner runner = new TestRunner(pkg, exp);
                 double time = runner.aggregateTestTimes();
@@ -79,25 +102,27 @@ public class TaskSceneController extends GenericController implements Initializa
             }
         });
 
+        // Dummy drag pane
         dummyDragPane.setVisible(true);
         dummyDragPane.managedProperty().set(false);
         dummyDragPane.toFront();
 
-        //blockSelectionHBox.getStylesheets().add(SceneUtils.StyleSheet.toExternalForm());
-        blockSelectionHBox.setStyle("-fx-alignment: center; -fx-spacing: 35px");
+        // Block selection HBox
+        blockSelectionHBox.setStyle(
+                "-fx-alignment: center; " +
+                "-fx-spacing: 45px;" +
+                "-fx-background-color: #f2f2f5;"
+        );
 
-        final CodeBox codeBox = new CodeBox();
-        codeBoxBox.getChildren().add(codeBox);
-
-        // Create and link spawners
+        // Block spawners
         List<Node> availableBlocks = blockSelectionHBox.getChildren();
         availableBlocks.addAll(List.of(
                 new CodeBlockSpawner(codeBox, () -> new Read(pkg), dummyDragPane),
                 new CodeBlockSpawner(codeBox, () -> new Write(pkg), dummyDragPane),
                 new CodeBlockSpawner(codeBox, Assign::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, Operation::new, dummyDragPane),
-                new CodeBlockSpawner(codeBox, WhileBlock::new, dummyDragPane),
-                new CodeBlockSpawner(codeBox, IfElse::new, dummyDragPane)
+                new CodeBlockSpawner(codeBox, IfElse::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, WhileBlock::new, dummyDragPane)
         ));
     }
 }

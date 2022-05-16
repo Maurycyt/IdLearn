@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.StoreSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.StoreSceneController">
    <center>
       <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" stylesheets="@../style.css" BorderPane.alignment="CENTER">
          <children>
@@ -26,7 +26,7 @@
       </Button>
    </bottom>
    <top>
-      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

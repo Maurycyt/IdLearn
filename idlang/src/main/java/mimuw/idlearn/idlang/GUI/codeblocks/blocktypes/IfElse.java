@@ -30,7 +30,7 @@ public class IfElse extends CodeBlock {
 		elseHead = new ElseHead();
 		elseHead.setVisible(false);
 		elseHead.managedProperty().bind(elseHead.visibleProperty());
-		foot = new End(Color.PURPLE);
+		foot = new End(Color.web("#aa6ee6",1.0));
 		foot.setVisible(false);
 		foot.managedProperty().bind(foot.visibleProperty());
 		ifSegment = new CodeSegment();

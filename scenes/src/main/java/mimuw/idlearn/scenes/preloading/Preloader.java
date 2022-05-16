@@ -1,10 +1,9 @@
-package mimuw.idlearn.scenes.preloader;
+package mimuw.idlearn.scenes.preloading;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Event;

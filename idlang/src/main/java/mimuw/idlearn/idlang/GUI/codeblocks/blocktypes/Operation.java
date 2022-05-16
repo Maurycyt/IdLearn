@@ -16,7 +16,7 @@ import mimuw.idlearn.idlang.logic.keywords.Assignment;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 
 public class Operation extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.GRAY);
+	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#66c6e3",1.0));
 	TextField oper1;
 	TextField oper2;
 	TextField result;

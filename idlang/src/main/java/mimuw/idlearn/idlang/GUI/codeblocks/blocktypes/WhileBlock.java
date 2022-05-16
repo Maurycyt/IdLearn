@@ -25,7 +25,7 @@ public class WhileBlock extends CodeBlock {
 		super();
 		content = new VBox();
 		head = new WhileHead();
-		foot = new End(Color.AQUA);
+		foot = new End(Color.web("#d980c4",1.0));
 		foot.setVisible(false);
 		foot.managedProperty().bind(foot.visibleProperty());
 
