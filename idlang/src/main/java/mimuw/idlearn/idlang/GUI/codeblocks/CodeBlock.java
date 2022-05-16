@@ -1,7 +1,9 @@
 package mimuw.idlearn.idlang.GUI.codeblocks;
 
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;
@@ -141,13 +143,13 @@ public abstract class CodeBlock extends Group {
 		else {
 			this.relocate(0, 1000000);
 		}
-
+		Node pray = this;
 		killer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				parent.getChildren().remove(this);
+				Platform.runLater(() -> parent.getChildren().remove(pray));
 			}
-		}, 0);
+		}, 1000);
 
 		codeBox.removeChild(dragData.ghost);
 		codeBox.updateIndent();
