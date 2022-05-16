@@ -56,6 +56,7 @@ public class CodeBoxTest {
 		block.moveMouse(100, 100);
 		block.releaseMouse();
 
+		codeBox.autosize();
 
 		assertEquals(1, codeBox.getSegment().getChildren().size());
 		assertEquals(0, block.getIndent());
@@ -70,6 +71,8 @@ public class CodeBoxTest {
 		whileBlock.moveMouse(100, 100);
 		whileBlock.releaseMouse();
 
+		codeBox.autosize();
+
 		assertEquals(0, block.getIndent());
 		assertEquals(2, codeBox.getSegment().getChildren().size());
 
@@ -81,7 +84,7 @@ public class CodeBoxTest {
 		assertEquals(1, codeBox.getSegment().getChildren().size());
 
 		whileBlock.pressMouse(0, 0);
-		whileBlock.moveMouse(-100, -100);
+		whileBlock.moveMouse(-300, -100);
 
 		assertEquals(1, block.getIndent());
 		assertEquals(0, codeBox.getSegment().getChildren().size());
