@@ -132,7 +132,6 @@ public abstract class CodeBlock extends Group {
 	 * Drops us, possibly into the CodeBox
 	 */
 	public void releaseMouse() {
-		System.out.println("Mouse released");
 		Pane parent = ((Pane) this.getParent());
 
 		// Check if we should be added to the code section

@@ -64,7 +64,6 @@ public class CodeSegment extends VBox {
 			}
 			i++;
 		}
-		System.out.println("Adding at position " + i);
 		this.getChildren().add(i, block);
 	}
 
