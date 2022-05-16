@@ -126,6 +126,7 @@ public class WhileBlock extends CodeBlock {
 
 	@Override
 	public void releaseMouse() {
+		super.releaseMouse();
 		foot.setVisible(true);
 	}
 }
