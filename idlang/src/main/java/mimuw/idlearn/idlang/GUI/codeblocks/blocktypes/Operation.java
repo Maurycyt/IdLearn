@@ -97,7 +97,7 @@ public class Operation extends CodeBlock {
 	 * @param text1 First operand
 	 * @param text2 Second operand
 	 */
-	public void setText(String text0, String text1, String text2) {
+	public void setEffectiveText(String text0, String text1, String text2) {
 		result.setText(text0);
 		oper1.setText(text1);
 		oper2.setText(text2);

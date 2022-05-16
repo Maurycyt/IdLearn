@@ -50,7 +50,7 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </Button>
-            <HBox fx:id="blockSelectionHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+            <HBox fx:id="blockSelectionHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="blockSelectionHBox" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
             <Button fx:id="submitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />

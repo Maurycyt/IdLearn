@@ -16,6 +16,7 @@ import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
 import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.SceneUtils;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
 import mimuw.idlearn.scoring.WrongAnswerException;
@@ -72,9 +73,12 @@ public class TaskSceneController extends GenericController implements Initializa
             }
         });
 
-        //todo: delete
+
+        //blockSelectionHBox.getStylesheets().add(SceneUtils.StyleSheet.toExternalForm());
+        blockSelectionHBox.setStyle("-fx-alignment: center; -fx-spacing: 35px");
+
         final CodeBox codeBox = new CodeBox();
-        final Group dragged = new Group();
+        final Group dragged = new Group(); //todo: get rid of this
 
         // Create and link spawners
         List<Node> availableBlocks = blockSelectionHBox.getChildren();

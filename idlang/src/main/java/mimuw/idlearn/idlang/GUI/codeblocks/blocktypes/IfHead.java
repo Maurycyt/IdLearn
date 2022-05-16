@@ -35,7 +35,7 @@ public class IfHead extends CodeBlock {
 	 *
 	 * @param text Condition text
 	 */
-	public void setText(String text) {
+	public void setEffectiveText(String text) {
 		condition.setText(text);
 	}
 }

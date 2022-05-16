@@ -13,7 +13,7 @@ public class Ghost extends CodeBlock {
 	public Ghost(double height) {
 		super();
 
-		BlockBase base = new BlockBase(height, Color.TRANSPARENT);
+		BlockBase base = new BlockBase(height, Color.TRANSPARENT); //todo: make this have an only partial transparency and inherit color from the corresponding CodeBlock
 		this.getChildren().add(base);
 	}
 
@@ -23,7 +23,7 @@ public class Ghost extends CodeBlock {
 	 * @return Height
 	 */
 	@Override
-	public double getHeight() {
+	public double getEffectiveHeight() {
 		// 0 - Because we don't want GhostBlocks to affect placement
 		return 0;
 	}

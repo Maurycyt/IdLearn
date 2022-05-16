@@ -51,7 +51,7 @@ public class Assign extends CodeBlock {
 	 * @param text1 Variable name
 	 * @param text2 Value
 	 */
-	public void setText(String text1, String text2) {
+	public void setEffectiveText(String text1, String text2) {
 		varName.setText(text1);
 		value.setText(text2);
 	}

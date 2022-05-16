@@ -53,7 +53,7 @@ public class SceneUtils {
 		Scene scene = new Scene(loader.load());
 		Parent root = scene.getRoot();
 		if (url != Task){
-			root.getStylesheets().add(StyleSheet.toExternalForm());
+			root.getStylesheets().add(StyleSheet.toExternalForm()); //TODO: remove this `if`
 		}
 		scene.setRoot(new Group());
 		return root;

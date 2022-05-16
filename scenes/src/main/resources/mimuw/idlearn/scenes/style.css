@@ -90,3 +90,8 @@ The color scheme is as follows:
 .taskSelectionScrollPane {
     -fx-vbar-policy: always;
 }
+
+.blockSelectionHBox {
+    -fx-alignment: center;
+    -fx-spacing: 45px;
+}

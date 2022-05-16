@@ -28,7 +28,11 @@ public class IfElse extends CodeBlock {
 		content = new VBox();
 		ifHead = new IfHead();
 		elseHead = new ElseHead();
+		elseHead.setVisible(false);
+		elseHead.managedProperty().bind(elseHead.visibleProperty());
 		foot = new End(Color.PURPLE);
+		foot.setVisible(false);
+		foot.managedProperty().bind(foot.visibleProperty());
 		ifSegment = new CodeSegment();
 		elseSegment = new CodeSegment();
 
@@ -73,9 +77,9 @@ public class IfElse extends CodeBlock {
 		// Offset
 		double sum = -CodeBlock.HEIGHT / 2;
 
-		sum += ifHead.getHeight();
+		sum += ifHead.getEffectiveHeight();
 		sum += ifSegment.giveHeight();
-		sum += elseHead.getHeight();
+		sum += elseHead.getEffectiveHeight();
 		if (sum > relativeY) {
 			ifSegment.addChild(position, child);
 		} else {
@@ -109,7 +113,7 @@ public class IfElse extends CodeBlock {
 
 	@Override
 	public double insideBarrier() {
-		return ifHead.getHeight();
+		return ifHead.getEffectiveHeight();
 	}
 
 	/**
@@ -129,10 +133,12 @@ public class IfElse extends CodeBlock {
 	 * @return Height
 	 */
 	@Override
-	public double getHeight() {
-		return (
-				ifHead.getHeight() + ifSegment.giveHeight() + elseHead.getHeight() +
-						elseSegment.getHeight() + foot.getHeight()
+	public double getEffectiveHeight() {
+		return (ifHead.getEffectiveHeight() +
+				ifSegment.giveHeight() +
+				elseHead.getEffectiveHeight() +
+				elseSegment.getHeight() +
+				foot.getEffectiveHeight()
 		);
 	}
 
@@ -141,7 +147,12 @@ public class IfElse extends CodeBlock {
 	 *
 	 * @param text Condition text
 	 */
-	public void setText(String text) {
-		ifHead.setText(text);
+	public void setEffectiveText(String text) {
+		ifHead.setEffectiveText(text);
+	}
+
+	@Override
+	public void releaseMouse() {
+		foot.setVisible(true);
 	}
 }

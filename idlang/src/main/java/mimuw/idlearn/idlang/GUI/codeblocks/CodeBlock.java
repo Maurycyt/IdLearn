@@ -2,6 +2,7 @@ package mimuw.idlearn.idlang.GUI.codeblocks;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;
@@ -22,7 +23,7 @@ public abstract class CodeBlock extends Group {
 	 *
 	 * @return Height
 	 */
-	public double getHeight() {
+	public double getEffectiveHeight() {
 		return HEIGHT;
 	}
 
@@ -151,7 +152,7 @@ public abstract class CodeBlock extends Group {
 		dragData.initialX = pos.getX();
 		dragData.initialY = pos.getY();
 
-		dragData.ghost = new Ghost(getHeight());
+		dragData.ghost = new Ghost(getEffectiveHeight());
 
 		// Switch parent
 		Pane parent = ((Pane) this.getParent());

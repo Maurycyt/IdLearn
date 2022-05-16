@@ -44,7 +44,7 @@ public class Read extends CodeBlock {
 	 *
 	 * @param text Variable name
 	 */
-	public void setText(String text) {
+	public void setEffectiveText(String text) {
 		varName.setText(text);
 	}
 }
