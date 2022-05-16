@@ -78,6 +78,7 @@ public class TaskSceneController extends GenericController implements Initializa
 
         dummyDragPane.setVisible(true);
         dummyDragPane.managedProperty().set(false);
+        dummyDragPane.toFront();
 
         //blockSelectionHBox.getStylesheets().add(SceneUtils.StyleSheet.toExternalForm());
         blockSelectionHBox.setStyle("-fx-alignment: center; -fx-spacing: 35px");
