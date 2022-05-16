@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import mimuw.idlearn.idlang.GUI.CodeBox;
@@ -49,6 +50,8 @@ public class TaskSceneController extends GenericController implements Initializa
     private ScrollPane codeBoxScrollPane;
     @FXML
     private Button submitBtn;
+    @FXML
+    private AnchorPane dummyDragPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,6 +76,8 @@ public class TaskSceneController extends GenericController implements Initializa
             }
         });
 
+        dummyDragPane.setVisible(false);
+        dummyDragPane.managedProperty().bind(dummyDragPane.visibleProperty());
 
         //blockSelectionHBox.getStylesheets().add(SceneUtils.StyleSheet.toExternalForm());
         blockSelectionHBox.setStyle("-fx-alignment: center; -fx-spacing: 35px");
