@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
@@ -103,6 +104,7 @@ public class IdLearnApplication extends javafx.application.Application {
 			// Make sure to save progress on exit.
 			PointsGiver.exit();
 			DataManager.exit();
+			CodeBlock.exit();
 		} catch (Exception e){
 			e.printStackTrace();
 		}

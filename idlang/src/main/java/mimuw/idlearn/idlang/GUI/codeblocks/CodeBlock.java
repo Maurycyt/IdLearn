@@ -240,4 +240,8 @@ public abstract class CodeBlock extends Group {
 				MouseEvent.MOUSE_RELEASED,
 				mouseEvent -> releaseMouse());
 	}
+
+	public static void exit() {
+		killer.cancel();
+	}
 }
