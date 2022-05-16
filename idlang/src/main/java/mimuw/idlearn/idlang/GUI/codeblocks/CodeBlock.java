@@ -2,7 +2,6 @@ package mimuw.idlearn.idlang.GUI.codeblocks;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;
@@ -127,7 +126,6 @@ public abstract class CodeBlock extends Group {
 	 * Drops us, possibly into the CodeBox
 	 */
 	public void releaseMouse() {
-		System.out.println("Dropped a block");
 		Pane parent = ((Pane) this.getParent());
 		parent.getChildren().remove(this);
 
@@ -150,7 +148,6 @@ public abstract class CodeBlock extends Group {
 	 * @param mouseAY Starting mouse Y position
 	 */
 	public void pressMouse(double mouseAX, double mouseAY) {
-		System.out.println("Pressed a block");
 		// Set dragging info
 		dragData.mouseAnchorX = mouseAX;
 		dragData.mouseAnchorY = mouseAY;
