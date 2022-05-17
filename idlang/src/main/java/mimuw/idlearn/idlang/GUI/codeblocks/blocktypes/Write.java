@@ -12,7 +12,7 @@ import mimuw.idlearn.idlang.logic.base.OutputHandler;
 import mimuw.idlearn.packages.ProblemPackage;
 
 public class Write extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.BLUE);
+	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#d16662",1.0));
 	TextField varName;
 	ProblemPackage pkg;
 
@@ -44,7 +44,7 @@ public class Write extends CodeBlock {
 	 *
 	 * @param text Variable name
 	 */
-	public void setText(String text) {
+	public void setEffectiveText(String text) {
 		varName.setText(text);
 	}
 }

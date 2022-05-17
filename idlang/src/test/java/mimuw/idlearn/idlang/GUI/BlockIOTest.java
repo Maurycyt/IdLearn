@@ -42,9 +42,9 @@ public class BlockIOTest {
 			Read r1 = new Read(pkg);
 			Read r2 = new Read(pkg);
 			Read r3 = new Read(pkg);
-			r1.setText("x");
-			r2.setText("x");
-			r3.setText("x");
+			r1.setEffectiveText("x");
+			r2.setEffectiveText("x");
+			r3.setEffectiveText("x");
 
 			codeBox.addChild(0, r1);
 			codeBox.addChild(0, r2);
@@ -75,15 +75,15 @@ public class BlockIOTest {
 			root.getChildren().add(codeBox);
 			Read r1 = new Read(pkg);
 			Read r2 = new Read(pkg);
-			r1.setText("x");
-			r2.setText("y");
+			r1.setEffectiveText("x");
+			r2.setEffectiveText("y");
 
 			Operation add = new Operation();
 			add.setType("+");
-			add.setText("x", "x", "y");
+			add.setEffectiveText("x", "x", "y");
 
 			Write w = new Write(pkg);
-			w.setText("x");
+			w.setEffectiveText("x");
 
 			codeBox.addChild(0, w);
 			codeBox.addChild(0, add);

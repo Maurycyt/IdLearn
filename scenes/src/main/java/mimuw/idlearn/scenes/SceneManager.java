@@ -2,8 +2,7 @@ package mimuw.idlearn.scenes;
 
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import mimuw.idlearn.scenes.preloader.LoadTask;
-import mimuw.idlearn.scenes.preloader.Preloader;
+import mimuw.idlearn.scenes.preloading.LoadTask;
 
 import java.util.Stack;
 
@@ -36,7 +35,7 @@ public class SceneManager {
 	 */
 	synchronized public void push(Parent sceneRoot, LoadTask task) {
 		sceneRoots.push(sceneRoot);
-		sceneRoots.push(SceneUtils.createPreloader(task));
+		sceneRoots.push(ResourceHandler.createPreloader(task));
 		updateStage();
 
 	}
@@ -59,7 +58,7 @@ public class SceneManager {
 	synchronized public void replace(Parent sceneRoot, LoadTask task) {
 		sceneRoots.pop();
 		sceneRoots.push(sceneRoot);
-		sceneRoots.push(SceneUtils.createPreloader(task));
+		sceneRoots.push(ResourceHandler.createPreloader(task));
 		updateStage();
 	}
 

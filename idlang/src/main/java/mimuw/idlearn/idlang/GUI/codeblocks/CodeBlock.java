@@ -1,29 +1,35 @@
 package mimuw.idlearn.idlang.GUI.codeblocks;
 
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.Ghost;
 import mimuw.idlearn.idlang.logic.base.Expression;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public abstract class CodeBlock extends Group {
 	public static final double HEIGHT = 50;
 	private static final double INDENT = 40;
 
 	private DragData dragData;
+	private Pane dragged;
 	private CodeBox codeBox;
-	private Group dragged;
 	private int indent = 0;
 	private boolean isNew = true;
+	private static Timer killer = new Timer();
 
 	/**
 	 * Return the height of this CodeBlock
 	 *
 	 * @return Height
 	 */
-	public double getHeight() {
+	public double getEffectiveHeight() {
 		return HEIGHT;
 	}
 
@@ -126,16 +132,27 @@ public abstract class CodeBlock extends Group {
 	 * Drops us, possibly into the CodeBox
 	 */
 	public void releaseMouse() {
-
-		// Remove from parent
-		dragged.getChildren().remove(this);
+		Pane parent = ((Pane) this.getParent());
 
 		// Check if we should be added to the code section
 		if (codeBox.shouldDrop(this.localToScene(0, 0))) {
 
 			// Add us at the proper position
 			codeBox.addChild(this.localToScene(0, 0).getY(), this);
+
+			parent.getChildren().remove(this);
 		}
+		else {
+			this.relocate(0, 1000000);
+			Node pray = this;
+			killer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					Platform.runLater(() -> parent.getChildren().remove(pray));
+				}
+			}, 1000);
+		}
+
 
 		codeBox.removeChild(dragData.ghost);
 		codeBox.updateIndent();
@@ -148,7 +165,6 @@ public abstract class CodeBlock extends Group {
 	 * @param mouseAY Starting mouse Y position
 	 */
 	public void pressMouse(double mouseAX, double mouseAY) {
-
 		// Set dragging info
 		dragData.mouseAnchorX = mouseAX;
 		dragData.mouseAnchorY = mouseAY;
@@ -156,9 +172,8 @@ public abstract class CodeBlock extends Group {
 		dragData.initialX = pos.getX();
 		dragData.initialY = pos.getY();
 
-		dragData.ghost = new Ghost(getHeight());
+		dragData.ghost = new Ghost(getEffectiveHeight());
 
-		// Switch parent
 		Pane parent = ((Pane) this.getParent());
 		parent.getChildren().remove(this);
 		dragged.getChildren().add(this);
@@ -197,10 +212,8 @@ public abstract class CodeBlock extends Group {
 	 * Makes our CodeBlock draggable
 	 *
 	 * @param codeBox The CodeBox we can be dropped in
-	 * @param dragged The parent for dragged CodeBlocks
 	 */
-	public void makeDraggable(CodeBox codeBox, Group dragged) {
-
+	public void makeDraggable(CodeBox codeBox, Pane dragged) {
 		dragData = new DragData();
 		this.codeBox = codeBox;
 		this.dragged = dragged;
@@ -226,5 +239,9 @@ public abstract class CodeBlock extends Group {
 		this.addEventHandler(
 				MouseEvent.MOUSE_RELEASED,
 				mouseEvent -> releaseMouse());
+	}
+
+	public static void exit() {
+		killer.cancel();
 	}
 }

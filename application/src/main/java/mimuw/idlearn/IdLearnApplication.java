@@ -7,11 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scenes.SceneManager;
-import mimuw.idlearn.scenes.SceneUtils;
-import mimuw.idlearn.scenes.preloader.LoadTask;
+import mimuw.idlearn.scenes.preloading.LoadTask;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
 
@@ -38,7 +39,7 @@ public class IdLearnApplication extends javafx.application.Application {
 		stage.setHeight(screenBounds.getHeight());
 
 		// Set the app icon
-		Image icon = new Image(SceneUtils.AppIcon.toExternalForm());
+		Image icon = new Image(ResourceHandler.AppIcon.toExternalForm());
 		stage.getIcons().add(icon);
 
 		sceneManager.setStage(stage);
@@ -51,7 +52,7 @@ public class IdLearnApplication extends javafx.application.Application {
 		PointsGiver.loadSpeeds();
 
 		// Add the main menu scene with preloading
-		sceneManager.push(SceneUtils.loadScene(SceneUtils.MainMenu), new LoadTask() {
+		sceneManager.push(ResourceHandler.loadScene(ResourceHandler.MainMenu), new LoadTask() {
 			@Override
 			public void load() {
 				try {
@@ -103,6 +104,7 @@ public class IdLearnApplication extends javafx.application.Application {
 			// Make sure to save progress on exit.
 			PointsGiver.exit();
 			DataManager.exit();
+			CodeBlock.exit();
 		} catch (Exception e){
 			e.printStackTrace();
 		}

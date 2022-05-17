@@ -1,9 +1,9 @@
-package mimuw.idlearn.scenes.preloader;
+package mimuw.idlearn.scenes.preloading;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Event;
@@ -15,7 +15,7 @@ public class Preloader extends Group implements Listener {
 
 	// if root is null, it means IOException happened during loading of the preloader from .fxml
 	// otherwise it will be primary VBox from .fxml
-	public Preloader(VBox root, LoadTask task) {
+	public Preloader(BorderPane root, LoadTask task) {
 		emitter = new Emitter();
 
 		emitter.connect(this);
@@ -31,7 +31,11 @@ public class Preloader extends Group implements Listener {
 		timeline.getKeyFrames().add(
 				new KeyFrame(
 						Duration.seconds(1.0 / 60),
-						actionEvent -> emitter.processEvents()));
+						actionEvent -> {
+							synchronized (emitter) {
+								emitter.processEvents();
+							}
+						}));
 		timeline.play();
 	}
 

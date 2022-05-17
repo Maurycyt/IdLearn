@@ -2,6 +2,8 @@ package mimuw.idlearn.idlang.GUI;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
@@ -29,8 +31,8 @@ public class CodeBoxTest {
 
 		Group codeBlocks = new Group();
 		CodeBox codeBox = new CodeBox();
-		Group dragged = new Group();
-		CodeBlockSpawner blockSpawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
+		Pane dragged = new AnchorPane();
+		CodeBlockSpawner blockSpawner = new CodeBlockSpawner(codeBox, Assign::new, dragged);
 		CodeBlock block = (CodeBlock) blockSpawner.getChildren().get(0);
 
 		root.getChildren().add(codeBlocks);
@@ -54,12 +56,13 @@ public class CodeBoxTest {
 		block.moveMouse(100, 100);
 		block.releaseMouse();
 
+		codeBox.autosize();
 
 		assertEquals(1, codeBox.getSegment().getChildren().size());
 		assertEquals(0, block.getIndent());
 
 
-		CodeBlockSpawner whileSpawner = new CodeBlockSpawner(codeBox, dragged, WhileBlock::new);
+		CodeBlockSpawner whileSpawner = new CodeBlockSpawner(codeBox, WhileBlock::new, dragged);
 		CodeBlock whileBlock = (CodeBlock) whileSpawner.getChildren().get(0);
 
 		codeBlocks.getChildren().add(whileSpawner);
@@ -67,6 +70,8 @@ public class CodeBoxTest {
 		whileBlock.pressMouse(0, 0);
 		whileBlock.moveMouse(100, 100);
 		whileBlock.releaseMouse();
+
+		codeBox.autosize();
 
 		assertEquals(0, block.getIndent());
 		assertEquals(2, codeBox.getSegment().getChildren().size());
@@ -79,7 +84,7 @@ public class CodeBoxTest {
 		assertEquals(1, codeBox.getSegment().getChildren().size());
 
 		whileBlock.pressMouse(0, 0);
-		whileBlock.moveMouse(-100, -100);
+		whileBlock.moveMouse(-300, -100);
 
 		assertEquals(1, block.getIndent());
 		assertEquals(0, codeBox.getSegment().getChildren().size());

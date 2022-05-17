@@ -25,7 +25,10 @@ public class WhileBlock extends CodeBlock {
 		super();
 		content = new VBox();
 		head = new WhileHead();
-		foot = new End(Color.AQUA);
+		foot = new End(Color.web("#d980c4",1.0));
+		foot.setVisible(false);
+		foot.managedProperty().bind(foot.visibleProperty());
+
 		segment = new CodeSegment();
 
 		content.getChildren().add(head);
@@ -89,7 +92,7 @@ public class WhileBlock extends CodeBlock {
 
 	@Override
 	public double insideBarrier() {
-		return head.getHeight();
+		return head.getEffectiveHeight();
 	}
 
 	/**
@@ -99,8 +102,7 @@ public class WhileBlock extends CodeBlock {
 	public Expression<Void> convert() {
 		Block body = segment.convert();
 		Expression<Boolean> condition = new IntToBool(new Variable<>(head.getCond()));
-		While result = new While(condition, body);
-		return result;
+		return new While(condition, body);
 	}
 
 	/**
@@ -109,8 +111,8 @@ public class WhileBlock extends CodeBlock {
 	 * @return Height
 	 */
 	@Override
-	public double getHeight() {
-		return head.getHeight() + segment.giveHeight() + foot.getHeight();
+	public double getEffectiveHeight() {
+		return head.getEffectiveHeight() + segment.giveHeight() + foot.getEffectiveHeight();
 	}
 
 	/**
@@ -118,7 +120,13 @@ public class WhileBlock extends CodeBlock {
 	 *
 	 * @param text Condition text
 	 */
-	public void setText(String text) {
-		head.setText(text);
+	public void setEffectiveText(String text) {
+		head.setEffectiveText(text);
+	}
+
+	@Override
+	public void releaseMouse() {
+		super.releaseMouse();
+		foot.setVisible(true);
 	}
 }

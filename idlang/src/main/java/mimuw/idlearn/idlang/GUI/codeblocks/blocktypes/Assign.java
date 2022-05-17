@@ -12,7 +12,7 @@ import mimuw.idlearn.idlang.logic.keywords.Assignment;
 
 public class Assign extends CodeBlock {
 
-	private final BlockBase base = new BlockBase(HEIGHT, Color.GRAY);
+	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#78d66b",1.0));
 	TextField varName;
 	TextField value;
 
@@ -51,7 +51,7 @@ public class Assign extends CodeBlock {
 	 * @param text1 Variable name
 	 * @param text2 Value
 	 */
-	public void setText(String text1, String text2) {
+	public void setEffectiveText(String text1, String text2) {
 		varName.setText(text1);
 		value.setText(text2);
 	}

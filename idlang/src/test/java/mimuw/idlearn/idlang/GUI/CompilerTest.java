@@ -31,21 +31,21 @@ public class CompilerTest {
 		CodeSegment segment = new CodeSegment();
 
 		Assign assignx = new Assign();
-		assignx.setText("x", "1");
+		assignx.setEffectiveText("x", "1");
 
 		Assign assigny = new Assign();
-		assigny.setText("y", "10");
+		assigny.setEffectiveText("y", "10");
 
 		WhileBlock whileB = new WhileBlock();
-		whileB.setText("y");
+		whileB.setEffectiveText("y");
 
 		Operation sub = new Operation();
 		sub.setType("-");
-		sub.setText("y", "y", "1");
+		sub.setEffectiveText("y", "y", "1");
 
 		Operation mul = new Operation();
 		mul.setType("×");
-		mul.setText("x", "2", "x");
+		mul.setEffectiveText("x", "2", "x");
 
 		whileB.addChild(CodeBlock.HEIGHT, mul);
 		whileB.addChild(CodeBlock.HEIGHT, sub);
@@ -74,54 +74,54 @@ public class CompilerTest {
 		pkg = tmpPkg;
 
 		WhileBlock whilePositive = new WhileBlock();
-		whilePositive.setText("y");
+		whilePositive.setEffectiveText("y");
 
 		Operation add1x = new Operation();
 		add1x.setType("+");
-		add1x.setText("x", "x", "1");
+		add1x.setEffectiveText("x", "x", "1");
 		whilePositive.addChild(0, add1x);
 
 		Operation sub1y = new Operation();
 		sub1y.setType("-");
-		sub1y.setText("y", "y", "1");
+		sub1y.setEffectiveText("y", "y", "1");
 		whilePositive.addChild(0, sub1y);
 
 		WhileBlock whileNegative = new WhileBlock();
-		whileNegative.setText("y");
+		whileNegative.setEffectiveText("y");
 
 		Operation sub1x = new Operation();
 		sub1x.setType("-");
-		sub1x.setText("x", "x", "1");
+		sub1x.setEffectiveText("x", "x", "1");
 		whileNegative.addChild(0, sub1x);
 
 		Operation add1y = new Operation();
 		add1y.setType("+");
-		add1y.setText("y", "1", "y");
+		add1y.setEffectiveText("y", "1", "y");
 		whileNegative.addChild(0, add1y);
 
 		IfElse ifElse = new IfElse();
-		ifElse.setText("z");
+		ifElse.setEffectiveText("z");
 		ifElse.addChild(2*CodeBlock.HEIGHT, whileNegative);
 		ifElse.addChild(0, whilePositive);
 
 		CodeSegment segment = new CodeSegment();
 
 		Write writex = new Write(pkg);
-		writex.setText("x");
+		writex.setEffectiveText("x");
 		segment.addChild(0, writex);
 
 		segment.addChild(0, ifElse);
 
 		Operation compare = new Operation();
 		compare.setType(">");
-		compare.setText("z", "y", "0");
+		compare.setEffectiveText("z", "y", "0");
 		segment.addChild(0, compare);
 
 		Read readx = new Read(pkg);
-		readx.setText("x");
+		readx.setEffectiveText("x");
 
 		Read ready = new Read(pkg);
-		ready.setText("y");
+		ready.setEffectiveText("y");
 
 		segment.addChild(0, ready);
 		segment.addChild(0, readx);

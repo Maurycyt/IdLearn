@@ -90,3 +90,46 @@ The color scheme is as follows:
 .taskSelectionScrollPane {
     -fx-vbar-policy: always;
 }
+
+.blockSelectionHBox {
+    -fx-alignment: center;
+    -fx-spacing: 45px;
+}
+
+/* Task */
+.borderedScrollPane {
+    -fx-border-color: #00b167;
+    -fx-border-width: 4px;
+    -fx-border-radius: 10px;
+    /* TODO: perhaps make the corners more rounded */
+    -fx-background-radius: 10px;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal,
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button,
+.decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/*.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0px;
+}*/
+
+/*.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+}*/

@@ -1,4 +1,4 @@
-package mimuw.idlearn.scenes.preloader;
+package mimuw.idlearn.scenes.preloading;
 
 public abstract class LoadTask {
 	private Preloader preloader;
@@ -17,21 +17,27 @@ public abstract class LoadTask {
 	 * @param progress total progress in percents
 	 */
 	protected void logProgress(double progress){
-		preloader.getEmitter().notify(PreloaderEvent.Progress(progress));
+		synchronized (preloader.getEmitter()) {
+			preloader.getEmitter().notify(PreloaderEvent.Progress(progress));
+		}
 	}
 
 	/**
 	 * Log that task finished successfully
 	 */
 	protected void logSuccess(){
-		preloader.getEmitter().notify(PreloaderEvent.Success());
+		synchronized (preloader.getEmitter()) {
+			preloader.getEmitter().notify(PreloaderEvent.Success());
+		}
 	}
 
 	/**
 	 * Log that task failed its execution
 	 */
 	protected void logFail(){
-		preloader.getEmitter().notify(PreloaderEvent.Fail());
+		synchronized (preloader.getEmitter()) {
+			preloader.getEmitter().notify(PreloaderEvent.Fail());
+		}
 	}
 
 	/**
