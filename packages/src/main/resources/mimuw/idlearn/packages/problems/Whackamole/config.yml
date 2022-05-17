@@ -3,7 +3,7 @@
 # 2. It contains the filename of the output file. This is to make the package structure independent of the application.
 # 3. It contains basic information about the tests which need to be run.
 
-title: Wackamole
+title: Whack-a-mole
 
 difficulty: Hard
 
