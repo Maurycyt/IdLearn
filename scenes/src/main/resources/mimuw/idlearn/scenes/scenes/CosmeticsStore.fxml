@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.CosmeticsStoreController">
+    <bottom>
+        <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets bottom="40.0" />
+            </BorderPane.margin>
+        </Button>
+    </bottom>
+    <top>
+        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets top="40.0" />
+            </BorderPane.margin>
+        </Button>
+    </top>
+    <center>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>

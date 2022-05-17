@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+// this controller is added dynamically to each task scene, in contrast to each other controller
 public class TaskController extends GenericController {
     private final ProblemPackage pkg;
 

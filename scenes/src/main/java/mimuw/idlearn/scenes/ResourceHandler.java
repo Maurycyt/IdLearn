@@ -28,6 +28,9 @@ public class ResourceHandler {
 	public static URL Settings = ResourceHandler.class.getResource("scenes/Settings.fxml");
 	public static URL Achievements = ResourceHandler.class.getResource("scenes/Achievements.fxml");
 	public static URL Store = ResourceHandler.class.getResource("scenes/Store.fxml");
+	public static URL TaskStore = ResourceHandler.class.getResource("scenes/TaskStore.fxml");
+	public static URL PerkStore = ResourceHandler.class.getResource("scenes/PerkStore.fxml");
+	public static URL CosmeticsStore = ResourceHandler.class.getResource("scenes/CosmeticsStore.fxml");
 	public static URL TaskSelection = ResourceHandler.class.getResource("scenes/TaskSelection.fxml");
 	public static URL Task = ResourceHandler.class.getResource("scenes/Task.fxml");
 

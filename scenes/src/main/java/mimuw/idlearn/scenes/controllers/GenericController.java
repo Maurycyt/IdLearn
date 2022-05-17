@@ -51,9 +51,22 @@ public class GenericController implements Initializable {
 		enterNextScene(ResourceHandler.Store);
 	}
 	@FXML
+	public void addTaskStoreScene(ActionEvent event) throws IOException {
+		enterNextScene(ResourceHandler.TaskStore);
+	}
+	@FXML
+	public void addPerkStoreScene(ActionEvent event) throws IOException {
+		enterNextScene(ResourceHandler.PerkStore);
+	}
+	@FXML
+	public void addCosmeticsStoreScene(ActionEvent event) throws IOException {
+		enterNextScene(ResourceHandler.PerkStore);
+	}
+	@FXML
 	public void addTaskSelectionScene(ActionEvent event) throws IOException {
 		enterNextScene(ResourceHandler.TaskSelection);
 	}
+
 	@FXML
 	public void goBack(ActionEvent event) {
 		returnToPreviousScene();
