@@ -2,18 +2,33 @@ package mimuw.idlearn.scenes.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage.Config.Difficulty;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.userdata.DataManager;
 import mimuw.idlearn.userdata.NotEnoughPointsException;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class StoreSceneController extends GenericController {
-    private static final Random rand = new Random();
+public class StoreController extends GenericController {
+    private static final Random rand = new Random(); // for random task selection
+
+    @FXML
+    private BorderPane mainBorderPane;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Button pointsBtn = ResourceHandler.createUserPointsButton();
+        mainBorderPane.setTop(pointsBtn);
+    }
 
     /**
      * Return a random task of the provided difficulty that the user hasn't yet unlocked, if such a task exists.
@@ -46,7 +61,7 @@ public class StoreSceneController extends GenericController {
         }
         else {
             try {
-                DataManager.payPoints(/*task.getCost()*/ 0); //todo: uncomment
+                DataManager.payPoints(10); //todo: uncomment
             } catch (NotEnoughPointsException e) {
                 System.out.println("Not enough points!");
                 return;

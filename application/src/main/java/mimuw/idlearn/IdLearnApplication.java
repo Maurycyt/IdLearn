@@ -96,6 +96,9 @@ public class IdLearnApplication extends javafx.application.Application {
 		long loadEnd = System.currentTimeMillis();
 		System.out.println("Loaded app in " + (loadEnd - loadStart) + "ms.");
 		timeline.play();
+
+		// first available task for the user
+		// DataManager.unlockTask("Addition");
 	}
 
 	public static void main(String[] args) {

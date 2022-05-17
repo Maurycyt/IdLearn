@@ -2,13 +2,19 @@ package mimuw.idlearn.scenes.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.ResourceHandler;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class GenericController {
+public class GenericController implements Initializable {
 	protected final SceneManager sm = SceneManager.getInstance();
 
 	protected void replaceCurrentScene(URL url) throws IOException {
@@ -48,15 +54,18 @@ public class GenericController {
 	public void addTaskSelectionScene(ActionEvent event) throws IOException {
 		enterNextScene(ResourceHandler.TaskSelection);
 	}
-
 	@FXML
 	public void goBack(ActionEvent event) {
 		returnToPreviousScene();
 	}
-
 	@FXML
 	public void exitGame(ActionEvent event) {
 		System.out.println("Exiting game...");
 		sm.exit();
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+
 	}
 }

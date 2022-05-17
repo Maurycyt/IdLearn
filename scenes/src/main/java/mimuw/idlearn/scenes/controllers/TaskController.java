@@ -1,10 +1,5 @@
 package mimuw.idlearn.scenes.controllers;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.binding.Binding;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,16 +7,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
-import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scoring.PointsGiver;
@@ -33,10 +25,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TaskSceneController extends GenericController implements Initializable {
+public class TaskController extends GenericController {
     private final ProblemPackage pkg;
 
-    public TaskSceneController(String taskName) throws FileNotFoundException {
+    public TaskController(String taskName) throws FileNotFoundException {
         this.pkg = PackageManager.getProblemPackage(taskName);
     }
 
@@ -59,6 +51,7 @@ public class TaskSceneController extends GenericController implements Initializa
     @FXML
     private AnchorPane dummyDragPane;
 
+    /* Adds nice styling and connects task verification */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Statement field

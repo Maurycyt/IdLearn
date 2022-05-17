@@ -3,6 +3,7 @@ package mimuw.idlearn.scoring;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
@@ -23,7 +24,7 @@ public class PointsGiver {
 
 		@Override
 		public void run() {
-			DataManager.addPoints(points);
+			Platform.runLater(() -> DataManager.addPoints(points));
 		}
 
 		public void start() {

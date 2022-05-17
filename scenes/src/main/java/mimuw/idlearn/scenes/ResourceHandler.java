@@ -1,5 +1,10 @@
 package mimuw.idlearn.scenes;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import mimuw.idlearn.core.Event;
+import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -8,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import mimuw.idlearn.scenes.preloading.LoadTask;
 import mimuw.idlearn.scenes.preloading.Preloader;
+import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,5 +74,17 @@ public class ResourceHandler {
 			e.printStackTrace();
 			return new Preloader(null, task);
 		}
+	}
+
+	public static Button createUserPointsButton() {
+		Button btn = new Button();
+		btn.getStylesheets().add(StyleSheet.toExternalForm());
+		btn.getStyleClass().add("unclickableButton");
+		btn.setText("Points: " + DataManager.showPoints());
+		DataManager.connectToPoints(event -> btn.setText("Points: " + DataManager.showPoints()));
+		btn.setAlignment(Pos.CENTER);
+		BorderPane.setMargin(btn, new Insets(40, 0, 0, 0));
+		BorderPane.setAlignment(btn, Pos.CENTER);
+		return btn;
 	}
 }
