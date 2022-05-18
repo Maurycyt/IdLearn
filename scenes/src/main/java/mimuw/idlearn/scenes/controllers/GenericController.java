@@ -5,8 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.StageStyle;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.ResourceHandler;
 
@@ -39,10 +43,6 @@ public class GenericController implements Initializable {
 		enterNextScene(ResourceHandler.GameMenu);
 	}
 	@FXML
-	public void addPreloaderScene(ActionEvent event) throws IOException {
-		enterNextScene(ResourceHandler.Preloader);
-	}
-	@FXML
 	public void addSettingsScene(ActionEvent event) throws IOException {
 		enterNextScene(ResourceHandler.Settings);
 	}
@@ -60,7 +60,7 @@ public class GenericController implements Initializable {
 	}
 	@FXML
 	public void addCosmeticsStoreScene(ActionEvent event) throws IOException {
-		enterNextScene(ResourceHandler.PerkStore);
+		enterNextScene(ResourceHandler.CosmeticsStore);
 	}
 	@FXML
 	public void addTaskSelectionScene(ActionEvent event) throws IOException {
@@ -78,7 +78,5 @@ public class GenericController implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-
-	}
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 }

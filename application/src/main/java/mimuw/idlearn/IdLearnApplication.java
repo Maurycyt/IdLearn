@@ -4,9 +4,18 @@ import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
@@ -68,9 +77,10 @@ public class IdLearnApplication extends javafx.application.Application {
 				AtomicInteger i = new AtomicInteger(0);
 				int n = packages.size();
 
+				System.out.println("Building packages:");
 				for (ProblemPackage p : packages.values()) {
 					futures.add(CompletableFuture.supplyAsync(() -> {
-						System.out.println(p.getTitle());
+						System.out.println("- " + p.getTitle());
 						p.build();
 						logProgress(i.incrementAndGet() / (float)n);
 						return null;

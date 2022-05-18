@@ -15,7 +15,7 @@ public class Preloader extends Group implements Listener {
 
 	// if root is null, it means IOException happened during loading of the preloader from .fxml
 	// otherwise it will be primary VBox from .fxml
-	public Preloader(BorderPane root, LoadTask task) {
+	public Preloader(LoadTask task) {
 		emitter = new Emitter();
 
 		emitter.connect(this);

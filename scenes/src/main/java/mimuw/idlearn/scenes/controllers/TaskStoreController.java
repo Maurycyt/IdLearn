@@ -2,7 +2,9 @@ package mimuw.idlearn.scenes.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage.Config.Difficulty;
@@ -58,14 +60,24 @@ public class TaskStoreController extends GenericController {
             System.out.println("No " + difficulty + " tasks available");
         }
         else {
+            Alert alert = null;
             try {
-                DataManager.payPoints(0); //todo: uncomment, replace with actual cost
+                DataManager.payPoints(0); //todo: replace with actual cost
+
+                alert = new Alert(Alert.AlertType.INFORMATION,
+                        "Acquired task \"" + task.get().getTitle() + "\"", ButtonType.OK
+                );
+                alert.setHeaderText("Success!");
+                DataManager.unlockTask(task.get().getTitle());
             } catch (NotEnoughPointsException e) {
-                System.out.println("Not enough points!");
-                return;
+                alert = new Alert(Alert.AlertType.WARNING,
+                        "Gather more points and try again", ButtonType.OK
+                );
+                alert.setHeaderText("Not enough points!");
+            } finally {
+                assert alert != null;
+                alert.show();
             }
-            System.out.println("Bought task: " + task.get().getTitle());
-            DataManager.unlockTask(task.get().getTitle());
         }
     }
 

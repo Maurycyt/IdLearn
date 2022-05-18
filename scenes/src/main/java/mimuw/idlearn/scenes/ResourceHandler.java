@@ -3,6 +3,11 @@ package mimuw.idlearn.scenes;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import mimuw.idlearn.core.Event;
 import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.scenes.controllers.GenericController;
@@ -68,15 +73,15 @@ public class ResourceHandler {
 		return root;
 	}
 
-	public static Parent createPreloader(LoadTask task) {
-		try {
-			BorderPane root = (BorderPane)loadScene(ResourceHandler.Preloader);
-			root.getChildren().add(new Preloader(root, task));
-			return root;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new Preloader(null, task);
-		}
+	/**
+	 * Creates a preloader for the `task`
+	 * @param task some time-consuming task which the user must wait for
+	 * @return root of the Preloader scene
+	 */
+	public static Parent createPreloader(LoadTask task) throws IOException {
+		BorderPane root = (BorderPane)loadScene(ResourceHandler.Preloader);
+		root.getChildren().add(new Preloader(task));
+		return root;
 	}
 
 	public static Button createUserPointsButton() {
