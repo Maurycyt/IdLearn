@@ -3,14 +3,6 @@ package mimuw.idlearn.scenes.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.StageStyle;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.ResourceHandler;
 
@@ -21,9 +13,6 @@ import java.util.ResourceBundle;
 public class GenericController implements Initializable {
 	protected final SceneManager sm = SceneManager.getInstance();
 
-	protected void replaceCurrentScene(URL url) throws IOException {
-		sm.replace(ResourceHandler.loadScene(url));
-	}
 	protected void enterNextScene(URL url) throws IOException {
 		sm.push(ResourceHandler.loadScene(url));
 	}

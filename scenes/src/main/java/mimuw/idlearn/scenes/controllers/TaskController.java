@@ -10,7 +10,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.stage.StageStyle;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
@@ -19,10 +18,10 @@ import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.exceptions.*;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
 import mimuw.idlearn.scoring.WrongAnswerException;
-import mimuw.idlearn.userdata.DataManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -76,7 +75,8 @@ public class TaskController extends GenericController {
                     "Are you sure you want to go back? Your progress will not be saved.",
                     ButtonType.YES, ButtonType.CANCEL
             );
-            alert.initStyle(StageStyle.DECORATED); //TODO: how to style this?
+            ResourceHandler.addStylesheetToAlert(alert);
+
 
             alert.showAndWait()
                     .filter(response -> response == ButtonType.YES)
@@ -100,9 +100,9 @@ public class TaskController extends GenericController {
 
             alert = new Alert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + time, ButtonType.OK);
             alert.setTitle("Success");
-            alert.setHeaderText("Good job!");
+            alert.setHeaderText("Good ob!");
         } catch (WrongAnswerException e) {
-            alert = new Alert(Alert.AlertType.ERROR, "Remember that practice makes perfect", ButtonType.OK);
+            alert = new Alert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
             alert.setHeaderText("Wrong output!");
         } catch (SimulationException e) {
             if (e instanceof TimeoutException) {
@@ -120,9 +120,10 @@ public class TaskController extends GenericController {
             }
         } catch (IOException e) {
             alert = new Alert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
-            alert.setHeaderText("An Internal IO Error Occurred!");
+            alert.setHeaderText("An internal I/O error occurred!");
         } finally {
             assert alert != null;
+            ResourceHandler.addStylesheetToAlert(alert);
             alert.show();
         }
     }

@@ -2,14 +2,9 @@ package mimuw.idlearn.scenes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import mimuw.idlearn.core.Event;
-import mimuw.idlearn.core.Listener;
+import javafx.scene.control.DialogPane;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -41,7 +36,6 @@ public class ResourceHandler {
 
 	public static URL StyleSheet = ResourceHandler.class.getResource("style.css");
 	public static URL AppIcon = ResourceHandler.class.getResource("images/icon.png");
-	public static URL AppLogo = ResourceHandler.class.getResource("images/logo.png");
 
 	/**
 	 * Load a scene from an .fxml file and return its root
@@ -94,5 +88,12 @@ public class ResourceHandler {
 		BorderPane.setMargin(btn, new Insets(40, 0, 0, 0));
 		BorderPane.setAlignment(btn, Pos.CENTER);
 		return btn;
+	}
+
+	public static void addStylesheetToAlert(Alert alert) {
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().add(StyleSheet.toExternalForm());
+		dialogPane.getStyleClass().add("dialog-pane");
+
 	}
 }

@@ -76,6 +76,7 @@ public class TaskStoreController extends GenericController {
                 alert.setHeaderText("Not enough points!");
             } finally {
                 assert alert != null;
+                ResourceHandler.addStylesheetToAlert(alert);
                 alert.show();
             }
         }

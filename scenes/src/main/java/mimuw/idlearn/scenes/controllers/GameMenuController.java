@@ -1,8 +1,6 @@
 package mimuw.idlearn.scenes.controllers;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import mimuw.idlearn.scenes.ResourceHandler;

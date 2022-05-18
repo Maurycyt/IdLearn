@@ -107,7 +107,7 @@ The color scheme is as follows:
 }
 
 
-/* Scrollbars */
+/* TODO: Scrollbars */
 .scroll-pane {
     -fx-background-color: transparent;
 }
@@ -137,24 +137,42 @@ The color scheme is as follows:
 }*/
 
 
-/* Pop-ups */
-.popUpText {
-    -fx-font-weight: bold;
-    -fx-font-size: 22px;
-}
-.buttonsHBox {
-    -fx-alignment: center;
-    -fx-spacing: 35px;
+/* TODO: Pop-ups */
+/*.dialog-pane{
+    -fx-border-color:black;
+    -fx-border-width: 2px;
 }
 
-.popUpPane {
-    -fx-background-color: lightcoral;
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color:black;
+}
+.dialog-pane > .content.label {
+    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+    -fx-background-color: yellow;
+    -fx-text-fill:black;
+    -fx-font-size: 15px;
 }
 
-.popUpTilePane {
-    -fx-orientation: horizontal;
-    -fx-alignment: center;
-    -fx-pref-tile-height: 30px;
-    -fx-hgap: 30px;
-    -fx-vgap: 30px;
+.dialog-pane:header .header-panel {
+    -fx-background-color: black;
 }
+.dialog-pane:header .header-panel .label{
+    -fx-background-color: yellow;
+    -fx-background-radius:10px;
+    -fx-text-fill:black;
+    -fx-font-size:15.0px;
+}
+
+.dialog-pane .button{
+    -fx-background-color:black;
+    -fx-text-fill:white;
+    -fx-wrap-text: true;
+    -fx-effect: dropshadow( three-pass-box, yellow, 10.0, 0.0, 0.0, 0.0);
+    -fx-cursor:hand;
+}
+.dialog-pane .button:hover{
+    -fx-background-color:white;
+    -fx-text-fill:black;
+    -fx-font-weight:bold;
+}*/

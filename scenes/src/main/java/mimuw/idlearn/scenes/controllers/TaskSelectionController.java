@@ -1,17 +1,11 @@
 package mimuw.idlearn.scenes.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.StageStyle;
-import mimuw.idlearn.idlang.GUI.CodeBox;
-import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
@@ -31,9 +25,10 @@ public class TaskSelectionController extends GenericController {
 
 	private void questionGoingForward(String taskTitle) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-				"Do you wish to continue? Additional points will not be granted.",
+				"Do you wish to continue? Additional points will not be granted",
 				ButtonType.YES, ButtonType.CANCEL
 		);
+		ResourceHandler.addStylesheetToAlert(alert);
 		alert.setHeaderText("You've already completed this task");
 		alert.showAndWait()
 				.filter(response -> response == ButtonType.YES)
@@ -46,7 +41,12 @@ public class TaskSelectionController extends GenericController {
 				});
 	}
 
-	// this assumes the task's text has been set
+
+	/**
+	 * Makes the button of a completed task darker and gives it a popup on click.
+	 * This assumes the task's text has been set.
+	 * @param taskBtn: button of a task
+	 */
 	private void alterButtonForCompletedTask(Button taskBtn) {
 		taskBtn.setStyle("-fx-background-color: #038c53; -fx-text-fill: lightgrey;");
 		taskBtn.setOnAction(event -> questionGoingForward(taskBtn.getText()));
