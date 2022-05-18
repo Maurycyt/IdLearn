@@ -3,10 +3,6 @@ package mimuw.idlearn.scenes.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.ResourceHandler;
 
@@ -17,9 +13,6 @@ import java.util.ResourceBundle;
 public class GenericController implements Initializable {
 	protected final SceneManager sm = SceneManager.getInstance();
 
-	protected void replaceCurrentScene(URL url) throws IOException {
-		sm.replace(ResourceHandler.loadScene(url));
-	}
 	protected void enterNextScene(URL url) throws IOException {
 		sm.push(ResourceHandler.loadScene(url));
 	}
@@ -39,10 +32,6 @@ public class GenericController implements Initializable {
 		enterNextScene(ResourceHandler.GameMenu);
 	}
 	@FXML
-	public void addPreloaderScene(ActionEvent event) throws IOException {
-		enterNextScene(ResourceHandler.Preloader);
-	}
-	@FXML
 	public void addSettingsScene(ActionEvent event) throws IOException {
 		enterNextScene(ResourceHandler.Settings);
 	}
@@ -51,9 +40,22 @@ public class GenericController implements Initializable {
 		enterNextScene(ResourceHandler.Store);
 	}
 	@FXML
+	public void addTaskStoreScene(ActionEvent event) throws IOException {
+		enterNextScene(ResourceHandler.TaskStore);
+	}
+	@FXML
+	public void addPerkStoreScene(ActionEvent event) throws IOException {
+		enterNextScene(ResourceHandler.PerkStore);
+	}
+	@FXML
+	public void addCosmeticsStoreScene(ActionEvent event) throws IOException {
+		enterNextScene(ResourceHandler.CosmeticsStore);
+	}
+	@FXML
 	public void addTaskSelectionScene(ActionEvent event) throws IOException {
 		enterNextScene(ResourceHandler.TaskSelection);
 	}
+
 	@FXML
 	public void goBack(ActionEvent event) {
 		returnToPreviousScene();
@@ -65,7 +67,5 @@ public class GenericController implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-
-	}
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 }

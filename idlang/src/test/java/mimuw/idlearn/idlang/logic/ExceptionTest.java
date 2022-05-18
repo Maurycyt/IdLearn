@@ -8,7 +8,7 @@ import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.EndOfInputException;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
-import mimuw.idlearn.idlang.logic.exceptions.UndefinedException;
+import mimuw.idlearn.idlang.logic.exceptions.UndefinedVariableException;
 import mimuw.idlearn.idlang.logic.keywords.Assignment;
 import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.keywords.While;
@@ -53,7 +53,7 @@ public class ExceptionTest {
 						false
 		);
 
-		assertThrows(UndefinedException.class, () -> assignment.evaluate(scope, new TimeCounter()));
+		assertThrows(UndefinedVariableException.class, () -> assignment.evaluate(scope, new TimeCounter()));
 	}
 
 	@Test

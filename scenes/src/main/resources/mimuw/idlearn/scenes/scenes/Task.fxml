@@ -25,7 +25,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ScrollPane fx:id="statementScrollPane" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="borderedScrollPane" stylesheets="@../style.css">
+            <ScrollPane fx:id="statementScrollPane" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="borderedPane" stylesheets="@../style.css">
                <content>
                   <Text fx:id="statementText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample text" wrappingWidth="103.38671875">
                      <font>
@@ -50,7 +50,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="backBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goBack" stylesheets="@../style.css" text="Back" GridPane.rowIndex="1">
+            <Button fx:id="backBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../style.css" text="Back" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

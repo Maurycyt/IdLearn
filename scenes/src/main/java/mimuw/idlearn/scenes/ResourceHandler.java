@@ -2,9 +2,9 @@ package mimuw.idlearn.scenes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import mimuw.idlearn.core.Event;
-import mimuw.idlearn.core.Listener;
+import javafx.scene.control.DialogPane;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -28,12 +28,14 @@ public class ResourceHandler {
 	public static URL Settings = ResourceHandler.class.getResource("scenes/Settings.fxml");
 	public static URL Achievements = ResourceHandler.class.getResource("scenes/Achievements.fxml");
 	public static URL Store = ResourceHandler.class.getResource("scenes/Store.fxml");
+	public static URL TaskStore = ResourceHandler.class.getResource("scenes/TaskStore.fxml");
+	public static URL PerkStore = ResourceHandler.class.getResource("scenes/PerkStore.fxml");
+	public static URL CosmeticsStore = ResourceHandler.class.getResource("scenes/CosmeticsStore.fxml");
 	public static URL TaskSelection = ResourceHandler.class.getResource("scenes/TaskSelection.fxml");
 	public static URL Task = ResourceHandler.class.getResource("scenes/Task.fxml");
 
 	public static URL StyleSheet = ResourceHandler.class.getResource("style.css");
 	public static URL AppIcon = ResourceHandler.class.getResource("images/icon.png");
-	public static URL AppLogo = ResourceHandler.class.getResource("images/logo.png");
 
 	/**
 	 * Load a scene from an .fxml file and return its root
@@ -65,15 +67,15 @@ public class ResourceHandler {
 		return root;
 	}
 
-	public static Parent createPreloader(LoadTask task) {
-		try {
-			BorderPane root = (BorderPane)loadScene(ResourceHandler.Preloader);
-			root.getChildren().add(new Preloader(root, task));
-			return root;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new Preloader(null, task);
-		}
+	/**
+	 * Creates a preloader for the `task`
+	 * @param task some time-consuming task which the user must wait for
+	 * @return root of the Preloader scene
+	 */
+	public static Parent createPreloader(LoadTask task) throws IOException {
+		BorderPane root = (BorderPane)loadScene(ResourceHandler.Preloader);
+		root.getChildren().add(new Preloader(task));
+		return root;
 	}
 
 	public static Button createUserPointsButton() {
@@ -86,5 +88,12 @@ public class ResourceHandler {
 		BorderPane.setMargin(btn, new Insets(40, 0, 0, 0));
 		BorderPane.setAlignment(btn, Pos.CENTER);
 		return btn;
+	}
+
+	public static void addStylesheetToAlert(Alert alert) {
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().add(StyleSheet.toExternalForm());
+		dialogPane.getStyleClass().add("dialog-pane");
+
 	}
 }

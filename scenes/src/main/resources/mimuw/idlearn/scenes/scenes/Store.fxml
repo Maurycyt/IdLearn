@@ -6,33 +6,33 @@
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.StoreController">
-   <center>
-      <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" stylesheets="@../style.css" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#buyEasyTask" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Easy" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#buyMediumTask" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: gold;" styleClass="storeTileButton" stylesheets="@../style.css" text="Medium" />
-            <Button layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#buyHardTask" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: lightcoral;" styleClass="storeTileButton" stylesheets="@../style.css" text="Hard" />
-         </children>
-      </TilePane>
-   </center>
-   <bottom>
-      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="40.0" />
-         </BorderPane.margin>
-      </Button>
-   </bottom>
-   <top>
-      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets top="40.0" />
-         </BorderPane.margin>
-      </Button>
-   </top>
+    <center>
+        <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" stylesheets="@../style.css" BorderPane.alignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" onAction="#addTaskStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Tasks" />
+                <Button layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#addPerkStoreScene" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: lightcoral;" styleClass="storeTileButton" stylesheets="@../style.css" text="Perks" />
+            <Button layoutX="245.0" layoutY="185.0" mnemonicParsing="false" onAction="#addCosmeticsStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Cosmetics" />
+            </children>
+        </TilePane>
+    </center>
+    <bottom>
+        <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets bottom="40.0" />
+            </BorderPane.margin>
+        </Button>
+    </bottom>
+    <top>
+        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets top="40.0" />
+            </BorderPane.margin>
+        </Button>
+    </top>
 </BorderPane>

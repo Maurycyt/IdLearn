@@ -2,7 +2,7 @@ package mimuw.idlearn.idlang.logic.environment;
 
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
-import mimuw.idlearn.idlang.logic.exceptions.UndefinedException;
+import mimuw.idlearn.idlang.logic.exceptions.UndefinedVariableException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class Scope {
 	public <T> Value<T> getVariable(String name) throws SimulationException {
 		Scope scope = getOriginScope(name);
 		if (scope == null)
-			throw new UndefinedException(name);
+			throw new UndefinedVariableException(name);
 		return (Value<T>) scope.variables.get(name);
 	}
 

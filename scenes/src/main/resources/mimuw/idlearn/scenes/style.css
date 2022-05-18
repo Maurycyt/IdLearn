@@ -19,7 +19,7 @@ The color scheme is as follows:
 - 60% - #ffffff
 */
 
-/* Generic elements*/
+/* Generic elements */
 * {
     -fx-background-color: #f2f2f5;
     -fx-font-family: "Anonymous Pro";
@@ -64,6 +64,16 @@ The color scheme is as follows:
     -fx-alignment: center;
 }
 
+.borderedPane {
+    -fx-alignment: center;
+    -fx-border-color: #00b167;
+    -fx-border-width: 4px;
+    -fx-border-radius: 10px;
+    /* TODO: perhaps make the corners more rounded */
+    -fx-background-radius: 10px;
+    -fx-background-color: #f2f2f5;
+}
+
 /* Main Menu */
 .menuVBox {
     -fx-alignment: center;
@@ -96,16 +106,8 @@ The color scheme is as follows:
     -fx-spacing: 45px;
 }
 
-/* Task */
-.borderedScrollPane {
-    -fx-border-color: #00b167;
-    -fx-border-width: 4px;
-    -fx-border-radius: 10px;
-    /* TODO: perhaps make the corners more rounded */
-    -fx-background-radius: 10px;
-    -fx-background-color: transparent;
-}
 
+/* TODO: Scrollbars */
 .scroll-pane {
     -fx-background-color: transparent;
 }
@@ -132,4 +134,45 @@ The color scheme is as follows:
 .scroll-bar:vertical .thumb {
     -fx-background-color: white;
     -fx-background-radius: 5px;
+}*/
+
+
+/* TODO: Pop-ups */
+/*.dialog-pane{
+    -fx-border-color:black;
+    -fx-border-width: 2px;
+}
+
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color:black;
+}
+.dialog-pane > .content.label {
+    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+    -fx-background-color: yellow;
+    -fx-text-fill:black;
+    -fx-font-size: 15px;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: black;
+}
+.dialog-pane:header .header-panel .label{
+    -fx-background-color: yellow;
+    -fx-background-radius:10px;
+    -fx-text-fill:black;
+    -fx-font-size:15.0px;
+}
+
+.dialog-pane .button{
+    -fx-background-color:black;
+    -fx-text-fill:white;
+    -fx-wrap-text: true;
+    -fx-effect: dropshadow( three-pass-box, yellow, 10.0, 0.0, 0.0, 0.0);
+    -fx-cursor:hand;
+}
+.dialog-pane .button:hover{
+    -fx-background-color:white;
+    -fx-text-fill:black;
+    -fx-font-weight:bold;
 }*/

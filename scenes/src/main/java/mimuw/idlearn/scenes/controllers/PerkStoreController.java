@@ -8,7 +8,7 @@ import mimuw.idlearn.scenes.ResourceHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AchievementsController extends GenericController {
+public class PerkStoreController extends GenericController {
     @FXML
     private BorderPane mainBorderPane;
 

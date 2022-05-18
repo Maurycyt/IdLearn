@@ -2,34 +2,44 @@ package mimuw.idlearn.scenes.controllers;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
+import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
+import mimuw.idlearn.idlang.logic.exceptions.*;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
 import mimuw.idlearn.scoring.WrongAnswerException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+// this controller is added dynamically to each task scene, in contrast to each other controller
 public class TaskController extends GenericController {
-    private final ProblemPackage pkg;
+    private boolean taskCompletedNow;
+    private ProblemPackage pkg;
 
-    public TaskController(String taskName) throws FileNotFoundException {
-        this.pkg = PackageManager.getProblemPackage(taskName);
+    public TaskController(String taskName) {
+        try {
+            this.pkg = PackageManager.getProblemPackage(taskName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     // something for tests
@@ -47,16 +57,82 @@ public class TaskController extends GenericController {
     @FXML
     private ScrollPane codeBoxScrollPane;
     @FXML
+    private Button backBtn;
+    @FXML
     private Button submitBtn;
     @FXML
     private AnchorPane dummyDragPane;
+
+    private void questionGoingBack(CodeBox codeBox) {
+        CodeSegment codeSegment = (CodeSegment) codeBox.getChildren().get(0);
+
+        // No progress will be lost, go back like normal
+        if (codeSegment.getChildren().size() == 0 || taskCompletedNow) {
+            goBack(null);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Are you sure you want to go back? Your progress will not be saved.",
+                    ButtonType.YES, ButtonType.CANCEL
+            );
+            ResourceHandler.addStylesheetToAlert(alert);
+
+
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.YES)
+                    .ifPresent(response -> goBack(null));
+        }
+    }
+
+    private void submitSolution(CodeBox codeBox) {
+        Expression<Void> exp = codeBox.compile();
+        Alert alert = null;
+        try {
+            final boolean awardPoints = !PointsGiver.getCompletedTasks().contains(pkg.getTitle());
+
+            TestRunner runner = new TestRunner(pkg, exp);
+            double time = runner.aggregateTestTimes();
+            // if didn't throw, then the user has successfully completed the task
+            taskCompletedNow = true;
+            if (awardPoints) {
+                PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
+            }
+
+            alert = new Alert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + time, ButtonType.OK);
+            alert.setTitle("Success");
+            alert.setHeaderText("Good ob!");
+        } catch (WrongAnswerException e) {
+            alert = new Alert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
+            alert.setHeaderText("Wrong output!");
+        } catch (SimulationException e) {
+            if (e instanceof TimeoutException) {
+                alert = new Alert(Alert.AlertType.ERROR, "Think about how your solution's speed can be improved", ButtonType.OK);
+                alert.setHeaderText("Time out!");
+            } else if (e instanceof UndefinedVariableException) {
+                alert = new Alert(Alert.AlertType.ERROR, "Check your code for usages of: " + ((UndefinedVariableException) e).getVarName(), ButtonType.OK);
+                alert.setHeaderText("Attempting to use an undefined variable!");
+            } else if (e instanceof EndOfInputException) {
+                alert = new Alert(Alert.AlertType.ERROR, "Reduce your number of Read blocks to match the input's size", ButtonType.OK);
+                alert.setHeaderText("Trying to read too many variables!");
+            } else if (e instanceof MemoryException) {
+                alert = new Alert(Alert.AlertType.ERROR, "Think of how you can make your program more memory efficient", ButtonType.OK);
+                alert.setHeaderText("Ran out of memory!");
+            }
+        } catch (IOException e) {
+            alert = new Alert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
+            alert.setHeaderText("An internal I/O error occurred!");
+        } finally {
+            assert alert != null;
+            ResourceHandler.addStylesheetToAlert(alert);
+            alert.show();
+        }
+    }
 
     /* Adds nice styling and connects task verification */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Statement field
         statementText.setText(pkg.getStatement());
-//        statementText.setText(loremGen(45));
         statementText.wrappingWidthProperty().bind(statementScrollPane.widthProperty());
 
         // these two lines are an attempt to fix the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
@@ -78,22 +154,10 @@ public class TaskController extends GenericController {
         );
 
         // Submit button
-        submitBtn.setOnMousePressed(event -> {
-            Expression<Void> exp = codeBox.compile();
-            try {
-                TestRunner runner = new TestRunner(pkg, exp);
-                double time = runner.aggregateTestTimes();
-                System.out.println("Correct output!");
-                System.out.println("Time: " + time);
-                PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
-            } catch (WrongAnswerException e) {
-                System.out.println("Incorrect output!");
-            } catch (TimeoutException e) {
-                System.out.println("Time out!");
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        submitBtn.setOnAction(event -> submitSolution(codeBox));
+
+        // Back button
+        backBtn.setOnAction(event -> questionGoingBack(codeBox));
 
         // Dummy drag pane
         dummyDragPane.setVisible(true);
