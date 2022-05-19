@@ -137,6 +137,6 @@ public class CompilerTest {
 			fail();
 		}
 
-		assertTrue(pkg.checkTest());
+		assertTrue(pkg.checkTest(123));
 	}
 }

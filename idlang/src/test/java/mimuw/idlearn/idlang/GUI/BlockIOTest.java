@@ -93,7 +93,7 @@ public class BlockIOTest {
 			Expression<Void> program = codeBox.compile();
 			Scope scope = new Scope();
 			program.evaluate(scope, new TimeCounter());
-			assertTrue(pkg.checkTest());
+			assertTrue(pkg.checkTest(123));
 		} catch (Exception e) {
 			fail();
 		}

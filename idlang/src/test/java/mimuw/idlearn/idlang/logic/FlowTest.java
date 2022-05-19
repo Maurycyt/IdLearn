@@ -154,7 +154,7 @@ public class FlowTest {
 			outputHandler.takeValues(ret);
 			outputHandler.evaluate(scope, new TimeCounter());
 
-			assertTrue(pkg.checkTest());
+			assertTrue(pkg.checkTest(123));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

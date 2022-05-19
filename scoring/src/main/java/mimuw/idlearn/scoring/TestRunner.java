@@ -32,7 +32,7 @@ public class TestRunner {
 			pack.prepareTest(TestID);
 			timeCounter.clear();
 			solution.evaluate(new Scope(), timeCounter);
-			if (!pack.checkTest()) {
+			if (!pack.checkTest(TestID)) {
 				throw new WrongAnswerException();
 			}
 			result *= timeCounter.getTime();
