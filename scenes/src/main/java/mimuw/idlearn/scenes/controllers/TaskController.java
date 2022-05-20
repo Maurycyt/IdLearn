@@ -71,12 +71,10 @@ public class TaskController extends GenericController {
             goBack(null);
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+            Alert alert = ResourceHandler.createAlert(Alert.AlertType.CONFIRMATION,
                     "Are you sure you want to go back? Your progress will not be saved.",
                     ButtonType.YES, ButtonType.CANCEL
             );
-            ResourceHandler.addStylesheetToAlert(alert);
-
 
             alert.showAndWait()
                     .filter(response -> response == ButtonType.YES)
@@ -97,33 +95,31 @@ public class TaskController extends GenericController {
             if (awardPoints) {
                 PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
             }
-
-            alert = new Alert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + time, ButtonType.OK);
+            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + time, ButtonType.OK);
             alert.setTitle("Success");
-            alert.setHeaderText("Good ob!");
+            alert.setHeaderText("Good job!");
         } catch (WrongAnswerException e) {
-            alert = new Alert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
             alert.setHeaderText("Wrong output!");
-        } catch (SimulationException e) {
+        } catch (SimulationException e){
             if (e instanceof TimeoutException) {
-                alert = new Alert(Alert.AlertType.ERROR, "Think about how your solution's speed can be improved", ButtonType.OK);
+                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Think about how your solution's speed can be improved", ButtonType.OK);
                 alert.setHeaderText("Time out!");
             } else if (e instanceof UndefinedVariableException) {
-                alert = new Alert(Alert.AlertType.ERROR, "Check your code for usages of: " + ((UndefinedVariableException) e).getVarName(), ButtonType.OK);
+                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Check your code for usages of: " + ((UndefinedVariableException) e).getVarName(), ButtonType.OK);
                 alert.setHeaderText("Attempting to use an undefined variable!");
             } else if (e instanceof EndOfInputException) {
-                alert = new Alert(Alert.AlertType.ERROR, "Reduce your number of Read blocks to match the input's size", ButtonType.OK);
+                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Reduce your number of Read blocks to match the input's size", ButtonType.OK);
                 alert.setHeaderText("Trying to read too many variables!");
             } else if (e instanceof MemoryException) {
-                alert = new Alert(Alert.AlertType.ERROR, "Think of how you can make your program more memory efficient", ButtonType.OK);
+                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Think of how you can make your program more memory efficient", ButtonType.OK);
                 alert.setHeaderText("Ran out of memory!");
             }
         } catch (IOException e) {
-            alert = new Alert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
             alert.setHeaderText("An internal I/O error occurred!");
         } finally {
             assert alert != null;
-            ResourceHandler.addStylesheetToAlert(alert);
             alert.show();
         }
     }

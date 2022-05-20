@@ -15,8 +15,8 @@
 /*
 The color scheme is as follows:
 - 10% - #00b167
-- 30% - #f2f2f5
-- 60% - #ffffff
+- 30% - #ffffff
+- 60% - #f2f2f5
 */
 
 /* Generic elements */
@@ -137,42 +137,27 @@ The color scheme is as follows:
 }*/
 
 
-/* TODO: Pop-ups */
-/*.dialog-pane{
-    -fx-border-color:black;
-    -fx-border-width: 2px;
+/* Popups */
+.dialog-pane{
+    -fx-border-width: 4px;
+}
+.ok-dialog {
+    -fx-border-color: #00b167;
+}
+.warning-dialog {
+    -fx-border-color: #f0b880;
+}
+.error-dialog {
+    -fx-border-color: lightcoral;
 }
 
-
-.dialog-pane > .button-bar > .container {
-    -fx-background-color:black;
-}
 .dialog-pane > .content.label {
-    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
-    -fx-background-color: yellow;
-    -fx-text-fill:black;
-    -fx-font-size: 15px;
+    -fx-font-size: 16px;
 }
 
-.dialog-pane:header .header-panel {
-    -fx-background-color: black;
-}
 .dialog-pane:header .header-panel .label{
-    -fx-background-color: yellow;
-    -fx-background-radius:10px;
-    -fx-text-fill:black;
-    -fx-font-size:15.0px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 
-.dialog-pane .button{
-    -fx-background-color:black;
-    -fx-text-fill:white;
-    -fx-wrap-text: true;
-    -fx-effect: dropshadow( three-pass-box, yellow, 10.0, 0.0, 0.0, 0.0);
-    -fx-cursor:hand;
-}
-.dialog-pane .button:hover{
-    -fx-background-color:white;
-    -fx-text-fill:black;
-    -fx-font-weight:bold;
-}*/
+/*#f0b880*/

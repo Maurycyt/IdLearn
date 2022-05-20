@@ -4,7 +4,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -78,22 +82,45 @@ public class ResourceHandler {
 		return root;
 	}
 
+	/**
+	 * Creates an unclickable button that appears on most scenes and displays user points.
+	 * @return the points button
+	 */
 	public static Button createUserPointsButton() {
 		Button btn = new Button();
 		btn.getStylesheets().add(StyleSheet.toExternalForm());
 		btn.getStyleClass().add("unclickableButton");
+
 		btn.setText("Points: " + DataManager.showPoints());
+		// dynamically updates the points
 		DataManager.connectToPoints(event -> btn.setText("Points: " + DataManager.showPoints()));
-		btn.setAlignment(Pos.CENTER);
+
 		BorderPane.setMargin(btn, new Insets(40, 0, 0, 0));
 		BorderPane.setAlignment(btn, Pos.CENTER);
 		return btn;
 	}
 
-	public static void addStylesheetToAlert(Alert alert) {
+	/**
+	 * Creates an alert and styles it according to its type.
+	 * @param alertType: type of alert
+	 * @param s: contents of the alert
+	 * @param buttonTypes: types of buttons of the alert
+	 * @return the alert
+	 */
+	public static Alert createAlert(Alert.AlertType alertType, String s, ButtonType... buttonTypes) {
+		Alert alert = new Alert(alertType, s, buttonTypes);
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().add(StyleSheet.toExternalForm());
-		dialogPane.getStyleClass().add("dialog-pane");
 
+		switch (alertType) {
+			case INFORMATION -> dialogPane.getStyleClass().add("ok-dialog");
+			case CONFIRMATION, WARNING -> dialogPane.getStyleClass().add("warning-dialog");
+			case ERROR -> dialogPane.getStyleClass().add("error-dialog");
+		}
+
+		Stage stage = (Stage) dialogPane.getScene().getWindow();
+		stage.getIcons().add(new Image(AppIcon.toExternalForm()));
+
+		return alert;
 	}
 }

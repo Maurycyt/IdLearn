@@ -24,11 +24,11 @@ public class TaskSelectionController extends GenericController {
 	private BorderPane mainBorderPane;
 
 	private void questionGoingForward(String taskTitle) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+		Alert alert = ResourceHandler.createAlert(Alert.AlertType.CONFIRMATION,
 				"Do you wish to continue? Additional points will not be granted",
 				ButtonType.YES, ButtonType.CANCEL
 		);
-		ResourceHandler.addStylesheetToAlert(alert);
+
 		alert.setHeaderText("You've already completed this task");
 		alert.showAndWait()
 				.filter(response -> response == ButtonType.YES)
@@ -47,7 +47,7 @@ public class TaskSelectionController extends GenericController {
 	 * This assumes the task's text has been set.
 	 * @param taskBtn: button of a task
 	 */
-	private void alterButtonForCompletedTask(Button taskBtn) {
+	private void setStyleOfButtonForCompletedTask(Button taskBtn) {
 		taskBtn.setStyle("-fx-background-color: #038c53; -fx-text-fill: lightgrey;");
 		taskBtn.setOnAction(event -> questionGoingForward(taskBtn.getText()));
 	}
@@ -71,11 +71,11 @@ public class TaskSelectionController extends GenericController {
 			// make the style change dynamically
 			PointsGiver.connectToTaskCompletion(event -> {
 				if (event.value() == taskTitle)
-					alterButtonForCompletedTask(taskBtn);
+					setStyleOfButtonForCompletedTask(taskBtn);
 			});
 
 			if (completedTasks.contains(taskTitle)) {
-				alterButtonForCompletedTask(taskBtn);
+				setStyleOfButtonForCompletedTask(taskBtn);
 			} else {
 				taskBtn.setOnAction((event) -> {
 					try {

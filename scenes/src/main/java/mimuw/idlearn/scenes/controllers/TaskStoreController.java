@@ -64,19 +64,18 @@ public class TaskStoreController extends GenericController {
             try {
                 DataManager.payPoints(0); //todo: replace with actual cost
 
-                alert = new Alert(Alert.AlertType.INFORMATION,
+                alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
                         "Acquired task \"" + task.get().getTitle() + "\"", ButtonType.OK
                 );
                 alert.setHeaderText("Success!");
                 DataManager.unlockTask(task.get().getTitle());
             } catch (NotEnoughPointsException e) {
-                alert = new Alert(Alert.AlertType.WARNING,
+                alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
                         "Gather more points and try again", ButtonType.OK
                 );
                 alert.setHeaderText("Not enough points!");
             } finally {
                 assert alert != null;
-                ResourceHandler.addStylesheetToAlert(alert);
                 alert.show();
             }
         }

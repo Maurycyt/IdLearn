@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.StoreController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.StoreController">
     <center>
         <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" stylesheets="@../style.css" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" onAction="#addTaskStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Tasks" />
-                <Button layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#addPerkStoreScene" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: lightcoral;" styleClass="storeTileButton" stylesheets="@../style.css" text="Perks" />
-            <Button layoutX="245.0" layoutY="185.0" mnemonicParsing="false" onAction="#addCosmeticsStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Cosmetics" />
+                <Button fx:id="taskStoreBtn" mnemonicParsing="false" onAction="#addTaskStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Tasks">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/light-bulb.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+                <Button fx:id="perkStoreBtn" layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#addPerkStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Perks">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/ram.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="cosmeticsStoreBtn" layoutX="245.0" layoutY="185.0" mnemonicParsing="false" onAction="#addCosmeticsStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Cosmetics">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/prank-glasses.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             </children>
         </TilePane>
     </center>
