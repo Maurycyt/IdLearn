@@ -1,7 +1,7 @@
 Johnny got in trouble and was tasked with even more maths homework, and this time it's nasty. He is to compute the GCD of two numbers. He managed to forget what a GCD is, but to his great surprise, he managed to find a note in his notebook which said:
 
 1. GCD(a,b) = GCD(b,a)
-2. If a > 0 and b = 0, then GCD(a,b) = b
+2. If a > 0 and b = 0, then GCD(a,b) = a
 3. If a > 0 and b >= 0, then GCD(a,b) = GCD(a-b,b)
 
 Help Johnny find the GCD (whatever it is) of two given numbers.
