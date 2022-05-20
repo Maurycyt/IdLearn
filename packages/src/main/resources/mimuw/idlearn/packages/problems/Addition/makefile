@@ -8,8 +8,11 @@ TEST_ID = 1
 
 all: $(GEN) $(MOD) $(CHE)
 
-clean:
-	rm -f $(GEN) $(MOD) $(CHE) $(INPUT)* $(USER_OUT)* $(MODEL_OUT)*
+cleanTests:
+	rm -f $(INPUT)* $(USER_OUT)* $(MODEL_OUT)*
+
+clean: cleanTests
+	rm -f $(GEN) $(MOD) $(CHE)
 
 $(GEN): $(GEN_SOURCE) $(UTILS)
 	$(CXX) $(CXX_FLAGS) $(GEN_SOURCE) -o $(GEN)

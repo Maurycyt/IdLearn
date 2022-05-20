@@ -4,6 +4,7 @@ import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.TimeCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
+import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
 import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.packages.ProblemPackage;
 
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.Semaphore;
 
 /**
  * Runs multiple tests of a package on a single solution.
@@ -20,6 +22,7 @@ public class TestRunner {
 	private final ProblemPackage pack;
 	private final Expression<Void> solution;
 	private final ArrayList<Integer> testData;
+	private static final Semaphore mutex = new Semaphore(1);
 
 	public TestRunner(ProblemPackage pack, Expression<Void> solution) {
 		this.pack = pack;
@@ -29,7 +32,14 @@ public class TestRunner {
 
 	public double aggregateTestTimes() throws SimulationException, IOException {
 		double result = 1.0;
-		// TODO: add mutex
+
+		try {
+			mutex.acquire();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			e.printStackTrace();
+			throw new TimeoutException(TimeCounter.MAX_TIME);
+		}
 
 		// Prepare futures which run tests and propagate exceptions.
 		ArrayList<CompletableFuture<Double>> futures = new ArrayList<>();
@@ -64,6 +74,8 @@ public class TestRunner {
 				}
 			}
 		}
+
+		mutex.release();
 
 		// Return the geometric mean of the collected times.
 		return Math.pow(result, 1.0 / testData.size());

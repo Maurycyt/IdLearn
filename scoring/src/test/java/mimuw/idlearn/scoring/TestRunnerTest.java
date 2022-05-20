@@ -9,6 +9,7 @@ import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import java.io.IOException;
+import java.util.concurrent.Semaphore;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

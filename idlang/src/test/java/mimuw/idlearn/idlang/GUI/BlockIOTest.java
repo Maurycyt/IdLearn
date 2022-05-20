@@ -58,6 +58,7 @@ public class BlockIOTest {
 			} catch (Exception e) {
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
@@ -95,6 +96,7 @@ public class BlockIOTest {
 			program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 			assertTrue(pkg.checkTest(123));
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
