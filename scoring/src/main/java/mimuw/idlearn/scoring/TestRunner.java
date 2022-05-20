@@ -41,6 +41,7 @@ public class TestRunner {
 			throw new TimeoutException(TimeCounter.MAX_TIME);
 		}
 
+		pack.build();
 		// Prepare futures which run tests and propagate exceptions.
 		ArrayList<CompletableFuture<Double>> futures = new ArrayList<>();
 		for (Integer TestID : testData) {
