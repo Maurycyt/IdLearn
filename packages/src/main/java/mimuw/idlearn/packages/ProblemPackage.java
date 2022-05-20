@@ -34,7 +34,7 @@ public class ProblemPackage {
 			Easy,
 			Medium,
 			Hard
-		};
+		}
 
 		public String title;
 		public Difficulty difficulty;
@@ -54,16 +54,6 @@ public class ProblemPackage {
 	 * The parsed config.yml file.
 	 */
 	private final Config config;
-
-	/**
-	 * Scanner of the input file.
-	 */
-	private Scanner inputScanner;
-
-	/**
-	 * Writer to the output file.
-	 */
-	private FileWriter outputWriter;
 
 	/**
 	 * Interprets the given File as a directory containing one problem package.

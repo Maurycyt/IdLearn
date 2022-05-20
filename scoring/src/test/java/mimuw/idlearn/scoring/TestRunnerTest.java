@@ -2,6 +2,7 @@ package mimuw.idlearn.scoring;
 
 import mimuw.idlearn.idlang.logic.base.*;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
+import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.idlang.logic.keywords.Assignment;
 import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;

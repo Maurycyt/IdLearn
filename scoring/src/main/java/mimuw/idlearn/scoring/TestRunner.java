@@ -4,10 +4,12 @@ import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.TimeCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
+import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.packages.ProblemPackage;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * Runs multiple tests of a package on a single solution.
@@ -24,22 +26,44 @@ public class TestRunner {
 		this.testData = pack.getTestData();
 	}
 
-	public double aggregateTestTimes() throws SimulationException, WrongAnswerException, IOException {
+	public double aggregateTestTimes() throws SimulationException {
 		double result = 1.0;
 
-		TimeCounter timeCounter = new TimeCounter();
+		// Prepare futures which run tests and propagate exceptions.
+		ArrayList<CompletableFuture<Double>> futures = new ArrayList<>();
 		for (Integer TestID : testData) {
-			pack.prepareTest(TestID);
-			timeCounter.clear();
-			solution.evaluate(new Scope(), timeCounter);
-			if (!pack.checkTest(TestID)) {
-				throw new WrongAnswerException();
-			}
-			result *= timeCounter.getTime();
+			futures.add(CompletableFuture.supplyAsync(() -> {
+				pack.prepareTest(TestID);
+				TimeCounter timeCounter = new TimeCounter();
+				try {
+					solution.evaluate(new Scope(), timeCounter);
+					if (!pack.checkTest(TestID)) {
+						throw new CompletionException(new WrongAnswerException());
+					}
+				} catch (SimulationException e) {
+					throw new CompletionException(e);
+				}
+				return timeCounter.getTime();
+			}));
 		}
 
-		double aggregateTime = Math.pow(result, 1.0 / testData.size());
+		// Join all the futures, catch exceptions and aggregate test times.
+		for (CompletableFuture<Double> future : futures) {
+			try {
+				future.join();
+				result *= future.getNow(0.0);
+			} catch (CompletionException e) {
+				try {
+					throw e.getCause();
+				} catch (SimulationException possible) {
+					throw possible;
+				} catch (Throwable impossible) {
+					throw new AssertionError(impossible);
+				}
+			}
+		}
 
-		return aggregateTime;
+		// Return the geometric mean of the collected times.
+		return Math.pow(result, 1.0 / testData.size());
 	}
 }
