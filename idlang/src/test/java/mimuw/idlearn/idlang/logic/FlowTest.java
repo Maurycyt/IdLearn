@@ -13,8 +13,10 @@ import mimuw.idlearn.packages.ProblemPackage;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,16 +26,16 @@ public class FlowTest {
 		Scope scope = new Scope();
 
 		Variable<Integer> x = new Variable<>("x");
-		new Assignment<>("x", 5, false).evaluate(scope, new TimeCounter());
+		new Assignment<>("x", 5, false).evaluate(scope, new TimeCounter(), null, null);
 
 		Block onTrue = new Block(new ArrayList<>(List.of(
 						new Assignment<>("x",
-										TwoArgOperator.newAdd(x.evaluate(scope, new TimeCounter()), new Value<>(1)),
+										TwoArgOperator.newAdd(x.evaluate(scope, new TimeCounter(), null, null), new Value<>(1)),
 										false)
 		)));
 		Block onFalse = new Block(new ArrayList<>(List.of(
 						new Assignment<>("x",
-										TwoArgOperator.newAdd(x.evaluate(scope, new TimeCounter()), new Value<>(-1)),
+										TwoArgOperator.newAdd(x.evaluate(scope, new TimeCounter(), null, null), new Value<>(-1)),
 										false)
 		)));
 
@@ -42,10 +44,10 @@ public class FlowTest {
 										scope.getVariable("x"),
 										new Value<>(2)),
 						new Value<>(0)
-		).evaluate(scope, new TimeCounter());
+		).evaluate(scope, new TimeCounter(), null, null);
 
 		// `if (x % 2 == 0) {x++;} else {x--;}`
-		new If(cond, onTrue, onFalse).evaluate(scope, new TimeCounter());
+		new If(cond, onTrue, onFalse).evaluate(scope, new TimeCounter(), null, null);
 
 		assertEquals(4, scope.getVariable("x").getValue());
 	}
@@ -56,8 +58,8 @@ public class FlowTest {
 
 		Variable<Integer> x = new Variable<>("x");
 		Variable<Integer> count = new Variable<>("count");
-		new Assignment<>("x", 0, false).evaluate(scope, new TimeCounter());
-		new Assignment<>("count", 420, false).evaluate(scope, new TimeCounter());
+		new Assignment<>("x", 0, false).evaluate(scope, new TimeCounter(), null, null);
+		new Assignment<>("count", 420, false).evaluate(scope, new TimeCounter(), null, null);
 
 		// Note: don't hard-code evaluations in operators unless you want endless loops!
 		// - write `x` instead of `x.evaluate(scope)`
@@ -78,9 +80,9 @@ public class FlowTest {
 		)));
 
 		// `while (count > 0) {x++; count--}`
-		new While(cond, block).evaluate(scope, new TimeCounter());
+		new While(cond, block).evaluate(scope, new TimeCounter(), null, null);
 
-		assertEquals(420, x.evaluate(scope, new TimeCounter()).getValue());
+		assertEquals(420, x.evaluate(scope, new TimeCounter(), null, null).getValue());
 	}
 
 	@Test
@@ -89,12 +91,12 @@ public class FlowTest {
 		Scope innerScope = new Scope(outerScope);
 
 		Variable<Integer> x = new Variable<>("x");
-		new Assignment<>("x", 1, false).evaluate(outerScope, new TimeCounter());
-		new Assignment<>("y", x.evaluate(innerScope, new TimeCounter()), false).evaluate(innerScope, new TimeCounter());
+		new Assignment<>("x", 1, false).evaluate(outerScope, new TimeCounter(), null, null);
+		new Assignment<>("y", x.evaluate(innerScope, new TimeCounter(), null, null), false).evaluate(innerScope, new TimeCounter(), null, null);
 		new Assignment<>("x",
-						TwoArgOperator.newAdd(x.evaluate(innerScope, new TimeCounter()), new Value<>(1)),
+						TwoArgOperator.newAdd(x.evaluate(innerScope, new TimeCounter(), null, null), new Value<>(1)),
 						false
-		).evaluate(innerScope, new TimeCounter());
+		).evaluate(innerScope, new TimeCounter(), null, null);
 
 		assertEquals(2, innerScope.getVariable("x").getValue());
 		assertEquals(2, outerScope.getVariable("x").getValue());
@@ -123,9 +125,9 @@ public class FlowTest {
 		new Block(
 						new Assignment<>("n", TwoArgOperator.newSubtract(n, new Value<>(3)), false),
 						new While(whileCond, whileBlock)
-		).evaluate(scope, new TimeCounter());
+		).evaluate(scope, new TimeCounter(), null, null);
 
-		assertEquals(4181, f3.evaluate(scope, new TimeCounter()).getValue());
+		assertEquals(4181, f3.evaluate(scope, new TimeCounter(), null, null).getValue());
 	}
 
 	@Test
@@ -144,15 +146,18 @@ public class FlowTest {
 			Scope scope = new Scope();
 			Variable<Integer> x = new Variable<>("x");
 			Variable<Integer> y = new Variable<>("y");
-			InputHandler inputHandler = new InputHandler(pkg);
-			OutputHandler outputHandler = new OutputHandler(pkg);
+			InputHandler inputHandler = new InputHandler();
+			OutputHandler outputHandler = new OutputHandler();
+
+			Scanner inputScanner = pkg.getTestInputScanner(123);
+			Writer outputWriter = pkg.getTestOutputWriter(123);
 
 			inputHandler.takeVariables(x, y);
-			inputHandler.evaluate(scope, new TimeCounter());
+			inputHandler.evaluate(scope, new TimeCounter(), inputScanner, outputWriter);
 
-			Value<Integer> ret = TwoArgOperator.newAdd(x, y).evaluate(scope, new TimeCounter());
+			Value<Integer> ret = TwoArgOperator.newAdd(x, y).evaluate(scope, new TimeCounter(), inputScanner, outputWriter);
 			outputHandler.takeValues(ret);
-			outputHandler.evaluate(scope, new TimeCounter());
+			outputHandler.evaluate(scope, new TimeCounter(), inputScanner, outputWriter);
 
 			assertTrue(pkg.checkTest(123));
 		} catch (IOException e) {

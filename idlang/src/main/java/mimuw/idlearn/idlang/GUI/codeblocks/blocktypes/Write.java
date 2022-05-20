@@ -20,7 +20,7 @@ public class Write extends CodeBlock {
 	public Expression<Void> convert() {
 		String name = varName.getText();
 		Expression<Integer> val = StringToExpression.parse(name);
-		return new OutputHandler(pkg, val);
+		return new OutputHandler(val);
 	}
 
 	/**

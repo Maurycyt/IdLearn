@@ -21,9 +21,9 @@ public class TestRunnerTest {
 		assertEquals(pack.getTitle(), "Addition");
 
 		Expression<Void> solution = new Block(
-				new InputHandler(pack, new Variable<>("x"), new Variable<>("y")),
+				new InputHandler(new Variable<>("x"), new Variable<>("y")),
 				new Assignment<>("x", TwoArgOperator.newAdd(new Variable<>("x"), new Variable<>("y")), false),
-				new OutputHandler(pack, new Variable<>("x"))
+				new OutputHandler(new Variable<>("x"))
 		);
 
 		TestRunner testRunner = new TestRunner(pack, solution);
@@ -39,7 +39,7 @@ public class TestRunnerTest {
 		assertEquals(4, result, 0.1);
 
 		Expression<Void> badSolution = new Block(
-				new OutputHandler(pack, new Value<>(0))
+				new OutputHandler(new Value<>(0))
 		);
 
 		testRunner = new TestRunner(pack, badSolution);

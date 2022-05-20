@@ -53,7 +53,7 @@ public class BlockIOTest {
 			try {
 				Expression<Void> program = codeBox.compile();
 				Scope scope = new Scope();
-				program.evaluate(scope, new TimeCounter());
+				program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 				fail();
 			} catch (Exception e) {
 			}
@@ -92,7 +92,7 @@ public class BlockIOTest {
 
 			Expression<Void> program = codeBox.compile();
 			Scope scope = new Scope();
-			program.evaluate(scope, new TimeCounter());
+			program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 			assertTrue(pkg.checkTest(123));
 		} catch (Exception e) {
 			fail();

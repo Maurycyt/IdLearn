@@ -6,8 +6,10 @@ import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Block implements Expression<Void> {
 	private final ArrayList<Expression<?>> instructions;
@@ -22,9 +24,9 @@ public class Block implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+	public Value<Void> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		for (Expression<?> i : instructions) {
-			i.evaluate(scope, counter);
+			i.evaluate(scope, counter, inputScanner, outputWriter);
 		}
 		return new Value<>(null);
 	}

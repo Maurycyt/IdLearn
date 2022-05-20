@@ -7,6 +7,7 @@ import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.packages.ProblemPackage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -26,8 +27,9 @@ public class TestRunner {
 		this.testData = pack.getTestData();
 	}
 
-	public double aggregateTestTimes() throws SimulationException {
+	public double aggregateTestTimes() throws SimulationException, IOException {
 		double result = 1.0;
+		// TODO: add mutex
 
 		// Prepare futures which run tests and propagate exceptions.
 		ArrayList<CompletableFuture<Double>> futures = new ArrayList<>();
@@ -36,11 +38,11 @@ public class TestRunner {
 				pack.prepareTest(TestID);
 				TimeCounter timeCounter = new TimeCounter();
 				try {
-					solution.evaluate(new Scope(), timeCounter);
+					solution.evaluate(new Scope(), timeCounter, pack.getTestInputScanner(TestID), pack.getTestOutputWriter(TestID));
 					if (!pack.checkTest(TestID)) {
 						throw new CompletionException(new WrongAnswerException());
 					}
-				} catch (SimulationException e) {
+				} catch (SimulationException | IOException e) {
 					throw new CompletionException(e);
 				}
 				return timeCounter.getTime();
@@ -55,7 +57,7 @@ public class TestRunner {
 			} catch (CompletionException e) {
 				try {
 					throw e.getCause();
-				} catch (SimulationException possible) {
+				} catch (SimulationException | IOException possible) {
 					throw possible;
 				} catch (Throwable impossible) {
 					throw new AssertionError(impossible);

@@ -6,14 +6,14 @@ import mimuw.idlearn.packages.ProblemPackage;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.util.Scanner;
 
 public class OutputHandler implements Expression<Void> {
 	private final static String separator = " ";
-	private final ProblemPackage pkg;
 	private Expression<?>[] values;
 
-	public OutputHandler(ProblemPackage pkg, Expression<?>... values) {
-		this.pkg = pkg;
+	public OutputHandler(Expression<?>... values) {
 		this.values = values;
 	}
 
@@ -22,14 +22,13 @@ public class OutputHandler implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		FileWriter writer = pkg.getTestOutputWriter();
+	public Value<Void> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		try {
 			for (var v : values) {
 				counter.addTime(delay);
-				writer.write(separator + v.evaluate(scope, counter).getValue());
+				outputWriter.write(separator + v.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
-			writer.flush();
+			outputWriter.flush();
 		} catch (IOException e) {
 			throw new RuntimeException(e); // TODO: clean-up
 		}
