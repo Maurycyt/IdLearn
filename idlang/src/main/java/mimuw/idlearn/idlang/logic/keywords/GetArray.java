@@ -5,6 +5,7 @@ import mimuw.idlearn.idlang.logic.base.TimeCounter;
 import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
+import mimuw.idlearn.idlang.logic.exceptions.OutOfBoundsException;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
 import java.io.Writer;
@@ -19,7 +20,7 @@ public class GetArray extends Expression {
 	private final Expression indexExpression;
 
 
-	public GetArray(Expression tableExpression, Expression indexExpression, Expression valueExpression) {
+	public GetArray(Expression tableExpression, Expression indexExpression) {
 		tableExpression.assertType(Type.Table);
 		indexExpression.assertType(Type.Integer);
 		this.tableExpression = tableExpression;
@@ -29,11 +30,18 @@ public class GetArray extends Expression {
 
 	@Override
 	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+		counter.addTime(delay);
+
 		Value tableVal = tableExpression.evaluate(scope, counter, inputScanner, outputWriter);
 		Value indexVal = indexExpression.evaluate(scope, counter, inputScanner, outputWriter);
 
 		ArrayList<Integer> table = (ArrayList<Integer>) tableVal.value;
+		Integer index = (Integer)indexVal.value;
 
-		return new Value(Type.Integer, table.get((Integer)indexVal.value));
+		if (index < 0 || index >= table.size()) {
+			throw new OutOfBoundsException(index, table.size());
+		}
+
+		return new Value(Type.Integer, table.get(index));
 	}
 }

@@ -3,7 +3,6 @@ package mimuw.idlearn.idlang.logic.base;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.EndOfInputException;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
-import mimuw.idlearn.packages.ProblemPackage;
 
 import java.io.Writer;
 import java.util.Scanner;

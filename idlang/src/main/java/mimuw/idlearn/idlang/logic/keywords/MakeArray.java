@@ -26,6 +26,7 @@ public class MakeArray extends Expression {
 
 	@Override
 	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+		counter.addTime(delay);
 		Integer size = (Integer)expression.evaluate(scope, counter, inputScanner, outputWriter).value;
 
 		Scope origin = scope.getOriginScope(name);
@@ -35,12 +36,11 @@ public class MakeArray extends Expression {
 			table.add(0);
 		}
 
-		Value tableVal = new Value(Type.Table, table);
 
 		if (origin == null)
-			scope.add(name, new Value(Type.Table, tableVal));
+			scope.add(name, new Value(Type.Table, table));
 		else
-			origin.add(name, new Value(Type.Table, tableVal));
+			origin.add(name, new Value(Type.Table, table));
 
 		return new Value(Null, null);
 	}

@@ -5,6 +5,7 @@ import mimuw.idlearn.idlang.logic.base.TimeCounter;
 import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
+import mimuw.idlearn.idlang.logic.exceptions.OutOfBoundsException;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
 import java.io.Writer;
@@ -31,11 +32,18 @@ public class SetArray extends Expression {
 
 	@Override
 	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+		counter.addTime(delay);
 		Value tableVal = tableExpression.evaluate(scope, counter, inputScanner, outputWriter);
 		Value indexVal = indexExpression.evaluate(scope, counter, inputScanner, outputWriter);
 		Value valueVal = valueExpression.evaluate(scope, counter, inputScanner, outputWriter);
 
-		ArrayList<Integer> table = (ArrayList<Integer>) tableVal.value;
+		ArrayList<Integer> table = (ArrayList<Integer>) (tableVal.value);
+		Integer index = (Integer) (indexVal.value);
+
+		if (index < 0 || index >= table.size()) {
+			throw new OutOfBoundsException(index, table.size());
+		}
+
 		table.set((Integer)indexVal.value, (Integer)valueVal.value);
 
 		return new Value(Null, null);

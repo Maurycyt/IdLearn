@@ -35,7 +35,7 @@ public class Operation extends CodeBlock {
 		final Text space2 = new Text(" ");
 		ObservableList<String> options =
 				FXCollections.observableArrayList(
-						"+", "-", "×", "÷", ">", "<", "=="
+						"+", "-", "×", "÷", ">", "<", "==", "%"
 				);
 		dropDown = new ChoiceBox<>(options);
 		dropDown.setValue("+");
@@ -83,6 +83,7 @@ public class Operation extends CodeBlock {
 			case ">" -> TwoArgOperator.newGreater(arg1, arg2);
 			case "<" -> TwoArgOperator.newLess(arg1, arg2);
 			case "==" -> TwoArgOperator.newEqual(arg1, arg2);
+			case "%" -> TwoArgOperator.newModulo(arg1, arg2);
 			default -> throw new Error("Invalid operand");
 		};
 		Expression result = new Assignment(assignee, op, false);

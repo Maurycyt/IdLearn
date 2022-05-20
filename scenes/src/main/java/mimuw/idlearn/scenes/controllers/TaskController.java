@@ -16,6 +16,7 @@ import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.exceptions.*;
+import mimuw.idlearn.idlang.logic.keywords.SetArray;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
@@ -179,7 +180,10 @@ public class TaskController extends GenericController {
                 new CodeBlockSpawner(codeBox, Assign::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, Operation::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, IfElse::new, dummyDragPane),
-                new CodeBlockSpawner(codeBox, WhileBlock::new, dummyDragPane)
+                new CodeBlockSpawner(codeBox, WhileBlock::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, NewArray::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, Set::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, Get::new, dummyDragPane)
         ));
     }
 }
