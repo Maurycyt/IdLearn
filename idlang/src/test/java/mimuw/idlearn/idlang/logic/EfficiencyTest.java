@@ -1,5 +1,6 @@
 package mimuw.idlearn.idlang.logic;
 
+import mimuw.idlearn.idlang.logic.base.Constant;
 import mimuw.idlearn.idlang.logic.base.TimeCounter;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.base.Variable;
@@ -19,13 +20,13 @@ public class EfficiencyTest {
 		final int N = (int)(TimeCounter.MAX_TIME / 5);
 		Scope scope = new Scope();
 
-		Variable<Integer> i = new Variable<>("i", scope, N);
-		Value<Integer> zero = new Value<>(0);
+		Variable i = new Variable("i", scope, N);
+		Constant zero = new Constant(0);
 
 		var whileCond = TwoArgOperator.newGreaterEqual(i, zero);
 		var whileBlock = new Block(
-						new Assignment<>("i",
-										TwoArgOperator.newSubtract(i, new Value<>(1)),
+						new Assignment("i",
+										TwoArgOperator.newSubtract(i, new Constant(1)),
 										false
 						)
 		);

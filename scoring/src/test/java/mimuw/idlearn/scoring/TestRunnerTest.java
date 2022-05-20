@@ -21,10 +21,10 @@ public class TestRunnerTest {
 		ProblemPackage pack = PackageManager.getProblemPackage("Addition");
 		assertEquals(pack.getTitle(), "Addition");
 
-		Expression<Void> solution = new Block(
-				new InputHandler(new Variable<>("x"), new Variable<>("y")),
-				new Assignment<>("x", TwoArgOperator.newAdd(new Variable<>("x"), new Variable<>("y")), false),
-				new OutputHandler(new Variable<>("x"))
+		Expression solution = new Block(
+				new InputHandler(new Variable(Type.Integer, "x"), new Variable(Type.Integer, "y")),
+				new Assignment("x", TwoArgOperator.newAdd(new Variable(Type.Integer, "x"), new Variable(Type.Integer, "y")), false),
+				new OutputHandler(new Variable(Type.Integer, "x"))
 		);
 
 		TestRunner testRunner = new TestRunner(pack, solution);
@@ -39,8 +39,8 @@ public class TestRunnerTest {
 
 		assertEquals(4, result, 0.1);
 
-		Expression<Void> badSolution = new Block(
-				new OutputHandler(new Value<>(0))
+		Expression badSolution = new Block(
+				new OutputHandler(new Constant(0))
 		);
 
 		testRunner = new TestRunner(pack, badSolution);

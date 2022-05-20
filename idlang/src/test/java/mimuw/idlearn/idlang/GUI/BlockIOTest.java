@@ -51,7 +51,7 @@ public class BlockIOTest {
 			codeBox.addChild(0, r3);
 
 			try {
-				Expression<Void> program = codeBox.compile();
+				Expression program = codeBox.compile();
 				Scope scope = new Scope();
 				program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 				fail();
@@ -91,7 +91,7 @@ public class BlockIOTest {
 			codeBox.addChild(0, r2);
 			codeBox.addChild(0, r1);
 
-			Expression<Void> program = codeBox.compile();
+			Expression program = codeBox.compile();
 			Scope scope = new Scope();
 			program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 			assertTrue(pkg.checkTest(123));

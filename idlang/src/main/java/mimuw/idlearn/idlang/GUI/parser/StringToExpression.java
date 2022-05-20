@@ -1,8 +1,6 @@
 package mimuw.idlearn.idlang.GUI.parser;
 
-import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.Value;
-import mimuw.idlearn.idlang.logic.base.Variable;
+import mimuw.idlearn.idlang.logic.base.*;
 
 public class StringToExpression {
 	/**
@@ -11,12 +9,12 @@ public class StringToExpression {
 	 * @param text The string
 	 * @return Equivalent expression
 	 */
-	public static Expression<Integer> parse(String text) {
+	public static Expression parse(String text) {
 		try {
 			int number = Integer.parseInt(text);
-			return new Value<>(number);
+			return new Constant(new Value(Type.Integer, number));
 		} catch (NumberFormatException e) {
-			return new Variable<>(text);
+			return new Variable(Type.Integer, text);
 		}
 	}
 }

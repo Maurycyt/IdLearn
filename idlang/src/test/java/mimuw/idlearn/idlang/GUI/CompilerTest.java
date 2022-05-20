@@ -55,10 +55,10 @@ public class CompilerTest {
 		segment.addChild(0, assigny);
 		segment.addChild(0, assignx);
 
-		Expression<Void> exp = segment.convert();
+		Expression exp = segment.convert();
 		Scope scope = new Scope();
 		exp.evaluate(scope, new TimeCounter(), null, null);
-		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").getValue());
+		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").value);
 	}
 
 	@Test
@@ -128,7 +128,7 @@ public class CompilerTest {
 		segment.addChild(0, ready);
 		segment.addChild(0, readx);
 
-		Expression<Void> exp = segment.convert();
+		Expression exp = segment.convert();
 
 		pkg.prepareTest(123);
 

@@ -85,7 +85,7 @@ public class TaskController extends GenericController {
     }
 
     private void submitSolution(CodeBox codeBox) {
-        Expression<Void> exp = codeBox.compile();
+        Expression exp = codeBox.compile();
         Alert alert = null;
         try {
             final boolean awardPoints = !PointsGiver.getCompletedTasks().contains(pkg.getTitle());

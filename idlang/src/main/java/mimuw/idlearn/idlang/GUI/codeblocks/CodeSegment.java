@@ -109,7 +109,7 @@ public class CodeSegment extends VBox {
 	 * @return Equivalent expression
 	 */
 	public Block convert() {
-		ArrayList<Expression<?>> expressions = new ArrayList<>();
+		ArrayList<Expression> expressions = new ArrayList<>();
 		for (Node child : this.getChildren()) {
 			CodeBlock currentBlock = (CodeBlock) child;
 			expressions.add(currentBlock.convert());

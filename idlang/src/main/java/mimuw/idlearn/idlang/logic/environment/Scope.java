@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Scope {
-	private final Map<String, Value<?>> variables;
+	private final Map<String, Value> variables;
 	private final Scope parentScope;
 
 	public Scope(Scope parentScope) {
@@ -25,19 +25,11 @@ public class Scope {
 		return parentScope == null;
 	}
 
-	public Scope getParentScope() {
-		return parentScope;
-	}
-
-	public boolean containsVariable(String name) {
-		return variables.containsKey(name);
-	}
-
-	public <T> Value<T> getVariable(String name) throws SimulationException {
+	public Value getVariable(String name) throws SimulationException {
 		Scope scope = getOriginScope(name);
 		if (scope == null)
 			throw new UndefinedVariableException(name);
-		return (Value<T>) scope.variables.get(name);
+		return scope.variables.get(name);
 	}
 
 	public Scope getOriginScope(String name) {
@@ -51,11 +43,7 @@ public class Scope {
 		return variables.containsKey(name) ? this : null;
 	}
 
-	public void add(String name, Value<?> value) {
+	public void add(String name, Value value) {
 		variables.put(name, value);
-	}
-
-	public void clear() {
-		variables.clear();
 	}
 }

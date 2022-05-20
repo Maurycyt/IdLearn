@@ -4,7 +4,6 @@ module mimuw.idlearn.idlang {
 	requires mimuw.idlearn.packages;
 
 	exports mimuw.idlearn.idlang.logic.base;
-	exports mimuw.idlearn.idlang.logic.conversion;
 	exports mimuw.idlearn.idlang.logic.environment;
 	exports mimuw.idlearn.idlang.logic.exceptions;
 	exports mimuw.idlearn.idlang.logic.keywords;

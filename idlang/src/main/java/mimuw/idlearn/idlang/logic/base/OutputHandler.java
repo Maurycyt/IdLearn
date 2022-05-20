@@ -9,29 +9,31 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Scanner;
 
-public class OutputHandler implements Expression<Void> {
-	private final static String separator = " ";
-	private Expression<?>[] values;
+import static mimuw.idlearn.idlang.logic.base.Type.Null;
 
-	public OutputHandler(Expression<?>... values) {
+public class OutputHandler extends Expression {
+	private final static String separator = " ";
+	private Expression[] values;
+
+	public OutputHandler(Expression... values) {
 		this.values = values;
 	}
 
-	public void takeValues(Expression<?>... variables) {
-		this.values = variables;
-	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
-		try {
-			for (var v : values) {
+	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+
+		for (var value : values) {
+
+			try {
 				counter.addTime(delay);
-				outputWriter.write(separator + v.evaluate(scope, counter, inputScanner, outputWriter).getValue());
+				outputWriter.write(separator + value.evaluate(scope, counter, inputScanner, outputWriter));
+
+				outputWriter.flush();
+			} catch (IOException e) {
+				throw new RuntimeException(e); // TODO: clean-up
 			}
-			outputWriter.flush();
-		} catch (IOException e) {
-			throw new RuntimeException(e); // TODO: clean-up
 		}
-		return new Value<>(null);
+		return new Value(Null, null);
 	}
 }

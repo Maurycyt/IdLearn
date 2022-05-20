@@ -20,11 +20,11 @@ import java.util.concurrent.Semaphore;
  */
 public class TestRunner {
 	private final ProblemPackage pack;
-	private final Expression<Void> solution;
+	private final Expression solution;
 	private final ArrayList<Integer> testData;
 	private static final Semaphore mutex = new Semaphore(1);
 
-	public TestRunner(ProblemPackage pack, Expression<Void> solution) {
+	public TestRunner(ProblemPackage pack, Expression solution) {
 		this.pack = pack;
 		this.solution = solution;
 		this.testData = pack.getTestData();

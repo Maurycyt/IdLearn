@@ -3,13 +3,13 @@ package mimuw.idlearn.idlang.GUI.codeblocks.blocktypes;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.keywords.If;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.Variable;
-import mimuw.idlearn.idlang.logic.conversion.IntToBool;
 
 public class IfElse extends CodeBlock {
 
@@ -120,10 +120,10 @@ public class IfElse extends CodeBlock {
 	 * @return An equivalent expression
 	 */
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		Block ifBody = ifSegment.convert();
 		Block elseBody = elseSegment.convert();
-		Expression<Boolean> condition = new IntToBool(new Variable<>(ifHead.getCond()));
+		Expression condition = new Variable(Type.Integer, ifHead.getCond());
 		return new If(condition, ifBody, elseBody);
 	}
 

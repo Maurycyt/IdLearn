@@ -17,9 +17,9 @@ public class Write extends CodeBlock {
 	ProblemPackage pkg;
 
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		String name = varName.getText();
-		Expression<Integer> val = StringToExpression.parse(name);
+		Expression val = StringToExpression.parse(name);
 		return new OutputHandler(val);
 	}
 

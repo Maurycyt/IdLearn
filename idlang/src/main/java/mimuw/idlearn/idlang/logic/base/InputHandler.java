@@ -8,27 +8,37 @@ import mimuw.idlearn.packages.ProblemPackage;
 import java.io.Writer;
 import java.util.Scanner;
 
-public class InputHandler implements Expression<Void> {
-	private Variable<?>[] variables;
+import static mimuw.idlearn.idlang.logic.base.Type.Null;
 
-	public InputHandler(Variable<?>... variables) {
+public class InputHandler extends Expression {
+	private Variable[] variables;
+
+	public InputHandler(Variable... variables) {
 		this.variables = variables;
 	}
 
-	public void takeVariables(Variable<?>... variables) {
-		this.variables = variables;
-	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
-		for (var v : variables) {
+	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+
+		Object value;
+		for (var variable : variables) {
 			counter.addTime(delay);
-			if (!inputScanner.hasNextInt()) {
-				throw new EndOfInputException();
+
+			switch (variable.getType()) {
+				case Integer:
+					if (!inputScanner.hasNextInt()) {
+						throw new EndOfInputException();
+					}
+					value = inputScanner.nextInt();
+					break;
+				default:
+					throw new Error("Impossible data type - backend somehow allows parsing something imparsable");
 			}
-			int value = inputScanner.nextInt();
-			scope.add(v.getName(), new Value<>(value));
+
+			scope.add(variable.getName(), new Value(Type.Integer, value));
 		}
-		return new Value<>(null);
+
+		return new Value(Null, null);
 	}
 }

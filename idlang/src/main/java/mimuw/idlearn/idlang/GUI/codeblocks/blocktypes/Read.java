@@ -8,6 +8,7 @@ import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.ResizableTextField;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.InputHandler;
+import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Variable;
 import mimuw.idlearn.packages.ProblemPackage;
 
@@ -17,9 +18,9 @@ public class Read extends CodeBlock {
 	ProblemPackage pkg;
 
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		String name = varName.getText();
-		return new InputHandler(new Variable<Integer>(name));
+		return new InputHandler(new Variable(Type.Integer, name));
 	}
 
 	/**

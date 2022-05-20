@@ -1,34 +1,49 @@
 package mimuw.idlearn.idlang.logic.base;
 
 import mimuw.idlearn.idlang.logic.environment.Scope;
+import mimuw.idlearn.idlang.logic.exceptions.BadTypeException;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
 import java.io.Writer;
 import java.util.Scanner;
 
-public class Variable<T> implements Expression<T> {
+public class Variable extends Expression {
 	private final String name;
 
-	public Variable(String name) {
+
+	public Variable(Type type, String name) {
 		this.name = name;
+		this.type = type;
 	}
 
-	public Variable(String name, Scope originScope) {
+	public Variable(Type type, String name, Scope originScope) {
 		this.name = name;
-		originScope.add(name, new Value<>(0));
+		this.type = type;
+		originScope.add(name, new Value(type, 0));
 	}
 
-	public Variable(String name, Scope originScope, T initialValue) {
+	public Variable(String name, Scope originScope, Value initialValue) {
 		this.name = name;
-		originScope.add(name, new Value<>(initialValue));
+		this.type = initialValue.type;
+		originScope.add(name, new Value(initialValue.type, initialValue.value));
+	}
+	public Variable(String name, Scope originScope, int initialValue) {
+		this.name = name;
+		this.type = Type.Integer;
+		originScope.add(name, new Value(this.type, initialValue));
 	}
 
 	public String getName() {
 		return name;
 	}
+	public Type getType() {return type;}
 
 	@Override
-	public Value<T> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
-		return scope.getVariable(name);
+	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+		Value value = scope.getVariable(name);
+		if (value.type != this.type) {
+			throw new BadTypeException(this.type, value.type, this.name);
+		}
+		return value;
 	}
 }
