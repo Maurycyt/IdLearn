@@ -53,11 +53,12 @@ public class BlockIOTest {
 			try {
 				Expression<Void> program = codeBox.compile();
 				Scope scope = new Scope();
-				program.evaluate(scope, new TimeCounter());
+				program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 				fail();
 			} catch (Exception e) {
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
@@ -92,9 +93,10 @@ public class BlockIOTest {
 
 			Expression<Void> program = codeBox.compile();
 			Scope scope = new Scope();
-			program.evaluate(scope, new TimeCounter());
-			assertTrue(pkg.checkTest());
+			program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
+			assertTrue(pkg.checkTest(123));
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail();
 		}
 	}

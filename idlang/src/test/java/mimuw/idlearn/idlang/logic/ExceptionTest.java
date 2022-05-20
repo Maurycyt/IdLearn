@@ -41,7 +41,7 @@ public class ExceptionTest {
 						new While(whileCond, whileBlock)
 		);
 
-		assertThrows(TimeoutException.class, () -> outerBlock.evaluate(scope, new TimeCounter()));
+		assertThrows(TimeoutException.class, () -> outerBlock.evaluate(scope, new TimeCounter(), null, null));
 	}
 
 	@Test
@@ -53,11 +53,11 @@ public class ExceptionTest {
 						false
 		);
 
-		assertThrows(UndefinedVariableException.class, () -> assignment.evaluate(scope, new TimeCounter()));
+		assertThrows(UndefinedVariableException.class, () -> assignment.evaluate(scope, new TimeCounter(), null, null));
 	}
 
 	@Test
-	public void testEndOfInput() throws SimulationException {
+	public void testEndOfInput() {
 		try {
 			try {
 				PackageManager.reloadProblemPackages();
@@ -73,10 +73,15 @@ public class ExceptionTest {
 			Variable<Integer> x = new Variable<>("x");
 			Variable<Integer> y = new Variable<>("y");
 			Variable<Integer> z = new Variable<>("z");
-			InputHandler inputHandler = new InputHandler(pkg);
+			InputHandler inputHandler = new InputHandler();
 
 			inputHandler.takeVariables(x, y, z);
-			assertThrows(EndOfInputException.class, () -> inputHandler.evaluate(scope, new TimeCounter()));
+			assertThrows(EndOfInputException.class, () -> inputHandler.evaluate(
+					scope,
+					new TimeCounter(),
+					pkg.getTestInputScanner(123),
+					pkg.getTestOutputWriter(123)
+			));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

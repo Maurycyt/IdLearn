@@ -5,14 +5,13 @@ import mimuw.idlearn.idlang.logic.exceptions.EndOfInputException;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.packages.ProblemPackage;
 
+import java.io.Writer;
 import java.util.Scanner;
 
 public class InputHandler implements Expression<Void> {
-	private final ProblemPackage pkg;
 	private Variable<?>[] variables;
 
-	public InputHandler(ProblemPackage pkg, Variable<?>... variables) {
-		this.pkg = pkg;
+	public InputHandler(Variable<?>... variables) {
 		this.variables = variables;
 	}
 
@@ -21,14 +20,13 @@ public class InputHandler implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		Scanner scanner = pkg.getTestInputScanner();
+	public Value<Void> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		for (var v : variables) {
 			counter.addTime(delay);
-			if (!scanner.hasNextInt()) {
+			if (!inputScanner.hasNextInt()) {
 				throw new EndOfInputException();
 			}
-			int value = scanner.nextInt();
+			int value = inputScanner.nextInt();
 			scope.add(v.getName(), new Value<>(value));
 		}
 		return new Value<>(null);

@@ -4,10 +4,15 @@ import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.TimeCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
+import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
+import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.packages.ProblemPackage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.Semaphore;
 
 /**
  * Runs multiple tests of a package on a single solution.
@@ -17,6 +22,7 @@ public class TestRunner {
 	private final ProblemPackage pack;
 	private final Expression<Void> solution;
 	private final ArrayList<Integer> testData;
+	private static final Semaphore mutex = new Semaphore(1);
 
 	public TestRunner(ProblemPackage pack, Expression<Void> solution) {
 		this.pack = pack;
@@ -24,22 +30,55 @@ public class TestRunner {
 		this.testData = pack.getTestData();
 	}
 
-	public double aggregateTestTimes() throws SimulationException, WrongAnswerException, IOException {
+	public double aggregateTestTimes() throws SimulationException, IOException {
 		double result = 1.0;
 
-		TimeCounter timeCounter = new TimeCounter();
-		for (Integer TestID : testData) {
-			pack.prepareTest(TestID);
-			timeCounter.clear();
-			solution.evaluate(new Scope(), timeCounter);
-			if (!pack.checkTest()) {
-				throw new WrongAnswerException();
-			}
-			result *= timeCounter.getTime();
+		try {
+			mutex.acquire();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			e.printStackTrace();
+			throw new TimeoutException(TimeCounter.MAX_TIME);
 		}
 
-		double aggregateTime = Math.pow(result, 1.0 / testData.size());
+		// Prepare futures which run tests and propagate exceptions.
+		ArrayList<CompletableFuture<Double>> futures = new ArrayList<>();
+		for (Integer TestID : testData) {
+			futures.add(CompletableFuture.supplyAsync(() -> {
+				pack.prepareTest(TestID);
+				TimeCounter timeCounter = new TimeCounter();
+				try {
+					solution.evaluate(new Scope(), timeCounter, pack.getTestInputScanner(TestID), pack.getTestOutputWriter(TestID));
+					if (!pack.checkTest(TestID)) {
+						throw new CompletionException(new WrongAnswerException());
+					}
+				} catch (SimulationException | IOException e) {
+					throw new CompletionException(e);
+				}
+				return timeCounter.getTime();
+			}));
+		}
 
-		return aggregateTime;
+		// Join all the futures, catch exceptions and aggregate test times.
+		for (CompletableFuture<Double> future : futures) {
+			try {
+				future.join();
+				result *= future.getNow(0.0);
+			} catch (CompletionException e) {
+				try {
+					throw e.getCause();
+				} catch (SimulationException | IOException possible) {
+					mutex.release();
+					throw possible;
+				} catch (Throwable impossible) {
+					throw new AssertionError(impossible);
+				}
+			}
+		}
+
+		mutex.release();
+
+		// Return the geometric mean of the collected times.
+		return Math.pow(result, 1.0 / testData.size());
 	}
 }

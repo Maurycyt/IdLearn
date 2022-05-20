@@ -34,7 +34,7 @@ public class EfficiencyTest {
 		);
 
 		long start = System.currentTimeMillis();
-		outerBlock.evaluate(scope, new TimeCounter());
+		outerBlock.evaluate(scope, new TimeCounter(), null, null);
 		long end = System.currentTimeMillis();
 
 		System.out.println(3 * N + " operations performed in " + (end - start) + " milliseconds.");

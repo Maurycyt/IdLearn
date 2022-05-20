@@ -6,6 +6,9 @@ import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
+import java.io.Writer;
+import java.util.Scanner;
+
 public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	protected Expression<A> arg1;
 	protected Expression<A> arg2;
@@ -18,9 +21,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Integer> newAdd(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Integer> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Integer> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() + arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() + arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -28,9 +31,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Integer> newSubtract(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Integer> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Integer> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() - arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() - arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -38,9 +41,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Integer> newMultiply(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Integer> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Integer> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() * arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() * arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -48,9 +51,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Integer> newDivide(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Integer> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Integer> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() / arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() / arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -59,9 +62,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Integer> newModulo(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Integer> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Integer> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() % arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() % arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -69,9 +72,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Boolean, Boolean> newOr(Expression<Boolean> arg1, Expression<Boolean> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() || arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() || arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -79,9 +82,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Boolean, Boolean> newAnd(Expression<Boolean> arg1, Expression<Boolean> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() && arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() && arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -89,9 +92,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Boolean> newLess(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() < arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() < arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -99,9 +102,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Boolean> newLessEqual(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() <= arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() <= arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -109,9 +112,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Boolean> newGreater(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() > arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() > arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -119,9 +122,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Boolean> newGreaterEqual(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue() >= arg2.evaluate(scope, counter).getValue());
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue() >= arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue());
 			}
 		};
 	}
@@ -129,9 +132,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Boolean> newEqual(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(arg1.evaluate(scope, counter).getValue().equals(arg2.evaluate(scope, counter).getValue()));
+				return new Value<>(arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue().equals(arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue()));
 			}
 		};
 	}
@@ -139,9 +142,9 @@ public abstract class TwoArgOperator<A, R> implements Expression<R> {
 	public static TwoArgOperator<Integer, Boolean> newNotEqual(Expression<Integer> arg1, Expression<Integer> arg2) {
 		return new TwoArgOperator<>(arg1, arg2) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value<Boolean> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(!arg1.evaluate(scope, counter).getValue().equals(arg2.evaluate(scope, counter).getValue()));
+				return new Value<>(!arg1.evaluate(scope, counter, inputScanner, outputWriter).getValue().equals(arg2.evaluate(scope, counter, inputScanner, outputWriter).getValue()));
 			}
 		};
 	}

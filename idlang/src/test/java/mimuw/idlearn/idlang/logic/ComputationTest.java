@@ -54,7 +54,7 @@ public class ComputationTest {
 		}
 
 		public void checkResult(Scope scope) throws SimulationException {
-			assertEquals(expected, op.evaluate(scope, new TimeCounter()).getValue());
+			assertEquals(expected, op.evaluate(scope, new TimeCounter(), null, null).getValue());
 		}
 	}
 
@@ -234,7 +234,7 @@ public class ComputationTest {
 
 						new Assignment<>("b1", new BoolToInt(new Value<>(false)), false),
 						new Assignment<>("b2", new BoolToInt(new Value<>(true)), false)
-		).evaluate(scope, new TimeCounter());
+		).evaluate(scope, new TimeCounter(), null, null);
 
 		assertEquals(false, scope.getVariable("a1").getValue());
 		assertEquals(true, scope.getVariable("a2").getValue());

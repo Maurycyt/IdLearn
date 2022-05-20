@@ -67,26 +67,27 @@ public class ProblemPackageSystemTest {
 						Output:
 						42""");
 
-		pack.prepareTest(123);
-		Scanner scanner = pack.getTestInputScanner();
+		int id = 123;
+		pack.prepareTest(id);
+		Scanner scanner = pack.getTestInputScanner(id);
 		int result = scanner.nextInt() + scanner.nextInt();
 		assertFalse(scanner.hasNext());
 
-		FileWriter writer = pack.getTestOutputWriter();
+		FileWriter writer = pack.getTestOutputWriter(id);
 		writer.write(String.valueOf(result));
 		writer.flush();
-		assertTrue(pack.checkTest());
+		assertTrue(pack.checkTest(id));
 
 		// repeat to test creation of new scanners and writers.
-		pack.prepareTest(123);
-		scanner = pack.getTestInputScanner();
+		pack.prepareTest(id);
+		scanner = pack.getTestInputScanner(id);
 		result = scanner.nextInt() + scanner.nextInt();
 		assertFalse(scanner.hasNext());
 
-		writer = pack.getTestOutputWriter();
+		writer = pack.getTestOutputWriter(id);
 		writer.write(String.valueOf(result));
 		writer.flush();
-		assertTrue(pack.checkTest());
+		assertTrue(pack.checkTest(id));
 
 		// clean the package
 		pack.clean();

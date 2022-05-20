@@ -21,7 +21,7 @@ import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
-import mimuw.idlearn.scoring.WrongAnswerException;
+import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -6,6 +6,9 @@ import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
+import java.io.Writer;
+import java.util.Scanner;
+
 public class If implements Expression<Void> {
 	private final Expression<Boolean> condition;
 	private final Block onTrue;
@@ -24,14 +27,14 @@ public class If implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		Boolean condEvaluation = condition.evaluate(scope, counter).getValue();
+	public Value<Void> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+		Boolean condEvaluation = condition.evaluate(scope, counter, inputScanner, outputWriter).getValue();
 		counter.addTime(delay);
 
 		if (condEvaluation)
-			return onTrue.evaluate(new Scope(scope), counter);
+			return onTrue.evaluate(new Scope(scope), counter, inputScanner, outputWriter);
 		if (onFalse != null)
-			return onFalse.evaluate(new Scope(scope), counter);
+			return onFalse.evaluate(new Scope(scope), counter, inputScanner, outputWriter);
 		return new Value<>(null);
 	}
 }

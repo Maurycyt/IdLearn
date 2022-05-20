@@ -4,10 +4,7 @@ import mimuw.idlearn.utils.ShellExecutor;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -17,23 +14,27 @@ import java.util.Scanner;
  * Represents a single algorithmic problem package.
  */
 public class ProblemPackage {
-	/**
-	 * Represents an example file pair config.
- 	 */
-	public static class Example {
-		public String input;
-		public String output;
-	}
 
 	/**
 	 * Represents a configuration of a package given in the config file.
 	 */
 	public static class Config {
+		/**
+		 * Represents an example file pair config.
+		 */
+		public static class Example {
+			public String input;
+			public String output;
+		}
+
+		/**
+		 * Represents the difficulty of a problem.
+		 */
 		public enum Difficulty {
 			Easy,
 			Medium,
 			Hard
-		};
+		}
 
 		public String title;
 		public Difficulty difficulty;
@@ -53,16 +54,6 @@ public class ProblemPackage {
 	 * The parsed config.yml file.
 	 */
 	private final Config config;
-
-	/**
-	 * Scanner of the input file.
-	 */
-	private Scanner inputScanner;
-
-	/**
-	 * Writer to the output file.
-	 */
-	private FileWriter outputWriter;
 
 	/**
 	 * Interprets the given File as a directory containing one problem package.
@@ -111,7 +102,7 @@ public class ProblemPackage {
 				} else {
 					sb.append("\n\nExample:");
 				}
-				for (Example example : config.examples) {
+				for (Config.Example example : config.examples) {
 					sb.append("\n\nInput:\n");
 					contents = Files.readString(Path.of(packageDirectory.toString(), example.input));
 					sb.append(contents);
@@ -136,7 +127,7 @@ public class ProblemPackage {
 		result = new File(packageDirectory, "makefile").exists();
 		result &= new File(packageDirectory, "config.yml").exists();
 		result &= new File(packageDirectory, config.statement).exists();
-		for (Example example : config.examples) {
+		for (Config.Example example : config.examples) {
 			result &= new File(packageDirectory, example.input).exists();
 			result &= new File(packageDirectory, example.output).exists();
 		}
@@ -156,38 +147,14 @@ public class ProblemPackage {
 	 * @param id The number of the test to be generated.
 	 */
 	public void generateTestInput(int id) {
-		if (inputScanner != null) {
-			inputScanner.close();
-			inputScanner = null;
-		}
-		if (outputWriter != null) {
-			try {
-				outputWriter.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		ShellExecutor.execute("make input -s TestID=" + id, packageDirectory);
-		try {
-			resetIO();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Gets a scanner to the most recently generated test input file.
-	 * @return The scanner to the input file.
-	 */
-	public Scanner getTestInputScanner() {
-		return inputScanner;
+		ShellExecutor.execute("make input -s TEST_ID=" + id, packageDirectory);
 	}
 
 	/**
 	 * Generates a test model output file.
 	 */
-	public void generateTestModelOutput() {
-		ShellExecutor.execute("make modelOut -s", packageDirectory);
+	public void generateTestModelOutput(int id) {
+		ShellExecutor.execute("make modelOut -s TEST_ID=" + id, packageDirectory);
 	}
 
 	/**
@@ -198,15 +165,7 @@ public class ProblemPackage {
 	public void prepareTest(int id) {
 		build();
 		generateTestInput(id);
-		generateTestModelOutput();
-	}
-
-	/**
-	 * Gets a writer to the user output file.
-	 * @return The writer to the user output file.
-	 */
-	public FileWriter getTestOutputWriter() {
-		return outputWriter;
+		generateTestModelOutput(id);
 	}
 
 	/**
@@ -214,9 +173,27 @@ public class ProblemPackage {
 	 * Runs the checker on the input file, user output file and model output file.
 	 * @return True if and only if the user output is correct.
 	 */
-	public boolean checkTest() {
-		String checkerOutput = ShellExecutor.execute("make check -s", packageDirectory);
+	public boolean checkTest(int id) {
+		String checkerOutput = ShellExecutor.execute("make check -s TEST_ID=" + id, packageDirectory);
 		return checkerOutput.equals("OK\n");
+	}
+
+	/**
+	 * Gets a scanner to the most recently generated test input file.
+	 * @param id The ID of the test.
+	 * @return The scanner to the input file.
+	 */
+	public Scanner getTestInputScanner(int id) throws FileNotFoundException {
+		return new Scanner(new File(packageDirectory, config.testInput + id));
+	}
+
+	/**
+	 * Gets a writer to the user output file.
+	 * @param id The ID of the test.
+	 * @return The writer to the user output file.
+	 */
+	public FileWriter getTestOutputWriter(int id) throws IOException {
+		return new FileWriter(new File(packageDirectory, config.userOutput + id));
 	}
 
 	/**
@@ -224,28 +201,6 @@ public class ProblemPackage {
 	 */
 	public void clean() {
 		ShellExecutor.execute("make clean -s", packageDirectory);
-	}
-
-	/**
-	 * Resets the file scanner by creating a new one.
-	 */
-	public void resetScanner() throws FileNotFoundException {
-		inputScanner = new Scanner(new File(packageDirectory, config.testInput));
-	}
-
-	/**
-	 * Resets the file writer by creating a new one.
-	 */
-	public void resetWriter() throws IOException {
-		outputWriter = new FileWriter(new File(packageDirectory, config.userOutput));
-	}
-
-	/**
-	 * Resets both the file scanner and writer.
-	 */
-	public void resetIO() throws IOException {
-		resetScanner();
-		resetWriter();
 	}
 
 	/**

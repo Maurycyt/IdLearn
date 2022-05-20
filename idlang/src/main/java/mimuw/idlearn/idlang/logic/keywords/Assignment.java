@@ -6,6 +6,9 @@ import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
+import java.io.Writer;
+import java.util.Scanner;
+
 public class Assignment<T> implements Expression<Void> {
 	private final String name;
 	private final Expression<T> expression;
@@ -24,8 +27,8 @@ public class Assignment<T> implements Expression<Void> {
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		Value<T> eval = expression.evaluate(scope, counter);
+	public Value<Void> evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+		Value<T> eval = expression.evaluate(scope, counter, inputScanner, outputWriter);
 
 		Scope origin = scope.getOriginScope(name);
 

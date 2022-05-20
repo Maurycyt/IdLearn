@@ -12,6 +12,8 @@ import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CompilerTest {
@@ -55,12 +57,12 @@ public class CompilerTest {
 
 		Expression<Void> exp = segment.convert();
 		Scope scope = new Scope();
-		exp.evaluate(scope, new TimeCounter());
+		exp.evaluate(scope, new TimeCounter(), null, null);
 		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").getValue());
 	}
 
 	@Test
-	public void testSlowAddition() {
+	public void testSlowAddition() throws IOException {
 		preparePlatform();
 
 		final ProblemPackage pkg;
@@ -131,12 +133,12 @@ public class CompilerTest {
 		pkg.prepareTest(123);
 
 		try {
-			exp.evaluate(new Scope(), new TimeCounter());
+			exp.evaluate(new Scope(), new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 		} catch (SimulationException e) {
 			e.printStackTrace();
 			fail();
 		}
 
-		assertTrue(pkg.checkTest());
+		assertTrue(pkg.checkTest(123));
 	}
 }
