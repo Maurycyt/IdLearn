@@ -68,6 +68,7 @@ public class TestRunner {
 				try {
 					throw e.getCause();
 				} catch (SimulationException | IOException possible) {
+					mutex.release();
 					throw possible;
 				} catch (Throwable impossible) {
 					throw new AssertionError(impossible);
