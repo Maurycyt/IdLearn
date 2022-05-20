@@ -136,7 +136,7 @@ public class ProblemPackage {
 	}
 
 	/**
-	 * Builds the required executables.
+	 * Builds the required executables for the package as a whole.
 	 */
 	public void build() {
 		ShellExecutor.execute("make all -s", packageDirectory);
@@ -158,12 +158,11 @@ public class ProblemPackage {
 	}
 
 	/**
-	 * Prepares all there is to prepare in the package.
-	 * Builds all executables, generates input and model output.
+	 * Prepares a single test in the package
+	 * Generates input and model output.
 	 * @param id The ID of the test.
 	 */
 	public void prepareTest(int id) {
-		build();
 		generateTestInput(id);
 		generateTestModelOutput(id);
 	}
