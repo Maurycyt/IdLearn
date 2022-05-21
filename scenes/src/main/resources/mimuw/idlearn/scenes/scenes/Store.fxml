@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.StoreController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.StoreController">
     <center>
-        <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" stylesheets="@../style.css" BorderPane.alignment="CENTER">
+        <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="taskStoreBtn" mnemonicParsing="false" onAction="#addTaskStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Tasks">
+                <Button fx:id="taskStoreBtn" mnemonicParsing="false" onAction="#addTaskStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" text="Tasks">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -20,7 +20,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-                <Button fx:id="perkStoreBtn" layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#addPerkStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Perks">
+                <Button fx:id="perkStoreBtn" layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#addPerkStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" text="Perks">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +28,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="cosmeticsStoreBtn" layoutX="245.0" layoutY="185.0" mnemonicParsing="false" onAction="#addCosmeticsStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Cosmetics">
+            <Button fx:id="cosmeticsStoreBtn" layoutX="245.0" layoutY="185.0" mnemonicParsing="false" onAction="#addCosmeticsStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" text="Cosmetics">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,7 +40,7 @@
         </TilePane>
     </center>
     <bottom>
-        <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" BorderPane.alignment="CENTER">
+        <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" text="Back" BorderPane.alignment="CENTER">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
@@ -50,7 +50,7 @@
         </Button>
     </bottom>
     <top>
-        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
+        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" text="Points: 0" BorderPane.alignment="CENTER">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>

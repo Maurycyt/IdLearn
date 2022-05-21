@@ -64,9 +64,6 @@ public class ResourceHandler {
 		}
 		Scene scene = new Scene(loader.load());
 		Parent root = scene.getRoot();
-		if (url != Task) { // The Task scene's style is handled separately
-			root.getStylesheets().add(StyleSheet.toExternalForm());
-		}
 		scene.setRoot(new Group());
 		return root;
 	}
@@ -123,4 +120,7 @@ public class ResourceHandler {
 
 		return alert;
 	}
+
+	private static final String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+	public static String repeatLorem(int n) { return loremIpsum.repeat(Math.max(0, n)); }
 }

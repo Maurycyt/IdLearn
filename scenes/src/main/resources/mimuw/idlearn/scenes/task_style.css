@@ -1,0 +1,55 @@
+/* Load Anonymous Pro font family */
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_B.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_BI.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_I.ttf);
+}
+* {
+    -fx-font-family: "Anonymous Pro";
+}
+
+.codeBox {
+    -fx-padding: 5px 5px 5px 5px
+}
+
+.greenButton {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-text-alignment: center;
+
+    -fx-background-color: #00b167;
+    -fx-background-radius: 10px;
+
+    -fx-border-radius: 10px;
+
+    -fx-pref-width: 350;
+
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.greenButton:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
+}
+
+.borderedPane {
+    -fx-border-color: #00b167;
+    -fx-border-width: 4px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: #f2f2f5;
+}
+
+.blockSelectionHBox {
+    -fx-alignment: center;
+    -fx-spacing: 45px;
+    -fx-background-color: #f2f2f5;
+}

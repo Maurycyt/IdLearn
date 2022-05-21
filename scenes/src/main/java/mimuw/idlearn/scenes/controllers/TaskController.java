@@ -1,14 +1,17 @@
 package mimuw.idlearn.scenes.controllers;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
@@ -26,6 +29,7 @@ import mimuw.idlearn.scoring.WrongAnswerException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,12 +46,8 @@ public class TaskController extends GenericController {
         }
     }
 
-    // something for tests
-    private final static String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    private String loremGen(int n) {
-        return loremIpsum.repeat(Math.max(0, n));
-    }
-
+    @FXML
+    private StackPane statementStackPane;
     @FXML
     private ScrollPane statementScrollPane;
     @FXML
@@ -95,59 +95,76 @@ public class TaskController extends GenericController {
             if (awardPoints) {
                 PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
             }
-            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + time, ButtonType.OK);
+            DecimalFormat df = new DecimalFormat("####0.00");
+            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + df.format(time), ButtonType.OK);
             alert.setTitle("Success");
             alert.setHeaderText("Good job!");
         } catch (WrongAnswerException e) {
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
             alert.setHeaderText("Wrong output!");
-        } catch (SimulationException e){
-            if (e instanceof TimeoutException) {
-                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Think about how your solution's speed can be improved", ButtonType.OK);
-                alert.setHeaderText("Time out!");
-            } else if (e instanceof UndefinedVariableException) {
-                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Check your code for usages of: " + ((UndefinedVariableException) e).getVarName(), ButtonType.OK);
-                alert.setHeaderText("Attempting to use an undefined variable!");
-            } else if (e instanceof EndOfInputException) {
-                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Reduce your number of Read blocks to match the input's size", ButtonType.OK);
-                alert.setHeaderText("Trying to read too many variables!");
-            } else if (e instanceof MemoryException) {
-                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Think of how you can make your program more memory efficient", ButtonType.OK);
-                alert.setHeaderText("Ran out of memory!");
-            }
-        } catch (IOException e) {
+        } catch (TimeoutException e) {
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Think about how your solution's speed can be improved", ButtonType.OK);
+            alert.setHeaderText("Time out!");
+        } catch (UndefinedVariableException e) {
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Check your code for usages of: " + e.getVarName(), ButtonType.OK);
+            alert.setHeaderText("Attempting to use an undefined variable!");
+        } catch (EndOfInputException e) {
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Reduce your number of Read blocks to match the input's size", ButtonType.OK);
+            alert.setHeaderText("Trying to read too many variables!");
+        } catch (MemoryException e) {
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Think of how you can make your program more memory efficient", ButtonType.OK);
+            alert.setHeaderText("Ran out of memory!");
+        } catch (SimulationException | IOException e) {
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
-            alert.setHeaderText("An internal I/O error occurred!");
+            alert.setHeaderText("An " + (e instanceof IOException? "internal I/O" : "unexpected") + " error occurred!");
+            e.printStackTrace();
         } finally {
             assert alert != null;
             alert.show();
         }
     }
 
+    static Integer i = 0;
     /* Adds nice styling and connects task verification */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Statement field
-        statementText.setText(pkg.getStatement());
-        statementText.wrappingWidthProperty().bind(statementScrollPane.widthProperty());
+        statementText.setText(ResourceHandler.repeatLorem(42));
+        //statementText.setText(pkg.getStatement())
 
-        // these two lines are an attempt to fix the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
+        statementText.wrappingWidthProperty().bind(new ObservableValue<Double>() {
+            @Override
+            public void addListener(InvalidationListener invalidationListener) {
+                statementScrollPane.widthProperty().addListener(invalidationListener);
+            }
+            @Override
+            public void removeListener(InvalidationListener invalidationListener) {
+                statementScrollPane.widthProperty().removeListener(invalidationListener);
+            }
+            @Override
+            public void addListener(ChangeListener<? super Double> changeListener) {
+                statementScrollPane.widthProperty().addListener((ChangeListener<? super Number>) changeListener);
+            }
+            @Override
+            public void removeListener(ChangeListener<? super Double> changeListener) {
+                statementScrollPane.widthProperty().removeListener((ChangeListener<? super Number>) changeListener);
+            }
+            @Override
+            public Double getValue() {
+                return statementScrollPane.getWidth() - 45;
+            }
+        });
+
+        // these lines attempt to fix the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
         statementText.setOnMousePressed(Event::consume);
+        statementStackPane.setOnMousePressed(Event::consume);
         statementScrollPane.setOnMousePressed(Event::consume);
+        statementText.addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
 
         // Code box
         final CodeBox codeBox = new CodeBox();
-        codeBox.setStyle(
-                "-fx-border-color: #00b167;" +
-                "-fx-border-width: 4px;" +
-                "-fx-border-radius: 10px;" +
-                "-fx-background-radius: 10px;" +
-                "-fx-background-color: #f2f2f5;"
-        );
         codeBoxScrollPane.setContent(codeBox);
-        codeBoxScrollPane.setStyle(
-                "-fx-background-color: transparent;"
-        );
+        codeBox.getStyleClass().add("codeBox");
 
         // Submit button
         submitBtn.setOnAction(event -> submitSolution(codeBox));
@@ -159,13 +176,6 @@ public class TaskController extends GenericController {
         dummyDragPane.setVisible(true);
         dummyDragPane.managedProperty().set(false);
         dummyDragPane.toFront();
-
-        // Block selection HBox
-        blockSelectionHBox.setStyle(
-                "-fx-alignment: center; " +
-                "-fx-spacing: 45px;" +
-                "-fx-background-color: #f2f2f5;"
-        );
 
         // Block spawners
         List<Node> availableBlocks = blockSelectionHBox.getChildren();

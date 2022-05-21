@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.GameMenuController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.GameMenuController">
    <bottom>
-      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" text="Back" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -17,7 +17,7 @@
       </Button>
    </bottom>
    <top>
-      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" text="Points: 0" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -27,9 +27,9 @@
       </Button>
    </top>
    <center>
-      <VBox fx:id="menuCenterVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="menuCenterVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#addTaskSelectionScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Task Selection">
+            <Button mnemonicParsing="false" onAction="#addTaskSelectionScene" prefHeight="40.0" prefWidth="203.0" text="Task Selection">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -37,7 +37,7 @@
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addStoreScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Store" />
+            <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addStoreScene" prefHeight="40.0" prefWidth="203.0" text="Store" />
          </children>
       </VBox>
    </center>

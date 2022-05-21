@@ -1,0 +1,38 @@
+/* Scrollbars */
+.scroll-pane {
+    -fx-vbar-policy: always;
+}
+
+.pane {
+    -fx-background-color: #f2f2f5;
+    -fx-alignment: center;
+}
+
+.scroll-bar:horizontal,
+.scroll-bar:vertical{
+    /*
+    -fx-background-color: blue;
+    */
+    -fx-pref-width: 20px;
+}
+
+.increment-button,
+.decrement-button {
+    /*-fx-visibility: hidden;*/
+    -fx-background-color: transparent;
+    /*-fx-background-color: green;
+    -fx-border-color: orange;*/
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: purple;
+    -fx-border-color: pink;
+    -fx-background-radius: 2px;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: brown;
+    -fx-background-radius: 5px;
+}
