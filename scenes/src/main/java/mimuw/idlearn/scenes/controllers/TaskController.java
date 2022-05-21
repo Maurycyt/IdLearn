@@ -19,12 +19,13 @@ import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.exceptions.*;
+import mimuw.idlearn.idlang.logic.keywords.SetArray;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
-import mimuw.idlearn.scoring.WrongAnswerException;
+import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -83,7 +84,7 @@ public class TaskController extends GenericController {
     }
 
     private void submitSolution(CodeBox codeBox) {
-        Expression<Void> exp = codeBox.compile();
+        Expression exp = codeBox.compile();
         Alert alert = null;
         try {
             final boolean awardPoints = !PointsGiver.getCompletedTasks().contains(pkg.getTitle());
@@ -185,7 +186,10 @@ public class TaskController extends GenericController {
                 new CodeBlockSpawner(codeBox, Assign::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, Operation::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, IfElse::new, dummyDragPane),
-                new CodeBlockSpawner(codeBox, WhileBlock::new, dummyDragPane)
+                new CodeBlockSpawner(codeBox, WhileBlock::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, NewArray::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, Set::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, Get::new, dummyDragPane)
         ));
     }
 }

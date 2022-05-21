@@ -92,7 +92,7 @@ public abstract class CodeBlock extends Group {
 	 *
 	 * @return Equivalent expression
 	 */
-	public Expression<Void> convert() {
+	public Expression convert() {
 		throw new Error("Inconvertible");
 	}
 

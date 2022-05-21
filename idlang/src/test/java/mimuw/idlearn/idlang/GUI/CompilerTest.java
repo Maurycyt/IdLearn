@@ -4,13 +4,15 @@ import javafx.application.Platform;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,14 +55,14 @@ public class CompilerTest {
 		segment.addChild(0, assigny);
 		segment.addChild(0, assignx);
 
-		Expression<Void> exp = segment.convert();
+		Expression exp = segment.convert();
 		Scope scope = new Scope();
-		exp.evaluate(scope, new TimeCounter());
-		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").getValue());
+		exp.evaluate(scope, new ResourceCounter(), null, null);
+		assertEquals((long)Math.pow(2, 10), scope.getVariable("x").value);
 	}
 
 	@Test
-	public void testSlowAddition() {
+	public void testSlowAddition() throws IOException {
 		preparePlatform();
 
 		final ProblemPackage pkg;
@@ -126,17 +128,82 @@ public class CompilerTest {
 		segment.addChild(0, ready);
 		segment.addChild(0, readx);
 
-		Expression<Void> exp = segment.convert();
+		Expression exp = segment.convert();
 
 		pkg.prepareTest(123);
 
 		try {
-			exp.evaluate(new Scope(), new TimeCounter());
+			exp.evaluate(new Scope(), new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 		} catch (SimulationException e) {
 			e.printStackTrace();
 			fail();
 		}
 
-		assertTrue(pkg.checkTest());
+		assertTrue(pkg.checkTest(123));
+	}
+
+	@Test
+	public void testAddingThroughArray() throws IOException {
+		preparePlatform();
+
+		final ProblemPackage pkg;
+		ProblemPackage tmpPkg = null;
+		try {
+			tmpPkg = PackageManager.getProblemPackage("Addition");
+		} catch (Exception e) {
+			fail();
+		}
+
+		pkg = tmpPkg;
+
+		CodeSegment segment = new CodeSegment();
+
+		Write writeResult = new Write(pkg);
+		writeResult.setEffectiveText("result");
+		segment.addChild(0, writeResult);
+
+		Operation addition = new Operation();
+		addition.setEffectiveText("result", "p", "q");
+		segment.addChild(0, addition);
+
+		Get getP = new Get();
+		Get getQ = new Get();
+		getP.setEffectiveText("p", "input", "0");
+		getQ.setEffectiveText("q", "input", "1");
+		segment.addChild(0, getQ);
+		segment.addChild(0, getP);
+
+		Set setX = new Set();
+		Set setY = new Set();
+		setX.setEffectiveText("input", "0", "x");
+		setY.setEffectiveText("input", "1", "y");
+		segment.addChild(0, setX);
+		segment.addChild(0, setY);
+
+		NewArray newArray = new NewArray();
+		newArray.setEffectiveText("input", "2");
+		segment.addChild(0, newArray);
+
+		Read readx = new Read(pkg);
+		readx.setEffectiveText("x");
+
+		Read ready = new Read(pkg);
+		ready.setEffectiveText("y");
+
+		segment.addChild(0, ready);
+		segment.addChild(0, readx);
+
+		Expression exp = segment.convert();
+
+		pkg.prepareTest(123);
+
+		try {
+			exp.evaluate(new Scope(), new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
+		} catch (SimulationException e) {
+			e.printStackTrace();
+			fail();
+		}
+
+		assertTrue(pkg.checkTest(123));
 	}
 }

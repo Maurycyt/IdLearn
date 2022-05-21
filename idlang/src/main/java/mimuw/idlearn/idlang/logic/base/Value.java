@@ -1,21 +1,30 @@
 package mimuw.idlearn.idlang.logic.base;
 
-import mimuw.idlearn.idlang.logic.environment.Scope;
-import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
+public class Value {
+	public Object value;
+	public Type type;
 
-public class Value<T> implements Expression<T> {
-	private final T value;
-
-	public Value(T value) {
+	public Value(Type type, Object value) {
+		this.type = type;
 		this.value = value;
+	}
+	public Value(Integer integer) {
+		this.type = Type.Long;
+		this.value = integer.longValue();
+	}
+	public Value(Long longValue) {
+		this.type = Type.Long;
+		this.value = longValue;
 	}
 
 	@Override
-	public Value<T> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		return this;
-	}
+	public String toString() {
+		switch (type) {
+			case Long -> {
+				return ((Long)value).toString();
+			}
+			default -> throw new AssertionError("Impossible data type - backend somehow allows writing something imparsable");
 
-	public T getValue() {
-		return value;
+		}
 	}
 }

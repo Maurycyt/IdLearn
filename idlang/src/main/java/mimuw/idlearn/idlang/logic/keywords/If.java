@@ -1,37 +1,47 @@
 package mimuw.idlearn.idlang.logic.keywords;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
+import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
-public class If implements Expression<Void> {
-	private final Expression<Boolean> condition;
+import java.io.Writer;
+import java.util.Scanner;
+
+import static mimuw.idlearn.idlang.logic.base.Type.Null;
+
+public class If extends Expression {
+	private final Expression condition;
 	private final Block onTrue;
 	private final Block onFalse;
 
-	public If(Expression<Boolean> condition, Block onTrue, Block onFalse) {
+	public If(Expression condition, Block onTrue, Block onFalse) {
+		condition.assertType(Type.Long);
+		this.type = Null;
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = onFalse;
 	}
 
-	public If(Expression<Boolean> condition, Block onTrue) {
+	public If(Expression condition, Block onTrue) {
+		condition.assertType(Type.Long);
+		this.type = Null;
 		this.condition = condition;
 		this.onTrue = onTrue;
 		this.onFalse = null;
 	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		Boolean condEvaluation = condition.evaluate(scope, counter).getValue();
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+		Value condEvaluation = condition.evaluate(scope, counter, inputScanner, outputWriter);
 		counter.addTime(delay);
 
-		if (condEvaluation)
-			return onTrue.evaluate(new Scope(scope), counter);
+		if ((Long)condEvaluation.value != 0)
+			return onTrue.evaluate(new Scope(scope), counter, inputScanner, outputWriter);
 		if (onFalse != null)
-			return onFalse.evaluate(new Scope(scope), counter);
-		return new Value<>(null);
+			return onFalse.evaluate(new Scope(scope), counter, inputScanner, outputWriter);
+		return new Value(Null, null);
 	}
 }

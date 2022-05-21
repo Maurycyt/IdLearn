@@ -3,34 +3,41 @@ package mimuw.idlearn.idlang.logic.base;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.EndOfInputException;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
-import mimuw.idlearn.packages.ProblemPackage;
 
+import java.io.Writer;
 import java.util.Scanner;
 
-public class InputHandler implements Expression<Void> {
-	private final ProblemPackage pkg;
-	private Variable<?>[] variables;
+import static mimuw.idlearn.idlang.logic.base.Type.Null;
 
-	public InputHandler(ProblemPackage pkg, Variable<?>... variables) {
-		this.pkg = pkg;
+public class InputHandler extends Expression {
+	private Variable[] variables;
+
+	public InputHandler(Variable... variables) {
 		this.variables = variables;
 	}
 
-	public void takeVariables(Variable<?>... variables) {
-		this.variables = variables;
-	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		Scanner scanner = pkg.getTestInputScanner();
-		for (var v : variables) {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+
+		Object value;
+		for (var variable : variables) {
 			counter.addTime(delay);
-			if (!scanner.hasNextInt()) {
-				throw new EndOfInputException();
+
+			switch (variable.getType()) {
+				case Long:
+					if (!inputScanner.hasNextLong()) {
+						throw new EndOfInputException();
+					}
+					value = inputScanner.nextLong();
+					break;
+				default:
+					throw new AssertionError("Impossible data type - backend somehow allows parsing something imparsable");
 			}
-			int value = scanner.nextInt();
-			scope.add(v.getName(), new Value<>(value));
+
+			scope.add(variable.getName(), new Value(Type.Long, value));
 		}
-		return new Value<>(null);
+
+		return new Value(Null, null);
 	}
 }

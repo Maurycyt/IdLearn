@@ -20,11 +20,11 @@ public class Assign extends CodeBlock {
 	 * @return An equivalent expression
 	 */
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		String name = varName.getText();
 		String valueText = value.getText();
-		Expression<Integer> valueInt = StringToExpression.parse(valueText);
-		Assignment<Integer> assign = new Assignment<>(name, valueInt, true);
+		Expression valueInt = StringToExpression.parse(valueText);
+		Assignment assign = new Assignment(name, valueInt, true);
 		return assign;
 	}
 

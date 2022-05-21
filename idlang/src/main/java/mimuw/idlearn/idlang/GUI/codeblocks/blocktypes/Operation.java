@@ -11,7 +11,6 @@ import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.ResizableTextField;
 import mimuw.idlearn.idlang.GUI.parser.StringToExpression;
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.conversion.BoolToInt;
 import mimuw.idlearn.idlang.logic.keywords.Assignment;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 
@@ -36,7 +35,7 @@ public class Operation extends CodeBlock {
 		final Text space2 = new Text(" ");
 		ObservableList<String> options =
 				FXCollections.observableArrayList(
-						"+", "-", "×", "÷", ">", "<", "=="
+						"+", "-", "×", "÷", ">", "<", "==", "%"
 				);
 		dropDown = new ChoiceBox<>(options);
 		dropDown.setValue("+");
@@ -71,22 +70,23 @@ public class Operation extends CodeBlock {
 	 * @return An equivalent expression
 	 */
 	@Override
-	public Expression<Void> convert() {
-		Expression<Integer> op;
-		Expression<Integer> arg1 = StringToExpression.parse(oper1.getText());
-		Expression<Integer> arg2 = StringToExpression.parse(oper2.getText());
+	public Expression convert() {
+		Expression op;
+		Expression arg1 = StringToExpression.parse(oper1.getText());
+		Expression arg2 = StringToExpression.parse(oper2.getText());
 		String assignee = result.getText();
 		op = switch (dropDown.getValue()) {
 			case "+" -> TwoArgOperator.newAdd(arg1, arg2);
 			case "-" -> TwoArgOperator.newSubtract(arg1, arg2);
 			case "×" -> TwoArgOperator.newMultiply(arg1, arg2);
 			case "÷" -> TwoArgOperator.newDivide(arg1, arg2);
-			case ">" -> new BoolToInt(TwoArgOperator.newGreater(arg1, arg2));
-			case "<" -> new BoolToInt(TwoArgOperator.newLess(arg1, arg2));
-			case "==" -> new BoolToInt(TwoArgOperator.newEqual(arg1, arg2));
+			case ">" -> TwoArgOperator.newGreater(arg1, arg2);
+			case "<" -> TwoArgOperator.newLess(arg1, arg2);
+			case "==" -> TwoArgOperator.newEqual(arg1, arg2);
+			case "%" -> TwoArgOperator.newModulo(arg1, arg2);
 			default -> throw new Error("Invalid operand");
 		};
-		Expression<Void> result = new Assignment<>(assignee, op, false);
+		Expression result = new Assignment(assignee, op, false);
 		return result;
 	}
 

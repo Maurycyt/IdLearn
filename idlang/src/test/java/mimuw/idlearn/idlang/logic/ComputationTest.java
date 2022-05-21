@@ -1,14 +1,8 @@
 package mimuw.idlearn.idlang.logic;
 
-import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
-import mimuw.idlearn.idlang.logic.base.Value;
-import mimuw.idlearn.idlang.logic.conversion.BoolToInt;
-import mimuw.idlearn.idlang.logic.conversion.IntToBool;
+import mimuw.idlearn.idlang.logic.base.*;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
-import mimuw.idlearn.idlang.logic.keywords.Assignment;
-import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.operators.OneArgOperator;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 import org.junit.jupiter.api.DynamicTest;
@@ -24,9 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 public class ComputationTest {
-	public static class OperatorTestConfig<T> {
-		private final T expected;
-		private final Expression<T> op;
+	public static class OperatorTestConfig {
+		private final Object expected;
+		private final Expression op;
 		private final OpName opName;
 		private final int id;
 
@@ -46,7 +40,7 @@ public class ComputationTest {
 			Neq
 		}
 
-		public OperatorTestConfig(T expected, Expression<T> op, OpName opName, int id) {
+		public OperatorTestConfig(Object expected, Expression op, OpName opName, int id) {
 			this.expected = expected;
 			this.op = op;
 			this.opName = opName;
@@ -54,22 +48,22 @@ public class ComputationTest {
 		}
 
 		public void checkResult(Scope scope) throws SimulationException {
-			assertEquals(expected, op.evaluate(scope, new TimeCounter()).getValue());
+			assertEquals(expected, op.evaluate(scope, new ResourceCounter(), null, null).value);
 		}
 	}
 
 	public Collection<DynamicTest> simpleValueArithmeticTests() {
-		List<DynamicTest> dynamicTests = new ArrayList<>();
+		List<DynamicTest> dynamicTests = new ArrayList();
 
 		Scope scope = new Scope();
-		Value<Integer> val1 = new Value<>(21);
-		Value<Integer> val2 = new Value<>(3);
+		Constant val1 = new Constant(new Value(21));
+		Constant val2 = new Constant(new Value(3));
 
-		ArrayList<OperatorTestConfig<Integer>> arr = new ArrayList<>(Arrays.asList(
-						new OperatorTestConfig<>(24, TwoArgOperator.newAdd(val1, val2), Add, 0),
-						new OperatorTestConfig<>(18, TwoArgOperator.newSubtract(val1, val2), Sub, 0),
-						new OperatorTestConfig<>(63, TwoArgOperator.newMultiply(val1, val2), Mul, 0),
-						new OperatorTestConfig<>(7, TwoArgOperator.newDivide(val1, val2), Div, 0)
+		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
+						new OperatorTestConfig(24L, TwoArgOperator.newAdd(val1, val2), Add, 0),
+						new OperatorTestConfig(18L, TwoArgOperator.newSubtract(val1, val2), Sub, 0),
+						new OperatorTestConfig(63L, TwoArgOperator.newMultiply(val1, val2), Mul, 0),
+						new OperatorTestConfig(7L, TwoArgOperator.newDivide(val1, val2), Div, 0)
 		));
 
 		arr.forEach(opTest -> dynamicTests.add(
@@ -88,25 +82,25 @@ public class ComputationTest {
 	}
 
 	public Collection<DynamicTest> simpleValueLogicTests() {
-		List<DynamicTest> dynamicTests = new ArrayList<>();
+		List<DynamicTest> dynamicTests = new ArrayList();
 
 		Scope scope = new Scope();
-		Value<Boolean> _true = new Value<>(true);
-		Value<Boolean> _false = new Value<>(false);
-		Value<Integer> x1 = new Value<>(5);
-		Value<Integer> x2 = new Value<>(100);
+		Constant _1 = new Constant(new Value(1));
+		Constant _0 = new Constant(new Value(0));
+		Constant x1 = new Constant(new Value(5));
+		Constant x2 = new Constant(new Value(100));
 
-		ArrayList<OperatorTestConfig<Boolean>> arr = new ArrayList<>(Arrays.asList(
-						new OperatorTestConfig<>(true, TwoArgOperator.newOr(_true, _false), Or, 0),
-						new OperatorTestConfig<>(false, TwoArgOperator.newAnd(_true, _false), And, 0),
-						new OperatorTestConfig<>(false, OneArgOperator.newNot(_true), Not, 0),
-						new OperatorTestConfig<>(true, OneArgOperator.newNot(_false), Not, 0),
-						new OperatorTestConfig<>(true, TwoArgOperator.newLessEqual(x1, x2), Leq, 0),
-						new OperatorTestConfig<>(true, TwoArgOperator.newLess(x1, x2), Less, 0),
-						new OperatorTestConfig<>(false, TwoArgOperator.newGreater(x1, x2), Greater, 0),
-						new OperatorTestConfig<>(false, TwoArgOperator.newGreaterEqual(x1, x2), Geq, 0),
-						new OperatorTestConfig<>(false, TwoArgOperator.newEqual(x1, x2), Equ, 0),
-						new OperatorTestConfig<>(true, TwoArgOperator.newNotEqual(x1, x2), Neq, 0)
+		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
+						new OperatorTestConfig(1L, TwoArgOperator.newOr(_1, _0), Or, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newAnd(_1, _0), And, 0),
+						new OperatorTestConfig(0L, OneArgOperator.newNot(_1), Not, 0),
+						new OperatorTestConfig(1L, OneArgOperator.newNot(_0), Not, 0),
+						new OperatorTestConfig(1L, TwoArgOperator.newLessEqual(x1, x2), Leq, 0),
+						new OperatorTestConfig(1L, TwoArgOperator.newLess(x1, x2), Less, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newGreater(x1, x2), Greater, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newGreaterEqual(x1, x2), Geq, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newEqual(x1, x2), Equ, 0),
+						new OperatorTestConfig(1L, TwoArgOperator.newNotEqual(x1, x2), Neq, 0)
 		));
 
 		arr.forEach(opTest -> dynamicTests.add(
@@ -125,37 +119,37 @@ public class ComputationTest {
 	}
 
 	public Collection<DynamicTest> simpleNestedArithmeticTests() {
-		List<DynamicTest> dynamicTests = new ArrayList<>();
+		List<DynamicTest> dynamicTests = new ArrayList();
 
 		Scope scope = new Scope();
 
-		ArrayList<OperatorTestConfig<Integer>> arr = new ArrayList<>(Arrays.asList(
-						new OperatorTestConfig<>(70,
-										TwoArgOperator.newAdd(new Value<>(35),
-														TwoArgOperator.newAdd(new Value<>(20), new Value<>(15))),
+		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newAdd(new Constant(new Value(35)),
+														TwoArgOperator.newAdd(new Constant(new Value(20)), new Constant(new Value(15)))),
 										Add, 0),
-						new OperatorTestConfig<>(70,
-										TwoArgOperator.newSubtract(new Value<>(140),
-														TwoArgOperator.newSubtract(new Value<>(300), new Value<>(230))),
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newSubtract(new Constant(new Value(140)),
+														TwoArgOperator.newSubtract(new Constant(new Value(230)), new Constant(new Value(160)))),
 										Sub, 0),
-						new OperatorTestConfig<>(70,
-										TwoArgOperator.newMultiply(new Value<>(5),
-														TwoArgOperator.newMultiply(new Value<>(7), new Value<>(2))),
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newMultiply(new Constant(new Value(5)),
+														TwoArgOperator.newMultiply(new Constant(new Value(7)), new Constant(new Value(2)))),
 										Mul, 0),
-						new OperatorTestConfig<>(70,
-										TwoArgOperator.newDivide(new Value<>(1400),
-														TwoArgOperator.newDivide(new Value<>(40), new Value<>(2))),
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newDivide(new Constant(new Value(1400)),
+														TwoArgOperator.newDivide(new Constant(new Value(40)), new Constant(new Value(2)))),
 										Div, 0),
-						new OperatorTestConfig<>(40445,
+						new OperatorTestConfig(40445L,
 										TwoArgOperator.newAdd(
-														new Value<>(1500),
+														new Constant(new Value(1500)),
 														TwoArgOperator.newSubtract(
-																		new Value<>(100000),
+																		new Constant(new Value(100000)),
 																		TwoArgOperator.newMultiply(
-																						new Value<>(5),
+																						new Constant(new Value(5)),
 																						TwoArgOperator.newDivide(
-																										new Value<>(244220),
-																										new Value<>(20)
+																										new Constant(new Value(244220)),
+																										new Constant(new Value(20))
 																						)
 																		)
 														)
@@ -179,30 +173,31 @@ public class ComputationTest {
 	}
 
 	public Collection<DynamicTest> simpleNestedLogicTests() {
-		List<DynamicTest> dynamicTests = new ArrayList<>();
+		List<DynamicTest> dynamicTests = new ArrayList();
 
 		Scope scope = new Scope();
 
-		ArrayList<OperatorTestConfig<Boolean>> arr = new ArrayList<>(Arrays.asList(
-						new OperatorTestConfig<>(false,
-										TwoArgOperator.newAnd(new Value<>(true),
-														TwoArgOperator.newAnd(new Value<>(true), new Value<>(false))),
+		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
+						new OperatorTestConfig(0L,
+										TwoArgOperator.newAnd(new Constant(new Value(1)),
+														TwoArgOperator.newAnd(new Constant(new Value(1)),
+																new Constant(new Value(0)))),
 										And, 0),
-						new OperatorTestConfig<>(true,
-										TwoArgOperator.newOr(new Value<>(false),
-														TwoArgOperator.newOr(new Value<>(true), new Value<>(false))),
+						new OperatorTestConfig(1L,
+										TwoArgOperator.newOr(new Constant(new Value(0)),
+														TwoArgOperator.newOr(new Constant(new Value(1)), new Constant(new Value(0)))),
 										Or, 0),
-						new OperatorTestConfig<>(false,
+						new OperatorTestConfig(0L,
 										OneArgOperator.newNot(
-														OneArgOperator.newNot(new Value<>(false))),
+														OneArgOperator.newNot(new Constant(new Value(0)))),
 										Not, 0),
-						new OperatorTestConfig<>(true,
+						new OperatorTestConfig(1L,
 										OneArgOperator.newNot(
 														TwoArgOperator.newAnd(
-																		new Value<>(true),
+																		new Constant(new Value(1)),
 																		TwoArgOperator.newOr(
-																						new Value<>(false),
-																						new Value<>(false)
+																						new Constant(new Value(0)),
+																						new Constant(new Value(0))
 																		)
 														)),
 										Not, 1)
@@ -222,25 +217,5 @@ public class ComputationTest {
 			test.getExecutable().execute();
 		}
 	}
-
-	@Test
-	public void testBoolIntConversion() throws SimulationException {
-		Scope scope = new Scope();
-
-		new Block(
-						new Assignment<>("a1", new IntToBool(new Value<>(0)), false),
-						new Assignment<>("a2", new IntToBool(new Value<>(1)), false),
-						new Assignment<>("a3", new IntToBool(new Value<>(-5)), false),
-
-						new Assignment<>("b1", new BoolToInt(new Value<>(false)), false),
-						new Assignment<>("b2", new BoolToInt(new Value<>(true)), false)
-		).evaluate(scope, new TimeCounter());
-
-		assertEquals(false, scope.getVariable("a1").getValue());
-		assertEquals(true, scope.getVariable("a2").getValue());
-		assertEquals(true, scope.getVariable("a3").getValue());
-
-		assertEquals(0, scope.getVariable("b1").getValue());
-		assertEquals(1, scope.getVariable("b2").getValue());
-	}
+	
 }

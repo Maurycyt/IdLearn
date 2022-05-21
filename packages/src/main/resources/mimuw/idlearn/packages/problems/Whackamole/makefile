@@ -1,32 +1,37 @@
 include makefile.in
 
 CXX = g++
-CXXFLAGS = -O3 -Wall -Wextra -DNDEBUG -std=c++20
-TestID = 1
+CXX_FLAGS = -O3 -Wall -Wextra -DNDEBUG -std=c++20
+TEST_ID = 1
 
 .PHONY: all, clean, modelOut, input, check
 
 all: $(GEN) $(MOD) $(CHE)
 
-clean:
-	rm -f $(GEN) $(MOD) $(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)
+cleanTests:
+	rm -f $(INPUT)* $(USER_OUT)* $(MODEL_OUT)*
+
+clean: cleanTests
+	rm -f $(GEN) $(MOD) $(CHE)
 
 $(GEN): $(GEN_SOURCE) $(UTILS)
-	$(CXX) $(CXXFLAGS) $(GEN_SOURCE) -o $(GEN)
+	$(CXX) $(CXX_FLAGS) $(GEN_SOURCE) -o $(GEN)
 
 $(MOD): $(MOD_SOURCE) $(UTILS)
-	$(CXX) $(CXXFLAGS) $(MOD_SOURCE) -o $(MOD)
+	$(CXX) $(CXX_FLAGS) $(MOD_SOURCE) -o $(MOD)
 
 $(CHE): $(CHE_SOURCE) $(UTILS)
-	$(CXX) $(CXXFLAGS) $(CHE_SOURCE) -o $(CHE)
+	$(CXX) $(CXX_FLAGS) $(CHE_SOURCE) -o $(CHE)
 
-input: $(GEN)
-	$(GEN) $(TestID) > $(INPUT)
+$(INPUT)$(TEST_ID): $(GEN)
+	$(GEN) $(TEST_ID) > $(INPUT)$(TEST_ID)
 
-$(MODEL_OUT): $(INPUT) $(MOD)
-	$(MOD) < $(INPUT) > $(MODEL_OUT)
+input: $(INPUT)$(TEST_ID)
 
-modelOut: $(MODEL_OUT)
+$(MODEL_OUT)$(TEST_ID): $(INPUT)$(TEST_ID) $(MOD)
+	$(MOD) < $(INPUT)$(TEST_ID) > $(MODEL_OUT)$(TEST_ID)
 
-check: $(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)
-	$(CHE) $(INPUT) $(USER_OUT) $(MODEL_OUT)
+modelOut: $(MODEL_OUT)$(TEST_ID)
+
+check: $(CHE) $(INPUT)$(TEST_ID) $(USER_OUT)$(TEST_ID) $(MODEL_OUT)$(TEST_ID)
+	$(CHE) $(INPUT)$(TEST_ID) $(USER_OUT)$(TEST_ID) $(MODEL_OUT)$(TEST_ID)
