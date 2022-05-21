@@ -137,8 +137,8 @@ public class TaskController extends GenericController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Statement field
-        statementText.setText(ResourceHandler.repeatLorem(42));
-        //statementText.setText(pkg.getStatement())
+        //statementText.setText(ResourceHandler.repeatLorem(42)); //TODO: remove this
+        statementText.setText(pkg.getStatement());
 
         statementText.wrappingWidthProperty().bind(new ObservableValue<Double>() {
             @Override
