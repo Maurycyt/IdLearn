@@ -23,33 +23,13 @@ public class TaskSelectionController extends GenericController {
 	@FXML
 	private BorderPane mainBorderPane;
 
-	private void questionGoingForward(String taskTitle) {
-		Alert alert = ResourceHandler.createAlert(Alert.AlertType.CONFIRMATION,
-				"Do you wish to continue? Additional points will not be granted",
-				ButtonType.YES, ButtonType.CANCEL
-		);
-
-		alert.setHeaderText("You've already completed this task");
-		alert.showAndWait()
-				.filter(response -> response == ButtonType.YES)
-				.ifPresent(response -> {
-					try {
-						enterNextScene(ResourceHandler.Task, new TaskController(taskTitle));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				});
-	}
-
-
 	/**
 	 * Makes the button of a completed task darker and gives it a popup on click.
 	 * This assumes the task's text has been set.
 	 * @param taskBtn: button of a task
 	 */
 	private void setStyleOfButtonForCompletedTask(Button taskBtn) {
-		taskBtn.setStyle("-fx-background-color: #038c53; -fx-text-fill: lightgrey;");
-		taskBtn.setOnAction(event -> questionGoingForward(taskBtn.getText()));
+		taskBtn.setStyle("-fx-background-color: #029c5b;");
 	}
 
 	/** Loads all the user's available tasks as clickable buttons **/
@@ -73,18 +53,16 @@ public class TaskSelectionController extends GenericController {
 				if (event.value() == taskTitle)
 					setStyleOfButtonForCompletedTask(taskBtn);
 			});
-
-			if (completedTasks.contains(taskTitle)) {
+			if (completedTasks.contains(taskTitle))
 				setStyleOfButtonForCompletedTask(taskBtn);
-			} else {
-				taskBtn.setOnAction((event) -> {
-					try {
-						enterNextScene(ResourceHandler.Task, new TaskController(taskTitle));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				});
-			}
+
+			taskBtn.setOnAction((event) -> {
+				try {
+					enterNextScene(ResourceHandler.Task, new TaskController(taskTitle));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
 		}
 	}
 }

@@ -10,7 +10,7 @@
       <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" stylesheets="@../style.css" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#buyEasyTask" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Easy" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#buyMediumTask" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: gold;" styleClass="storeTileButton" stylesheets="@../style.css" text="Medium" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#buyMediumTask" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: #fcd418;" styleClass="storeTileButton" stylesheets="@../style.css" text="Medium" />
             <Button layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#buyHardTask" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: lightcoral;" styleClass="storeTileButton" stylesheets="@../style.css" text="Hard" />
          </children>
       </TilePane>
