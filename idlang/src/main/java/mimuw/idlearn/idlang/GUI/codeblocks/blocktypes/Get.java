@@ -15,7 +15,7 @@ import mimuw.idlearn.idlang.logic.keywords.GetArray;
 
 public class Get extends CodeBlock {
 
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#78d66b",1.0));
+	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#f2a963",1.0));
 	TextField varName;
 	TextField tabName;
 	TextField index;

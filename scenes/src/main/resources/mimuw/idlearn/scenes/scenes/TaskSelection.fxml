@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.TaskSelectionController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.TaskSelectionController">
    <bottom>
-      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" text="Back" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" styleClass="greenButton" text="Back" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -17,7 +18,7 @@
       </Button>
    </bottom>
    <top>
-      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" text="Points: 0" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableGreenButton" text="Points: 0" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -27,7 +28,7 @@
       </Button>
    </top>
    <center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="taskSelectionScrollPane" BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <content>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="pane">
                <children>
@@ -38,4 +39,8 @@
          </content>
       </ScrollPane>
    </center>
+   <stylesheets>
+      <URL value="@../style.css" />
+      <URL value="@../common_style.css" />
+   </stylesheets>
 </BorderPane>

@@ -115,6 +115,14 @@ public class TaskController extends GenericController {
         } catch (MemoryException e) {
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Think of how you can make your program more memory efficient", ButtonType.OK);
             alert.setHeaderText("Ran out of memory!");
+        } catch (BadTypeException e) {
+            String tmp = e.toString();
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, tmp.substring(2 + tmp.indexOf(":")), ButtonType.OK);
+            alert.setHeaderText("Type mismatch!");
+        } catch (OutOfBoundsException e) {
+            String tmp = e.toString();
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, tmp.substring(2 + tmp.indexOf(":")), ButtonType.OK);
+            alert.setHeaderText("Out of array bounds!");
         } catch (SimulationException | IOException e) {
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
             alert.setHeaderText("An " + (e instanceof IOException? "internal I/O" : "unexpected") + " error occurred!");
@@ -125,7 +133,6 @@ public class TaskController extends GenericController {
         }
     }
 
-    static Integer i = 0;
     /* Adds nice styling and connects task verification */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -156,11 +163,13 @@ public class TaskController extends GenericController {
             }
         });
 
-        // these lines attempt to fix the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
-        statementText.setOnMousePressed(Event::consume);
-        statementStackPane.setOnMousePressed(Event::consume);
-        statementScrollPane.setOnMousePressed(Event::consume);
-        statementText.addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
+        // these fixes the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
+        statementScrollPane.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            String target = mouseEvent.getTarget().toString();
+            if (target.contains("ScrollPane") || target.contains("Text")) {
+                mouseEvent.consume();
+            }
+        });
 
         // Code box
         final CodeBox codeBox = new CodeBox();

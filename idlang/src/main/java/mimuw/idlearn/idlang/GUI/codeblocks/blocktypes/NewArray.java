@@ -12,7 +12,7 @@ import mimuw.idlearn.idlang.logic.keywords.MakeArray;
 
 public class NewArray extends CodeBlock {
 
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#78d66b",1.0));
+	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#ff8fab",1.0));
 
 	TextField tabName;
 	TextField size;

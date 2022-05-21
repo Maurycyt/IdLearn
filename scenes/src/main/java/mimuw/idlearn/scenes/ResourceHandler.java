@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
@@ -37,8 +36,10 @@ public class ResourceHandler {
 	public static URL CosmeticsStore = ResourceHandler.class.getResource("scenes/CosmeticsStore.fxml");
 	public static URL TaskSelection = ResourceHandler.class.getResource("scenes/TaskSelection.fxml");
 	public static URL Task = ResourceHandler.class.getResource("scenes/Task.fxml");
+	public static URL Credits = ResourceHandler.class.getResource("scenes/Credits.fxml");
 
-	public static URL StyleSheet = ResourceHandler.class.getResource("style.css");
+	public static URL Style = ResourceHandler.class.getResource("style.css");
+	public static URL CommonStyle = ResourceHandler.class.getResource("common_style.css");
 	public static URL AppIcon = ResourceHandler.class.getResource("images/icon.png");
 
 	/**
@@ -85,8 +86,9 @@ public class ResourceHandler {
 	 */
 	public static Button createUserPointsButton() {
 		Button btn = new Button();
-		btn.getStylesheets().add(StyleSheet.toExternalForm());
+		btn.getStylesheets().add(Style.toExternalForm());
 		btn.getStyleClass().add("unclickableButton");
+		btn.getStyleClass().add("greenButton");
 
 		btn.setText("Points: " + DataManager.showPoints());
 		// dynamically updates the points
@@ -107,7 +109,8 @@ public class ResourceHandler {
 	public static Alert createAlert(Alert.AlertType alertType, String s, ButtonType... buttonTypes) {
 		Alert alert = new Alert(alertType, s, buttonTypes);
 		DialogPane dialogPane = alert.getDialogPane();
-		dialogPane.getStylesheets().add(StyleSheet.toExternalForm());
+		dialogPane.getStylesheets().add(Style.toExternalForm());
+		dialogPane.getStylesheets().add(CommonStyle.toExternalForm());
 
 		switch (alertType) {
 			case INFORMATION -> dialogPane.getStyleClass().add("ok-dialog");
@@ -121,6 +124,7 @@ public class ResourceHandler {
 		return alert;
 	}
 
+	//TODO: remove this
 	private static final String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 	public static String repeatLorem(int n) { return loremIpsum.repeat(Math.max(0, n)); }
 }

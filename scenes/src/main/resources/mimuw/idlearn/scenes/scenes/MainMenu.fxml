@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.MainMenuController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.MainMenuController">
    <top>
       <ImageView fitHeight="296.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
@@ -26,7 +27,7 @@
    <center>
       <VBox fx:id="menuCenterVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#addGameMenuScene" prefHeight="40.0" prefWidth="203.0" text="Play">
+            <Button styleClass="greenButton" mnemonicParsing="false" onAction="#addGameMenuScene" prefHeight="40.0" prefWidth="203.0" text="Play">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -34,13 +35,17 @@
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addAchievementsScene" prefHeight="40.0" prefWidth="203.0" text="Achievements" />
-            <Button layoutX="52.0" layoutY="324.0" mnemonicParsing="false" onAction="#addSettingsScene" prefHeight="40.0" prefWidth="203.0" text="Settings" />
-            <Button layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" text="Exit" />
+            <Button styleClass="greenButton" layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addAchievementsScene" prefHeight="40.0" prefWidth="203.0" text="Achievements" />
+            <Button styleClass="greenButton" layoutX="52.0" layoutY="324.0" mnemonicParsing="false" onAction="#addSettingsScene" prefHeight="40.0" prefWidth="203.0" text="Settings" />
+            <Button styleClass="greenButton" layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" text="Exit" />
          </children>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
       </VBox>
    </center>
+   <stylesheets>
+      <URL value="@../style.css" />
+      <URL value="@../common_style.css" />
+   </stylesheets>
 </BorderPane>

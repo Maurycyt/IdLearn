@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -8,11 +9,15 @@
     <center>
         <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER">
          <children>
-              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Loading...">
+              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableGreenButton" stylesheets="@../style.css" text="Loading...">
                   <font>
                       <Font name="System Bold" size="13.0" />
                   </font>
               </Button>
          </children></VBox>
     </center>
+   <stylesheets>
+      <URL value="@../common_style.css" />
+      <URL value="@../style.css" />
+   </stylesheets>
 </BorderPane>

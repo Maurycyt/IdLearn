@@ -36,6 +36,10 @@ public class GenericController implements Initializable {
 		enterNextScene(ResourceHandler.Settings);
 	}
 	@FXML
+	public void addCreditsScene(ActionEvent event) throws IOException {
+		enterNextScene(ResourceHandler.Credits);
+	}
+	@FXML
 	public void addStoreScene(ActionEvent event) throws IOException {
 		enterNextScene(ResourceHandler.Store);
 	}

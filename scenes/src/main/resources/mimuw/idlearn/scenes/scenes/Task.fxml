@@ -17,7 +17,7 @@
 
 <BorderPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <AnchorPane fx:id="dummyDragPane" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="dummyDragPane" style="-fx-font-weight: normal;" BorderPane.alignment="CENTER" />
    </top>
    <center>
       <GridPane fx:id="mainGridPane" styleClass="pane" BorderPane.alignment="CENTER">
@@ -30,7 +30,7 @@
             <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <StackPane fx:id="statementStackPane">
+            <StackPane fx:id="statementStackPane" style="-fx-font-weight: normal;">
                <children>
                   <ScrollPane fx:id="statementScrollPane" styleClass="pane">
                      <content>
@@ -59,7 +59,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </StackPane>
-            <StackPane GridPane.columnIndex="2">
+            <StackPane style="-fx-font-weight: normal;" GridPane.columnIndex="2">
                <styleClass>
                   <String fx:value="pane" />
                   <String fx:value="borderedPane" />
@@ -68,7 +68,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <children>
-                  <ScrollPane fx:id="codeBoxScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" styleClass="pane" />
+                  <ScrollPane fx:id="codeBoxScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane" />
                </children>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -82,7 +82,7 @@
       <URL value="@../task_style.css" />
    </stylesheets>
    <bottom>
-      <GridPane prefHeight="75.0" style="-fx-alignment: center;" styleClass="pane" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="75.0" style="-fx-alignment: center; -fx-font-weight: normal;" styleClass="pane" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
@@ -98,13 +98,13 @@
                   <Insets />
                </GridPane.margin>
             </Button>
-            <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+            <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-font-weight: normal;" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                <styleClass>
                   <String fx:value="pane" />
                   <String fx:value="borderedPane" />
                </styleClass>
                <children>
-                  <ScrollPane fx:id="codeBoxScrollPane1" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" styleClass="pane">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-font-weight: normal;" styleClass="pane">
                      <content>
                         <HBox fx:id="blockSelectionHBox" styleClass="blockSelectionHBox" />
                      </content>

@@ -1,9 +1,7 @@
 package mimuw.idlearn.scenes.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mimuw.idlearn.scenes.ResourceHandler;
@@ -46,6 +44,8 @@ public class TaskSelectionController extends GenericController {
 		for (final String taskTitle : tasks) {
 			Button taskBtn = new Button(taskTitle);
 			taskBtn.setMaxWidth(btnWidth);
+			taskBtn.getStylesheets().add(ResourceHandler.Style.toExternalForm());
+			taskBtn.getStyleClass().add("greenButton");
 			tasksVBox.getChildren().add(taskBtn);
 
 			// make the style change dynamically
