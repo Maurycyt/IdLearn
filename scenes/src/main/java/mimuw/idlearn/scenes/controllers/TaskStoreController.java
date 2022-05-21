@@ -56,11 +56,12 @@ public class TaskStoreController extends GenericController {
 
     private void buyTask(Difficulty difficulty) throws IOException {
         Optional<ProblemPackage> task = getRandomTaskOfDifficulty(difficulty);
+        Alert alert;
         if (task.isEmpty()) {
-            System.out.println("No " + difficulty + " tasks available");
-        }
-        else {
-            Alert alert = null;
+            alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
+                    "No " + difficulty + " tasks available", ButtonType.OK
+            );
+        } else {
             try {
                 DataManager.payPoints(0); //todo: replace with actual cost
 
@@ -74,11 +75,9 @@ public class TaskStoreController extends GenericController {
                         "Gather more points and try again", ButtonType.OK
                 );
                 alert.setHeaderText("Not enough points!");
-            } finally {
-                assert alert != null;
-                alert.show();
             }
         }
+        alert.show();
     }
 
     @FXML
