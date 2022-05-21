@@ -2,7 +2,6 @@ package mimuw.idlearn.idlang.logic;
 
 import mimuw.idlearn.idlang.logic.base.Constant;
 import mimuw.idlearn.idlang.logic.base.TimeCounter;
-import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.base.Variable;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class EfficiencyTest {
 	@Test
 	public void testArithmeticOperationsEfficiency() throws SimulationException {
-		final int N = (int)(TimeCounter.MAX_TIME / 5);
+		final long N = (int)(TimeCounter.MAX_TIME / 5);
 		Scope scope = new Scope();
 
 		Variable i = new Variable("i", scope, N);

@@ -25,7 +25,7 @@ public class FlowTest {
 	public void testSimpleIfElse() throws SimulationException {
 		Scope scope = new Scope();
 
-		Variable x = new Variable(Type.Integer, "x");
+		Variable x = new Variable(Type.Long, "x");
 		new Assignment("x", new Constant(5), false).evaluate(scope, new TimeCounter(), null, null);
 
 		Block onTrue = new Block(new ArrayList(List.of(
@@ -49,15 +49,15 @@ public class FlowTest {
 		// `if (x % 2 == 0) {x++;} else {x--;}`
 		new If(new Constant(cond), onTrue, onFalse).evaluate(scope, new TimeCounter(), null, null);
 
-		assertEquals(4, scope.getVariable("x").value);
+		assertEquals(4L, scope.getVariable("x").value);
 	}
 
 	@Test
 	public void testSimpleWhile() throws SimulationException {
 		Scope scope = new Scope();
 
-		Variable x = new Variable(Type.Integer, "x");
-		Variable count = new Variable(Type.Integer, "count");
+		Variable x = new Variable(Type.Long, "x");
+		Variable count = new Variable(Type.Long, "count");
 		new Assignment("x", new Constant(0), false).evaluate(scope, new TimeCounter(), null, null);
 		new Assignment("count", new Constant(420), false).evaluate(scope, new TimeCounter(), null, null);
 
@@ -82,7 +82,7 @@ public class FlowTest {
 		// `while (count > 0) {x++; count--}`
 		new While(cond, block).evaluate(scope, new TimeCounter(), null, null);
 
-		assertEquals(420, x.evaluate(scope, new TimeCounter(), null, null).value);
+		assertEquals(420L, x.evaluate(scope, new TimeCounter(), null, null).value);
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class FlowTest {
 		Scope outerScope = new Scope();
 		Scope innerScope = new Scope(outerScope);
 
-		Variable x = new Variable(Type.Integer, "x");
+		Variable x = new Variable(Type.Long, "x");
 		new Assignment("x", new Constant(1), false).evaluate(outerScope, new TimeCounter(), null, null);
 		new Assignment("y", x, false).evaluate(innerScope, new TimeCounter(), null, null);
 		new Assignment("x",
@@ -98,9 +98,9 @@ public class FlowTest {
 						false
 		).evaluate(innerScope, new TimeCounter(), null, null);
 
-		assertEquals(2, innerScope.getVariable("x").value);
-		assertEquals(2, outerScope.getVariable("x").value);
-		assertEquals(1, innerScope.getVariable("y").value);
+		assertEquals(2L, innerScope.getVariable("x").value);
+		assertEquals(2L, outerScope.getVariable("x").value);
+		assertEquals(1L, innerScope.getVariable("y").value);
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class FlowTest {
 
 		Variable f1 = new Variable("f1", scope, 0);
 		Variable f2 = new Variable("f2", scope, 1);
-		Variable f3 = new Variable(Type.Integer, "f3", scope);
+		Variable f3 = new Variable(Type.Long, "f3", scope);
 		Variable n = new Variable("n", scope, N);
 		Variable i = new Variable("i", scope, 0);
 
@@ -127,7 +127,7 @@ public class FlowTest {
 						new While(whileCond, whileBlock)
 		).evaluate(scope, new TimeCounter(), null, null);
 
-		assertEquals(4181, f3.evaluate(scope, new TimeCounter(), null, null).value);
+		assertEquals(4181L, f3.evaluate(scope, new TimeCounter(), null, null).value);
 	}
 
 	@Test
@@ -144,8 +144,8 @@ public class FlowTest {
 			pkg.prepareTest(123);
 
 			Scope scope = new Scope();
-			Variable x = new Variable(Type.Integer, "x");
-			Variable y = new Variable(Type.Integer, "y");
+			Variable x = new Variable(Type.Long, "x");
+			Variable y = new Variable(Type.Long, "y");
 			InputHandler inputHandler = new InputHandler(x, y);
 
 			Scanner inputScanner = pkg.getTestInputScanner(123);

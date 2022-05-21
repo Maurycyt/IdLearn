@@ -58,7 +58,7 @@ public class CompilerTest {
 		Expression exp = segment.convert();
 		Scope scope = new Scope();
 		exp.evaluate(scope, new TimeCounter(), null, null);
-		assertEquals((int) Math.pow(2, 10), scope.getVariable("x").value);
+		assertEquals((long)Math.pow(2, 10), scope.getVariable("x").value);
 	}
 
 	@Test
@@ -118,6 +118,71 @@ public class CompilerTest {
 		compare.setType(">");
 		compare.setEffectiveText("z", "y", "0");
 		segment.addChild(0, compare);
+
+		Read readx = new Read(pkg);
+		readx.setEffectiveText("x");
+
+		Read ready = new Read(pkg);
+		ready.setEffectiveText("y");
+
+		segment.addChild(0, ready);
+		segment.addChild(0, readx);
+
+		Expression exp = segment.convert();
+
+		pkg.prepareTest(123);
+
+		try {
+			exp.evaluate(new Scope(), new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
+		} catch (SimulationException e) {
+			e.printStackTrace();
+			fail();
+		}
+
+		assertTrue(pkg.checkTest(123));
+	}
+
+	@Test
+	public void testAddingThroughArray() throws IOException {
+		preparePlatform();
+
+		final ProblemPackage pkg;
+		ProblemPackage tmpPkg = null;
+		try {
+			tmpPkg = PackageManager.getProblemPackage("Addition");
+		} catch (Exception e) {
+			fail();
+		}
+
+		pkg = tmpPkg;
+
+		CodeSegment segment = new CodeSegment();
+
+		Write writeResult = new Write(pkg);
+		writeResult.setEffectiveText("result");
+		segment.addChild(0, writeResult);
+
+		Operation addition = new Operation();
+		addition.setEffectiveText("result", "p", "q");
+		segment.addChild(0, addition);
+
+		Get getP = new Get();
+		Get getQ = new Get();
+		getP.setEffectiveText("p", "input", "0");
+		getQ.setEffectiveText("q", "input", "1");
+		segment.addChild(0, getQ);
+		segment.addChild(0, getP);
+
+		Set setX = new Set();
+		Set setY = new Set();
+		setX.setEffectiveText("input", "0", "x");
+		setY.setEffectiveText("input", "1", "y");
+		segment.addChild(0, setX);
+		segment.addChild(0, setY);
+
+		NewArray newArray = new NewArray();
+		newArray.setEffectiveText("input", "2");
+		segment.addChild(0, newArray);
 
 		Read readx = new Read(pkg);
 		readx.setEffectiveText("x");

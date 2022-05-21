@@ -123,7 +123,7 @@ public class IfElse extends CodeBlock {
 	public Expression convert() {
 		Block ifBody = ifSegment.convert();
 		Block elseBody = elseSegment.convert();
-		Expression condition = new Variable(Type.Integer, ifHead.getCond());
+		Expression condition = new Variable(Type.Long, ifHead.getCond());
 		return new If(condition, ifBody, elseBody);
 	}
 

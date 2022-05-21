@@ -12,7 +12,7 @@ public abstract class Expression {
 	abstract public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException;
 	public void assertType(Type expected) {
 		if (expected != type) {
-			throw new Error("Required expression of type " + expected + "but got an argument of type " + type);
+			throw new AssertionError("Required expression of type " + expected + "but got an argument of type " + type);
 		}
 	}
 }

@@ -21,13 +21,13 @@ public class ExceptionTest {
 		final int N = (int)(TimeCounter.MAX_TIME / 3);
 		Scope scope = new Scope();
 
-		Variable i = new Variable("i", scope, new Value(Type.Integer, N));
-		Constant zero = new Constant(new Value(Type.Integer, 0));
+		Variable i = new Variable("i", scope, new Value(N));
+		Constant zero = new Constant(new Value(0));
 
 		var whileCond = TwoArgOperator.newGreaterEqual(i, zero);
 		var whileBlock = new Block(
 						new Assignment("i",
-										TwoArgOperator.newSubtract(i, new Constant(new Value(Type.Integer, 1))),
+										TwoArgOperator.newSubtract(i, new Constant(new Value(1))),
 										false
 						)
 		);
@@ -43,7 +43,7 @@ public class ExceptionTest {
 		Scope scope = new Scope();
 
 		Assignment assignment = new Assignment("i",
-						new Variable(Type.Integer, "i"),
+						new Variable(Type.Long, "i"),
 						false
 		);
 
@@ -74,9 +74,9 @@ public class ExceptionTest {
 			pkg.prepareTest(123);
 
 			Scope scope = new Scope();
-			Variable x = new Variable(Type.Integer, "x");
-			Variable y = new Variable(Type.Integer, "y");
-			Variable z = new Variable(Type.Integer, "z");
+			Variable x = new Variable(Type.Long, "x");
+			Variable y = new Variable(Type.Long, "y");
+			Variable z = new Variable(Type.Long, "z");
 			InputHandler inputHandler = new InputHandler(x, y, z);
 
 			assertThrows(EndOfInputException.class, () -> inputHandler.evaluate(

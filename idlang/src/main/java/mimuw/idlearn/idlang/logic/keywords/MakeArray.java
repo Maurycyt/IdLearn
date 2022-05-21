@@ -19,7 +19,7 @@ public class MakeArray extends Expression {
 
 	public MakeArray(String name, Expression expression) {
 		this.name = name;
-		expression.assertType(Type.Integer);
+		expression.assertType(Type.Long);
 		this.expression = expression;
 		this.type = Null;
 	}
@@ -27,11 +27,11 @@ public class MakeArray extends Expression {
 	@Override
 	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		counter.addTime(delay);
-		Integer size = (Integer)expression.evaluate(scope, counter, inputScanner, outputWriter).value;
+		Long size = (Long)expression.evaluate(scope, counter, inputScanner, outputWriter).value;
 
 		Scope origin = scope.getOriginScope(name);
 
-		ArrayList table = new ArrayList<Integer>(size);
+		ArrayList table = new ArrayList<Long>(size.intValue());
 		for (int i = 0; i < size; i++) {
 			table.add(0);
 		}

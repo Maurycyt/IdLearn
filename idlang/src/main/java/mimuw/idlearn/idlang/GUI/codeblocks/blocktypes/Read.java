@@ -20,7 +20,7 @@ public class Read extends CodeBlock {
 	@Override
 	public Expression convert() {
 		String name = varName.getText();
-		return new InputHandler(new Variable(Type.Integer, name));
+		return new InputHandler(new Variable(Type.Long, name));
 	}
 
 	/**

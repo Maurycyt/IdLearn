@@ -11,10 +11,10 @@ public class StringToExpression {
 	 */
 	public static Expression parse(String text) {
 		try {
-			int number = Integer.parseInt(text);
-			return new Constant(new Value(Type.Integer, number));
+			long number = Long.parseLong(text);
+			return new Constant(new Value(Type.Long, number));
 		} catch (NumberFormatException e) {
-			return new Variable(Type.Integer, text);
+			return new Variable(Type.Long, text);
 		}
 	}
 }

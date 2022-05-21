@@ -27,9 +27,9 @@ public class Variable extends Expression {
 		this.type = initialValue.type;
 		originScope.add(name, new Value(initialValue.type, initialValue.value));
 	}
-	public Variable(String name, Scope originScope, int initialValue) {
+	public Variable(String name, Scope originScope, long initialValue) {
 		this.name = name;
-		this.type = Type.Integer;
+		this.type = Type.Long;
 		originScope.add(name, new Value(this.type, initialValue));
 	}
 

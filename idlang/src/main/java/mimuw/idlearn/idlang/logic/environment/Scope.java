@@ -33,8 +33,12 @@ public class Scope {
 	}
 
 	public Scope getOriginScope(String name) {
-		if (isGlobal())
-			return variables.containsKey(name) ? this : null; // TODO: comment on refactor
+		if (isGlobal()) {
+			if (variables.containsKey(name)) {
+				return this;
+			}
+			return null;
+		}
 
 		Scope origin = parentScope.getOriginScope(name);
 		if (origin != null)

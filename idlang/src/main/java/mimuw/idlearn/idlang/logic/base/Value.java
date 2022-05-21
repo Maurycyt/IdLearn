@@ -8,14 +8,22 @@ public class Value {
 		this.type = type;
 		this.value = value;
 	}
+	public Value(Integer integer) {
+		this.type = Type.Long;
+		this.value = integer.longValue();
+	}
+	public Value(Long longValue) {
+		this.type = Type.Long;
+		this.value = longValue;
+	}
 
 	@Override
 	public String toString() {
 		switch (type) {
-			case Integer -> {
-				return ((Integer)value).toString();
+			case Long -> {
+				return ((Long)value).toString();
 			}
-			default -> throw new Error("Impossible data type - backend somehow allows writing something imparsable");
+			default -> throw new AssertionError("Impossible data type - backend somehow allows writing something imparsable");
 
 		}
 	}

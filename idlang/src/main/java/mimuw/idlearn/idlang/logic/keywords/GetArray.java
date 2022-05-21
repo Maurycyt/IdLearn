@@ -22,7 +22,7 @@ public class GetArray extends Expression {
 
 	public GetArray(Expression tableExpression, Expression indexExpression) {
 		tableExpression.assertType(Type.Table);
-		indexExpression.assertType(Type.Integer);
+		indexExpression.assertType(Type.Long);
 		this.tableExpression = tableExpression;
 		this.indexExpression = indexExpression;
 		this.type = Null;
@@ -35,13 +35,13 @@ public class GetArray extends Expression {
 		Value tableVal = tableExpression.evaluate(scope, counter, inputScanner, outputWriter);
 		Value indexVal = indexExpression.evaluate(scope, counter, inputScanner, outputWriter);
 
-		ArrayList<Integer> table = (ArrayList<Integer>) tableVal.value;
-		Integer index = (Integer)indexVal.value;
+		ArrayList<Long> table = (ArrayList<Long>) tableVal.value;
+		Long index = (Long)indexVal.value;
 
 		if (index < 0 || index >= table.size()) {
 			throw new OutOfBoundsException(index, table.size());
 		}
 
-		return new Value(Type.Integer, table.get(index));
+		return new Value(Type.Long, table.get(index.intValue()));
 	}
 }

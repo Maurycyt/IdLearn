@@ -13,9 +13,13 @@ public class Constant extends Expression {
 		this.value = value;
 		this.type = value.type;
 	}
+	public Constant(Long value) {
+		this.value = new Value(Type.Long, value);
+		this.type = Type.Long;
+	}
 	public Constant(Integer value) {
-		this.value = new Value(Type.Integer, value);
-		this.type = Type.Integer;
+		this.value = new Value(Type.Long, value.longValue());
+		this.type = Type.Long;
 	}
 
 	@Override

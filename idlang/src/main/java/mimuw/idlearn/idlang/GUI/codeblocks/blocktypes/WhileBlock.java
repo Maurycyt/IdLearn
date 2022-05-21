@@ -101,7 +101,7 @@ public class WhileBlock extends CodeBlock {
 	@Override
 	public Expression convert() {
 		Block body = segment.convert();
-		Expression condition = new Variable(Type.Integer, head.getCond());
+		Expression condition = new Variable(Type.Long, head.getCond());
 		return new While(condition, body);
 	}
 

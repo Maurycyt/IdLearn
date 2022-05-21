@@ -31,8 +31,9 @@ public class Set extends CodeBlock {
 		Expression tableVal = new Variable(Type.Table, table);
 
 		Expression indexVal = StringToExpression.parse(index);
+		Expression valueVal = StringToExpression.parse(valueString);
 
-		return new SetArray(tableVal, indexVal, StringToExpression.parse(valueString));
+		return new SetArray(tableVal, indexVal, valueVal);
 	}
 
 	/**

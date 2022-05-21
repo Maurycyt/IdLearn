@@ -17,7 +17,7 @@ public class While extends Expression {
 	private final Block body;
 
 	public While(Expression condition, Block body) {
-		condition.assertType(Type.Integer);
+		condition.assertType(Type.Long);
 		this.type = Null;
 		this.condition = condition;
 		this.body = body;
@@ -25,7 +25,7 @@ public class While extends Expression {
 
 	@Override
 	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
-		while ((Integer)condition.evaluate(scope, counter, inputScanner, outputWriter).value != 0) {
+		while ((Long)condition.evaluate(scope, counter, inputScanner, outputWriter).value != 0) {
 			counter.addTime(delay);
 			body.evaluate(new Scope(scope), counter, inputScanner, outputWriter);
 		}

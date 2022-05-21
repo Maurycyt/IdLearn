@@ -22,8 +22,8 @@ public class SetArray extends Expression {
 
 	public SetArray(Expression tableExpression, Expression indexExpression, Expression valueExpression) {
 		tableExpression.assertType(Type.Table);
-		indexExpression.assertType(Type.Integer);
-		valueExpression.assertType(Type.Integer);
+		indexExpression.assertType(Type.Long);
+		valueExpression.assertType(Type.Long);
 		this.tableExpression = tableExpression;
 		this.indexExpression = indexExpression;
 		this.valueExpression = valueExpression;
@@ -37,14 +37,14 @@ public class SetArray extends Expression {
 		Value indexVal = indexExpression.evaluate(scope, counter, inputScanner, outputWriter);
 		Value valueVal = valueExpression.evaluate(scope, counter, inputScanner, outputWriter);
 
-		ArrayList<Integer> table = (ArrayList<Integer>) (tableVal.value);
-		Integer index = (Integer) (indexVal.value);
+		ArrayList<Long> table = (ArrayList<Long>) (tableVal.value);
+		Long index = (Long) (indexVal.value);
 
 		if (index < 0 || index >= table.size()) {
 			throw new OutOfBoundsException(index, table.size());
 		}
 
-		table.set((Integer)indexVal.value, (Integer)valueVal.value);
+		table.set(((Long)indexVal.value).intValue(), (Long)valueVal.value);
 
 		return new Value(Null, null);
 	}

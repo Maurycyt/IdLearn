@@ -56,14 +56,14 @@ public class ComputationTest {
 		List<DynamicTest> dynamicTests = new ArrayList();
 
 		Scope scope = new Scope();
-		Constant val1 = new Constant(new Value(Type.Integer, 21));
-		Constant val2 = new Constant(new Value(Type.Integer, 3));
+		Constant val1 = new Constant(new Value(21));
+		Constant val2 = new Constant(new Value(3));
 
 		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
-						new OperatorTestConfig(24, TwoArgOperator.newAdd(val1, val2), Add, 0),
-						new OperatorTestConfig(18, TwoArgOperator.newSubtract(val1, val2), Sub, 0),
-						new OperatorTestConfig(63, TwoArgOperator.newMultiply(val1, val2), Mul, 0),
-						new OperatorTestConfig(7, TwoArgOperator.newDivide(val1, val2), Div, 0)
+						new OperatorTestConfig(24L, TwoArgOperator.newAdd(val1, val2), Add, 0),
+						new OperatorTestConfig(18L, TwoArgOperator.newSubtract(val1, val2), Sub, 0),
+						new OperatorTestConfig(63L, TwoArgOperator.newMultiply(val1, val2), Mul, 0),
+						new OperatorTestConfig(7L, TwoArgOperator.newDivide(val1, val2), Div, 0)
 		));
 
 		arr.forEach(opTest -> dynamicTests.add(
@@ -85,22 +85,22 @@ public class ComputationTest {
 		List<DynamicTest> dynamicTests = new ArrayList();
 
 		Scope scope = new Scope();
-		Constant _1 = new Constant(new Value(Type.Integer, 1));
-		Constant _0 = new Constant(new Value(Type.Integer, 0));
-		Constant x1 = new Constant(new Value(Type.Integer, 5));
-		Constant x2 = new Constant(new Value(Type.Integer, 100));
+		Constant _1 = new Constant(new Value(1));
+		Constant _0 = new Constant(new Value(0));
+		Constant x1 = new Constant(new Value(5));
+		Constant x2 = new Constant(new Value(100));
 
 		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
-						new OperatorTestConfig(1, TwoArgOperator.newOr(_1, _0), Or, 0),
-						new OperatorTestConfig(0, TwoArgOperator.newAnd(_1, _0), And, 0),
-						new OperatorTestConfig(0, OneArgOperator.newNot(_1), Not, 0),
-						new OperatorTestConfig(1, OneArgOperator.newNot(_0), Not, 0),
-						new OperatorTestConfig(1, TwoArgOperator.newLessEqual(x1, x2), Leq, 0),
-						new OperatorTestConfig(1, TwoArgOperator.newLess(x1, x2), Less, 0),
-						new OperatorTestConfig(0, TwoArgOperator.newGreater(x1, x2), Greater, 0),
-						new OperatorTestConfig(0, TwoArgOperator.newGreaterEqual(x1, x2), Geq, 0),
-						new OperatorTestConfig(0, TwoArgOperator.newEqual(x1, x2), Equ, 0),
-						new OperatorTestConfig(1, TwoArgOperator.newNotEqual(x1, x2), Neq, 0)
+						new OperatorTestConfig(1L, TwoArgOperator.newOr(_1, _0), Or, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newAnd(_1, _0), And, 0),
+						new OperatorTestConfig(0L, OneArgOperator.newNot(_1), Not, 0),
+						new OperatorTestConfig(1L, OneArgOperator.newNot(_0), Not, 0),
+						new OperatorTestConfig(1L, TwoArgOperator.newLessEqual(x1, x2), Leq, 0),
+						new OperatorTestConfig(1L, TwoArgOperator.newLess(x1, x2), Less, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newGreater(x1, x2), Greater, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newGreaterEqual(x1, x2), Geq, 0),
+						new OperatorTestConfig(0L, TwoArgOperator.newEqual(x1, x2), Equ, 0),
+						new OperatorTestConfig(1L, TwoArgOperator.newNotEqual(x1, x2), Neq, 0)
 		));
 
 		arr.forEach(opTest -> dynamicTests.add(
@@ -124,32 +124,32 @@ public class ComputationTest {
 		Scope scope = new Scope();
 
 		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
-						new OperatorTestConfig(70,
-										TwoArgOperator.newAdd(new Constant(new Value(Type.Integer, 35)),
-														TwoArgOperator.newAdd(new Constant(new Value(Type.Integer, 20)), new Constant(new Value(Type.Integer, 15)))),
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newAdd(new Constant(new Value(35)),
+														TwoArgOperator.newAdd(new Constant(new Value(20)), new Constant(new Value(15)))),
 										Add, 0),
-						new OperatorTestConfig(70,
-										TwoArgOperator.newSubtract(new Constant(new Value(Type.Integer, 140)),
-														TwoArgOperator.newSubtract(new Constant(new Value(Type.Integer, 230)), new Constant(new Value(Type.Integer, 160)))),
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newSubtract(new Constant(new Value(140)),
+														TwoArgOperator.newSubtract(new Constant(new Value(230)), new Constant(new Value(160)))),
 										Sub, 0),
-						new OperatorTestConfig(70,
-										TwoArgOperator.newMultiply(new Constant(new Value(Type.Integer, 5)),
-														TwoArgOperator.newMultiply(new Constant(new Value(Type.Integer, 7)), new Constant(new Value(Type.Integer, 2)))),
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newMultiply(new Constant(new Value(5)),
+														TwoArgOperator.newMultiply(new Constant(new Value(7)), new Constant(new Value(2)))),
 										Mul, 0),
-						new OperatorTestConfig(70,
-										TwoArgOperator.newDivide(new Constant(new Value(Type.Integer, 1400)),
-														TwoArgOperator.newDivide(new Constant(new Value(Type.Integer, 40)), new Constant(new Value(Type.Integer, 2)))),
+						new OperatorTestConfig(70L,
+										TwoArgOperator.newDivide(new Constant(new Value(1400)),
+														TwoArgOperator.newDivide(new Constant(new Value(40)), new Constant(new Value(2)))),
 										Div, 0),
-						new OperatorTestConfig(40445,
+						new OperatorTestConfig(40445L,
 										TwoArgOperator.newAdd(
-														new Constant(new Value(Type.Integer, 1500)),
+														new Constant(new Value(1500)),
 														TwoArgOperator.newSubtract(
-																		new Constant(new Value(Type.Integer, 100000)),
+																		new Constant(new Value(100000)),
 																		TwoArgOperator.newMultiply(
-																						new Constant(new Value(Type.Integer, 5)),
+																						new Constant(new Value(5)),
 																						TwoArgOperator.newDivide(
-																										new Constant(new Value(Type.Integer, 244220)),
-																										new Constant(new Value(Type.Integer, 20))
+																										new Constant(new Value(244220)),
+																										new Constant(new Value(20))
 																						)
 																		)
 														)
@@ -178,26 +178,26 @@ public class ComputationTest {
 		Scope scope = new Scope();
 
 		ArrayList<OperatorTestConfig> arr = new ArrayList(Arrays.asList(
-						new OperatorTestConfig(0,
-										TwoArgOperator.newAnd(new Constant(new Value(Type.Integer, 1)),
-														TwoArgOperator.newAnd(new Constant(new Value(Type.Integer, 1)),
-																new Constant(new Value(Type.Integer, 0)))),
+						new OperatorTestConfig(0L,
+										TwoArgOperator.newAnd(new Constant(new Value(1)),
+														TwoArgOperator.newAnd(new Constant(new Value(1)),
+																new Constant(new Value(0)))),
 										And, 0),
-						new OperatorTestConfig(1,
-										TwoArgOperator.newOr(new Constant(new Value(Type.Integer, 0)),
-														TwoArgOperator.newOr(new Constant(new Value(Type.Integer, 1)), new Constant(new Value(Type.Integer, 0)))),
+						new OperatorTestConfig(1L,
+										TwoArgOperator.newOr(new Constant(new Value(0)),
+														TwoArgOperator.newOr(new Constant(new Value(1)), new Constant(new Value(0)))),
 										Or, 0),
-						new OperatorTestConfig(0,
+						new OperatorTestConfig(0L,
 										OneArgOperator.newNot(
-														OneArgOperator.newNot(new Constant(new Value(Type.Integer, 0)))),
+														OneArgOperator.newNot(new Constant(new Value(0)))),
 										Not, 0),
-						new OperatorTestConfig(1,
+						new OperatorTestConfig(1L,
 										OneArgOperator.newNot(
 														TwoArgOperator.newAnd(
-																		new Constant(new Value(Type.Integer, 1)),
+																		new Constant(new Value(1)),
 																		TwoArgOperator.newOr(
-																						new Constant(new Value(Type.Integer, 0)),
-																						new Constant(new Value(Type.Integer, 0))
+																						new Constant(new Value(0)),
+																						new Constant(new Value(0))
 																		)
 														)),
 										Not, 1)
