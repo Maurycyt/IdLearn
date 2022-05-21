@@ -48,7 +48,7 @@ public class ComputationTest {
 		}
 
 		public void checkResult(Scope scope) throws SimulationException {
-			assertEquals(expected, op.evaluate(scope, new TimeCounter(), null, null).value);
+			assertEquals(expected, op.evaluate(scope, new ResourceCounter(), null, null).value);
 		}
 	}
 

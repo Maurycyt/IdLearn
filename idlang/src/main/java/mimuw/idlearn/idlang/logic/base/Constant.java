@@ -23,7 +23,7 @@ public class Constant extends Expression {
 	}
 
 	@Override
-	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		return value;
 	}
 }

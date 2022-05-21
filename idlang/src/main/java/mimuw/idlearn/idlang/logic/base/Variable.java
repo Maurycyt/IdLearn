@@ -39,7 +39,7 @@ public class Variable extends Expression {
 	public Type getType() {return type;}
 
 	@Override
-	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		Value value = scope.getVariable(name);
 		if (value.type != this.type) {
 			throw new BadTypeException(this.type, value.type, this.name);

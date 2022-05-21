@@ -9,7 +9,7 @@ import java.util.Scanner;
 public abstract class Expression {
 	public double delay = 1;
 	public Type type;
-	abstract public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException;
+	abstract public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException;
 	public void assertType(Type expected) {
 		if (expected != type) {
 			throw new AssertionError("Required expression of type " + expected + "but got an argument of type " + type);

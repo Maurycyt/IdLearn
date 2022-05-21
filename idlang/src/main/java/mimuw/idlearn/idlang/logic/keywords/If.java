@@ -1,7 +1,7 @@
 package mimuw.idlearn.idlang.logic.keywords;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
@@ -34,7 +34,7 @@ public class If extends Expression {
 	}
 
 	@Override
-	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		Value condEvaluation = condition.evaluate(scope, counter, inputScanner, outputWriter);
 		counter.addTime(delay);
 

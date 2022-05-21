@@ -5,6 +5,7 @@ import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.*;
 import mimuw.idlearn.idlang.logic.keywords.Assignment;
 import mimuw.idlearn.idlang.logic.keywords.Block;
+import mimuw.idlearn.idlang.logic.keywords.MakeArray;
 import mimuw.idlearn.idlang.logic.keywords.While;
 import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 import mimuw.idlearn.packages.PackageManager;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ExceptionTest {
 	@Test
 	public void testTimeLimit() {
-		final int N = (int)(TimeCounter.MAX_TIME / 3);
+		final int N = (int)(ResourceCounter.MAX_TIME / 3);
 		Scope scope = new Scope();
 
 		Variable i = new Variable("i", scope, new Value(N));
@@ -35,7 +36,7 @@ public class ExceptionTest {
 						new While(whileCond, whileBlock)
 		);
 
-		assertThrows(TimeoutException.class, () -> outerBlock.evaluate(scope, new TimeCounter(), null, null));
+		assertThrows(TimeoutException.class, () -> outerBlock.evaluate(scope, new ResourceCounter(), null, null));
 	}
 
 	@Test
@@ -47,7 +48,7 @@ public class ExceptionTest {
 						false
 		);
 
-		assertThrows(UndefinedVariableException.class, () -> assignment.evaluate(scope, new TimeCounter(), null, null));
+		assertThrows(UndefinedVariableException.class, () -> assignment.evaluate(scope, new ResourceCounter(), null, null));
 	}
 	@Test
 	public void testBadType() throws SimulationException {
@@ -81,12 +82,19 @@ public class ExceptionTest {
 
 			assertThrows(EndOfInputException.class, () -> inputHandler.evaluate(
 					scope,
-					new TimeCounter(),
+					new ResourceCounter(),
 					pkg.getTestInputScanner(123),
 					pkg.getTestOutputWriter(123)
 			));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void testMemoryException() {
+		MakeArray make = new MakeArray("a", new Constant(1_000_000_000));
+
+		assertThrows(MemoryException.class, () -> make.evaluate(new Scope(), new ResourceCounter(), null, null));
 	}
 }

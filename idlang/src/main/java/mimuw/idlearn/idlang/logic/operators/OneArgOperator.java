@@ -1,7 +1,7 @@
 package mimuw.idlearn.idlang.logic.operators;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
@@ -22,7 +22,7 @@ public abstract class OneArgOperator extends Expression {
 		arg.assertType(Type.Long);
 		return new OneArgOperator(arg, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				Value value = arg.evaluate(scope, counter, inputScanner, outputWriter);
 				if ((Long)value.value == 0) {

@@ -1,7 +1,7 @@
 package mimuw.idlearn.idlang.logic.keywords;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
@@ -25,9 +25,11 @@ public class MakeArray extends Expression {
 	}
 
 	@Override
-	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
-		counter.addTime(delay);
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 		Long size = (Long)expression.evaluate(scope, counter, inputScanner, outputWriter).value;
+
+		counter.addTime(delay);
+		counter.addMemory(size.intValue());
 
 		Scope origin = scope.getOriginScope(name);
 

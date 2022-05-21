@@ -19,7 +19,7 @@ public class OutputHandler extends Expression {
 
 
 	@Override
-	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 
 		for (var value : values) {
 

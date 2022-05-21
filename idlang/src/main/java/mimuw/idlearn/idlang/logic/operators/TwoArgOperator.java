@@ -1,7 +1,7 @@
 package mimuw.idlearn.idlang.logic.operators;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
@@ -33,7 +33,7 @@ public abstract class TwoArgOperator extends Expression {
 		arg2.assertType(Type.Long);
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				return new Value(this.type, (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value + (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value);
 			}
@@ -43,7 +43,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newSubtract(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				return new Value(this.type, (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value - (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value);
 			}
@@ -53,7 +53,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newMultiply(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				return new Value(this.type, (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value * (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value);
 			}
@@ -63,7 +63,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newDivide(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				return new Value(this.type, (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value / (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value);
 			}
@@ -74,7 +74,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newModulo(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				return new Value(this.type, (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value % (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value);
 			}
@@ -84,7 +84,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newOr(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result = (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value != 0 || (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value != 0;
 				return boolToLongVal(result);
@@ -95,7 +95,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newAnd(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result = (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value != 0 && (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value != 0;
 				return boolToLongVal(result);
@@ -106,7 +106,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newLess(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result = (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value < (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value;
 				return boolToLongVal(result);
@@ -117,7 +117,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newLessEqual(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result = (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value <= (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value;
 				return boolToLongVal(result);
@@ -128,7 +128,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newGreater(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result = (Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value > (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value;
 				return boolToLongVal(result);
@@ -139,7 +139,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newGreaterEqual(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result =(Long)arg1.evaluate(scope, counter, inputScanner, outputWriter).value >= (Long)arg2.evaluate(scope, counter, inputScanner, outputWriter).value;
 				return boolToLongVal(result);
@@ -150,7 +150,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newEqual(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result = arg1.evaluate(scope, counter, inputScanner, outputWriter).value.equals(arg2.evaluate(scope, counter, inputScanner, outputWriter).value);
 				return boolToLongVal(result);
@@ -161,7 +161,7 @@ public abstract class TwoArgOperator extends Expression {
 	public static TwoArgOperator newNotEqual(Expression arg1, Expression arg2) {
 		return new TwoArgOperator(arg1, arg2, Type.Long) {
 			@Override
-			public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
 				boolean result =!arg1.evaluate(scope, counter, inputScanner, outputWriter).value.equals(arg2.evaluate(scope, counter, inputScanner, outputWriter).value);
 				return boolToLongVal(result);

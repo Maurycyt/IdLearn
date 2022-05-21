@@ -12,7 +12,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ArrayTest {
-	static final int TAB_SIZE = 1000000;
+	static final int TAB_SIZE = 10000;
 
 	Expression getSumOfNaturals(long n) {
 		return TwoArgOperator.newDivide(TwoArgOperator.newMultiply(new Constant(n), new Constant(n + 1)), new Constant(2));
@@ -58,7 +58,7 @@ public class ArrayTest {
 
 		Scope scope = new Scope();
 
-		block.evaluate(scope, new TimeCounter(), null, null);
+		block.evaluate(scope, new ResourceCounter(), null, null);
 
 		Random random = new Random();
 
@@ -67,7 +67,7 @@ public class ArrayTest {
 			int b = random.nextInt(TAB_SIZE - a) + a;
 			Expression result = getResult(a, b);
 			Expression expected = getExpected(a, b);
-			Value equality = TwoArgOperator.newEqual(result, expected).evaluate(scope, new TimeCounter(), null, null);
+			Value equality = TwoArgOperator.newEqual(result, expected).evaluate(scope, new ResourceCounter(), null, null);
 			assertEquals(1L, equality.value);
 		}
 

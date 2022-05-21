@@ -2,12 +2,11 @@ package mimuw.idlearn.idlang.GUI;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.Operation;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.Read;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.Write;
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
@@ -53,7 +52,7 @@ public class BlockIOTest {
 			try {
 				Expression program = codeBox.compile();
 				Scope scope = new Scope();
-				program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
+				program.evaluate(scope, new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 				fail();
 			} catch (Exception e) {
 			}
@@ -93,7 +92,7 @@ public class BlockIOTest {
 
 			Expression program = codeBox.compile();
 			Scope scope = new Scope();
-			program.evaluate(scope, new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
+			program.evaluate(scope, new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 			assertTrue(pkg.checkTest(123));
 		} catch (Exception e) {
 			e.printStackTrace();

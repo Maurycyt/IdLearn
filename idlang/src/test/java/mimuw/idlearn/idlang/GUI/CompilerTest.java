@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
@@ -57,7 +57,7 @@ public class CompilerTest {
 
 		Expression exp = segment.convert();
 		Scope scope = new Scope();
-		exp.evaluate(scope, new TimeCounter(), null, null);
+		exp.evaluate(scope, new ResourceCounter(), null, null);
 		assertEquals((long)Math.pow(2, 10), scope.getVariable("x").value);
 	}
 
@@ -133,7 +133,7 @@ public class CompilerTest {
 		pkg.prepareTest(123);
 
 		try {
-			exp.evaluate(new Scope(), new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
+			exp.evaluate(new Scope(), new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 		} catch (SimulationException e) {
 			e.printStackTrace();
 			fail();
@@ -198,7 +198,7 @@ public class CompilerTest {
 		pkg.prepareTest(123);
 
 		try {
-			exp.evaluate(new Scope(), new TimeCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
+			exp.evaluate(new Scope(), new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
 		} catch (SimulationException e) {
 			e.printStackTrace();
 			fail();

@@ -18,7 +18,7 @@ public class InputHandler extends Expression {
 
 
 	@Override
-	public Value evaluate(Scope scope, TimeCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 
 		Object value;
 		for (var variable : variables) {
