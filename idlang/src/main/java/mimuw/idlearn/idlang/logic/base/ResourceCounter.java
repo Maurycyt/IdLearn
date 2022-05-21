@@ -29,5 +29,6 @@ public class ResourceCounter {
 
 	public void clear() {
 		time = 0;
+		memory = 0;
 	}
 }
