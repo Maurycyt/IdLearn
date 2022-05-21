@@ -31,7 +31,7 @@ public class Write extends CodeBlock {
 
 		this.pkg = pkg;
 		final Text readText = new Text("Write ");
-		varName = new ResizableTextField(base);
+		varName = new ResizableTextField();
 
 		base.addChild(readText);
 		base.addChild(varName);

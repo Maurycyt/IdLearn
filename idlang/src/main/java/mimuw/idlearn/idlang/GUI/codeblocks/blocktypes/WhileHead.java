@@ -22,7 +22,7 @@ public class WhileHead extends CodeBlock {
 		super();
 
 		final Text whileText = new Text("While ");
-		condition = new ResizableTextField(base);
+		condition = new ResizableTextField();
 
 		base.addChild(whileText);
 		base.addChild(condition);

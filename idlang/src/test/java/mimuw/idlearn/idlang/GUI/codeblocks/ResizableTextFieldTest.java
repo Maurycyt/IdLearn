@@ -21,16 +21,16 @@ public class ResizableTextFieldTest {
 	@Test
 	public void testCompile() {
 		preparePlatform();
-		new ResizableTextField(null);
+		new ResizableTextField();
 
 		BlockBase base = new BlockBase(50, Color.AQUA);
-		new ResizableTextField(base);
+		new ResizableTextField();
 	}
 
 	@Test
 	public void testSize() {
 		preparePlatform();
-		ResizableTextField rtf1 = new ResizableTextField(null);
+		ResizableTextField rtf1 = new ResizableTextField();
 		double size0 = rtf1.getWidth();
 
 		assertTrue(size0 > 0);
@@ -45,7 +45,7 @@ public class ResizableTextFieldTest {
 
 
 		BlockBase base = new BlockBase(50, Color.AQUA);
-		ResizableTextField rtf2 = new ResizableTextField(base);
+		ResizableTextField rtf2 = new ResizableTextField();
 		base.addChild(rtf2);
 
 		size0 = rtf2.getWidth();

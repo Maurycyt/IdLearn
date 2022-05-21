@@ -1,13 +1,13 @@
 package mimuw.idlearn.idlang.GUI.codeblocks;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class BlockBase extends Group {
 
@@ -57,16 +57,20 @@ public class BlockBase extends Group {
 		double size = 20;
 		var children = content.getChildren();
 		for (var child : children) {
+			child.autosize();
 			size += child.getLayoutBounds().getWidth();
 		}
 		setCurrentWidth(size);
 		return size;
 	}
 
+
 	public void setCurrentWidth(double width) {
 		content.setPrefWidth(width);
 		bg.setWidth(width);
 	}
+
+
 
 	/**
 	 * Add something new to our content
@@ -74,7 +78,17 @@ public class BlockBase extends Group {
 	 * @param child New content
 	 */
 	public void addChild(Node child) {
+
 		content.getChildren().add(child);
+		if (child instanceof Text) {
+			Text text = (Text)child;
+			text.fontProperty().addListener((font) -> update());
+		}
+		if (child instanceof Region) {
+			Region region = (Region)child;
+			region.widthProperty().addListener((val) -> update());
+		}
+
 		update();
 	}
 }
