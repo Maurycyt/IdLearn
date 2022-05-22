@@ -22,7 +22,7 @@ public class IfHead extends CodeBlock {
 		super();
 
 		final Text ifText = new Text("If ");
-		condition = new ResizableTextField(base);
+		condition = new ResizableTextField();
 
 		base.addChild(ifText);
 		base.addChild(condition);

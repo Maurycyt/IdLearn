@@ -1,7 +1,7 @@
 package mimuw.idlearn.scoring;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
@@ -20,11 +20,11 @@ import java.util.concurrent.Semaphore;
  */
 public class TestRunner {
 	private final ProblemPackage pack;
-	private final Expression<Void> solution;
+	private final Expression solution;
 	private final ArrayList<Integer> testData;
 	private static final Semaphore mutex = new Semaphore(1);
 
-	public TestRunner(ProblemPackage pack, Expression<Void> solution) {
+	public TestRunner(ProblemPackage pack, Expression solution) {
 		this.pack = pack;
 		this.solution = solution;
 		this.testData = pack.getTestData();
@@ -38,7 +38,7 @@ public class TestRunner {
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			e.printStackTrace();
-			throw new TimeoutException(TimeCounter.MAX_TIME);
+			throw new TimeoutException(ResourceCounter.MAX_TIME);
 		}
 
 		pack.build();
@@ -47,16 +47,16 @@ public class TestRunner {
 		for (Integer TestID : testData) {
 			futures.add(CompletableFuture.supplyAsync(() -> {
 				pack.prepareTest(TestID);
-				TimeCounter timeCounter = new TimeCounter();
+				ResourceCounter resourceCounter = new ResourceCounter();
 				try {
-					solution.evaluate(new Scope(), timeCounter, pack.getTestInputScanner(TestID), pack.getTestOutputWriter(TestID));
+					solution.evaluate(new Scope(), resourceCounter, pack.getTestInputScanner(TestID), pack.getTestOutputWriter(TestID));
 					if (!pack.checkTest(TestID)) {
 						throw new CompletionException(new WrongAnswerException());
 					}
 				} catch (SimulationException | IOException e) {
 					throw new CompletionException(e);
 				}
-				return timeCounter.getTime();
+				return resourceCounter.getTime();
 			}));
 		}
 

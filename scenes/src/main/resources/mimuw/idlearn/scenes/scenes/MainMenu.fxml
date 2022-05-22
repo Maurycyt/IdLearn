@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -24,9 +25,9 @@
          </BorderPane.margin></Label>
    </bottom>
    <center>
-      <VBox fx:id="menuCenterVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="menuCenterVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#addGameMenuScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Play">
+            <Button styleClass="greenButton" mnemonicParsing="false" onAction="#addGameMenuScene" prefHeight="40.0" prefWidth="203.0" text="Play">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -34,13 +35,17 @@
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addAchievementsScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Achievements" />
-            <Button layoutX="52.0" layoutY="324.0" mnemonicParsing="false" onAction="#addSettingsScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Settings" />
-            <Button layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Exit" />
+            <Button styleClass="greenButton" layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addAchievementsScene" prefHeight="40.0" prefWidth="203.0" text="Achievements" />
+            <Button styleClass="greenButton" layoutX="52.0" layoutY="324.0" mnemonicParsing="false" onAction="#addSettingsScene" prefHeight="40.0" prefWidth="203.0" text="Settings" />
+            <Button styleClass="greenButton" layoutX="52.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="40.0" prefWidth="203.0" text="Exit" />
          </children>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
       </VBox>
    </center>
+   <stylesheets>
+      <URL value="@../style.css" />
+      <URL value="@../common_style.css" />
+   </stylesheets>
 </BorderPane>

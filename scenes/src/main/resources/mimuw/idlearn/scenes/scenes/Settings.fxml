@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.SettingsController">
-    <bottom>
-        <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" BorderPane.alignment="CENTER">
-            <font>
-                <Font name="System Bold" size="13.0" />
-            </font>
-            <BorderPane.margin>
-                <Insets bottom="40.0" />
-            </BorderPane.margin>
-        </Button>
-    </bottom>
-    <top>
-        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" BorderPane.alignment="CENTER">
-            <font>
-                <Font name="System Bold" size="13.0" />
-            </font>
-            <BorderPane.margin>
-                <Insets top="40.0" />
-            </BorderPane.margin>
-        </Button>
-    </top>
     <center>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER" />
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER">
+         <children>
+              <Button mnemonicParsing="false" onAction="#addCreditsScene" prefHeight="40.0" prefWidth="203.0" styleClass="greenButton" text="Credits">
+                  <font>
+                      <Font name="System Bold" size="13.0" />
+                  </font>
+              </Button>
+         </children></VBox>
     </center>
+   <stylesheets>
+      <URL value="@../style.css" />
+      <URL value="@../common_style.css" />
+   </stylesheets>
+   <bottom>
+      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" styleClass="greenButton" text="Back" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="40.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
 </BorderPane>

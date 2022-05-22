@@ -13,18 +13,18 @@ import mimuw.idlearn.idlang.logic.keywords.Assignment;
 public class Assign extends CodeBlock {
 
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#78d66b",1.0));
-	TextField varName;
-	TextField value;
+	private TextField varName;
+	private TextField value;
 
 	/**
 	 * @return An equivalent expression
 	 */
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		String name = varName.getText();
 		String valueText = value.getText();
-		Expression<Integer> valueInt = StringToExpression.parse(valueText);
-		Assignment<Integer> assign = new Assignment<>(name, valueInt, true);
+		Expression valueInt = StringToExpression.parse(valueText);
+		Assignment assign = new Assignment(name, valueInt, true);
 		return assign;
 	}
 
@@ -34,9 +34,9 @@ public class Assign extends CodeBlock {
 	public Assign() {
 		super();
 
-		varName = new ResizableTextField(base);
+		varName = new ResizableTextField();
 		final Text equal = new Text(" = ");
-		value = new ResizableTextField(base);
+		value = new ResizableTextField();
 
 		base.addChild(varName);
 		base.addChild(equal);

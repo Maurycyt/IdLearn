@@ -21,16 +21,16 @@ public class ResizableTextFieldTest {
 	@Test
 	public void testCompile() {
 		preparePlatform();
-		new ResizableTextField(null);
+		new ResizableTextField();
 
 		BlockBase base = new BlockBase(50, Color.AQUA);
-		new ResizableTextField(base);
+		new ResizableTextField();
 	}
 
 	@Test
 	public void testSize() {
 		preparePlatform();
-		ResizableTextField rtf1 = new ResizableTextField(null);
+		ResizableTextField rtf1 = new ResizableTextField();
 		double size0 = rtf1.getWidth();
 
 		assertTrue(size0 > 0);
@@ -38,14 +38,14 @@ public class ResizableTextFieldTest {
 		rtf1.setText("IdLang");
 		double size1 = rtf1.getWidth();
 
-		Text test = new Text("IdLang");
-		double sizeTest = test.getLayoutBounds().getWidth();
+
+		double sizeTest = ResizableTextField.computeTextWidth(rtf1.getFont(), "IdLang");
 
 		assertEquals(size1, size0 + sizeTest);
 
 
 		BlockBase base = new BlockBase(50, Color.AQUA);
-		ResizableTextField rtf2 = new ResizableTextField(base);
+		ResizableTextField rtf2 = new ResizableTextField();
 		base.addChild(rtf2);
 
 		size0 = rtf2.getWidth();
@@ -55,11 +55,11 @@ public class ResizableTextFieldTest {
 		assertTrue(size0Base > 0);
 
 		rtf2.setText("IdLang");
+		rtf2.autosize();
 		size1 = rtf2.getWidth();
 		double size1Base = base.update();
 
-		test = new Text("IdLang");
-		sizeTest = test.getLayoutBounds().getWidth();
+		sizeTest = ResizableTextField.computeTextWidth(rtf2.getFont(), "IdLang");
 
 		assertEquals(size1, size0 + sizeTest);
 		assertEquals(size1Base, size0Base + sizeTest);

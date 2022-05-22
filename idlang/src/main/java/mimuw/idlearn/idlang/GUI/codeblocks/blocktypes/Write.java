@@ -13,13 +13,13 @@ import mimuw.idlearn.packages.ProblemPackage;
 
 public class Write extends CodeBlock {
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#d16662",1.0));
-	TextField varName;
-	ProblemPackage pkg;
+	private TextField varName;
+	private ProblemPackage pkg;
 
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		String name = varName.getText();
-		Expression<Integer> val = StringToExpression.parse(name);
+		Expression val = StringToExpression.parse(name);
 		return new OutputHandler(val);
 	}
 
@@ -31,7 +31,7 @@ public class Write extends CodeBlock {
 
 		this.pkg = pkg;
 		final Text readText = new Text("Write ");
-		varName = new ResizableTextField(base);
+		varName = new ResizableTextField();
 
 		base.addChild(readText);
 		base.addChild(varName);
