@@ -87,8 +87,7 @@ public class ResourceHandler {
 	public static Button createUserPointsButton() {
 		Button btn = new Button();
 		btn.getStylesheets().add(Style.toExternalForm());
-		btn.getStyleClass().add("unclickableButton");
-		btn.getStyleClass().add("greenButton");
+		btn.getStyleClass().add("unclickableGreenButton");
 
 		btn.setText("Points: " + DataManager.showPoints());
 		// dynamically updates the points
