@@ -13,8 +13,8 @@ import mimuw.idlearn.packages.ProblemPackage;
 
 public class Write extends CodeBlock {
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#d16662",1.0));
-	TextField varName;
-	ProblemPackage pkg;
+	private TextField varName;
+	private ProblemPackage pkg;
 
 	@Override
 	public Expression convert() {

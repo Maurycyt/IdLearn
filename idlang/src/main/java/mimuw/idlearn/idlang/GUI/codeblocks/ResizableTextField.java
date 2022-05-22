@@ -8,9 +8,11 @@ import javafx.scene.text.Text;
 // Maybe switch to TextFormatter
 public class ResizableTextField extends TextField {
 
+	private static final double BASE_WIDTH = 20;
+
 	private static final Text sampler = new Text();
 
-	private static double computeTextWidth(Font font, String text) {
+	public static double computeTextWidth(Font font, String text) {
 		sampler.setText(text);
 		sampler.setFont(font);
 
@@ -33,13 +35,16 @@ public class ResizableTextField extends TextField {
 
 		// Recalculate size if text changed
 		this.textProperty().addListener((ob, o, n) -> {
-			double width = computeTextWidth(this.getFont(), this.getText()) + 20;
-			this.setWidth(width);
+			double width = computeTextWidth(this.getFont(), this.getText()) + BASE_WIDTH;
 			this.setPrefWidth(width);
+			this.setMinWidth(width);
+			this.setMaxWidth(width);
+			this.setWidth(width);
 		});
 
-
-		this.setWidth(20);
-		this.setPrefWidth(20);
+		this.setPrefWidth(BASE_WIDTH);
+		this.setMinWidth(BASE_WIDTH);
+		this.setMaxWidth(BASE_WIDTH);
+		this.setWidth(BASE_WIDTH);
 	}
 }

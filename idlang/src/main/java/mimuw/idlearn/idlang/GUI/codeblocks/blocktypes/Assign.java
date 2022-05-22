@@ -13,8 +13,8 @@ import mimuw.idlearn.idlang.logic.keywords.Assignment;
 public class Assign extends CodeBlock {
 
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#78d66b",1.0));
-	TextField varName;
-	TextField value;
+	private TextField varName;
+	private TextField value;
 
 	/**
 	 * @return An equivalent expression

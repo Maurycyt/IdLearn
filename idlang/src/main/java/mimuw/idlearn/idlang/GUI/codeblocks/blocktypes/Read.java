@@ -14,8 +14,8 @@ import mimuw.idlearn.packages.ProblemPackage;
 
 public class Read extends CodeBlock {
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#f7bd65",1.0));
-	TextField varName;
-	ProblemPackage pkg;
+	private TextField varName;
+	private ProblemPackage pkg;
 
 	@Override
 	public Expression convert() {

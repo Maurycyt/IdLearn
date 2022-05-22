@@ -9,7 +9,7 @@ import mimuw.idlearn.idlang.GUI.codeblocks.ResizableTextField;
 
 public class WhileHead extends CodeBlock {
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#d980c4",1.0));
-	TextField condition;
+	private TextField condition;
 
 	public String getCond() {
 		return condition.getText();

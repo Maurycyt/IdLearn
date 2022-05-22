@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 
 public class BlockBase extends Group {
 
+
 	final private Rectangle bg = new Rectangle();
 	final private HBox content = new HBox();
 
@@ -57,7 +58,6 @@ public class BlockBase extends Group {
 		double size = 20;
 		var children = content.getChildren();
 		for (var child : children) {
-			child.autosize();
 			size += child.getLayoutBounds().getWidth();
 		}
 		setCurrentWidth(size);

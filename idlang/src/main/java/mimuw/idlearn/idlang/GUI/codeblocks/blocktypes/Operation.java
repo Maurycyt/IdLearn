@@ -16,9 +16,9 @@ import mimuw.idlearn.idlang.logic.operators.TwoArgOperator;
 
 public class Operation extends CodeBlock {
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#66c6e3",1.0));
-	TextField oper1;
-	TextField oper2;
-	TextField result;
+	private TextField oper1;
+	private TextField oper2;
+	private TextField result;
 
 	ChoiceBox<String> dropDown;
 

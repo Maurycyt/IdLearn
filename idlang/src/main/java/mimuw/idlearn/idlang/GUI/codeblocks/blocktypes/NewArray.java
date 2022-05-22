@@ -14,8 +14,8 @@ public class NewArray extends CodeBlock {
 
 	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#ff8fab",1.0));
 
-	TextField tabName;
-	TextField size;
+	private TextField tabName;
+	private TextField size;
 
 	/**
 	 * @return An equivalent expression

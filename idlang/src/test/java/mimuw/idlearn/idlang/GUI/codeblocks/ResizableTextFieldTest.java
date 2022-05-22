@@ -38,8 +38,8 @@ public class ResizableTextFieldTest {
 		rtf1.setText("IdLang");
 		double size1 = rtf1.getWidth();
 
-		Text test = new Text("IdLang");
-		double sizeTest = test.getLayoutBounds().getWidth();
+
+		double sizeTest = ResizableTextField.computeTextWidth(rtf1.getFont(), "IdLang");
 
 		assertEquals(size1, size0 + sizeTest);
 
@@ -55,11 +55,11 @@ public class ResizableTextFieldTest {
 		assertTrue(size0Base > 0);
 
 		rtf2.setText("IdLang");
+		rtf2.autosize();
 		size1 = rtf2.getWidth();
 		double size1Base = base.update();
 
-		test = new Text("IdLang");
-		sizeTest = test.getLayoutBounds().getWidth();
+		sizeTest = ResizableTextField.computeTextWidth(rtf2.getFont(), "IdLang");
 
 		assertEquals(size1, size0 + sizeTest);
 		assertEquals(size1Base, size0Base + sizeTest);
