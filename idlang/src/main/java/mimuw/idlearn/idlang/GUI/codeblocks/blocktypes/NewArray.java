@@ -36,9 +36,9 @@ public class NewArray extends CodeBlock {
 	public NewArray() {
 		super();
 
-		tabName = new ResizableTextField(base);
+		tabName = new ResizableTextField();
 		final Text lp = new Text("[");
-		size = new ResizableTextField(base);
+		size = new ResizableTextField();
 		final Text rp = new Text("]");
 
 		base.addChild(tabName);

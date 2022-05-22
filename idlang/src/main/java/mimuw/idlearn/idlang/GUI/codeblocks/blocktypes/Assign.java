@@ -34,9 +34,9 @@ public class Assign extends CodeBlock {
 	public Assign() {
 		super();
 
-		varName = new ResizableTextField(base);
+		varName = new ResizableTextField();
 		final Text equal = new Text(" = ");
-		value = new ResizableTextField(base);
+		value = new ResizableTextField();
 
 		base.addChild(varName);
 		base.addChild(equal);

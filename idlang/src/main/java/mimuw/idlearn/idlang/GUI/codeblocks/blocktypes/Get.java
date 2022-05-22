@@ -41,11 +41,11 @@ public class Get extends CodeBlock {
 	public Get() {
 		super();
 
-		varName = new ResizableTextField(base);
+		varName = new ResizableTextField();
 		final Text equal = new Text(" = get ");
-		tabName = new ResizableTextField(base);
+		tabName = new ResizableTextField();
 		final Text at = new Text(" at ");
-		index = new ResizableTextField(base);
+		index = new ResizableTextField();
 
 		base.addChild(varName);
 		base.addChild(equal);

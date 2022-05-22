@@ -42,11 +42,11 @@ public class Set extends CodeBlock {
 	public Set() {
 		super();
 
-		tabName = new ResizableTextField(base);
+		tabName = new ResizableTextField();
 		final Text at = new Text(" at ");
-		index = new ResizableTextField(base);
+		index = new ResizableTextField();
 		final Text set = new Text(" set to ");
-		value = new ResizableTextField(base);
+		value = new ResizableTextField();
 
 		base.addChild(tabName);
 		base.addChild(at);

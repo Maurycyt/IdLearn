@@ -28,9 +28,9 @@ public class Operation extends CodeBlock {
 	public Operation() {
 		super();
 
-		result = new ResizableTextField(base);
+		result = new ResizableTextField();
 		final Text equal = new Text(" = ");
-		oper1 = new ResizableTextField(base);
+		oper1 = new ResizableTextField();
 		final Text space1 = new Text(" ");
 		final Text space2 = new Text(" ");
 		ObservableList<String> options =
@@ -47,7 +47,7 @@ public class Operation extends CodeBlock {
 		}
 		dropDown.setPrefWidth(max + 30);
 
-		oper2 = new ResizableTextField(base);
+		oper2 = new ResizableTextField();
 
 		base.addChild(result);
 		base.addChild(equal);
@@ -56,12 +56,6 @@ public class Operation extends CodeBlock {
 		base.addChild(dropDown);
 		base.addChild(space2);
 		base.addChild(oper2);
-
-		base.setCurrentWidth(10000);
-
-		dropDown.widthProperty().addListener((obs, oldVal, newVal) -> {
-			base.update();
-		});
 
 		this.getChildren().add(base);
 	}
