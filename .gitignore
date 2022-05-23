@@ -18,6 +18,9 @@
 # And the maven files
 !pom.xml
 
+# And setup file
+!setup
+
 # And the README
 !README.md
 
