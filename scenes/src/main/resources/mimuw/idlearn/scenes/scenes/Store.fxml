@@ -1,34 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="backgroundPane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
-    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
-         <children>
-              <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
-                  <VBox.margin>
-                      <Insets top="50.0" />
-                  </VBox.margin>
-               <children>
-                  <Button layoutX="435.0" layoutY="58.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="499.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Points: 0" />
-               </children>
-              </HBox>
-         </children>
-      </VBox>
-      <TilePane prefColumns="3" prefHeight="893.0" prefRows="1" prefTileHeight="120.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" stylesheets="@../style.css" VBox.vgrow="ALWAYS">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="storeTileButton" stylesheets="@../style.css" text="Easy" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: gold;" styleClass="storeTileButton" stylesheets="@../style.css" text="Medium" />
-            <Button layoutX="10.0" layoutY="65.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: lightcoral;" styleClass="storeTileButton" stylesheets="@../style.css" text="Hard" />
-         </children>
-      </TilePane>
-      <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="footerPane" stylesheets="@../style.css">
-         <children>
-            <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" styleClass="menuButton" stylesheets="@../style.css" text="Back" />
-         </children>
-      </HBox>
-    </children>
-</VBox>
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.StoreController">
+    <center>
+        <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="taskStoreBtn" mnemonicParsing="false" onAction="#addTaskStoreScene" prefHeight="40.0" prefWidth="203.0" text="Tasks">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/light-bulb.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="storeTileButton" />
+                  <String fx:value="greenButton" />
+               </styleClass></Button>
+                <Button fx:id="perkStoreBtn" layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#addPerkStoreScene" prefHeight="40.0" prefWidth="203.0" text="Perks">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/ram.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="storeTileButton" />
+                  <String fx:value="greenButton" />
+               </styleClass></Button>
+            <Button fx:id="cosmeticsStoreBtn" layoutX="245.0" layoutY="185.0" mnemonicParsing="false" onAction="#addCosmeticsStoreScene" prefHeight="40.0" prefWidth="203.0" text="Cosmetics">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/prank-glasses.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="storeTileButton" />
+                  <String fx:value="greenButton" />
+               </styleClass></Button>
+            </children>
+        </TilePane>
+    </center>
+    <bottom>
+        <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" styleClass="greenButton" text="Back" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets bottom="40.0" />
+            </BorderPane.margin>
+        </Button>
+    </bottom>
+    <top>
+        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableGreenButton" text="Points: 0" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets top="40.0" />
+            </BorderPane.margin>
+        </Button>
+    </top>
+   <stylesheets>
+      <URL value="@../style.css" />
+      <URL value="@../common_style.css" />
+   </stylesheets>
+</BorderPane>

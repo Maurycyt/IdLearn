@@ -1,12 +1,12 @@
 package mimuw.idlearn.idlang.GUI;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
+import javafx.scene.layout.VBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.logic.base.Expression;
 
-public class CodeBox extends Group {
+public class CodeBox extends VBox {
 
 	private CodeSegment segment;
 
@@ -76,7 +76,7 @@ public class CodeBox extends Group {
 	 *
 	 * @return Equivalent expression
 	 */
-	public Expression<Void> compile() {
+	public Expression compile() {
 		return segment.convert();
 	}
 }

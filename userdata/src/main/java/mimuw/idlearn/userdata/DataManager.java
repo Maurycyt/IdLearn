@@ -9,10 +9,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class DataManager {
 
@@ -68,8 +65,8 @@ public class DataManager {
 		data.unlockedTasks.add(task);
 		saveData();
 	}
-	public static ArrayList<String> getUnlockedTasks() {
-		return new ArrayList<>(data.unlockedTasks);
+	public static List<String> getUnlockedTasks() {
+		return Collections.unmodifiableList(data.unlockedTasks);
 	}
 	public static void resetUnlockedTasks() throws IOException {
 		data.unlockedTasks.clear();
@@ -119,8 +116,8 @@ public class DataManager {
 					saveData();
 				}
 				catch (IOException e) {
-					System.out.println("FAILED TO AUTOSAVE!");
-					throw new Error("Failed autosave");
+					System.out.println("FAILED TO AUTO-SAVE!");
+					throw new Error("Failed auto-save");
 				}
 			}
 		};

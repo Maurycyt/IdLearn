@@ -2,6 +2,8 @@ package mimuw.idlearn.idlang.GUI.codeblocks;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.Assign;
@@ -25,8 +27,8 @@ public class CodeBlockSpawnerTest {
 	public void testSpawning() {
 		preparePlatform();
 		CodeBox codeBox = new CodeBox();
-		Group dragged = new Group();
-		CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, dragged, Assign::new);
+		Pane dragged = new AnchorPane();
+		CodeBlockSpawner spawner = new CodeBlockSpawner(codeBox, Assign::new, dragged);
 
 		assertEquals(1, spawner.getChildren().size());
 

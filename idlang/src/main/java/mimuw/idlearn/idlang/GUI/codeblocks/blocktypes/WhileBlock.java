@@ -3,13 +3,13 @@ package mimuw.idlearn.idlang.GUI.codeblocks.blocktypes;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.keywords.While;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.Variable;
-import mimuw.idlearn.idlang.logic.conversion.IntToBool;
 
 public class WhileBlock extends CodeBlock {
 
@@ -25,7 +25,10 @@ public class WhileBlock extends CodeBlock {
 		super();
 		content = new VBox();
 		head = new WhileHead();
-		foot = new End(Color.AQUA);
+		foot = new End(Color.web("#d980c4",1.0));
+		foot.setVisible(false);
+		foot.managedProperty().bind(foot.visibleProperty());
+
 		segment = new CodeSegment();
 
 		content.getChildren().add(head);
@@ -89,18 +92,17 @@ public class WhileBlock extends CodeBlock {
 
 	@Override
 	public double insideBarrier() {
-		return head.getHeight();
+		return head.getEffectiveHeight();
 	}
 
 	/**
 	 * @return An equivalent expression
 	 */
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		Block body = segment.convert();
-		Expression<Boolean> condition = new IntToBool(new Variable<>(head.getCond()));
-		While result = new While(condition, body);
-		return result;
+		Expression condition = new Variable(Type.Long, head.getCond());
+		return new While(condition, body);
 	}
 
 	/**
@@ -109,8 +111,8 @@ public class WhileBlock extends CodeBlock {
 	 * @return Height
 	 */
 	@Override
-	public double getHeight() {
-		return head.getHeight() + segment.giveHeight() + foot.getHeight();
+	public double getEffectiveHeight() {
+		return head.getEffectiveHeight() + segment.giveHeight() + foot.getEffectiveHeight();
 	}
 
 	/**
@@ -118,7 +120,13 @@ public class WhileBlock extends CodeBlock {
 	 *
 	 * @param text Condition text
 	 */
-	public void setText(String text) {
-		head.setText(text);
+	public void setEffectiveText(String text) {
+		head.setEffectiveText(text);
+	}
+
+	@Override
+	public void releaseMouse() {
+		super.releaseMouse();
+		foot.setVisible(true);
 	}
 }

@@ -8,18 +8,19 @@ import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.ResizableTextField;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.InputHandler;
+import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Variable;
 import mimuw.idlearn.packages.ProblemPackage;
 
 public class Read extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.GREEN);
-	TextField varName;
-	ProblemPackage pkg;
+	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#f7bd65",1.0));
+	private TextField varName;
+	private ProblemPackage pkg;
 
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		String name = varName.getText();
-		return new InputHandler(pkg, new Variable<Integer>(name));
+		return new InputHandler(new Variable(Type.Long, name));
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class Read extends CodeBlock {
 		this.pkg = pkg;
 
 		final Text readText = new Text("Read ");
-		varName = new ResizableTextField(base);
+		varName = new ResizableTextField();
 
 		base.addChild(readText);
 		base.addChild(varName);
@@ -44,7 +45,7 @@ public class Read extends CodeBlock {
 	 *
 	 * @param text Variable name
 	 */
-	public void setText(String text) {
+	public void setEffectiveText(String text) {
 		varName.setText(text);
 	}
 }

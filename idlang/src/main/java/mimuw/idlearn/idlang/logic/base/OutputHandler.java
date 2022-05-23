@@ -2,37 +2,36 @@ package mimuw.idlearn.idlang.logic.base;
 
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
-import mimuw.idlearn.packages.ProblemPackage;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.util.Scanner;
 
-public class OutputHandler implements Expression<Void> {
+import static mimuw.idlearn.idlang.logic.base.Type.Null;
+
+public class OutputHandler extends Expression {
 	private final static String separator = " ";
-	private final ProblemPackage pkg;
-	private Expression<?>[] values;
+	private Expression[] values;
 
-	public OutputHandler(ProblemPackage pkg, Expression<?>... values) {
-		this.pkg = pkg;
+	public OutputHandler(Expression... values) {
 		this.values = values;
 	}
 
-	public void takeValues(Expression<?>... variables) {
-		this.values = variables;
-	}
 
 	@Override
-	public Value<Void> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
-		FileWriter writer = pkg.getTestOutputWriter();
-		try {
-			for (var v : values) {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+
+		for (var value : values) {
+
+			try {
 				counter.addTime(delay);
-				writer.write(separator + v.evaluate(scope, counter).getValue());
+				outputWriter.write(separator + value.evaluate(scope, counter, inputScanner, outputWriter));
+
+				outputWriter.flush();
+			} catch (IOException e) {
+				throw new RuntimeException(e); // TODO: clean-up
 			}
-			writer.flush();
-		} catch (IOException e) {
-			throw new RuntimeException(e); // TODO: clean-up
 		}
-		return new Value<>(null);
+		return new Value(Null, null);
 	}
 }

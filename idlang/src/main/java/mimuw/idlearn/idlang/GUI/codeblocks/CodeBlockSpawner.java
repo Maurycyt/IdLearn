@@ -3,15 +3,17 @@ package mimuw.idlearn.idlang.GUI.codeblocks;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;
 
 import java.util.function.Supplier;
 
-public class CodeBlockSpawner extends AnchorPane {
+public class CodeBlockSpawner extends HBox {
 
 	private final CodeBox codeBox;
-	private final Group dragged;
 	private final Supplier<CodeBlock> spawn;
+	private final Pane dragged;
 
 	/**
 	 * Spawns our CodeBlock
@@ -27,14 +29,13 @@ public class CodeBlockSpawner extends AnchorPane {
 	 * Creates a new CodeBlockSpawner
 	 *
 	 * @param codeBox The box for code our CodeBlocks will interact with
-	 * @param dragged The parent for nodes being dragged
-	 * @param spawn The function for spawning new CodeBlocks
+	 * @param spawn   The function for spawning new CodeBlocks
 	 */
-	public CodeBlockSpawner(CodeBox codeBox, Group dragged, Supplier<CodeBlock> spawn) {
+	public CodeBlockSpawner(CodeBox codeBox, Supplier<CodeBlock> spawn, Pane dragged) {
 		super();
 		this.codeBox = codeBox;
-		this.dragged = dragged;
 		this.spawn = spawn;
+		this.dragged = dragged;
 
 		spawnBlock();
 

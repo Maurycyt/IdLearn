@@ -4,13 +4,27 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class BlockBase extends Group {
 
+
 	final private Rectangle bg = new Rectangle();
 	final private HBox content = new HBox();
+
+/*	private static class Rect extends Region {
+		@Override
+		public void setHeight(double v) {
+			super.setHeight(v);
+		}
+		@Override
+		public void setWidth(double v) {
+			super.setWidth(v);
+		}
+	}*/
 
 	/**
 	 * Create a new BlockBase
@@ -23,6 +37,8 @@ public class BlockBase extends Group {
 
 		bg.setHeight(height);
 		bg.setFill(colour);
+		bg.setArcWidth(30.0);
+		bg.setArcHeight(20.0);
 		content.setPrefHeight(height);
 		content.setAlignment(Pos.CENTER);
 
@@ -48,10 +64,13 @@ public class BlockBase extends Group {
 		return size;
 	}
 
+
 	public void setCurrentWidth(double width) {
 		content.setPrefWidth(width);
 		bg.setWidth(width);
 	}
+
+
 
 	/**
 	 * Add something new to our content
@@ -59,7 +78,17 @@ public class BlockBase extends Group {
 	 * @param child New content
 	 */
 	public void addChild(Node child) {
+
 		content.getChildren().add(child);
+		if (child instanceof Text) {
+			Text text = (Text)child;
+			text.fontProperty().addListener((font) -> update());
+		}
+		if (child instanceof Region) {
+			Region region = (Region)child;
+			region.widthProperty().addListener((val) -> update());
+		}
+
 		update();
 	}
 }

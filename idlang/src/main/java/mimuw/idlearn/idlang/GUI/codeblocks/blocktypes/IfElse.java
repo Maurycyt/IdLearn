@@ -3,13 +3,13 @@ package mimuw.idlearn.idlang.GUI.codeblocks.blocktypes;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.keywords.Block;
 import mimuw.idlearn.idlang.logic.keywords.If;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.Variable;
-import mimuw.idlearn.idlang.logic.conversion.IntToBool;
 
 public class IfElse extends CodeBlock {
 
@@ -28,7 +28,11 @@ public class IfElse extends CodeBlock {
 		content = new VBox();
 		ifHead = new IfHead();
 		elseHead = new ElseHead();
-		foot = new End(Color.PURPLE);
+		elseHead.setVisible(false);
+		elseHead.managedProperty().bind(elseHead.visibleProperty());
+		foot = new End(Color.web("#aa6ee6",1.0));
+		foot.setVisible(false);
+		foot.managedProperty().bind(foot.visibleProperty());
 		ifSegment = new CodeSegment();
 		elseSegment = new CodeSegment();
 
@@ -73,9 +77,9 @@ public class IfElse extends CodeBlock {
 		// Offset
 		double sum = -CodeBlock.HEIGHT / 2;
 
-		sum += ifHead.getHeight();
+		sum += ifHead.getEffectiveHeight();
 		sum += ifSegment.giveHeight();
-		sum += elseHead.getHeight();
+		sum += elseHead.getEffectiveHeight();
 		if (sum > relativeY) {
 			ifSegment.addChild(position, child);
 		} else {
@@ -109,17 +113,17 @@ public class IfElse extends CodeBlock {
 
 	@Override
 	public double insideBarrier() {
-		return ifHead.getHeight();
+		return ifHead.getEffectiveHeight();
 	}
 
 	/**
 	 * @return An equivalent expression
 	 */
 	@Override
-	public Expression<Void> convert() {
+	public Expression convert() {
 		Block ifBody = ifSegment.convert();
 		Block elseBody = elseSegment.convert();
-		Expression<Boolean> condition = new IntToBool(new Variable<>(ifHead.getCond()));
+		Expression condition = new Variable(Type.Long, ifHead.getCond());
 		return new If(condition, ifBody, elseBody);
 	}
 
@@ -129,10 +133,12 @@ public class IfElse extends CodeBlock {
 	 * @return Height
 	 */
 	@Override
-	public double getHeight() {
-		return (
-				ifHead.getHeight() + ifSegment.giveHeight() + elseHead.getHeight() +
-						elseSegment.getHeight() + foot.getHeight()
+	public double getEffectiveHeight() {
+		return (ifHead.getEffectiveHeight() +
+				ifSegment.giveHeight() +
+				elseHead.getEffectiveHeight() +
+				elseSegment.getHeight() +
+				foot.getEffectiveHeight()
 		);
 	}
 
@@ -141,7 +147,14 @@ public class IfElse extends CodeBlock {
 	 *
 	 * @param text Condition text
 	 */
-	public void setText(String text) {
-		ifHead.setText(text);
+	public void setEffectiveText(String text) {
+		ifHead.setEffectiveText(text);
+	}
+
+	@Override
+	public void releaseMouse() {
+		super.releaseMouse();
+		elseHead.setVisible(true);
+		foot.setVisible(true);
 	}
 }

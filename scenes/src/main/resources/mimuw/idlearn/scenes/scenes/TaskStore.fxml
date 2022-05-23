@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.TaskStoreController">
+   <center>
+      <TilePane maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="3" prefHeight="600.0" prefRows="1" prefTileHeight="100.0" prefTileWidth="350.0" prefWidth="1200.0" styleClass="storeTilePane" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#buyEasyTask" prefHeight="40.0" prefWidth="203.0" text="Easy">
+               <styleClass>
+                  <String fx:value="storeTileButton" />
+                  <String fx:value="greenButton" />
+               </styleClass></Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#buyMediumTask" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: #fcd418;" text="Medium">
+               <styleClass>
+                  <String fx:value="storeTileButton" />
+                  <String fx:value="greenButton" />
+               </styleClass></Button>
+            <Button layoutX="10.0" layoutY="65.0" mnemonicParsing="false" onAction="#buyHardTask" prefHeight="40.0" prefWidth="203.0" style="-fx-background-color: lightcoral;" text="Hard">
+               <styleClass>
+                  <String fx:value="storeTileButton" />
+                  <String fx:value="greenButton" />
+               </styleClass></Button>
+         </children>
+      </TilePane>
+   </center>
+   <bottom>
+      <Button styleClass="greenButton" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" text="Back" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="40.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+   <top>
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableGreenButton" text="Points: 0" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="40.0" />
+         </BorderPane.margin>
+      </Button>
+   </top>
+   <stylesheets>
+      <URL value="@../style.css" />
+      <URL value="@../common_style.css" />
+   </stylesheets>
+</BorderPane>

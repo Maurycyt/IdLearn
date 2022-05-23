@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
-    <children>
-        <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
-            <VBox.margin>
-                <Insets top="50.0" />
-            </VBox.margin>
-        </HBox>
-        <HBox styleClass="menuVBox" stylesheets="@../style.css" VBox.vgrow="ALWAYS">
-            <children>
-                <VBox fx:id="menuCenterVBox" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="menuVBox" stylesheets="@../style.css" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableButton" stylesheets="@../style.css" text="Loading...">
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
-        <HBox layoutX="10.0" layoutY="60.0" maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css" />
-    </children>
-</VBox>
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.PreloaderController">
+    <center>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" stylesheets="@../style.css" BorderPane.alignment="CENTER">
+         <children>
+              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableGreenButton" stylesheets="@../style.css" text="Loading...">
+                  <font>
+                      <Font name="System Bold" size="13.0" />
+                  </font>
+              </Button>
+         </children></VBox>
+    </center>
+   <stylesheets>
+      <URL value="@../common_style.css" />
+      <URL value="@../style.css" />
+   </stylesheets>
+</BorderPane>

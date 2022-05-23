@@ -1,0 +1,145 @@
+/*
+The color scheme is as follows:
+- 10% - #00b167
+- 30% - #ffffff
+- 60% - #f2f2f5
+*/
+
+/* Load Anonymous Pro font family */
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_B.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_BI.ttf);
+}
+@font-face {
+    src: url(fonts/Anonymous-Pro/Anonymous_Pro_I.ttf);
+}
+* {
+    -fx-font-family: "Anonymous Pro";
+}
+
+/* Generic elements */
+.button {
+    -fx-text-alignment: center;
+    -fx-background-color: #00b167;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-pref-width: 100px;
+    -fx-cursor: hand;
+}
+.pane {
+    -fx-background-color: #f2f2f5;
+    -fx-alignment: center;
+}
+
+
+/* Buttons */
+.greenButton {
+    -fx-font-size: 32px;
+    -fx-pref-width: 350;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.greenButton:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
+}
+
+.unclickableGreenButton {
+    -fx-font-size: 32px;
+    -fx-pref-width: 350;
+    -fx-cursor: none;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+
+}
+.unclickableGreenButton:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+
+/* Main Menu */
+.menuVBox {
+    -fx-alignment: center;
+    -fx-spacing: 35px;
+}
+
+
+/* Store */
+.storeTilePane {
+    -fx-orientation: horizontal;
+    -fx-alignment: center;
+    -fx-pref-tile-height: 300px;
+    -fx-hgap: 30px;
+}
+
+.storeTileButton {
+    -fx-pref-height: 250;
+}
+
+/* Credits */
+.creditsHeaderText {
+    -fx-font-size: 24px;
+    -fx-font-weigth: bold;
+}
+
+/* Popups */
+.dialog-pane{
+    -fx-border-width: 4px;
+    -fx-pref-width: 400px;
+}
+.ok-dialog {
+    -fx-border-color: #00b167;
+}
+.warning-dialog {
+    -fx-border-color: #f0b880;
+}
+.error-dialog {
+    -fx-border-color: lightcoral;
+}
+
+.dialog-pane > .content.label {
+    -fx-font-size: 16px;
+}
+
+.dialog-pane:header .header-panel .label{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+
+
+/* TODO: Scrollbars */
+.scroll-bar:horizontal,
+.scroll-bar:vertical{
+    /*
+    -fx-background-color: blue;
+    */
+    -fx-pref-width: 20px;
+}
+
+.increment-button,
+.decrement-button {
+    /*-fx-visibility: hidden;*/
+    -fx-background-color: transparent;
+    /*-fx-background-color: green;
+    -fx-border-color: orange;*/
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: purple;
+    -fx-border-color: pink;
+    -fx-background-radius: 2px;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: brown;
+    -fx-background-radius: 5px;
+}

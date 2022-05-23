@@ -1,8 +1,11 @@
 package mimuw.idlearn.scoring;
 
+import mimuw.idlearn.core.Emitter;
+import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
@@ -11,6 +14,15 @@ public class PointsGiver {
 	private static final Map<String, PointsTimerTask> givingTasks = new HashMap<>();
 	private static final Map<String, Long> timeStamps = new HashMap<>();
 	private static final Semaphore mutex = new Semaphore(1);
+	private static final Emitter taskCompletionEmitter = new Emitter(); //TODO: fire when appropriate
+
+	public static Set<String> getCompletedTasks() {
+		return givingTasks.keySet();
+	}
+
+	public static void connectToTaskCompletion(Listener listener) {
+		taskCompletionEmitter.connect(listener);
+	}
 
 	private static class PointsTimerTask extends TimerTask {
 		long timeMillis;
@@ -23,7 +35,7 @@ public class PointsGiver {
 
 		@Override
 		public void run() {
-			DataManager.addPoints(points);
+			Platform.runLater(() -> DataManager.addPoints(points));
 		}
 
 		public void start() {
@@ -60,6 +72,8 @@ public class PointsGiver {
 
 
 		mutex.release();
+
+		taskCompletionEmitter.fire(problem);
 	}
 
 	public static void resetSolution(String problem) {
@@ -82,6 +96,7 @@ public class PointsGiver {
 
 		for (Map.Entry<String, PointsTimerTask> entry : givingTasks.entrySet()) {
 			entry.getValue().cancel();
+			//todo: couldn't this just be `resetSolution`?
 		}
 		timeStamps.clear();
 		givingTasks.clear();

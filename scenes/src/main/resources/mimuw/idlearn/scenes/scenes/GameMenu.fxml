@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.SceneController">
-    <children>
-        <HBox maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="headerPane" stylesheets="@../style.css">
-            <VBox.margin>
-                <Insets top="50.0" />
-            </VBox.margin>
-        </HBox>
-        <HBox styleClass="menuVBox" stylesheets="@../style.css" VBox.vgrow="ALWAYS">
-            <children>
-                <VBox fx:id="menuCenterVBox" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="menuVBox" stylesheets="@../style.css" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#addTaskSelectionScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Task Selection">
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                        <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addStoreScene" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Store" />
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
-        <HBox layoutX="10.0" layoutY="60.0" maxHeight="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="footerPane" stylesheets="@../style.css">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.GameMenuController">
+   <bottom>
+      <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" text="Back" styleClass="greenButton" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="40.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+   <top>
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="203.0" styleClass="unclickableGreenButton" text="Points: 0" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="40.0" />
+         </BorderPane.margin>
+      </Button>
+   </top>
+   <center>
+      <VBox fx:id="menuCenterVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER">
          <children>
-                  <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" stylesheets="@../style.css" text="Back" />
-         </children></HBox>
-    </children>
-</VBox>
+            <Button mnemonicParsing="false" onAction="#addTaskSelectionScene" prefHeight="40.0" prefWidth="203.0" styleClass="greenButton" text="Task Selection">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button layoutX="52.0" layoutY="289.0" mnemonicParsing="false" onAction="#addStoreScene" prefHeight="40.0" prefWidth="203.0" styleClass="greenButton" text="Store" />
+         </children>
+      </VBox>
+   </center>
+   <stylesheets>
+      <URL value="@../style.css" />
+      <URL value="@../common_style.css" />
+   </stylesheets>
+</BorderPane>

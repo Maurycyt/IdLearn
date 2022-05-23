@@ -4,14 +4,24 @@ import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scenes.SceneManager;
-import mimuw.idlearn.scenes.SceneUtils;
-import mimuw.idlearn.scenes.preloader.LoadTask;
+import mimuw.idlearn.scenes.preloading.LoadTask;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
 
@@ -38,7 +48,7 @@ public class IdLearnApplication extends javafx.application.Application {
 		stage.setHeight(screenBounds.getHeight());
 
 		// Set the app icon
-		Image icon = new Image(SceneUtils.AppIcon.toExternalForm());
+		Image icon = new Image(ResourceHandler.AppIcon.toExternalForm());
 		stage.getIcons().add(icon);
 
 		sceneManager.setStage(stage);
@@ -51,7 +61,7 @@ public class IdLearnApplication extends javafx.application.Application {
 		PointsGiver.loadSpeeds();
 
 		// Add the main menu scene with preloading
-		sceneManager.push(SceneUtils.loadScene(SceneUtils.MainMenu), new LoadTask() {
+		sceneManager.push(ResourceHandler.loadScene(ResourceHandler.MainMenu), new LoadTask() {
 			@Override
 			public void load() {
 				try {
@@ -67,9 +77,10 @@ public class IdLearnApplication extends javafx.application.Application {
 				AtomicInteger i = new AtomicInteger(0);
 				int n = packages.size();
 
+				System.out.println("Building packages:");
 				for (ProblemPackage p : packages.values()) {
 					futures.add(CompletableFuture.supplyAsync(() -> {
-						System.out.println(p.getTitle());
+						System.out.println("- " + p.getTitle());
 						p.build();
 						logProgress(i.incrementAndGet() / (float)n);
 						return null;
@@ -95,6 +106,9 @@ public class IdLearnApplication extends javafx.application.Application {
 		long loadEnd = System.currentTimeMillis();
 		System.out.println("Loaded app in " + (loadEnd - loadStart) + "ms.");
 		timeline.play();
+
+		// first available task for the user
+		// DataManager.unlockTask("Addition");
 	}
 
 	public static void main(String[] args) {
@@ -103,6 +117,7 @@ public class IdLearnApplication extends javafx.application.Application {
 			// Make sure to save progress on exit.
 			PointsGiver.exit();
 			DataManager.exit();
+			CodeBlock.exit();
 		} catch (Exception e){
 			e.printStackTrace();
 		}

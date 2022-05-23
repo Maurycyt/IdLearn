@@ -1,24 +1,36 @@
 package mimuw.idlearn.idlang.logic.operators;
 
 import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.TimeCounter;
+import mimuw.idlearn.idlang.logic.base.ResourceCounter;
+import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Value;
 import mimuw.idlearn.idlang.logic.environment.Scope;
 import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
-public abstract class OneArgOperator<A, R> implements Expression<R> {
-	protected Expression<A> arg;
+import java.io.Writer;
+import java.util.Scanner;
 
-	private OneArgOperator(Expression<A> arg) {
+public abstract class OneArgOperator extends Expression {
+	protected Expression arg;
+
+	private OneArgOperator(Expression arg, Type resultType) {
 		this.arg = arg;
+		this.type = resultType;
 	}
 
-	public static OneArgOperator<Boolean, Boolean> newNot(Expression<Boolean> arg) {
-		return new OneArgOperator<>(arg) {
+	public static OneArgOperator newNot(Expression arg) {
+		arg.assertType(Type.Long);
+		return new OneArgOperator(arg, Type.Long) {
 			@Override
-			public Value<Boolean> evaluate(Scope scope, TimeCounter counter) throws SimulationException {
+			public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
 				counter.addTime(delay);
-				return new Value<>(!arg.evaluate(scope, counter).getValue());
+				Value value = arg.evaluate(scope, counter, inputScanner, outputWriter);
+				if ((Long)value.value == 0) {
+					return new Value(1);
+				}
+				else {
+					return new Value(0);
+				}
 			}
 		};
 	}

@@ -53,7 +53,7 @@ public class CodeSegment extends VBox {
 		for (Node child : this.getChildren()) {
 			CodeBlock current_block = (CodeBlock) child;
 			lastSum = sum;
-			sum += current_block.getHeight();
+			sum += current_block.getEffectiveHeight();
 			if (sum > relativeY) {
 
 				if (current_block.isParent() && relativeY - lastSum >= current_block.insideBarrier()) {
@@ -64,7 +64,6 @@ public class CodeSegment extends VBox {
 			}
 			i++;
 		}
-
 		this.getChildren().add(i, block);
 	}
 
@@ -99,7 +98,7 @@ public class CodeSegment extends VBox {
 		double sum = 0;
 		for (Node child : this.getChildren()) {
 			CodeBlock currentBlock = (CodeBlock) child;
-			sum += currentBlock.getHeight();
+			sum += currentBlock.getEffectiveHeight();
 		}
 		return sum;
 	}
@@ -110,7 +109,7 @@ public class CodeSegment extends VBox {
 	 * @return Equivalent expression
 	 */
 	public Block convert() {
-		ArrayList<Expression<?>> expressions = new ArrayList<>();
+		ArrayList<Expression> expressions = new ArrayList<>();
 		for (Node child : this.getChildren()) {
 			CodeBlock currentBlock = (CodeBlock) child;
 			expressions.add(currentBlock.convert());

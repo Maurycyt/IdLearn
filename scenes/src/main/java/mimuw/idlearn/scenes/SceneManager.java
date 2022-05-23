@@ -2,13 +2,15 @@ package mimuw.idlearn.scenes;
 
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import mimuw.idlearn.scenes.preloader.LoadTask;
-import mimuw.idlearn.scenes.preloader.Preloader;
+import mimuw.idlearn.scenes.preloading.LoadTask;
 
+import java.io.IOException;
 import java.util.Stack;
 
 // This class follows the singleton design pattern
 public class SceneManager {
+	private final Stack<Parent> sceneRoots = new Stack<>();
+	private Stage stage;
 	private static final SceneManager instance = new SceneManager();
 
 	public static SceneManager getInstance() {
@@ -34,11 +36,10 @@ public class SceneManager {
 	 * @param sceneRoot new sceneRoot
 	 * @param task task to execute in the background
 	 */
-	synchronized public void push(Parent sceneRoot, LoadTask task) {
+	synchronized public void push(Parent sceneRoot, LoadTask task) throws IOException {
 		sceneRoots.push(sceneRoot);
-		sceneRoots.push(SceneUtils.createPreloader(task));
+		sceneRoots.push(ResourceHandler.createPreloader(task));
 		updateStage();
-
 	}
 
 	/**
@@ -56,10 +57,10 @@ public class SceneManager {
 	 * @param sceneRoot new sceneRoot
 	 * @param task task to execute in the background
 	 */
-	synchronized public void replace(Parent sceneRoot, LoadTask task) {
+	synchronized public void replace(Parent sceneRoot, LoadTask task) throws IOException {
 		sceneRoots.pop();
 		sceneRoots.push(sceneRoot);
-		sceneRoots.push(SceneUtils.createPreloader(task));
+		sceneRoots.push(ResourceHandler.createPreloader(task));
 		updateStage();
 	}
 
@@ -100,7 +101,4 @@ public class SceneManager {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-
-	private final Stack<Parent> sceneRoots = new Stack<>();
-	private Stage stage;
 }

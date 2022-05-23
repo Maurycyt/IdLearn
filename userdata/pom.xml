@@ -22,8 +22,9 @@
         </dependency>
         <dependency>
             <groupId>mimuw</groupId>
-            <artifactId>properties</artifactId>
+            <artifactId>packages</artifactId>
             <version>${revision}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
