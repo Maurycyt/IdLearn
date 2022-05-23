@@ -24,7 +24,7 @@ public class PackageManager {
 	 * doesn't exist or `forceCopy` is true, it creates it and copies the default contents into it.
 	 */
 	public static void reloadProblemPackageDirectory(boolean forceCopy) {
-		Path problemPackageDirectoryPath = Path.of(Config.getInstance().getDataPath().toString(), "problems");
+		Path problemPackageDirectoryPath = Path.of(Config.getDataPath().toString(), "problems");
 		File result = problemPackageDirectoryPath.toFile();
 
 		if (result.mkdirs() || forceCopy) {

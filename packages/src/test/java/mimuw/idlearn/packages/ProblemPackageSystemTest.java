@@ -15,7 +15,7 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProblemPackageSystemTest {
-	static final Path expectedPackageDirectoryPath = Path.of(Config.getInstance().getDataPath().toString(), "problems");
+	static final Path expectedPackageDirectoryPath = Path.of(Config.getDataPath().toString(), "problems");
 	static final File expectedPackageDirectory = expectedPackageDirectoryPath.toFile();
 
 	@Test

@@ -13,7 +13,7 @@ import java.util.*;
 
 public class DataManager {
 
-	private static final File saveFile = Path.of(Config.getInstance().getDataPath().toString(), "savefile/user.savedata").toFile();
+	private static final File saveFile = Path.of(Config.getDataPath().toString(), "savefile/user.savedata").toFile();
 	private static final long AUTOSAVE_INTERVAL = 30000;
 	private static final Timer autosaveTimer = new Timer();
 
