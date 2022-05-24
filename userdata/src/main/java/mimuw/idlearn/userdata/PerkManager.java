@@ -2,6 +2,7 @@ package mimuw.idlearn.userdata;
 
 import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -26,10 +27,11 @@ public class PerkManager {
 		perks.put(name, level);
 		implementPerk(name);
 	}
-	public static void upgradePerk(String name) {
+	public static void upgradePerk(String name) throws IOException {
 		int perkLevel = perks.get(name);
 		perks.put(name, perkLevel + 1);
 		implementPerk(name);
+		DataManager.saveData();
 	}
 
 
