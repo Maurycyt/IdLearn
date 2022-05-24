@@ -42,10 +42,7 @@ public class TaskSelectionController extends GenericController {
 
 		double btnWidth = tasksVBox.getMaxWidth();
 		for (final String taskTitle : tasks) {
-			Button taskBtn = new Button(taskTitle);
-			taskBtn.setMaxWidth(btnWidth);
-			taskBtn.getStylesheets().add(ResourceHandler.Style.toExternalForm());
-			taskBtn.getStyleClass().add("greenButton");
+			Button taskBtn = ResourceHandler.createGreenButton(taskTitle, btnWidth);
 			tasksVBox.getChildren().add(taskBtn);
 
 			// make the style change dynamically
