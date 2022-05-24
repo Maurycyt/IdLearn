@@ -48,6 +48,7 @@
                   <mainClass>mimuw.idlearn.IdLearnApplicationWrapper</mainClass>
                 </transformer>
               </transformers>
+              <outputFile>../setup/IdLearn.jar</outputFile>
             </configuration>
           </execution>
         </executions>
