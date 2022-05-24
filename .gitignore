@@ -12,20 +12,21 @@
 !scenes/
 !scoring/
 !userdata/
-!properties
+!properties/
 !.package-development/
 
 # And the maven files
 !pom.xml
-
-# And setup file
-!setup
 
 # And the README
 !README.md
 
 # And the CI/CD config file!
 !.gitlab-ci.yml
+
+# And the setup files, without the jar.
+!setup/
+setup/*.jar
 
 # Finally, throw out all useless IDE files and CMake replies and stuff and target directories
 **/.idea/
