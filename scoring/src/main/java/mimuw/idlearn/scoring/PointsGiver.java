@@ -109,7 +109,7 @@ public class PointsGiver {
 	}
 
 	public static void loadSpeeds() {
-		HashMap<String, DataManager.PointsGiving> speeds = DataManager.getPointsGiving();
+		Map<String, DataManager.PointsGiving> speeds = DataManager.getPointsGiving();
 		Date date = new Date();
 
 		for (Map.Entry<String, DataManager.PointsGiving> entry : speeds.entrySet()) {

@@ -23,8 +23,14 @@ public class DataManager {
 	}
 	private static class Data {
 		public long points = 0;
-		public ArrayList<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
-		public HashMap<String, PointsGiving> pointsGiving = new HashMap<>();
+		public List<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
+		public Map<String, PointsGiving> pointsGiving = new HashMap<>();
+		public Map<String, Integer> perks = new HashMap<>();
+		public Data() {
+			for (String perk : PerkManager.getPerkNames()) {
+				perks.put(perk, 0);
+			}
+		}
 	}
 
 	private static Data data = new Data();
@@ -81,7 +87,9 @@ public class DataManager {
 		data.pointsGiving.put(task, pg);
 		saveData();
 	}
-	public static HashMap<String, PointsGiving> getPointsGiving() {return new HashMap<>(data.pointsGiving);}
+	public static Map<String, PointsGiving> getPointsGiving() {return new HashMap<>(data.pointsGiving);}
+
+	public static Map<String, Integer> getPerks() {return data.perks;}
 
 	private static void saveData() throws IOException {
 		System.out.println("Saving to file: " + saveFile.getAbsolutePath());

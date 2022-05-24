@@ -10,6 +10,7 @@ import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.userdata.DataManager;
 import mimuw.idlearn.userdata.NotEnoughPointsException;
+import mimuw.idlearn.userdata.PerkManager;
 
 import java.io.IOException;
 import java.net.URL;
