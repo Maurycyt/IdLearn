@@ -91,7 +91,7 @@ public class DataManager {
 
 	public static Map<String, Integer> getPerks() {return data.perks;}
 
-	private static void saveData() throws IOException {
+	public static void saveData() throws IOException {
 		System.out.println("Saving to file: " + saveFile.getAbsolutePath());
 		if (!saveFile.isFile()) {
 			saveFile.getParentFile().mkdirs();
