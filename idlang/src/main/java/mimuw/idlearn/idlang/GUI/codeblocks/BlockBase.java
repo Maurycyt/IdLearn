@@ -65,7 +65,7 @@ public class BlockBase extends Group {
 	}
 
 
-	public void setCurrentWidth(double width) {
+	private void setCurrentWidth(double width) {
 		content.setPrefWidth(width);
 		bg.setWidth(width);
 	}

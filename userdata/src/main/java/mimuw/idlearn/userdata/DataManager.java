@@ -15,6 +15,7 @@ public class DataManager {
 	private static final File saveFile = Path.of(System.getProperty("user.home"), ".idlearn", "savefile/user.savedata").toFile();
 	private static final long AUTOSAVE_INTERVAL = 30000;
 	private static final Timer autosaveTimer = new Timer();
+	private static final String[] STARTING_TASKS = {"Addition"};
 
 	public static class PointsGiving {
 		public long timeInterval;
@@ -22,7 +23,7 @@ public class DataManager {
 	}
 	private static class Data {
 		public long points = 0;
-		public ArrayList<String> unlockedTasks = new ArrayList<>();
+		public ArrayList<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
 		public HashMap<String, PointsGiving> pointsGiving = new HashMap<>();
 	}
 

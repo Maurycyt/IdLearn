@@ -25,29 +25,29 @@ public class PointsGiverTest {
 		preparePlatform();
 
 		PointsGiver.setSolutionSpeed("a", 10, 0, 10);
-		TimeUnit.MILLISECONDS.sleep(20);
+		TimeUnit.MILLISECONDS.sleep(100);
 
 		long points1 = DataManager.showPoints();
 		assertTrue(points1 > 0);
 
 		PointsGiver.setSolutionSpeed("a", 1, 1, 10);
-		TimeUnit.MILLISECONDS.sleep(20);
+		TimeUnit.MILLISECONDS.sleep(100);
 
 		long points2 = DataManager.showPoints();
-		// assertTrue(points2 > 5 * points1); FIXME add test for score overwriting which is less tight.
+		assertTrue(points2 > 5 * points1); //FIXME add test for score overwriting which is less tight.
 
 		PointsGiver.resetSolutions();
 		DataManager.setPoints(0);
 
 		PointsGiver.setSolutionSpeed("a", 10, 0, 10);
-		TimeUnit.MILLISECONDS.sleep(20);
+		TimeUnit.MILLISECONDS.sleep(100);
 
 		PointsGiver.setSolutionSpeed("b", 1, 1, 10);
-		TimeUnit.MILLISECONDS.sleep(20);
+		TimeUnit.MILLISECONDS.sleep(100);
 
 		long points3 = DataManager.showPoints();
 
-		// assertTrue(points3 > points2); FIXME add test for score overwriting which is less tight.
+		assertTrue(points3 > points2); //FIXME add test for score overwriting which is less tight.
 
 		PointsGiver.resetSolutions();
 		DataManager.resetData();
@@ -63,9 +63,9 @@ public class PointsGiverTest {
 
 		long points0 = DataManager.showPoints();
 
-		TimeUnit.MILLISECONDS.sleep(20);
+		TimeUnit.MILLISECONDS.sleep(200);
 
-		assertTrue(DataManager.showPoints() - points0 > 10);
+		assertTrue(DataManager.showPoints() - points0 > 200);
 
 		PointsGiver.resetSolutions();
 		DataManager.setPoints(0);
@@ -75,9 +75,9 @@ public class PointsGiverTest {
 
 		points0 = DataManager.showPoints();
 
-		TimeUnit.MILLISECONDS.sleep(20);
+		TimeUnit.MILLISECONDS.sleep(200);
 
-		//assertTrue(DataManager.showPoints() - points0 < 5); FIXME add test for this which is less tight.
+		assertTrue(DataManager.showPoints() - points0 < 100); //FIXME add test for this which is less tight.
 
 		PointsGiver.resetSolutions();
 		DataManager.resetData();
@@ -95,10 +95,10 @@ public class PointsGiverTest {
 		long points0 = DataManager.showPoints();
 		PointsGiver.loadSpeeds();
 
-		TimeUnit.MILLISECONDS.sleep(20);
+		TimeUnit.MILLISECONDS.sleep(200);
 
 		long points = DataManager.showPoints();
-		assertTrue(points >= points0 + 150);
+		assertTrue(points >= points0 + 1000);
 
 	}
 }
