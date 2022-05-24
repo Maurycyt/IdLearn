@@ -1,8 +1,6 @@
 package mimuw.idlearn.idlang.GUI.codeblocks;
 
-import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import mimuw.idlearn.idlang.GUI.CodeBox;

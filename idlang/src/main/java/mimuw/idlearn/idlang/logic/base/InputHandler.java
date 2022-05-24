@@ -25,14 +25,14 @@ public class InputHandler extends Expression {
 			counter.addTime(delay);
 
 			switch (variable.getType()) {
-				case Long:
+				case Long -> {
 					if (!inputScanner.hasNextLong()) {
 						throw new EndOfInputException();
 					}
 					value = inputScanner.nextLong();
-					break;
-				default:
-					throw new AssertionError("Impossible data type - backend somehow allows parsing something imparsable");
+				}
+				default ->
+						throw new AssertionError("Impossible data type - backend somehow allows parsing something imparsable");
 			}
 
 			scope.add(variable.getName(), new Value(Type.Long, value));
