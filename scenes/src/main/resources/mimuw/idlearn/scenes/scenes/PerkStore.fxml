@@ -28,7 +28,7 @@
         </Button>
     </top>
     <center>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER" />
+        <VBox fx:id="perksVBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER" />
     </center>
    <stylesheets>
       <URL value="@../style.css" />

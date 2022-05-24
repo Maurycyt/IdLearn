@@ -33,9 +33,9 @@ public class TaskSelectionController extends GenericController {
 	/** Loads all the user's available tasks as clickable buttons **/
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		Set<String> completedTasks = PointsGiver.getCompletedTasks();
 		Button pointsBtn = ResourceHandler.createUserPointsButton();
 		mainBorderPane.setTop(pointsBtn);
+		Set<String> completedTasks = PointsGiver.getCompletedTasks();
 
 		List<String> tasks = new java.util.ArrayList<>(DataManager.getUnlockedTasks());
 		Collections.sort(tasks);
