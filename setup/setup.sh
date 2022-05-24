@@ -7,6 +7,8 @@
 usage() {
 	echo "Usage: <command> [<path>]"
 	echo ""
+	echo "Make sure that the current directory contains the IdLearn.jar file and does NOT contain a directory called 'mimuw'."
+	echo ""
 	echo "Available commands:"
 	echo "    install <path>                installs IdLearn's files in <path>"
 	echo "    repair                        attempts to repair broken IdLearn's files in a installation directory"
@@ -32,7 +34,7 @@ build_packages() {
 	for i in */ ; do
 		echo "Building $i"
 		cd "${i}" || exit 1
-		make all -s
+		make all
 		cd ".."
 	done
 	cd "${SETUP_DIR}" || exit 1
@@ -47,12 +49,20 @@ fi
 CMD=$1
 
 PACKAGE="./IdLearn.jar"
+TMP_MIMUW="./mimuw"
 SETUP_DIR=$(pwd)
 CONFIG_DIR="mimuw/idlearn/properties"
 PROBLEMS_DIR="mimuw/idlearn/packages/problems/"
 CONFIG="${CONFIG_DIR}/application.properties"
 if [ ! -f "$PACKAGE" ]; then
     echo "Error: Cannot install IdLearn: $PACKAGE does not exist"
+    usage
+    exit 1
+fi
+
+if [ -d "${TMP_MIMUW}" ]; then
+    echo "Error: Cannot install IdLearn: ${TMP_MIMUW} exists in current directory"
+    usage
     exit 1
 fi
 
