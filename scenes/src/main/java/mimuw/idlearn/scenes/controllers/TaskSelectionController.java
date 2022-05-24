@@ -21,15 +21,6 @@ public class TaskSelectionController extends GenericController {
 	@FXML
 	private BorderPane mainBorderPane;
 
-	/**
-	 * Makes the button of a completed task darker and gives it a popup on click.
-	 * This assumes the task's text has been set.
-	 * @param taskBtn: button of a task
-	 */
-	private void setStyleOfButtonForCompletedTask(Button taskBtn) {
-		taskBtn.setStyle("-fx-background-color: #029c5b;");
-	}
-
 	/** Loads all the user's available tasks as clickable buttons **/
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,10 +39,10 @@ public class TaskSelectionController extends GenericController {
 			// make the style change dynamically
 			PointsGiver.connectToTaskCompletion(event -> {
 				if (event.value() == taskTitle)
-					setStyleOfButtonForCompletedTask(taskBtn);
+					ResourceHandler.setStyleForUnlockedAsset(taskBtn);
 			});
 			if (completedTasks.contains(taskTitle))
-				setStyleOfButtonForCompletedTask(taskBtn);
+				ResourceHandler.setStyleForUnlockedAsset(taskBtn);
 
 			taskBtn.setOnAction((event) -> {
 				try {

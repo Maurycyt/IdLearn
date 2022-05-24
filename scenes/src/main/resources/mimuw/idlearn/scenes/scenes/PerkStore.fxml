@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.PerkStoreController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mimuw.idlearn.scenes.controllers.PerkStoreController">
     <bottom>
         <Button mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="203.0" styleClass="greenButton" text="Back" BorderPane.alignment="CENTER">
             <font>
@@ -33,7 +37,7 @@
                 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="pane">
                     <children>
                         <ScrollBar disable="true" orientation="VERTICAL" visible="false" />
-                        <VBox fx:id="perksVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" />
+                        <VBox fx:id="perksVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
             </content>
