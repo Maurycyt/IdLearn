@@ -10,26 +10,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>packages</artifactId>
-    <name>packages</name>
+    <artifactId>properties</artifactId>
+    <name>properties</name>
     <version>${revision}</version>
 
     <dependencies>
-        <dependency>
-            <groupId>mimuw</groupId>
-            <artifactId>core</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>mimuw</groupId>
-            <artifactId>properties</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${snakeyaml.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

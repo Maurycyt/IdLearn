@@ -1,4 +1,5 @@
 module mimuw.idlearn.packages {
+	requires mimuw.idlearn.properties;
 	requires org.yaml.snakeyaml;
 	requires mimuw.idlearn.core;
 

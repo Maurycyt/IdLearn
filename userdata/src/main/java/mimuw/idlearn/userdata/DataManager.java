@@ -2,6 +2,7 @@ package mimuw.idlearn.userdata;
 
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Listener;
+import mimuw.idlearn.properties.Config;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -12,7 +13,7 @@ import java.util.*;
 
 public class DataManager {
 
-	private static final File saveFile = Path.of(System.getProperty("user.home"), ".idlearn", "savefile/user.savedata").toFile();
+	private static final File saveFile = Path.of(Config.getDataPath().toString(), "savefile/user.savedata").toFile();
 	private static final long AUTOSAVE_INTERVAL = 30000;
 	private static final Timer autosaveTimer = new Timer();
 	private static final String[] STARTING_TASKS = {"Addition"};

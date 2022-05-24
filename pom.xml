@@ -57,6 +57,7 @@
         <module>core</module>
         <module>idlang</module>
         <module>packages</module>
+        <module>properties</module>
         <module>scoring</module>
         <module>scenes</module>
         <module>application</module>
