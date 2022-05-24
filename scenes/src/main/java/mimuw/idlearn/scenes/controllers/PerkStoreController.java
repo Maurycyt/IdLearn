@@ -30,7 +30,7 @@ public class PerkStoreController extends GenericController {
         mainBorderPane.setTop(pointsBtn);
 
         Set<String> titles = PerkManager.getPerkNames();
-        double btnWidth = perksVBox.getWidth();
+        double btnWidth = perksVBox.getWidth(); //TODO: nie działa
         for (String title : titles) {
             Button perkBtn = ResourceHandler.createGreenButton(title, btnWidth);
             perksVBox.getChildren().add(perkBtn);
