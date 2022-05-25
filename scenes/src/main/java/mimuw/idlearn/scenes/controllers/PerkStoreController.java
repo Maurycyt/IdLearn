@@ -5,13 +5,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import mimuw.idlearn.scenes.ResourceHandler;
-import mimuw.idlearn.scoring.PointsGiver;
-import mimuw.idlearn.userdata.DataManager;
 import mimuw.idlearn.userdata.NotEnoughPointsException;
 import mimuw.idlearn.userdata.PerkManager;
+import mimuw.idlearn.userdata.ReachedMaxLevelException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,31 +54,27 @@ public class PerkStoreController extends GenericController {
 
     private void buyPerk(String title) {
         Alert alert;
-        if (PerkManager.getLevel(title).equals(PerkManager.getMaxLevel(title))) {
-            alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
-                    "This perk can't be upgraded anymore!", ButtonType.OK
-            );
-            alert.setHeaderText("Max perk level achieved!");
-        }
-        else {
-            try {
-                DataManager.payPoints(0); //todo: replace with actual cost
-                PerkManager.upgradePerk(title);
+				try {
+						PerkManager.upgradePerk(title);
 
-                alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
-                        "Acquired perk \"" + title + "\"", ButtonType.OK
-                );
-                alert.setHeaderText("Success!");
-            } catch (NotEnoughPointsException e) {
-                alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
-                        "Gather more points and try again", ButtonType.OK
-                );
-                alert.setHeaderText("Not enough points!");
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
+						alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
+										"Acquired perk \"" + title + "\"", ButtonType.OK
+						);
+						alert.setHeaderText("Success!");
+				} catch (ReachedMaxLevelException e) {
+					alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
+							"This perk can't be upgraded anymore!", ButtonType.OK
+					);
+					alert.setHeaderText("Max perk level achieved!");
+				} catch (NotEnoughPointsException e) {
+						alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
+										"Gather more points and try again", ButtonType.OK
+						);
+						alert.setHeaderText("Not enough points!");
+				} catch (IOException e) {
+						e.printStackTrace();
+						return;
+				}
         alert.show();
     }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class DataManagerTest {
 	@Test
 	public void testBasicPoints() throws IOException {
+		DataManager.resetData();
 		assertEquals(0, DataManager.showPoints());
 		DataManager.addPoints(100);
 		assertEquals(100, DataManager.showPoints());
@@ -27,6 +28,7 @@ public class DataManagerTest {
 
 	@Test
 	public void testBasicTasks() throws IOException {
+		DataManager.resetData();
 		assertEquals(new ArrayList<>(), DataManager.getUnlockedTasks());
 		DataManager.unlockTask("A");
 		assertEquals(new ArrayList<>(List.of(new String[]{"A"})), DataManager.getUnlockedTasks());
@@ -37,6 +39,7 @@ public class DataManagerTest {
 
 	@Test
 	public void testNotEnoughException() throws IOException {
+		DataManager.resetData();
 		try {
 			DataManager.payPoints(10);
 			fail();
@@ -53,7 +56,7 @@ public class DataManagerTest {
 
 	@Test
 	public void testPointsEmitter() throws IOException {
-		DataManager.setPoints(0);
+		DataManager.resetData();
 		final LongWrapper log = new LongWrapper();
 		Listener listener = event -> log.value = (long)(event.value());
 		DataManager.connectToPoints(listener);

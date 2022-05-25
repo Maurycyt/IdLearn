@@ -63,7 +63,7 @@ public class TaskStoreController extends GenericController {
             );
         } else {
             try {
-                DataManager.payPoints(0); //todo: replace with actual cost
+                DataManager.payPoints(100); //todo: replace with actual cost
                 DataManager.unlockTask(task.get().getTitle());
 
                 alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,

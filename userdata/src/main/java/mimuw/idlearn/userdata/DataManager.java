@@ -13,7 +13,7 @@ import java.util.*;
 public class DataManager {
 
 	private static final File saveFile = Path.of(System.getProperty("user.home"), ".idlearn", "savefile/user.savedata").toFile();
-	private static final long AUTOSAVE_INTERVAL = 30000;
+	private static final long AUTOSAVE_INTERVAL = 30_000;
 	private static final Timer autosaveTimer = new Timer();
 	private static final String[] STARTING_TASKS = {"Addition"};
 	private static Data data = new Data();

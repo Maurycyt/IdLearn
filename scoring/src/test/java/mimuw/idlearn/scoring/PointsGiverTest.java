@@ -2,6 +2,7 @@ package mimuw.idlearn.scoring;
 
 import javafx.application.Platform;
 import mimuw.idlearn.userdata.DataManager;
+import mimuw.idlearn.userdata.PerkManager;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class PointsGiverTest {
 	public void testPointsGiver() throws IOException, InterruptedException {
 
 		preparePlatform();
+		DataManager.init();
+		PerkManager.init();
+		PerkManager.setAndApplyPerkLevel("Speed", 0);
 
 		PointsGiver.setSolutionSpeed("a", 10, 0, 10);
 		TimeUnit.MILLISECONDS.sleep(100);
@@ -93,6 +97,8 @@ public class PointsGiverTest {
 
 		DataManager.init();
 		long points0 = DataManager.showPoints();
+		PerkManager.init();
+		PerkManager.setAndApplyPerkLevel("Speed", 0);
 		PointsGiver.loadSpeeds();
 
 		TimeUnit.MILLISECONDS.sleep(200);
