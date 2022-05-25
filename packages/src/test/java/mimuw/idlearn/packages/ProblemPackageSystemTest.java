@@ -1,5 +1,6 @@
 package mimuw.idlearn.packages;
 
+import mimuw.idlearn.properties.Config;
 import mimuw.idlearn.utils.ShellExecutor;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProblemPackageSystemTest {
-	static final Path expectedPackageDirectoryPath = Path.of(System.getProperty("user.home"), ".idlearn", "problems");
+	static final Path expectedPackageDirectoryPath = Path.of(Config.getDataPath().toString(), "problems");
 	static final File expectedPackageDirectory = expectedPackageDirectoryPath.toFile();
 
 	@Test
