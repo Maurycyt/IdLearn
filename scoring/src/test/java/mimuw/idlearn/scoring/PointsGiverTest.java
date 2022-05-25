@@ -28,30 +28,33 @@ public class PointsGiverTest {
 		PerkManager.init();
 		PerkManager.setAndApplyPerkLevel("Speed", 0);
 
-		PointsGiver.setSolutionSpeed("a", 10, 0, 10);
-		TimeUnit.MILLISECONDS.sleep(100);
+		PointsGiver.setSolutionSpeed("a", 100, 0, 10);
+		TimeUnit.MILLISECONDS.sleep(1000);
 
 		long points1 = DataManager.showPoints();
-		assertTrue(points1 > 0);
+		assertTrue(points1 > 0); // points1 = 100-ish
+		System.out.println("points1 = " + points1);
 
-		PointsGiver.setSolutionSpeed("a", 1, 1, 10);
-		TimeUnit.MILLISECONDS.sleep(100);
+		PointsGiver.setSolutionSpeed("a", 33, 1, 10);
+		TimeUnit.MILLISECONDS.sleep(1000);
 
 		long points2 = DataManager.showPoints();
-		assertTrue(points2 > 5 * points1); //FIXME add test for score overwriting which is less tight.
+		assertTrue(points2 > 3 * points1); // points2 = 400-ish
+		System.out.println("points2 = " + points2);
 
 		PointsGiver.resetSolutions();
 		DataManager.setPoints(0);
 
-		PointsGiver.setSolutionSpeed("a", 10, 0, 10);
-		TimeUnit.MILLISECONDS.sleep(100);
+		PointsGiver.setSolutionSpeed("a", 100, 0, 10);
+		TimeUnit.MILLISECONDS.sleep(1000);
 
-		PointsGiver.setSolutionSpeed("b", 1, 1, 10);
-		TimeUnit.MILLISECONDS.sleep(100);
+		PointsGiver.setSolutionSpeed("b", 33, 1, 10);
+		TimeUnit.MILLISECONDS.sleep(1000);
 
 		long points3 = DataManager.showPoints();
 
-		assertTrue(points3 > points2); //FIXME add test for score overwriting which is less tight.
+		assertTrue(points3 > points2); // points3 = 500-ish
+		System.out.println("points3 = " + points3);
 
 		PointsGiver.resetSolutions();
 		DataManager.resetData();
