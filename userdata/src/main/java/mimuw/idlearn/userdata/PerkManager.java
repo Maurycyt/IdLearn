@@ -1,48 +1,64 @@
 package mimuw.idlearn.userdata;
 
+import mimuw.idlearn.core.Emitter;
+import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class PerkManager {
+	private static Map<String, Integer> unlockedPerkLevels;
+	private static final Map<String, Integer> maxPerkLevels;
+	private static final Map<String, Consumer<Integer>> unlockingBehaviors;
+	private static final Emitter perkUnlockingEmitter = new Emitter();
 
-	private static Map<String, Integer> perks;
-	private static Set<String> PERK_NAMES = new HashSet<>(Collections.singleton("Memory"));
-
-	private static void implementPerk(String perkName) {
-		switch (perkName) {
-			case "Memory":
-				ResourceCounter.MAX_MEMORY = 100_000 * (1 + perks.get("Memory"));
-				break;
-			default:
-				throw new RuntimeException("Invalid perk name");
-		}
+	static {
+		maxPerkLevels = new HashMap<>(Map.ofEntries(
+				new AbstractMap.SimpleEntry<>("Memory", 1)
+		));
+		unlockingBehaviors = new HashMap<>(Map.ofEntries(
+				new AbstractMap.SimpleEntry<>("Memory", level ->
+						ResourceCounter.MAX_MEMORY = 100_000 * (1 + level)
+				)
+		));
+	}
+	
+	public static void setAndApplyPerkLevel(String perkName, int level) {
+		unlockedPerkLevels.put(perkName, level);
+		unlockingBehaviors.get(perkName).accept(level);
+		perkUnlockingEmitter.fire(new AbstractMap.SimpleEntry<>(perkName, level));
 	}
 
-	public static void setPerkLevel(String name, int level) {
-		perks.put(name, level);
-		implementPerk(name);
-	}
-	public static void upgradePerk(String name) throws IOException {
-		int perkLevel = perks.get(name);
-		perks.put(name, perkLevel + 1);
-		implementPerk(name);
+	public static void upgradePerk(String perkName) throws IOException {
+		int newLevel = 1 + unlockedPerkLevels.get(perkName);
+		assert newLevel <= maxPerkLevels.get(perkName);
+
+		setAndApplyPerkLevel(perkName, newLevel);
 		DataManager.saveData();
 	}
 
-
 	public static void init() {
-		perks = DataManager.getPerks();
-		for (String perkName : perks.keySet()) {
-			implementPerk(perkName);
+		unlockedPerkLevels = DataManager.getPerks();
+		for (String perkName : unlockedPerkLevels.keySet()) {
+			setAndApplyPerkLevel(perkName, 0);
 		}
 	}
 
 	public static Set<String> getPerkNames() {
-		return PERK_NAMES;
+		return maxPerkLevels.keySet();
+	}
+
+	public static Integer getLevel(String perkName) {
+		return unlockedPerkLevels.get(perkName);
+	}
+
+	public static Integer getMaxLevel(String perkName) {
+		return maxPerkLevels.get(perkName);
+	}
+
+	public static void connectToPerkUnlocking(Listener listener) {
+		perkUnlockingEmitter.connect(listener);
 	}
 }

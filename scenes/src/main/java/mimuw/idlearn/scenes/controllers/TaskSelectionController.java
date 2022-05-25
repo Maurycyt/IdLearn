@@ -32,7 +32,7 @@ public class TaskSelectionController extends GenericController {
 		Collections.sort(tasks);
 
 		double btnWidth = tasksVBox.getMaxWidth();
-		for (final String taskTitle : tasks) {
+		for (String taskTitle : tasks) {
 			Button taskBtn = ResourceHandler.createGreenButton(taskTitle, btnWidth);
 			tasksVBox.getChildren().add(taskBtn);
 

@@ -16,6 +16,8 @@ public class DataManager {
 	private static final long AUTOSAVE_INTERVAL = 30000;
 	private static final Timer autosaveTimer = new Timer();
 	private static final String[] STARTING_TASKS = {"Addition"};
+	private static Data data = new Data();
+	private static final Emitter pointsChangeEmitter = new Emitter();
 
 	public static class PointsGiving {
 		public long timeInterval;
@@ -33,12 +35,7 @@ public class DataManager {
 		}
 	}
 
-	private static Data data = new Data();
-
-	private static final Emitter pointsChangeEmitter = new Emitter();
-
 	// Points
-
 	public static long showPoints() {
 		return data.points;
 	}
@@ -65,6 +62,8 @@ public class DataManager {
 		pointsChangeEmitter.connect(listener);
 	}
 
+
+	//Perks
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {

@@ -8,12 +8,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import mimuw.idlearn.scenes.ResourceHandler;
+import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
 import mimuw.idlearn.userdata.NotEnoughPointsException;
 import mimuw.idlearn.userdata.PerkManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.AbstractMap;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -28,34 +30,56 @@ public class PerkStoreController extends GenericController {
         Button pointsBtn = ResourceHandler.createUserPointsButton();
         mainBorderPane.setTop(pointsBtn);
 
-        Set<String> titles = PerkManager.getPerkNames();
+        Set<String> perks = PerkManager.getPerkNames();
         double btnWidth = perksVBox.getMaxWidth();
-        for (String title : titles) {
-            Button perkBtn = ResourceHandler.createGreenButton(title, btnWidth);
+        for (String perkName : perks) {
+            Button perkBtn = ResourceHandler.createGreenButton(
+                    perkName + " (" + PerkManager.getLevel(perkName) + "/" + PerkManager.getMaxLevel(perkName) + ")", btnWidth
+            );
             perksVBox.getChildren().add(perkBtn);
-            perkBtn.setOnAction((event) -> buyPerk(title));
+            perkBtn.setOnAction((event) -> buyPerk(perkName));
+
+            // make the style and text change dynamically
+            PerkManager.connectToPerkUnlocking(event -> {
+                var perkUpgrade = (AbstractMap.SimpleEntry<String, Integer>) event.value();
+                if (perkName.equals(perkUpgrade.getKey())) {
+                    ResourceHandler.setStyleForUnlockedAsset(perkBtn);
+                    String newText = perkName + " (" + perkUpgrade.getValue() + "/" + PerkManager.getMaxLevel(perkName) + ")";
+                    perkBtn.setText(newText);
+                }
+            });
+            if (PerkManager.getLevel(perkName) > 0)
+                ResourceHandler.setStyleForUnlockedAsset(perkBtn);
         }
     }
 
     private void buyPerk(String title) {
-        Alert alert = null;
-        try {
-            DataManager.payPoints(0); //todo: replace with actual cost
-            PerkManager.upgradePerk(title);
-
-            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
-                    "Acquired perk \"" + title + "\"", ButtonType.OK
-            );
-            alert.setHeaderText("Success!");
-        } catch (NotEnoughPointsException e) {
+        Alert alert;
+        if (PerkManager.getLevel(title).equals(PerkManager.getMaxLevel(title))) {
             alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
-                    "Gather more points and try again", ButtonType.OK
+                    "This perk can't be upgraded anymore!", ButtonType.OK
             );
-            alert.setHeaderText("Not enough points!");
-        } catch (IOException e) {
-            e.printStackTrace();
+            alert.setHeaderText("Max perk level achieved!");
         }
-        assert alert != null;
+        else {
+            try {
+                DataManager.payPoints(0); //todo: replace with actual cost
+                PerkManager.upgradePerk(title);
+
+                alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
+                        "Acquired perk \"" + title + "\"", ButtonType.OK
+                );
+                alert.setHeaderText("Success!");
+            } catch (NotEnoughPointsException e) {
+                alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
+                        "Gather more points and try again", ButtonType.OK
+                );
+                alert.setHeaderText("Not enough points!");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
         alert.show();
     }
 }
