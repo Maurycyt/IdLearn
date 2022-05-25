@@ -127,7 +127,9 @@ public class TaskController extends GenericController {
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
             alert.setHeaderText("An " + (e instanceof IOException? "internal I/O" : "unexpected") + " error occurred!");
             e.printStackTrace();
-        } finally {
+        } catch (Exception | Error e) {
+					e.printStackTrace();
+				} finally {
             assert alert != null;
             alert.show();
         }
