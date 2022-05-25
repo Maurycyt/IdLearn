@@ -123,9 +123,21 @@ public class TaskController extends GenericController {
             String tmp = e.toString();
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, tmp.substring(2 + tmp.indexOf(":")), ButtonType.OK);
             alert.setHeaderText("Out of array bounds!");
-        } catch (SimulationException | IOException e) {
+        } catch (Exception e) {
+            String text = "A";
+            if (e instanceof IOException) {
+                text += "n internal I/O";
+                // the two cases below should never occur
+            } else if (e instanceof SimulationException) {
+                assert false;
+                text += " compilation";
+            } else {
+                assert false;
+                text += "n unexpected";
+            }
+            text += " error occurred!";
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
-            alert.setHeaderText("An " + (e instanceof IOException? "internal I/O" : "unexpected") + " error occurred!");
+            alert.setHeaderText(text);
             e.printStackTrace();
         } finally {
             assert alert != null;

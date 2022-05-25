@@ -3,6 +3,7 @@ package mimuw.idlearn.scoring;
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.userdata.DataManager;
+import mimuw.idlearn.userdata.PerkManager;
 
 import java.io.IOException;
 import javafx.application.Platform;
@@ -11,6 +12,8 @@ import java.util.concurrent.Semaphore;
 
 public class PointsGiver {
 	private static final Timer givingTimer = new Timer();
+
+	private static double speedMultiplier = 1.0;
 	private static final Map<String, PointsTimerTask> givingTasks = new HashMap<>();
 	private static final Map<String, Long> timeStamps = new HashMap<>();
 	private static final Semaphore mutex = new Semaphore(1);
@@ -65,7 +68,7 @@ public class PointsGiver {
 			task.cancel();
 		}
 
-		task = new PointsTimerTask(timeInMillis, pointsPerGiving);
+		task = new PointsTimerTask((long)(timeInMillis / speedMultiplier), pointsPerGiving);
 		task.start();
 		givingTasks.put(problem, task);
 		timeStamps.put(problem, timeStamp);
@@ -96,7 +99,6 @@ public class PointsGiver {
 
 		for (Map.Entry<String, PointsTimerTask> entry : givingTasks.entrySet()) {
 			entry.getValue().cancel();
-			//todo: couldn't this just be `resetSolution`?
 		}
 		timeStamps.clear();
 		givingTasks.clear();
@@ -109,7 +111,15 @@ public class PointsGiver {
 	}
 
 	public static void loadSpeeds() {
-		HashMap<String, DataManager.PointsGiving> speeds = DataManager.getPointsGiving();
+		// Make it so that PerkManager informs PointsGiver of new speed.
+		PerkManager.connectToOnUpgradeEmitter("Speed", event -> {
+			if (event.value() instanceof Double) {
+				setSpeedMultiplier((Double)event.value());
+			}
+		});
+
+		// Prepare the usual stuff.
+		Map<String, DataManager.PointsGiving> speeds = DataManager.getPointsGiving();
 		Date date = new Date();
 
 		for (Map.Entry<String, DataManager.PointsGiving> entry : speeds.entrySet()) {
@@ -118,5 +128,27 @@ public class PointsGiver {
 			givingTasks.put(entry.getKey(), task);
 			timeStamps.put(entry.getKey(), date.getTime());
 		}
+
+		// Force PerkManager to inform of speed, which was read from user data.
+		PerkManager.refreshPerk("Speed");
+	}
+
+	public static void reloadSpeeds() {
+		Map<String, DataManager.PointsGiving> speeds = DataManager.getPointsGiving();
+
+		for (Map.Entry<String, DataManager.PointsGiving> entry : speeds.entrySet()) {
+			try {
+				setSolutionSpeed(entry.getKey(), entry.getValue().timeInterval, entry.getValue().points);
+			} catch (IOException e) {
+				e.printStackTrace();
+				// TODO: clean this up.
+			}
+		}
+	}
+
+	public static void setSpeedMultiplier(double newSpeedMultiplier) {
+		speedMultiplier = newSpeedMultiplier;
+		resetSolutions();
+		reloadSpeeds();
 	}
 }
