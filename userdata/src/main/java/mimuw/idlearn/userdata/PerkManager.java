@@ -11,14 +11,14 @@ import java.util.function.Consumer;
 public class PerkManager {
 	private static Map<String, Integer> unlockedPerkLevels;
 	private static final Map<String, Integer> maxPerkLevels;
-	private static final Map<String, Consumer<Integer>> unlockingBehaviors;
+	private static final Map<String, Consumer<Integer>> onUpgrade;
 	private static final Emitter perkUnlockingEmitter = new Emitter();
 
 	static {
 		maxPerkLevels = new HashMap<>(Map.ofEntries(
 				new AbstractMap.SimpleEntry<>("Memory", 1)
 		));
-		unlockingBehaviors = new HashMap<>(Map.ofEntries(
+		onUpgrade = new HashMap<>(Map.ofEntries(
 				new AbstractMap.SimpleEntry<>("Memory", level ->
 						ResourceCounter.MAX_MEMORY = 100_000 * (1 + level)
 				)
@@ -27,7 +27,7 @@ public class PerkManager {
 	
 	public static void setAndApplyPerkLevel(String perkName, int level) {
 		unlockedPerkLevels.put(perkName, level);
-		unlockingBehaviors.get(perkName).accept(level);
+		onUpgrade.get(perkName).accept(level);
 		perkUnlockingEmitter.fire(new AbstractMap.SimpleEntry<>(perkName, level));
 	}
 
@@ -42,7 +42,7 @@ public class PerkManager {
 	public static void init() {
 		unlockedPerkLevels = DataManager.getPerks();
 		for (String perkName : unlockedPerkLevels.keySet()) {
-			setAndApplyPerkLevel(perkName, 0);
+			setAndApplyPerkLevel(perkName, DataManager.getLevel(perkName));
 		}
 	}
 

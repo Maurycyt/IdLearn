@@ -64,6 +64,9 @@ public class DataManager {
 
 
 	//Perks
+	public static Integer getLevel(String perkName) {
+		return data.perks.get(perkName);
+	}
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {

@@ -34,7 +34,8 @@ public class PerkStoreController extends GenericController {
         double btnWidth = perksVBox.getMaxWidth();
         for (String perkName : perks) {
             Button perkBtn = ResourceHandler.createGreenButton(
-                    perkName + " (" + PerkManager.getLevel(perkName) + "/" + PerkManager.getMaxLevel(perkName) + ")", btnWidth
+                    perkName + " (" + PerkManager.getLevel(perkName) + "/" + PerkManager.getMaxLevel(perkName) + ")",
+                    btnWidth
             );
             perksVBox.getChildren().add(perkBtn);
             perkBtn.setOnAction((event) -> buyPerk(perkName));
