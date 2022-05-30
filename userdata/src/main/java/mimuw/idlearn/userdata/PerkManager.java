@@ -16,23 +16,25 @@ public class PerkManager {
 	private static final Emitter perkUnlockingEmitter = new Emitter();
 	private static final int BASE_MEMORY = 100_000;
 
+	private static final String Memory = "Memory";
+	private static final String Speed = "Speed";
 
 
 	static {
 		maxPerkLevels = new HashMap<>(Map.ofEntries(
-				new AbstractMap.SimpleEntry<>("Memory", 4),
-				new AbstractMap.SimpleEntry<>("Speed", 4)
+				new AbstractMap.SimpleEntry<>(Memory, 4),
+				new AbstractMap.SimpleEntry<>(Speed, 4)
 		));
 		onUpgradeEmitters = new HashMap<>(Map.ofEntries(
-				new AbstractMap.SimpleEntry<>("Memory", new Emitter()),
-				new AbstractMap.SimpleEntry<>("Speed", new Emitter())
+				new AbstractMap.SimpleEntry<>(Memory, new Emitter()),
+				new AbstractMap.SimpleEntry<>(Speed, new Emitter())
 		));
 		onUpgrade = new HashMap<>(Map.ofEntries(
-				new AbstractMap.SimpleEntry<>("Memory", level ->
+				new AbstractMap.SimpleEntry<>(Memory, level ->
 						ResourceCounter.MAX_MEMORY = BASE_MEMORY * (1 + level)
 				),
-				new AbstractMap.SimpleEntry<>("Speed", level ->
-						onUpgradeEmitters.get("Speed").fire((double)(1 + level))
+				new AbstractMap.SimpleEntry<>(Speed, level ->
+						onUpgradeEmitters.get(Speed).fire((double)(1 + level))
 				)
 		));
 	}

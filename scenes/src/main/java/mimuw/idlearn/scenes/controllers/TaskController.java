@@ -3,13 +3,11 @@ package mimuw.idlearn.scenes.controllers;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -19,7 +17,6 @@ import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.exceptions.*;
-import mimuw.idlearn.idlang.logic.keywords.SetArray;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
@@ -86,18 +83,20 @@ public class TaskController extends GenericController {
     private void submitSolution(CodeBox codeBox) {
         Expression exp = codeBox.compile();
         Alert alert = null;
+
+
         try {
             final boolean awardPoints = !PointsGiver.getCompletedTasks().contains(pkg.getTitle());
-
             TestRunner runner = new TestRunner(pkg, exp);
+
             double time = runner.aggregateTestTimes();
             // if didn't throw, then the user has successfully completed the task
             taskCompletedNow = true;
             if (awardPoints) {
                 PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
             }
-            DecimalFormat df = new DecimalFormat("####0.00");
-            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + df.format(time), ButtonType.OK);
+            String strTime = new DecimalFormat("0.00").format(time);
+            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time:\n " + strTime, ButtonType.OK);
             alert.setTitle("Success");
             alert.setHeaderText("Good job!");
         } catch (WrongAnswerException e) {
@@ -149,7 +148,6 @@ public class TaskController extends GenericController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Statement field
-        //statementText.setText(ResourceHandler.repeatLorem(42)); //TODO: remove this
         statementText.setText(pkg.getStatement());
 
         statementText.wrappingWidthProperty().bind(new ObservableValue<Double>() {

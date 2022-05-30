@@ -37,7 +37,10 @@
                 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="pane">
                     <children>
                         <ScrollBar disable="true" orientation="VERTICAL" visible="false" />
-                        <VBox fx:id="perksVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" HBox.hgrow="ALWAYS" />
+                        <VBox fx:id="perksVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets left="12.0" right="12.0" />
+                     </padding></VBox>
                     </children>
                 </HBox>
             </content>

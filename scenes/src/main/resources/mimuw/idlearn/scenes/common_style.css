@@ -56,10 +56,21 @@ The color scheme is as follows:
     -fx-pref-width: 350;
     -fx-cursor: none;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
-
 }
 .unclickableGreenButton:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.unlockedAssetButton {
+    -fx-font-size: 32px;
+    -fx-pref-width: 350;
+    -fx-text-fill: linear-gradient(to bottom right, #ffd700, #daa520);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.unlockedAssetButton:hover {
+    /*-fx-effect: dropshadow(three-pass-box, rgba(218, 165, 32, 1), 10, 0, 0, 0);*/
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
 }
 
 
@@ -89,9 +100,15 @@ The color scheme is as follows:
 }
 
 /* Popups */
-.dialog-pane{
+.dialog-pane {
     -fx-border-width: 4px;
     -fx-pref-width: 400px;
+}
+.dialog-pane .button {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+.dialog-pane .button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
 }
 .ok-dialog {
     -fx-border-color: #00b167;
@@ -114,32 +131,39 @@ The color scheme is as follows:
 
 
 
-/* TODO: Scrollbars */
+/* Scrollbars */
 .scroll-bar:horizontal,
 .scroll-bar:vertical{
-    /*
-    -fx-background-color: blue;
-    */
     -fx-pref-width: 20px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
 }
 
-.increment-button,
-.decrement-button {
-    /*-fx-visibility: hidden;*/
-    -fx-background-color: transparent;
-    /*-fx-background-color: green;
-    -fx-border-color: orange;*/
+.scroll-bar > .increment-button,
+.scroll-bar > .increment-button {
+    -fx-background-color: #f2f2f5;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #00b167;
 }
 
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-    -fx-background-color: purple;
-    -fx-border-color: pink;
-    -fx-background-radius: 2px;
+    -fx-background-color: #f2f2f5;
+    -fx-border-color: #f2f2f5;
+    -fx-background-radius: 5px;
 }
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: brown;
+    -fx-background-color: #00b167;
     -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover{
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
 }

@@ -17,7 +17,7 @@ public class PointsGiver {
 	private static final Map<String, PointsTimerTask> givingTasks = new HashMap<>();
 	private static final Map<String, Long> timeStamps = new HashMap<>();
 	private static final Semaphore mutex = new Semaphore(1);
-	private static final Emitter taskCompletionEmitter = new Emitter(); //TODO: fire when appropriate
+	private static final Emitter taskCompletionEmitter = new Emitter();
 
 	public static Set<String> getCompletedTasks() {
 		return givingTasks.keySet();
