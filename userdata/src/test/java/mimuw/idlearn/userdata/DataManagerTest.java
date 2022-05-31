@@ -78,10 +78,13 @@ public class DataManagerTest {
 	public void testLoad() throws IOException {
 
 		DataManager.init();
+		DataManager.resetData();
 		assertEquals(0, DataManager.showPoints());
 
 		DataManager.addPoints(100);
 		DataManager.unlockTask("A");
+		DataManager.exit();
+
 
 		DataManager.init();
 		assertEquals(100, DataManager.showPoints());

@@ -15,7 +15,7 @@ public class DataManager {
 
 	private static final File saveFile = Path.of(Config.getDataPath().toString(), "savefile/user.savedata").toFile();
 	private static final long AUTOSAVE_INTERVAL = 30000;
-	private static final Timer autosaveTimer = new Timer();
+	private static Timer autosaveTimer;
 	private static final String[] STARTING_TASKS = {"Addition"};
 	private static Data data = new Data();
 	private static final Emitter pointsChangeEmitter = new Emitter();
@@ -116,10 +116,12 @@ public class DataManager {
 		data.points = 0;
 		data.unlockedTasks = new ArrayList<>();
 		data.pointsGiving = new HashMap<>();
+		data.perks = new HashMap<>();
 		saveData();
 	}
 
 	private static void setupAutosaveTimer() {
+		autosaveTimer = new Timer();
 		TimerTask autosave = new TimerTask() {
 			@Override
 			public void run() {
