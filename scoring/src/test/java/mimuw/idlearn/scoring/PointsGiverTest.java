@@ -109,6 +109,8 @@ public class PointsGiverTest {
 		long points = DataManager.showPoints();
 		assertTrue(points >= points0 + 1000);
 
+		DataManager.resetData();
+
 	}
 }
 
