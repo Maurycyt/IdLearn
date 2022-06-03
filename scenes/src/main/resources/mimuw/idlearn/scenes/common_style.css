@@ -64,12 +64,11 @@ The color scheme is as follows:
 .unlockedAssetButton {
     -fx-font-size: 32px;
     -fx-pref-width: 350;
-    -fx-text-fill: linear-gradient(to bottom right, #ffd700, #daa520);
+    -fx-text-fill: linear-gradient(to bottom right, #ffd700, #e7be16);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
 }
 
 .unlockedAssetButton:hover {
-    /*-fx-effect: dropshadow(three-pass-box, rgba(218, 165, 32, 1), 10, 0, 0, 0);*/
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
 }
 

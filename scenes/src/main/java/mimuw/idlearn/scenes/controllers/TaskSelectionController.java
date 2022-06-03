@@ -38,7 +38,8 @@ public class TaskSelectionController extends GenericController {
 
 			// make the style change dynamically
 			PointsGiver.connectToTaskCompletion(event -> {
-				if (event.value() == taskTitle)
+				String incomingText = (String)event.value();
+				if (incomingText.equals(taskBtn.getText()))
 					ResourceHandler.setStyleForUnlockedAsset(taskBtn);
 			});
 			if (completedTasks.contains(taskTitle))

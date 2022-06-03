@@ -143,8 +143,7 @@ public class ResourceHandler {
 	 * @param taskBtn: button of an asset
 	 */
 	public static void setStyleForUnlockedAsset(Button taskBtn) {
-		taskBtn.getStyleClass().clear();
-		taskBtn.getStyleClass().addAll("button", "unlockedAssetButton");
+		taskBtn.getStyleClass().addAll("unlockedAssetButton");
 	}
 
 	//TODO: remove this
