@@ -143,7 +143,7 @@ public class ResourceHandler {
 	 * @param taskBtn: button of an asset
 	 */
 	public static void setStyleForUnlockedAsset(Button taskBtn) {
-		taskBtn.setStyle("-fx-background-color: #029c5b;");
+		taskBtn.getStyleClass().addAll("unlockedAssetButton");
 	}
 
 	//TODO: remove this

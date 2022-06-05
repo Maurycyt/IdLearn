@@ -54,27 +54,27 @@ public class PerkStoreController extends GenericController {
 
     private void buyPerk(String title) {
         Alert alert;
-				try {
-						PerkManager.upgradePerk(title);
+        try {
+            PerkManager.upgradePerk(title);
 
-						alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
-										"Acquired perk \"" + title + "\"", ButtonType.OK
-						);
-						alert.setHeaderText("Success!");
-				} catch (ReachedMaxLevelException e) {
-					alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
-							"This perk can't be upgraded anymore!", ButtonType.OK
-					);
-					alert.setHeaderText("Max perk level achieved!");
-				} catch (NotEnoughPointsException e) {
-						alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
-										"Gather more points and try again", ButtonType.OK
-						);
-						alert.setHeaderText("Not enough points!");
-				} catch (IOException e) {
-						e.printStackTrace();
-						return;
-				}
+            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
+                            "Acquired perk \"" + title + "\"", ButtonType.OK
+            );
+            alert.setHeaderText("Success!");
+        } catch (ReachedMaxLevelException e) {
+            alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
+                    "This perk can't be upgraded anymore!", ButtonType.OK
+            );
+            alert.setHeaderText("Max perk level achieved!");
+        } catch (NotEnoughPointsException e) {
+                alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
+                                "Gather more points and try again", ButtonType.OK
+                );
+                alert.setHeaderText("Not enough points!");
+        } catch (IOException e) {
+                e.printStackTrace();
+                return;
+        }
         alert.show();
     }
 }

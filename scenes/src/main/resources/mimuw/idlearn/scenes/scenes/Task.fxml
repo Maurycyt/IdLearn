@@ -104,7 +104,7 @@
                   <String fx:value="borderedPane" />
                </styleClass>
                <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-font-weight: normal;" styleClass="pane">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-font-weight: normal;" styleClass="pane" vbarPolicy="NEVER">
                      <content>
                         <HBox fx:id="blockSelectionHBox" styleClass="blockSelectionHBox" />
                      </content>
