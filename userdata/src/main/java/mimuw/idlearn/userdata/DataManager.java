@@ -2,6 +2,7 @@ package mimuw.idlearn.userdata;
 
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Listener;
+import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.properties.Config;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -29,9 +30,13 @@ public class DataManager {
 		public List<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
 		public Map<String, PointsGiving> pointsGiving = new HashMap<>();
 		public Map<String, Integer> perks = new HashMap<>();
+		public Map<String, Integer> achievements = new HashMap<>();
 		public Data() {
 			for (String perk : PerkManager.getPerkNames()) {
 				perks.put(perk, 0);
+			}
+			for (String achievement : AchievementManager.getAchievementNames()) {
+				achievements.put(achievement, 0);
 			}
 		}
 	}
@@ -88,11 +93,25 @@ public class DataManager {
 		pg.timeInterval = time;
 		pg.points = points;
 		data.pointsGiving.put(task, pg);
+
+		// Notify achievement manager of any new achievements.
+		// TODO: prettify.
+		if (data.pointsGiving.size() >= 1) {
+			AchievementManager.unlockAchievementLevel(AchievementManager.TasksCompleted, 1);
+		}
+		if (data.pointsGiving.size() >= (PackageManager.getProblemPackages().size() + 1) / 2) {
+			AchievementManager.unlockAchievementLevel(AchievementManager.TasksCompleted, 2);
+		}
+		if (data.pointsGiving.size() >= PackageManager.getProblemPackages().size()) {
+			AchievementManager.unlockAchievementLevel(AchievementManager.TasksCompleted, 3);
+		}
+
 		saveData();
 	}
 	public static Map<String, PointsGiving> getPointsGiving() {return new HashMap<>(data.pointsGiving);}
 
 	public static Map<String, Integer> getPerks() {return data.perks;}
+	public static Map<String, Integer> getAchievements() {return data.achievements;}
 
 	public static void saveData() throws IOException {
 		System.out.println("Saving to file: " + saveFile.getAbsolutePath());

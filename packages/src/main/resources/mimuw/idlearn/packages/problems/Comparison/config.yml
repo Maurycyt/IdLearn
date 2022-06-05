@@ -49,3 +49,6 @@ testData:
   - 1048574
   - 1048575
   - 1048576
+
+expectedTime: 8.00
+expectedMemory: 0

@@ -14,8 +14,8 @@ public class PerkManager {
 	private static final Map<String, Consumer<Integer>> onUpgrade;
 	private static final Map<String, Emitter> onUpgradeEmitters;
 	private static final Emitter perkUnlockingEmitter = new Emitter();
-	private static final int BASE_MEMORY = 100_000;
-
+	private static final int BASE_MEMORY = 1000_000;
+	
 	private static final String Memory = "Memory";
 	private static final String Speed = "Speed";
 

@@ -16,15 +16,17 @@ public class ResourceCounter {
 		}
 		return this.time;
 	}
-	public int addMemory(int memory) throws MemoryException {
+	public void addMemory(int memory) throws MemoryException {
 		this.memory += memory;
 		if (this.memory > MAX_MEMORY) {
 			throw new MemoryException(MAX_MEMORY);
 		}
-		return this.memory;
 	}
 	public double getTime() {
 		return time;
+	}
+	public int getMemory() {
+		return memory;
 	}
 
 	public void clear() {

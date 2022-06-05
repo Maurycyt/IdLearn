@@ -23,6 +23,7 @@ import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.preloading.LoadTask;
 import mimuw.idlearn.scoring.PointsGiver;
+import mimuw.idlearn.userdata.AchievementManager;
 import mimuw.idlearn.userdata.DataManager;
 import mimuw.idlearn.userdata.PerkManager;
 
@@ -55,11 +56,10 @@ public class IdLearnApplication extends javafx.application.Application {
 		sceneManager.setStage(stage);
 		stage.setScene(new Scene(new Group()));
 
-		// Start data manager
+		// Start userdata stuff, DataManager first.
 		DataManager.init();
-
-		// Start perk manager
 		PerkManager.init();
+		AchievementManager.init();
 
 		// Start points giver
 		PointsGiver.loadSpeeds();

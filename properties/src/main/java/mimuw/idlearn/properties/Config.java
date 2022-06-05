@@ -3,11 +3,21 @@ package mimuw.idlearn.properties;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 public class Config {
 	private static Path dataPath = null;
 	private static final Config instance = new Config();
+	private static final Set<String> defaultTaskTitles = new HashSet<>(List.of(
+			"Addition",
+			"Addition 2 : Electric Boogaloo",
+			"Comparison",
+			"GCD",
+			"Whack-a-mole"
+	));
 
 	public static Path getDataPath() {
 		if (dataPath == null) {
@@ -21,5 +31,9 @@ public class Config {
 			}
 		}
 		return dataPath;
+	}
+
+	public static Set<String> getDefaultTaskTitles() {
+		return defaultTaskTitles;
 	}
 }

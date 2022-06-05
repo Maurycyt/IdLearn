@@ -47,3 +47,6 @@ testData:
   - 1048574
   - 1048575
   - 1048576
+
+expectedTime: 1.00 # TODO
+expectedMemory: 2097152 # 2^21
