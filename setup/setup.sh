@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# ./setup install absolute_path
+# ./setup install path
 # ./setup repair
 # ./setup uninstall
 
 usage() {
-	echo "Usage: <command> [<absolute_path>]"
+	echo "Usage: <command> [<path>]"
 	echo ""
 	echo "Make sure that the current directory contains the IdLearn.jar file and does NOT contain a directory called 'mimuw'."
 	echo ""
 	echo "Available commands:"
-	echo "    install <absolute_path>       installs IdLearn's files in <absolute_path>"
+	echo "    install <path>                installs IdLearn's files in <path> (relative or absolute)"
 	echo "    repair                        attempts to repair broken IdLearn's files in a installation directory"
 	echo "    uninstall                     removes IdLearn's files"
 }
@@ -73,11 +73,16 @@ if [[ "$CMD" == "install" ]]; then
     fi
 
     INSTALL_PATH="$2"
+	FIRST_PATH_LETTER=${INSTALL_PATH::1}
+	if [ "${FIRST_PATH_LETTER}" != "/" ]; then
+		INSTALL_PATH=$(pwd)/${INSTALL_PATH}
+	fi
 	rm -rf $INSTALL_PATH
     mkdir -p "${INSTALL_PATH}"
 
     mkdir -p "${CONFIG_DIR}"
     touch "${CONFIG}"
+	echo "Installing in ${INSTALL_PATH}..."
     echo "data=$INSTALL_PATH" > $CONFIG
     jar uf "${PACKAGE}" "${CONFIG}"
 
