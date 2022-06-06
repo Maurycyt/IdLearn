@@ -1,8 +1,11 @@
 package mimuw.idlearn.scenes.controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.stage.WindowEvent;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.ResourceHandler;
 

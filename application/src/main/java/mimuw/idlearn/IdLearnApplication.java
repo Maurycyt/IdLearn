@@ -12,11 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.stage.Popup;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlock;
+import javafx.stage.*;
+import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
@@ -110,9 +107,6 @@ public class IdLearnApplication extends javafx.application.Application {
 		long loadEnd = System.currentTimeMillis();
 		System.out.println("Loaded app in " + (loadEnd - loadStart) + "ms.");
 		timeline.play();
-
-		// first available task for the user
-		// DataManager.unlockTask("Addition");
 	}
 
 	public static void main(String[] args) {

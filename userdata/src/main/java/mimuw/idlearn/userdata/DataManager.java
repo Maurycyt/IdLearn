@@ -29,6 +29,7 @@ public class DataManager {
 		public List<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
 		public Map<String, PointsGiving> pointsGiving = new HashMap<>();
 		public Map<String, Integer> perks = new HashMap<>();
+		public Map<String, CodeData> userCode = new HashMap<>();
 		public Data() {
 			for (String perk : PerkManager.getPerkNames()) {
 				perks.put(perk, 0);
@@ -68,6 +69,7 @@ public class DataManager {
 	public static Integer getLevel(String perkName) {
 		return data.perks.get(perkName);
 	}
+	public static Map<String, Integer> getPerks() {return data.perks;}
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {
@@ -92,7 +94,14 @@ public class DataManager {
 	}
 	public static Map<String, PointsGiving> getPointsGiving() {return new HashMap<>(data.pointsGiving);}
 
-	public static Map<String, Integer> getPerks() {return data.perks;}
+	// User code
+	public static void updateUserCode(String task, CodeData codeData) throws IOException {
+		data.userCode.put(task, codeData);
+		saveData();
+	}
+	public static CodeData getUserCode(String task) {
+		return data.userCode.getOrDefault(task, null);
+	}
 
 	public static void saveData() throws IOException {
 		System.out.println("Saving to file: " + saveFile.getAbsolutePath());
@@ -113,10 +122,7 @@ public class DataManager {
 	}
 
 	public static void resetData() throws IOException {
-		data.points = 0;
-		data.unlockedTasks = new ArrayList<>();
-		data.pointsGiving = new HashMap<>();
-		data.perks = new HashMap<>();
+		data = new Data();
 		saveData();
 	}
 
