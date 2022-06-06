@@ -24,7 +24,7 @@ public class CreditsController extends GenericController {
             """;
     private final String resourcesString = """
             Fonts (SIL OFL):
-            - Anonymous Pro: Mark Simonson (http://www.ms-studio.com)
+            - Anonymous Pro: Mark Simonson (https://www.ms-studio.com)
             Icons (CC BY 3.0):
             - prank glasses: Caro Asercion (https://game-icons.net/)
             - RAM glasses, light bulb: Lorc (https://lorcblog.blogspot.com/)
