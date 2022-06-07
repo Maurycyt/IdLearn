@@ -10,9 +10,9 @@ usage() {
 	echo "Make sure that the current directory contains the IdLearn.jar file and does NOT contain a directory called 'mimuw'."
 	echo ""
 	echo "Available commands:"
-	echo "    install <path>                installs IdLearn's files in <path> (relative or absolute)"
-	echo "    repair                        attempts to repair broken IdLearn's files in a installation directory"
-	echo "    uninstall                     removes IdLearn's files"
+	echo "	install <path>				installs IdLearn's files in <path> (relative or absolute)"
+	echo "	repair						attempts to repair broken IdLearn's files in a installation directory"
+	echo "	uninstall					 removes IdLearn's files"
 }
 
 get_install_path() {
@@ -23,7 +23,7 @@ get_install_path() {
 	for i in "${TAB[@]}"; do
 		TMP="${i}"
 	done
-    rm -rf mimuw
+	rm -rf mimuw
 	echo "${TMP}"
 }
 
@@ -55,38 +55,38 @@ CONFIG_DIR="mimuw/idlearn/properties"
 PROBLEMS_DIR="mimuw/idlearn/packages/problems/"
 CONFIG="${CONFIG_DIR}/application.properties"
 if [ ! -f "$PACKAGE" ]; then
-    echo "Error: Cannot install IdLearn: $PACKAGE does not exist"
-    usage
-    exit 1
+	echo "Error: Cannot install IdLearn: $PACKAGE does not exist"
+	usage
+	exit 1
 fi
 
 if [ -d "${TMP_MIMUW}" ]; then
-    echo "Error: Cannot install IdLearn: ${TMP_MIMUW} exists in current directory"
-    usage
-    exit 1
+	echo "Error: Cannot install IdLearn: ${TMP_MIMUW} exists in current directory"
+	usage
+	exit 1
 fi
 
 if [[ "$CMD" == "install" ]]; then
 	if [[ "$#" -ne 2 ]]; then
 		usage
-        exit 1
-    fi
+		exit 1
+	fi
 
-    INSTALL_PATH="$2"
+	INSTALL_PATH="$2"
 	FIRST_PATH_LETTER=${INSTALL_PATH::1}
-	if [ "${FIRST_PATH_LETTER}" != "/" ]; then
+	if [ "${FIRST_PATH_LETTER}" != "/" ] && [ "${FIRST_PATH_LETTER}" != "~" ]; then
 		INSTALL_PATH=$(pwd)/${INSTALL_PATH}
 	fi
 	rm -rf $INSTALL_PATH
-    mkdir -p "${INSTALL_PATH}"
+	mkdir -p "${INSTALL_PATH}"
 
-    mkdir -p "${CONFIG_DIR}"
-    touch "${CONFIG}"
+	mkdir -p "${CONFIG_DIR}"
+	touch "${CONFIG}"
 	echo "Installing in ${INSTALL_PATH}..."
-    echo "data=$INSTALL_PATH" > $CONFIG
-    jar uf "${PACKAGE}" "${CONFIG}"
+	echo "data=$INSTALL_PATH" > $CONFIG
+	jar uf "${PACKAGE}" "${CONFIG}"
 
-    build_packages
+	build_packages
 elif [[ "$CMD" == "uninstall" ]]; then
 	INSTALL_PATH="$(get_install_path)"
 	rm -rf $INSTALL_PATH
