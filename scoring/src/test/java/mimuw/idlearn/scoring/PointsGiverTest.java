@@ -112,5 +112,18 @@ public class PointsGiverTest {
 		DataManager.resetData();
 
 	}
+
+	@Test
+	public void testOffset() throws IOException, InterruptedException {
+		preparePlatform();
+		PointsGiver.setSolutionSpeed("a", 100000, 1);
+
+		TimeUnit.MILLISECONDS.sleep(1000);
+
+		System.out.println(PointsGiver.getOffset("a"));
+		assertTrue(PointsGiver.getOffset("a") >= 1000);
+		assertTrue(PointsGiver.getOffset("a") < 1100);
+
+	}
 }
 
