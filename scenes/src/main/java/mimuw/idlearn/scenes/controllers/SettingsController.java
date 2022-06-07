@@ -9,9 +9,6 @@ import java.util.ResourceBundle;
 
 public class SettingsController extends GenericController {
 
-    @FXML
-    private BorderPane mainBorderPane;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

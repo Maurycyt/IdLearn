@@ -3,18 +3,21 @@ package mimuw.idlearn.scenes.controllers;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import mimuw.idlearn.idlang.GUI.CodeBox;
-import mimuw.idlearn.idlang.GUI.codeblocks.CodeBlockSpawner;
-import mimuw.idlearn.idlang.GUI.codeblocks.CodeSegment;
-import mimuw.idlearn.idlang.GUI.codeblocks.blocktypes.*;
+import javafx.stage.WindowEvent;
+import mimuw.idlearn.idlangblocks.GUI.CodeBox;
+import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlockSpawner;
+import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeSegment;
+import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.exceptions.*;
 import mimuw.idlearn.packages.PackageManager;
@@ -23,6 +26,8 @@ import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
 import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
+import mimuw.idlearn.userdata.CodeData;
+import mimuw.idlearn.userdata.DataManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,8 +38,19 @@ import java.util.ResourceBundle;
 
 // this controller is added dynamically to each task scene, in contrast to each other controller
 public class TaskController extends GenericController {
-    private boolean taskCompletedNow;
     private ProblemPackage pkg;
+    private CodeBox codeBox;
+
+    private final EventHandler<WindowEvent> exitHandler = (event) -> {
+        CodeData data = codeBox.getSegment().saveFormat();
+        String title = pkg.getTitle();
+        try {
+            System.out.println("Saving user code (" + pkg.getTitle() + ") on exit...");
+            DataManager.updateUserCode(title, data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
 
     public TaskController(String taskName) {
         try {
@@ -42,6 +58,24 @@ public class TaskController extends GenericController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Makes the code for this task session save when exiting the app.
+     */
+    public void setSavingOnExit() {
+        Scene scene = statementStackPane.getScene(); // this element is not special, could be any other
+        assert scene != null;
+        scene.getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, exitHandler);
+    }
+
+    /**
+     * Turns off saving when exiting this controller's scene.
+     */
+    public void removeSavingOnExit() {
+        Scene scene = statementStackPane.getScene(); // this element is not special, could be any other
+        assert scene != null;
+        scene.getWindow().removeEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, exitHandler);
     }
 
     @FXML
@@ -61,18 +95,21 @@ public class TaskController extends GenericController {
     @FXML
     private AnchorPane dummyDragPane;
 
-    private void questionGoingBack(CodeBox codeBox) {
-        CodeSegment codeSegment = (CodeSegment) codeBox.getChildren().get(0);
-
-        // No progress will be lost, go back like normal
-        if (codeSegment.getChildren().size() == 0 || taskCompletedNow) {
+    private void goBackWithSaving(CodeBox codeBox) {
+        CodeData data = codeBox.getSegment().saveFormat();
+        String title = pkg.getTitle();
+        try {
+            System.out.println("Updating user code...");
+            DataManager.updateUserCode(title, data);
+            removeSavingOnExit();
             goBack(null);
-        }
-        else {
-            Alert alert = ResourceHandler.createAlert(Alert.AlertType.CONFIRMATION,
-                    "Are you sure you want to go back? Your progress will not be saved.",
-                    ButtonType.YES, ButtonType.CANCEL
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = ResourceHandler.createAlert(Alert.AlertType.ERROR,
+                    "Do you wish to go back? Your progress will not be saved",
+                    ButtonType.YES, ButtonType.NO
             );
+            alert.setHeaderText("Unable to save code");
 
             alert.showAndWait()
                     .filter(response -> response == ButtonType.YES)
@@ -86,17 +123,13 @@ public class TaskController extends GenericController {
 
 
         try {
-            final boolean awardPoints = !PointsGiver.getCompletedTasks().contains(pkg.getTitle());
             TestRunner runner = new TestRunner(pkg, exp);
 
             double time = runner.aggregateTestTimes();
             // if didn't throw, then the user has successfully completed the task
-            taskCompletedNow = true;
-            if (awardPoints) {
-                PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
-            }
-            String strTime = new DecimalFormat("0.00").format(time);
-            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time:\n " + strTime, ButtonType.OK);
+            PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
+            DecimalFormat df = new DecimalFormat("####0.00");
+            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + df.format(time), ButtonType.OK);
             alert.setTitle("Success");
             alert.setHeaderText("Good job!");
         } catch (WrongAnswerException e) {
@@ -149,7 +182,6 @@ public class TaskController extends GenericController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Statement field
         statementText.setText(pkg.getStatement());
-
         statementText.wrappingWidthProperty().bind(new ObservableValue<Double>() {
             @Override
             public void addListener(InvalidationListener invalidationListener) {
@@ -173,7 +205,7 @@ public class TaskController extends GenericController {
             }
         });
 
-        // these fixes the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
+        // this fixes the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
         statementScrollPane.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             String target = mouseEvent.getTarget().toString();
             if (target.contains("ScrollPane") || target.contains("Text")) {
@@ -182,7 +214,13 @@ public class TaskController extends GenericController {
         });
 
         // Code box
-        final CodeBox codeBox = new CodeBox();
+        CodeData codeData = DataManager.getUserCode(pkg.getTitle());
+        codeBox = new CodeBox();
+        if (codeData != null) {
+            CodeSegment codeSegment = CodeSegment.recreateSegment(codeData, codeBox, dummyDragPane);
+            codeBox.setSegment(codeSegment);
+        }
+
         codeBoxScrollPane.setContent(codeBox);
         codeBox.getStyleClass().add("codeBox");
 
@@ -190,7 +228,7 @@ public class TaskController extends GenericController {
         submitBtn.setOnAction(event -> submitSolution(codeBox));
 
         // Back button
-        backBtn.setOnAction(event -> questionGoingBack(codeBox));
+        backBtn.setOnAction(event -> goBackWithSaving(codeBox));
 
         // Dummy drag pane
         dummyDragPane.setVisible(true);
@@ -200,8 +238,8 @@ public class TaskController extends GenericController {
         // Block spawners
         List<Node> availableBlocks = blockSelectionHBox.getChildren();
         availableBlocks.addAll(List.of(
-                new CodeBlockSpawner(codeBox, () -> new Read(pkg), dummyDragPane),
-                new CodeBlockSpawner(codeBox, () -> new Write(pkg), dummyDragPane),
+                new CodeBlockSpawner(codeBox, Read::new, dummyDragPane),
+                new CodeBlockSpawner(codeBox, Write::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, Assign::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, Operation::new, dummyDragPane),
                 new CodeBlockSpawner(codeBox, IfElse::new, dummyDragPane),

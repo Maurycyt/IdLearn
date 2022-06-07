@@ -8,6 +8,7 @@
 !application/
 !core/
 !idlang/
+!idlangblocks/
 !packages/
 !scenes/
 !scoring/
