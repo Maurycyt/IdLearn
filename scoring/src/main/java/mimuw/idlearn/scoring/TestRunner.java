@@ -1,5 +1,6 @@
 package mimuw.idlearn.scoring;
 
+import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
@@ -7,7 +8,6 @@ import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 import mimuw.idlearn.idlang.logic.exceptions.TimeoutException;
 import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.packages.ProblemPackage;
-import mimuw.idlearn.userdata.AchievementManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,10 +98,10 @@ public class TestRunner {
 		finalResult.time /= pack.getConfig().expectedTime;
 		// Notify achievement manager if expected time or memory has been beaten.
 		if (finalResult.time < 0.999) {
-			AchievementManager.unlockAchievementLevel(AchievementManager.ExpectedTimeBeaten, 1);
+			AchievementManager.get(AchievementManager.ExpectedTimeBeaten).setProgress(1);
 		}
 		if (finalResult.memory < pack.getConfig().expectedMemory) {
-			AchievementManager.unlockAchievementLevel(AchievementManager.ExpectedMemoryBeaten, 1);
+			AchievementManager.get(AchievementManager.ExpectedMemoryBeaten).setProgress(1);
 		}
 		// Return normalised time.
 		return finalResult.time;

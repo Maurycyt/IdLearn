@@ -4,14 +4,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.*;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
@@ -20,7 +13,6 @@ import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scenes.SceneManager;
 import mimuw.idlearn.scenes.preloading.LoadTask;
 import mimuw.idlearn.scoring.PointsGiver;
-import mimuw.idlearn.userdata.AchievementManager;
 import mimuw.idlearn.userdata.DataManager;
 import mimuw.idlearn.userdata.PerkManager;
 
@@ -56,7 +48,6 @@ public class IdLearnApplication extends javafx.application.Application {
 		// Start userdata stuff, DataManager first.
 		DataManager.init();
 		PerkManager.init();
-		AchievementManager.init();
 
 		// Start points giver
 		PointsGiver.loadSpeeds();

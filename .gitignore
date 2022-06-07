@@ -5,6 +5,7 @@
 !.gitignore
 
 # And the src and problem package directories
+!achievements/
 !application/
 !core/
 !idlang/

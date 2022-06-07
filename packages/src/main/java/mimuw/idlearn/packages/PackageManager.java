@@ -1,5 +1,7 @@
 package mimuw.idlearn.packages;
 
+import mimuw.idlearn.achievements.Achievement;
+import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.utils.ShellExecutor;
 import mimuw.idlearn.properties.Config;
@@ -47,7 +49,6 @@ public class PackageManager {
 	 * The problem package directory.
 	 */
 	private static File problemPackageDirectory = null;
-	public static Emitter customTaskEmitter = new Emitter();
 
 	/**
 	 * Reloads the array of problem packages in the program files.
@@ -73,7 +74,7 @@ public class PackageManager {
 
 		// Award achievement for custom problem package.
 		if (!titles.equals(Config.getDefaultTaskTitles())) {
-			customTaskEmitter.fire(0);
+			AchievementManager.get(AchievementManager.CustomTaskLoaded).setProgress(1);
 		}
 
 		problemPackages = result;

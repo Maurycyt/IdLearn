@@ -1,6 +1,9 @@
 package mimuw.idlearn.userdata;
 
+import mimuw.idlearn.achievements.AchievementManager;
+import mimuw.idlearn.achievements.AchievementProgressEvent;
 import mimuw.idlearn.core.Emitter;
+import mimuw.idlearn.core.Event;
 import mimuw.idlearn.core.Listener;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.properties.Config;
@@ -20,6 +23,17 @@ public class DataManager {
 	private static final String[] STARTING_TASKS = {"Addition"};
 	private static Data data = new Data();
 	private static final Emitter pointsChangeEmitter = new Emitter();
+	private static final Listener achievementsListener = event -> {
+		if (event.type() == AchievementProgressEvent.class){
+			AchievementProgressEvent value = (AchievementProgressEvent)event.value();
+			data.achievements.put(value.name(), value.progress());
+			try {
+				saveData();
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+	};
 
 	public static class PointsGiving {
 		public long timeInterval;
@@ -74,7 +88,6 @@ public class DataManager {
 	public static Integer getLevel(String perkName) {
 		return data.perks.get(perkName);
 	}
-	public static Map<String, Integer> getPerks() {return data.perks;}
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {
@@ -97,16 +110,7 @@ public class DataManager {
 		data.pointsGiving.put(task, pg);
 
 		// Notify achievement manager of any new achievements.
-		// TODO: prettify.
-		if (data.pointsGiving.size() >= 1) {
-			AchievementManager.unlockAchievementLevel(AchievementManager.TasksCompleted, 1);
-		}
-		if (data.pointsGiving.size() >= (PackageManager.getProblemPackages().size() + 1) / 2) {
-			AchievementManager.unlockAchievementLevel(AchievementManager.TasksCompleted, 2);
-		}
-		if (data.pointsGiving.size() >= PackageManager.getProblemPackages().size()) {
-			AchievementManager.unlockAchievementLevel(AchievementManager.TasksCompleted, 3);
-		}
+		AchievementManager.get(AchievementManager.TasksCompleted).setProgress(data.pointsGiving.size());
 
 		saveData();
 	}
@@ -170,6 +174,8 @@ public class DataManager {
 
 	public static void init() throws IOException {
 		loadData();
+		AchievementManager.init(getAchievements());
+		AchievementManager.emitter.connect(achievementsListener);
 		setupAutosaveTimer();
 	}
 

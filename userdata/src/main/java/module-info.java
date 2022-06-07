@@ -4,6 +4,7 @@ module mimuw.idlearn.userdata {
 	requires org.yaml.snakeyaml;
     requires mimuw.idlearn.packages;
 	requires mimuw.idlearn.idlang;
+	requires mimuw.idlearn.achievements;
 
 	opens mimuw.idlearn.userdata to org.yaml.snakeyaml;
 

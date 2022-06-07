@@ -2,11 +2,9 @@ package mimuw.idlearn.scenes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
@@ -121,6 +119,18 @@ public class ResourceHandler {
 		stage.getIcons().add(new Image(AppIcon.toExternalForm()));
 
 		return alert;
+	}
+
+	public static Popup createAchievement(String s){
+		Label label = new Label(s);
+		label.getStylesheets().add(Style.toExternalForm());
+		label.getStylesheets().add(CommonStyle.toExternalForm());
+
+		Popup popup = new Popup();
+		popup.getContent().add(label);
+		popup.setAutoHide(true);
+
+		return popup;
 	}
 
 	/**
