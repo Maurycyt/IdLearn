@@ -1,11 +1,15 @@
 package mimuw.idlearn.scenes;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.util.Duration;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -121,16 +125,31 @@ public class ResourceHandler {
 		return alert;
 	}
 
-	public static Popup createAchievement(String s){
+	public static void createAchievement(Parent where, String s){
 		Label label = new Label(s);
 		label.getStylesheets().add(Style.toExternalForm());
 		label.getStylesheets().add(CommonStyle.toExternalForm());
 
+		Window window = where.getScene().getWindow();
+
 		Popup popup = new Popup();
 		popup.getContent().add(label);
-		popup.setAutoHide(true);
+//		popup.setAutoHide(true);
+		popup.setAnchorX(window.getX() + window.getWidth() - 100);
+		popup.setAnchorY(window.getY() + window.getHeight() - window.getScene().getHeight()  + 20);
 
-		return popup;
+		System.out.println("Spawning achievement" + s);
+		Timeline timeline = new Timeline();
+		timeline.getKeyFrames().add(new KeyFrame(
+				new Duration(3000),
+				actionEvent -> {
+					System.out.println("Hiding achievement" + s);
+					popup.hide();
+				}
+		));
+		timeline.play();
+
+		popup.show(window);
 	}
 
 	/**

@@ -1,5 +1,9 @@
 package mimuw.idlearn.achievements;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Optional;
+
 public class Achievement {
 	public Achievement(String name, AchievementLevel... levels) {
 		unlockedLevel = 0;
@@ -12,6 +16,7 @@ public class Achievement {
 	private int unlockedLevel;
 	private int progress;
 	private final AchievementLevel[] levels;
+	private final Deque<String> toShow = new ArrayDeque<>();
 
 	public String getDisplayedText() {
 		return levels[unlockedLevel].displayText();
@@ -24,8 +29,12 @@ public class Achievement {
 		}
 	}
 
-	public void popup(String text) {
-		// TODO
+	private void popup(String text) {
+		toShow.add(text);
+	}
+
+	public Optional<String> getNextPopup() {
+		return Optional.ofNullable(toShow.poll());
 	}
 
 	public void setProgress(int progress) {

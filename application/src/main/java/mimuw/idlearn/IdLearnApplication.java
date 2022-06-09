@@ -1,11 +1,15 @@
 package mimuw.idlearn;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.*;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
@@ -93,6 +97,13 @@ public class IdLearnApplication extends javafx.application.Application {
 		stage.show();
 
 		final Timeline timeline = new Timeline();
+		timeline.getKeyFrames().add(
+				new KeyFrame(new Duration(1000 / 60.0),
+				event -> AchievementManager.getAchievementDialogsToShow()
+										   .forEach(x -> ResourceHandler.createAchievement(sceneManager.get(), x))));
+//		timeline.getKeyFrames().add(
+//				new KeyFrame(new Duration(1000),
+//						event -> ResourceHandler.createAchievement(sceneManager.get(), "Hello there")));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
 		long loadEnd = System.currentTimeMillis();
