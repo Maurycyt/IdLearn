@@ -123,6 +123,29 @@ public class ResourceHandler {
 		return alert;
 	}
 
+	/**
+	 * Wrapper for creating a clickable green button with styling.
+	 * @param s: the button's text
+	 * @param maxWidth: the max width of the button
+	 * @return the button
+	 */
+	public static Button createGreenButton(String s, double maxWidth) {
+		Button btn = new Button(s);
+		btn.setMaxWidth(maxWidth);
+		btn.getStylesheets().add(ResourceHandler.Style.toExternalForm());
+		btn.getStyleClass().add("greenButton");
+		return btn;
+	}
+
+	/**
+	 * Changes the style of the button for a completed/unlocked asset,
+	 * so that it's different from the others of its type.
+	 * @param taskBtn: button of an asset
+	 */
+	public static void setStyleForUnlockedAsset(Button taskBtn) {
+		taskBtn.getStyleClass().addAll("unlockedAssetButton");
+	}
+
 	//TODO: remove this
 	private static final String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 	public static String repeatLorem(int n) { return loremIpsum.repeat(Math.max(0, n)); }

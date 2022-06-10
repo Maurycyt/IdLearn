@@ -21,40 +21,29 @@ public class TaskSelectionController extends GenericController {
 	@FXML
 	private BorderPane mainBorderPane;
 
-	/**
-	 * Makes the button of a completed task darker and gives it a popup on click.
-	 * This assumes the task's text has been set.
-	 * @param taskBtn: button of a task
-	 */
-	private void setStyleOfButtonForCompletedTask(Button taskBtn) {
-		taskBtn.setStyle("-fx-background-color: #029c5b;");
-	}
-
 	/** Loads all the user's available tasks as clickable buttons **/
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		Set<String> completedTasks = PointsGiver.getCompletedTasks();
 		Button pointsBtn = ResourceHandler.createUserPointsButton();
 		mainBorderPane.setTop(pointsBtn);
+		Set<String> completedTasks = PointsGiver.getCompletedTasks();
 
 		List<String> tasks = new java.util.ArrayList<>(DataManager.getUnlockedTasks());
 		Collections.sort(tasks);
 
 		double btnWidth = tasksVBox.getMaxWidth();
-		for (final String taskTitle : tasks) {
-			Button taskBtn = new Button(taskTitle);
-			taskBtn.setMaxWidth(btnWidth);
-			taskBtn.getStylesheets().add(ResourceHandler.Style.toExternalForm());
-			taskBtn.getStyleClass().add("greenButton");
+		for (String taskTitle : tasks) {
+			Button taskBtn = ResourceHandler.createGreenButton(taskTitle, btnWidth);
 			tasksVBox.getChildren().add(taskBtn);
 
 			// make the style change dynamically
 			PointsGiver.connectToTaskCompletion(event -> {
-				if (event.value() == taskTitle)
-					setStyleOfButtonForCompletedTask(taskBtn);
+				String incomingText = (String)event.value();
+				if (incomingText.equals(taskBtn.getText()))
+					ResourceHandler.setStyleForUnlockedAsset(taskBtn);
 			});
 			if (completedTasks.contains(taskTitle))
-				setStyleOfButtonForCompletedTask(taskBtn);
+				ResourceHandler.setStyleForUnlockedAsset(taskBtn);
 
 			taskBtn.setOnAction((event) -> {
 				try {
