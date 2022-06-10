@@ -47,7 +47,9 @@ public class TaskSelectionController extends GenericController {
 
 			taskBtn.setOnAction((event) -> {
 				try {
-					enterNextScene(ResourceHandler.Task, new TaskController(taskTitle));
+					TaskController controller = new TaskController(taskTitle);
+					enterNextScene(ResourceHandler.Task, controller);
+					controller.setSavingOnExit();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

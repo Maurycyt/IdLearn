@@ -6,8 +6,9 @@ module mimuw.idlearn.scenes {
 	requires mimuw.idlearn.scoring;
 	requires mimuw.idlearn.packages;
     requires mimuw.idlearn.userdata;
+	requires mimuw.idlearn.idlangblocks;
 
-    exports mimuw.idlearn.scenes;
+	exports mimuw.idlearn.scenes;
 	opens mimuw.idlearn.scenes to javafx.fxml;
 	exports mimuw.idlearn.scenes.preloading;
 	opens mimuw.idlearn.scenes.preloading to javafx.fxml;

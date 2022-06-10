@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DataManagerTest {
@@ -29,9 +30,9 @@ public class DataManagerTest {
 	@Test
 	public void testBasicTasks() throws IOException {
 		DataManager.resetData();
-		assertEquals(new ArrayList<>(), DataManager.getUnlockedTasks());
+		assertEquals(new ArrayList<>(Collections.singleton("Addition")), DataManager.getUnlockedTasks());
 		DataManager.unlockTask("A");
-		assertEquals(new ArrayList<>(List.of(new String[]{"A"})), DataManager.getUnlockedTasks());
+		assertEquals(new ArrayList<>(List.of(new String[]{"Addition", "A"})), DataManager.getUnlockedTasks());
 		DataManager.resetUnlockedTasks();
 		assertEquals(new ArrayList<>(), DataManager.getUnlockedTasks());
 		DataManager.resetData();
@@ -88,7 +89,7 @@ public class DataManagerTest {
 
 		DataManager.init();
 		assertEquals(100, DataManager.showPoints());
-		assertEquals("A", DataManager.getUnlockedTasks().get(0));
+		assertEquals(new ArrayList<>(List.of(new String[]{"Addition", "A"})), DataManager.getUnlockedTasks());
 
 		DataManager.setPoints(0);
 		DataManager.init();

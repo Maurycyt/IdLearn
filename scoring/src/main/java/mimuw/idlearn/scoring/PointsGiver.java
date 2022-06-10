@@ -16,6 +16,7 @@ public class PointsGiver {
 	private static double speedMultiplier = 1.0;
 	private static final Map<String, PointsTimerTask> givingTasks = new HashMap<>();
 	private static final Map<String, Long> timeStamps = new HashMap<>();
+	private static final Map<String, Long> startTime = new HashMap<>();
 	private static final Semaphore mutex = new Semaphore(1);
 	private static final Emitter taskCompletionEmitter = new Emitter();
 
@@ -30,10 +31,12 @@ public class PointsGiver {
 	private static class PointsTimerTask extends TimerTask {
 		long timeMillis;
 		long points;
-		public PointsTimerTask(long time, long pointsPerGiving) {
+		String problem;
+		public PointsTimerTask(long time, long pointsPerGiving, String problem) {
 			super();
 			timeMillis = time;
 			points = pointsPerGiving;
+			this.problem = problem;
 		}
 
 		@Override
@@ -42,6 +45,8 @@ public class PointsGiver {
 		}
 
 		public void start() {
+			Date date = new Date();
+			startTime.put(problem, date.getTime());
 			givingTimer.scheduleAtFixedRate(this, timeMillis, timeMillis);
 		}
 	}
@@ -68,7 +73,7 @@ public class PointsGiver {
 			task.cancel();
 		}
 
-		task = new PointsTimerTask((long)(timeInMillis / speedMultiplier), pointsPerGiving);
+		task = new PointsTimerTask((long)(timeInMillis / speedMultiplier), pointsPerGiving, problem);
 		task.start();
 		givingTasks.put(problem, task);
 		timeStamps.put(problem, timeStamp);
@@ -77,6 +82,17 @@ public class PointsGiver {
 		mutex.release();
 
 		taskCompletionEmitter.fire(problem);
+	}
+
+	public static long getSolutionRealSpeed(String problem) {
+		long interval = DataManager.getPointsGiving().get(problem).timeInterval;
+		return (long)(interval / speedMultiplier);
+	}
+	public static long getOffset(String problem) {
+		Date date = new Date();
+		long realSpeed = getSolutionRealSpeed(problem);
+		long start = startTime.get(problem);
+		return (date.getTime() - start) % realSpeed;
 	}
 
 	public static void resetSolution(String problem) {
@@ -123,7 +139,7 @@ public class PointsGiver {
 		Date date = new Date();
 
 		for (Map.Entry<String, DataManager.PointsGiving> entry : speeds.entrySet()) {
-			PointsTimerTask task = new PointsTimerTask(entry.getValue().timeInterval, entry.getValue().points);
+			PointsTimerTask task = new PointsTimerTask(entry.getValue().timeInterval, entry.getValue().points, entry.getKey());
 			task.start();
 			givingTasks.put(entry.getKey(), task);
 			timeStamps.put(entry.getKey(), date.getTime());

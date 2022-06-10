@@ -19,7 +19,15 @@ public class SceneManager {
 
 	private void updateStage(){
 		if (stage != null)
-			stage.getScene().setRoot(sceneRoots.peek());
+			stage.getScene().setRoot(this.peek());
+	}
+
+	/**
+	 * Returns the top scene in the stack without removing it.
+	 * @return the top scene
+	 */
+	synchronized public Parent peek() {
+		return sceneRoots.peek();
 	}
 
 	/**
