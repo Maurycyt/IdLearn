@@ -171,9 +171,7 @@ public class TaskController extends GenericController {
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Contact your local IdLearn developer for help", ButtonType.OK);
             alert.setHeaderText(text);
             e.printStackTrace();
-        } catch (Exception | Error e) {
-					e.printStackTrace();
-				} finally {
+        } finally {
             assert alert != null;
             alert.show();
         }
