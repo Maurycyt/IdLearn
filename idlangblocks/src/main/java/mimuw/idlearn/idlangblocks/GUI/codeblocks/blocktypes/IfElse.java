@@ -177,10 +177,24 @@ public class IfElse extends CodeBlock {
 	}
 
 	public void setIfSegment(CodeSegment segment) {
+		content.getChildren().replaceAll((node) -> {
+			if (node == ifSegment) {
+				return segment;
+			}
+			else {
+				return node;
+			}});
 		ifSegment = segment;
 	}
 
 	public void setElseSegment(CodeSegment segment) {
+		content.getChildren().replaceAll((node) -> {
+			if (node == elseSegment) {
+					return segment;
+			}
+			else {
+				return node;
+			}});
 		elseSegment = segment;
 	}
 }

@@ -145,6 +145,13 @@ public class WhileBlock extends CodeBlock {
 	}
 
 	public void setSegment(CodeSegment segment) {
+		content.getChildren().replaceAll((node) -> {
+			if (node == this.segment) {
+				return segment;
+			}
+			else {
+				return node;
+			}});
 		this.segment = segment;
 	}
 }
