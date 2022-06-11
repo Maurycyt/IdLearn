@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.idlangblocks.GUI.CodeBox;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
@@ -152,7 +153,7 @@ public abstract class CodeBlock extends Group {
 
 			parent.getChildren().remove(this);
 
-//			AchievementManager.
+			AchievementManager.get(AchievementManager.CodeBlocksPlaced).increaseProgress();
 		}
 		else {
 			this.relocate(0, 1000000);

@@ -6,9 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.stage.*;
 import javafx.util.Duration;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
@@ -125,31 +123,50 @@ public class ResourceHandler {
 		return alert;
 	}
 
-	public static void createAchievement(Parent where, String s){
+	public static void createAchievement(String s){
+		Alert popup = new Alert(Alert.AlertType.NONE);
+		popup.initModality(Modality.NONE);
+
 		Label label = new Label(s);
-		label.getStylesheets().add(Style.toExternalForm());
-		label.getStylesheets().add(CommonStyle.toExternalForm());
+		label.setMinWidth(Label.USE_PREF_SIZE);
+		label.setAlignment(Pos.CENTER);
 
-		Window window = where.getScene().getWindow();
+		DialogPane dialogPane = popup.getDialogPane();
+		dialogPane.getStylesheets().add(Style.toExternalForm());
+		dialogPane.getStylesheets().add(CommonStyle.toExternalForm());
+		dialogPane.getStyleClass().add("ok-dialog");
+		dialogPane.setContent(label);
 
-		Popup popup = new Popup();
-		popup.getContent().add(label);
-//		popup.setAutoHide(true);
-		popup.setAnchorX(window.getX() + window.getWidth() - 100);
-		popup.setAnchorY(window.getY() + window.getHeight() - window.getScene().getHeight()  + 20);
+		Stage stage = (Stage) dialogPane.getScene().getWindow();
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.getIcons().add(new Image(AppIcon.toExternalForm()));
+		stage.setX((Screen.getPrimary().getBounds().getWidth() - dialogPane.getWidth()) / 2);
+		popup.setY(50);
+
+
+		double delta = 1 / 15.0;
+		int[] iter = new int[1];
+		int iterCount = 15;
+		iter[0] = 1;
 
 		System.out.println("Spawning achievement" + s);
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().add(new KeyFrame(
-				new Duration(3000),
+				new Duration(100),
 				actionEvent -> {
-					System.out.println("Hiding achievement" + s);
-					popup.hide();
+					stage.setOpacity((iterCount - iter[0]) * delta);
+					iter[0]++;
+					if(iter[0] == iterCount){
+						stage.hide();
+						stage.close();
+					}
 				}
 		));
+		timeline.setDelay(new Duration(3000));
+		timeline.setCycleCount(iterCount);
 		timeline.play();
 
-		popup.show(window);
+		popup.show();
 	}
 
 	/**

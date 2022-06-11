@@ -23,9 +23,10 @@ public class Achievement {
 	}
 
 	private void updateLevel() {
-		while (unlockedLevel + 1 < levels.length && levels[unlockedLevel + 1].threshold() > progress) {
-			unlockedLevel++;
+		while (unlockedLevel < levels.length && progress >= levels[unlockedLevel].threshold()) {
+			AchievementManager.emitter.fire(new AchievementProgressEvent(name, progress));
 			popup(levels[unlockedLevel].displayText());
+			unlockedLevel++;
 		}
 	}
 
@@ -40,7 +41,6 @@ public class Achievement {
 	public void setProgress(int progress) {
 		this.progress = progress;
 		updateLevel();
-		AchievementManager.emitter.fire(new AchievementProgressEvent(name, progress));
 	}
 
 	public void increaseProgress() {
@@ -48,14 +48,9 @@ public class Achievement {
 		updateLevel();
 	}
 
-	public void unlockNextLevel() {
-		if (unlockedLevel + 1 < levels.length)
-			setProgress(levels[unlockedLevel + 1].threshold());
-	}
-
 	void load(int progress) {
 		this.progress = progress;
-		while(unlockedLevel + 1 < levels.length && levels[unlockedLevel + 1].threshold() > progress)
+		while(unlockedLevel < levels.length && progress >= levels[unlockedLevel].threshold())
 			unlockedLevel++;
 	}
 }

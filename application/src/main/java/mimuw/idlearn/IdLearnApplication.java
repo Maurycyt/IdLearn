@@ -98,9 +98,9 @@ public class IdLearnApplication extends javafx.application.Application {
 
 		final Timeline timeline = new Timeline();
 		timeline.getKeyFrames().add(
-				new KeyFrame(new Duration(1000 / 60.0),
+				new KeyFrame(new Duration(100),
 				event -> AchievementManager.getAchievementDialogsToShow()
-										   .forEach(x -> ResourceHandler.createAchievement(sceneManager.get(), x))));
+										   .forEach(ResourceHandler::createAchievement)));
 //		timeline.getKeyFrames().add(
 //				new KeyFrame(new Duration(1000),
 //						event -> ResourceHandler.createAchievement(sceneManager.get(), "Hello there")));
