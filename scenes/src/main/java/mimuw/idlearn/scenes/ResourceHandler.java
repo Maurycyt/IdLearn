@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.*;
 import javafx.util.Duration;
@@ -184,16 +185,33 @@ public class ResourceHandler {
 		return btn;
 	}
 
-//	public static HBox createAchievement(String s, double maxWidth) {
-//		HBox hBox = new HBox();
-//		hBox.getChildren().add(new Label(s));
-//		hBox.getChildren().add();
-//		Button btn = new Button(s);
-//		btn.setMaxWidth(maxWidth);
-//		btn.getStylesheets().add(ResourceHandler.Style.toExternalForm());
-//		btn.getStyleClass().add("greenButton");
-//		return btn;
-//	}
+	// TODO: For Fernandez: Idk how to style this with css, It should have text and progress bar, but everything looks odd
+	public static AnchorPane createAchievement(String s, double width) {
+		AnchorPane pane = new AnchorPane();
+
+		pane.getStylesheets().add(Style.toExternalForm());
+		pane.getStylesheets().add(CommonStyle.toExternalForm());
+		pane.getStyleClass().add("achievementBox");
+
+		Label label = new Label(s);
+		label.setAlignment(Pos.CENTER);
+		label.getStylesheets().add(Style.toExternalForm());
+		label.getStylesheets().add(CommonStyle.toExternalForm());
+		label.getStyleClass().add("achievementBox");
+
+		HBox box = new HBox();
+		ProgressBar progressBar = new ProgressBar();
+		progressBar.setProgress(0.5);
+		progressBar.getStylesheets().add(Style.toExternalForm());
+		progressBar.getStylesheets().add(CommonStyle.toExternalForm());
+		box.getChildren().add(progressBar);
+		box.setAlignment(Pos.CENTER_RIGHT);
+
+		pane.getChildren().add(label);
+		pane.getChildren().add(box);
+
+		return pane;
+	}
 
 	/**
 	 * Changes the style of the button for a completed/unlocked asset,
