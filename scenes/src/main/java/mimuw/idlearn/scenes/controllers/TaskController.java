@@ -125,13 +125,16 @@ public class TaskController extends GenericController {
         try {
             TestRunner runner = new TestRunner(pkg, exp);
 
+					System.out.println("Testing...");
             double time = runner.aggregateTestTimes();
+						System.out.println("Tested with time " + time + ", attempting alert creation.");
             // if didn't throw, then the user has successfully completed the task
             PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
             DecimalFormat df = new DecimalFormat("####0.00");
             alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + df.format(time), ButtonType.OK);
             alert.setTitle("Success");
             alert.setHeaderText("Good job!");
+						System.out.println("Alert created.");
         } catch (WrongAnswerException e) {
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
             alert.setHeaderText("Wrong output!");
@@ -155,7 +158,7 @@ public class TaskController extends GenericController {
             String tmp = e.toString();
             alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, tmp.substring(2 + tmp.indexOf(":")), ButtonType.OK);
             alert.setHeaderText("Out of array bounds!");
-        } catch (Exception e) {
+        } catch (Exception | Error e) {
             String text = "A";
             if (e instanceof IOException) {
                 text += "n internal I/O";
