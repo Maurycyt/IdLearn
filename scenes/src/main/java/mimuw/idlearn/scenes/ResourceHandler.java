@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.stage.*;
 import javafx.util.Duration;
 import mimuw.idlearn.scenes.controllers.GenericController;
@@ -182,6 +183,17 @@ public class ResourceHandler {
 		btn.getStyleClass().add("greenButton");
 		return btn;
 	}
+
+//	public static HBox createAchievement(String s, double maxWidth) {
+//		HBox hBox = new HBox();
+//		hBox.getChildren().add(new Label(s));
+//		hBox.getChildren().add();
+//		Button btn = new Button(s);
+//		btn.setMaxWidth(maxWidth);
+//		btn.getStylesheets().add(ResourceHandler.Style.toExternalForm());
+//		btn.getStyleClass().add("greenButton");
+//		return btn;
+//	}
 
 	/**
 	 * Changes the style of the button for a completed/unlocked asset,

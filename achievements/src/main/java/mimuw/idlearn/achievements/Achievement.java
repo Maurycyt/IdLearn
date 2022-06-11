@@ -19,15 +19,27 @@ public class Achievement {
 	private final Deque<String> toShow = new ArrayDeque<>();
 
 	public String getDisplayedText() {
-		return levels[unlockedLevel].displayText();
+		return levels[(unlockedLevel == 0 ? 0 : unlockedLevel - 1)].displayText();
+	}
+
+	public int getMaxProgress() {
+		return levels[levels.length - 1].threshold();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getUnlockedLevel() {
+		return unlockedLevel;
 	}
 
 	private void updateLevel() {
 		while (unlockedLevel < levels.length && progress >= levels[unlockedLevel].threshold()) {
-			AchievementManager.emitter.fire(new AchievementProgressEvent(name, progress));
 			popup(levels[unlockedLevel].displayText());
 			unlockedLevel++;
 		}
+		AchievementManager.emitter.fire(new AchievementProgressEvent(name, progress, unlockedLevel));
 	}
 
 	private void popup(String text) {
