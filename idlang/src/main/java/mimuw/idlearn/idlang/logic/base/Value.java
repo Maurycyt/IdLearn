@@ -5,7 +5,6 @@ public class Value {
 	public Type type;
 
 	public Value(Type type, Object value) {
-		if ((type == Type.Null && ! (value == null)))
 		this.type = type;
 		this.value = value;
 	}
