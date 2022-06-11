@@ -19,7 +19,6 @@ struct MaxTree {
 	MaxTree(int power) :
 	base(1 << power),
 	tree(vector<pair<int,int>>(2 * base)) {
-		cerr << "Tree with base " << base << "\n";
 		for (int i = base; i < 2 * base; i++) {
 			tree[i].second = i - base;
 		}
@@ -92,7 +91,7 @@ struct TestCase {
 		for (unsigned int i = q / 2; i < q; i++) {
 			pair<int,int> previousMax = tree.getMax();
 			P[i] = previousMax.second;
-			H[i] = Random::rand<ui>() % previousMax.first;
+			H[i] = Random::rand<ui>() % max(previousMax.first, 1);
 			tree.update(P[i], H[i]);
 		}
 	}

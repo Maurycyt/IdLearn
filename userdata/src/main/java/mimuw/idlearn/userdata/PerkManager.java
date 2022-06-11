@@ -22,7 +22,7 @@ public class PerkManager {
 
 	static {
 		maxPerkLevels = new HashMap<>(Map.ofEntries(
-				new AbstractMap.SimpleEntry<>(Memory, 4),
+				new AbstractMap.SimpleEntry<>(Memory, 10),
 				new AbstractMap.SimpleEntry<>(Speed, 4)
 		));
 		onUpgradeEmitters = new HashMap<>(Map.ofEntries(

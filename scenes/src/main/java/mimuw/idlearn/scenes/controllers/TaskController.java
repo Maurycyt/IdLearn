@@ -219,6 +219,7 @@ public class TaskController extends GenericController {
         if (codeData != null) {
             CodeSegment codeSegment = CodeSegment.recreateSegment(codeData, codeBox, dummyDragPane);
             codeBox.setSegment(codeSegment);
+            codeBox.updateIndent();
         }
 
         codeBoxScrollPane.setContent(codeBox);

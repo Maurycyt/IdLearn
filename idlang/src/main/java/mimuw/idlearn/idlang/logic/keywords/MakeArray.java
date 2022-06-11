@@ -33,9 +33,9 @@ public class MakeArray extends Expression {
 
 		Scope origin = scope.getOriginScope(name);
 
-		ArrayList table = new ArrayList<Long>(size.intValue());
+		ArrayList<Long> table = new ArrayList<>(size.intValue());
 		for (int i = 0; i < size; i++) {
-			table.add(0);
+			table.add(0L);
 		}
 
 
