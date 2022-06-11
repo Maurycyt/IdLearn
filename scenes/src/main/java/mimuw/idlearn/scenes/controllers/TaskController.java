@@ -129,7 +129,7 @@ public class TaskController extends GenericController {
             // if didn't throw, then the user has successfully completed the task
             PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
             DecimalFormat df = new DecimalFormat("####0.00");
-            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time: " + df.format(time), ButtonType.OK);
+            alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time:\n" + df.format(time), ButtonType.OK);
             alert.setTitle("Success");
             alert.setHeaderText("Good job!");
         } catch (WrongAnswerException e) {
