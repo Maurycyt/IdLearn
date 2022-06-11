@@ -38,6 +38,15 @@ The color scheme is as follows:
     -fx-background-color: #f2f2f5;
     -fx-alignment: center;
 }
+.achievementBox {
+    -fx-background-color: #00b167;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-pref-width: 350;
+}
 
 
 /* Buttons */
