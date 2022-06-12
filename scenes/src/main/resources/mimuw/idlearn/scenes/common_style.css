@@ -38,14 +38,12 @@ The color scheme is as follows:
     -fx-background-color: #f2f2f5;
     -fx-alignment: center;
 }
-.achievementBox {
-    -fx-background-color: #00b167;
-    -fx-background-radius: 10px;
+.borderedPane {
+    -fx-border-color: #00b167;
+    -fx-border-width: 4px;
     -fx-border-radius: 10px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 20px;
-    -fx-pref-width: 350;
+    -fx-background-radius: 10px;
+    -fx-background-color: #f2f2f5;
 }
 
 
@@ -174,4 +172,12 @@ The color scheme is as follows:
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover{
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
+}
+
+/* Achievements */
+.achievementLabel{
+
+}
+.achievementProgressBar {
+
 }

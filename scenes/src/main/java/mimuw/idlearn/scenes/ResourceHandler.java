@@ -125,7 +125,7 @@ public class ResourceHandler {
 		return alert;
 	}
 
-	public static void createAchievement(String s){
+	public static void createAchievementAlert(String s){
 		Alert popup = new Alert(Alert.AlertType.NONE);
 		popup.initModality(Modality.NONE);
 
@@ -185,32 +185,24 @@ public class ResourceHandler {
 		return btn;
 	}
 
-	// TODO: For Fernandez: Idk how to style this with css, It should have text and progress bar, but everything looks odd
-	public static AnchorPane createAchievement(String s, double width) {
-		AnchorPane pane = new AnchorPane();
-
-		pane.getStylesheets().add(Style.toExternalForm());
-		pane.getStylesheets().add(CommonStyle.toExternalForm());
-		pane.getStyleClass().add("achievementBox");
+	public static HBox createAchievementHBox(String s) {
+		HBox box = new HBox();
+		box.getStylesheets().add(Style.toExternalForm());
+		box.getStylesheets().add(CommonStyle.toExternalForm());
+		box.getStyleClass().addAll("pane", "borderedPane");
 
 		Label label = new Label(s);
-		label.setAlignment(Pos.CENTER);
-		label.getStylesheets().add(Style.toExternalForm());
-		label.getStylesheets().add(CommonStyle.toExternalForm());
-		label.getStyleClass().add("achievementBox");
+		//label.setAlignment(Pos.CENTER);
+		label.getStyleClass().add("achievementLabel");
 
-		HBox box = new HBox();
-		ProgressBar progressBar = new ProgressBar();
-		progressBar.setProgress(0.5);
-		progressBar.getStylesheets().add(Style.toExternalForm());
-		progressBar.getStylesheets().add(CommonStyle.toExternalForm());
-		box.getChildren().add(progressBar);
-		box.setAlignment(Pos.CENTER_RIGHT);
+		ProgressBar pBar = new ProgressBar();
+		label.getStyleClass().add("achievementProgressBar");
+		//pBar.setProgress(0.5);
 
-		pane.getChildren().add(label);
-		pane.getChildren().add(box);
+		box.getChildren().add(label);
+		box.getChildren().add(pBar);
 
-		return pane;
+		return box;
 	}
 
 	/**

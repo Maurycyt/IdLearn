@@ -25,25 +25,25 @@ public class AchievementsController extends GenericController {
         Button pointsBtn = ResourceHandler.createUserPointsButton();
         mainBorderPane.setTop(pointsBtn);
 
-        double width = achievementsVBox.getMaxWidth();
+        //double width = achievementsVBox.getMaxWidth();
 
         AchievementManager.getAchievementNames()
                 .stream()
                 .map(AchievementManager::get)
-                .forEach(achievement -> {
-                    AnchorPane pane = ResourceHandler.createAchievement(achievement.getDisplayedText(), width);
-                    achievementsVBox.getChildren().add(pane);
+                .forEach(a -> {
+                    var achievement = ResourceHandler.createAchievementHBox(a.getDisplayedText());
+                    achievementsVBox.getChildren().add(achievement);
 
                     // make the style change dynamically
                     AchievementManager.emitter.connect(event -> {
                         if(event.type() == AchievementProgressEvent.class) {
                             AchievementProgressEvent achievementProgressEvent = (AchievementProgressEvent) event.value();
 //                            if (achievementProgressEvent.name().equals(achievement.getName()) && achievementProgressEvent.level() > 0)
-//                                ResourceHandler.setStyleForUnlockedAsset(pane);
+//                                ResourceHandler.setStyleForUnlockedAsset(achievement);
                         }
                     });
 //                    if (achievement.getUnlockedLevel() > 0)
-//                        ResourceHandler.setStyleForUnlockedAsset(pane);
+//                        ResourceHandler.setStyleForUnlockedAsset(achievement);
                 });
     }
 }
