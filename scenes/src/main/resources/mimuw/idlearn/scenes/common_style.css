@@ -68,17 +68,9 @@ The color scheme is as follows:
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
 }
 
-.unlockedAssetButton {
-    -fx-font-size: 32px;
-    -fx-pref-width: 350;
+.unlockedAsset {
     -fx-text-fill: linear-gradient(to bottom right, #ffd700, #e7be16);
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
 }
-
-.unlockedAssetButton:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0, 0, 0);
-}
-
 
 /* Main Menu */
 .menuVBox {

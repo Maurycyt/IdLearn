@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -195,24 +196,23 @@ public class ResourceHandler {
 		Label label = new Label(s);
 		//label.setAlignment(Pos.CENTER);
 		label.getStyleClass().add("achievementLabel");
+		box.getChildren().add(label);
 
 		ProgressBar pBar = new ProgressBar();
-		label.getStyleClass().add("achievementProgressBar");
+		pBar.getStyleClass().add("achievementProgressBar");
 		//pBar.setProgress(0.5);
-
-		box.getChildren().add(label);
 		box.getChildren().add(pBar);
 
 		return box;
 	}
 
 	/**
-	 * Changes the style of the button for a completed/unlocked asset,
+	 * Changes the style of a completed/unlocked asset,
 	 * so that it's different from the others of its type.
-	 * @param taskBtn: button of an asset
+	 * @param asset: node of an asset
 	 */
-	public static void setStyleForUnlockedAsset(Button taskBtn) {
-		taskBtn.getStyleClass().addAll("unlockedAssetButton");
+	public static void setStyleForUnlockedAsset(Node asset) {
+		asset.getStyleClass().add("unlockedAsset");
 	}
 
 	//TODO: remove this
