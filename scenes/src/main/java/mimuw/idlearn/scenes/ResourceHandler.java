@@ -190,6 +190,7 @@ public class ResourceHandler {
 		box.getStylesheets().add(Style.toExternalForm());
 		box.getStylesheets().add(CommonStyle.toExternalForm());
 		box.getStyleClass().addAll("pane", "borderedPane");
+		box.setPrefHeight(40);
 
 		Label label = new Label(s);
 		//label.setAlignment(Pos.CENTER);
