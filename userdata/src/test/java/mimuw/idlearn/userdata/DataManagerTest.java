@@ -1,6 +1,4 @@
 package mimuw.idlearn.userdata;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import mimuw.idlearn.core.Listener;
 import org.junit.jupiter.api.Test;
@@ -9,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DataManagerTest {
 	@Test
@@ -46,6 +47,7 @@ public class DataManagerTest {
 			fail();
 		}
 		catch (NotEnoughPointsException e) {
+			// OK
 		}
 		assertEquals(0, DataManager.showPoints());
 		DataManager.resetData();
@@ -98,4 +100,32 @@ public class DataManagerTest {
 		DataManager.resetData();
 	}
 
+	@Test
+	public void testPerkManager() throws IOException {
+		DataManager.init();
+		DataManager.resetData();
+		DataManager.setPoints(1_000_000);
+		PerkManager.init();
+
+		Set<String> perkNames = PerkManager.getPerkNames();
+		assertTrue(perkNames.size() > 0);
+
+		perkNames.forEach((perkName) -> {
+			int maxLevel = PerkManager.getMaxLevel(perkName);
+			int level = PerkManager.getLevel(perkName);
+			assertEquals(0, level);
+
+			while (level < maxLevel) {
+				level++;
+				try {
+					PerkManager.upgradePerk(perkName);
+				} catch (IOException | ReachedMaxLevelException | NotEnoughPointsException e) {
+					fail();
+				}
+				assertEquals(level, PerkManager.getLevel(perkName));
+			}
+
+			assertThrows(ReachedMaxLevelException.class, () -> PerkManager.upgradePerk(perkName));
+		});
+	}
 }
