@@ -94,11 +94,11 @@ public class PointsGiverTest {
 	public void testLoadSpeeds() throws IOException, InterruptedException {
 
 		preparePlatform();
+		DataManager.init();
 
 		PointsGiver.setSolutionSpeed("a", 1, 10);
 		PointsGiver.resetSolutions();
 
-		DataManager.init();
 		long points0 = DataManager.showPoints();
 		PerkManager.init();
 		PerkManager.setAndApplyPerkLevel("Speed", 0);
