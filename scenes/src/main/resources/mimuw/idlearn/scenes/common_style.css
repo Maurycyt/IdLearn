@@ -171,5 +171,11 @@ The color scheme is as follows:
 
 }
 .achievementProgressBar {
-
+    -fx-border-color: #000000 !important;
+    -fx-accent: #000000 !important;
+}
+.achievementProgressBar > .track {
+    -fx-color: #000000 !important;
+    -fx-control-inner-background: #000000 !important;
+    -fx-background-color: #ff0000 !important;
 }

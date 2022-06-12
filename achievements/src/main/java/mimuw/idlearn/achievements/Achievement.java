@@ -34,6 +34,10 @@ public class Achievement {
 		return unlockedLevel;
 	}
 
+	public int getNextThreshold() {
+		return levels[Math.min(unlockedLevel, levels.length - 1)].threshold();
+	}
+
 	private void updateLevel() {
 		while (unlockedLevel < levels.length && progress >= levels[unlockedLevel].threshold()) {
 			popup(levels[unlockedLevel].displayText());

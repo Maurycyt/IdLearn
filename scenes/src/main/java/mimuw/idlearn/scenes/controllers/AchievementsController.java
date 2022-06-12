@@ -39,8 +39,13 @@ public class AchievementsController extends GenericController {
                     var label = (Label)achievementHBox.getChildren().get(0);
                     var pBar = (ProgressBar)achievementHBox.getChildren().get(1);
 
+                    double progress = ((double)a.getUnlockedLevel()) / a.getNextThreshold();
+
+                    pBar.setProgress(progress);
+                    System.out.println("Progress: " + progress + " for achievement " + a.getName());
+
                     // make the style change dynamically
-                    AchievementManager.emitter.connect(event -> {
+                    /*AchievementManager.emitter.connect(event -> {
                         if (event.type() == AchievementProgressEvent.class) {
                             AchievementProgressEvent achievementProgressEvent = (AchievementProgressEvent) event.value();
                             // update the progress bar
@@ -48,7 +53,7 @@ public class AchievementsController extends GenericController {
                                 pBar.setProgress(achievementProgressEvent.progress());
                             }
                         }
-                    });
+                    });*/
                     //TODO: tego nie musi być bo brzydko wygląda ten żółty/złoty tutaj
                     /*if (a.getUnlockedLevel() > 0)
                         ResourceHandler.setStyleForUnlockedAsset(label);*/

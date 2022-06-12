@@ -194,7 +194,7 @@ public class ResourceHandler {
 		box.setPrefHeight(40);
 
 		Label label = new Label(s);
-		//label.setAlignment(Pos.CENTER);
+		label.setAlignment(Pos.CENTER);
 		label.getStyleClass().add("achievementLabel");
 		box.getChildren().add(label);
 
