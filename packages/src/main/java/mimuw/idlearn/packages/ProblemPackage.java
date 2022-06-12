@@ -72,7 +72,6 @@ public class ProblemPackage {
 			e.printStackTrace();
 		}
 		config = tmpConfig;
-		System.out.println("Loaded " + config.title + " with expected time " + config.expectedTime + " and memory "  + config.expectedMemory);
 		if (!checkValidity()) {
 			throw new RuntimeException("Package directory invalid.");
 		}
