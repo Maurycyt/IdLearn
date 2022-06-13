@@ -46,6 +46,7 @@ public class DataManager {
 		public Map<String, Integer> perks = new HashMap<>();
 		public Map<String, Integer> achievements = new HashMap<>();
 		public Map<String, CodeData> userCode = new HashMap<>();
+		public Map<String, Integer> testIDs = new HashMap<>();
 		public Data() {
 			for (String perk : PerkManager.getPerkNames()) {
 				perks.put(perk, 0);
@@ -84,9 +85,28 @@ public class DataManager {
 	}
 
 
-	//Perks
+	// Perks
 	public static Integer getLevel(String perkName) {
 		return data.perks.get(perkName);
+	}
+
+	// TestIDs
+	public static int getTestID(String problem) {
+		if (data.testIDs.containsKey(problem)) {
+			return data.testIDs.get(problem);
+		}
+		return 0;
+	}
+
+	public static void incrementTestID(String problem) throws IOException {
+		if (data.testIDs.containsKey(problem)) {
+			int old = data.testIDs.get(problem);
+			data.testIDs.put(problem, old + 1);
+		}
+		else {
+			data.testIDs.put(problem, 1);
+		}
+		saveData();
 	}
 
 	// Tasks
