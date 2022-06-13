@@ -1,12 +1,20 @@
 package mimuw.idlearn.scenes.controllers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.scenes.ResourceHandler;
+import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.FileNotFoundException;
@@ -88,6 +96,12 @@ public class TestSolvingController extends TaskController {
     @FXML
     private TextArea outputTextArea;
 
+    private static final Integer STARTTIME   = 15;
+
+    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME * 100);
+
+    private Timeline timeline;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
@@ -100,5 +114,25 @@ public class TestSolvingController extends TaskController {
         outputTextArea.prefWidthProperty().bind(ResourceHandler.createBinding(outputScrollPane, false, 10));
         outputTextArea.prefHeightProperty().bind(ResourceHandler.createBinding(outputScrollPane, true, 10));
         getAndDisplayInput();
+
+        long offset = PointsGiver.getOffset(pkg.getTitle());
+        long realSpeed = PointsGiver.getSolutionRealSpeed(pkg.getTitle());
+
+        // Bind the progressBar progressProperty
+        // to the timeSeconds property
+        footerProgressBar.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
+
+        // TODO - this doesn't work, needs to be fixed
+        // Also needs to reflect the actual task and not a random constant
+        timeSeconds.set((STARTTIME + 1) * 100);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(STARTTIME + 1), new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
+    }
+
+    @FXML
+    protected void handleStartAction(ActionEvent event)
+    {
+
     }
 }
