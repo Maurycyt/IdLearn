@@ -116,15 +116,18 @@ public class TestSolvingController extends TaskController {
         outputTextArea.prefHeightProperty().bind(ResourceHandler.createBinding(outputScrollPane, true, 10));
         getAndDisplayInput();
 
-        long offset = PointsGiver.getOffset(pkg.getTitle());
-        long realSpeed = PointsGiver.getSolutionRealSpeed(pkg.getTitle());
+        Long offset = PointsGiver.getOffset(pkg.getTitle());
+        Long solutionSpeed = PointsGiver.getSolutionRealSpeed(pkg.getTitle());
 
         // Bind the progressBar progressProperty
         // to the timeSeconds property
-        solutionSpeed = realSpeed;
+        if (solutionSpeed == null || offset == null) {
+            footerProgressBar.setProgress(0);
+            return;
+        }
         timeSeconds = new SimpleLongProperty(solutionSpeed / 10 - offset / 10);
 
-        footerProgressBar.progressProperty().bind(timeSeconds.divide(realSpeed / 10.0).subtract(1).multiply(-1));
+        footerProgressBar.progressProperty().bind(timeSeconds.divide(solutionSpeed / 10.0).subtract(1).multiply(-1));
 
         // TODO - this doesn't work, needs to be fixed
         // Also needs to reflect the actual task and not a random constant

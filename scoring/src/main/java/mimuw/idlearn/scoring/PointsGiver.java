@@ -84,11 +84,17 @@ public class PointsGiver {
 		taskCompletionEmitter.fire(problem);
 	}
 
-	public static long getSolutionRealSpeed(String problem) {
+	public static Long getSolutionRealSpeed(String problem) {
+		if (DataManager.getPointsGiving().get(problem) == null) {
+			return null;
+		}
 		long interval = DataManager.getPointsGiving().get(problem).timeInterval;
 		return (long)(interval / speedMultiplier);
 	}
-	public static long getOffset(String problem) {
+	public static Long getOffset(String problem) {
+		if (getSolutionRealSpeed(problem) == null) {
+			return null;
+		}
 		Date date = new Date();
 		long realSpeed = getSolutionRealSpeed(problem);
 		long start = startTime.get(problem);
