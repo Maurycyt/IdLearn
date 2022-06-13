@@ -36,7 +36,7 @@ public class TestRunnerTest {
 		}
 		System.out.println(pack.getTitle() + " ran with score: " + result);
 
-		assertEquals(3, result, 0.1);
+		assertEquals(1, result, 0.1);
 
 		Expression badSolution = new Block(
 				new OutputHandler(new Constant(0))

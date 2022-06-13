@@ -132,11 +132,11 @@ public class DataManagerTest {
 	@Test
 	public void testTestIDs() throws IOException {
 		DataManager.init();
-		assertEquals(0, DataManager.getTestID("a"));
+		assertEquals(1, DataManager.getTestID("a"));
 		DataManager.incrementTestID("a");
 		DataManager.exit();
 		DataManager.init();
-		assertEquals(1, DataManager.getTestID("a"));
+		assertEquals(2, DataManager.getTestID("a"));
 		DataManager.resetData();
 	}
 }
