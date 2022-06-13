@@ -128,4 +128,15 @@ public class DataManagerTest {
 			assertThrows(ReachedMaxLevelException.class, () -> PerkManager.upgradePerk(perkName));
 		});
 	}
+
+	@Test
+	public void testTestIDs() throws IOException {
+		DataManager.init();
+		assertEquals(0, DataManager.getTestID("a"));
+		DataManager.incrementTestID("a");
+		DataManager.exit();
+		DataManager.init();
+		assertEquals(1, DataManager.getTestID("a"));
+		DataManager.resetData();
+	}
 }
