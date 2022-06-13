@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.*;
 import javafx.util.Duration;
@@ -186,24 +185,25 @@ public class ResourceHandler {
 		return btn;
 	}
 
-	public static HBox createAchievementHBox(String s) {
-		HBox box = new HBox();
-		box.getStylesheets().add(Style.toExternalForm());
-		box.getStylesheets().add(CommonStyle.toExternalForm());
-		box.getStyleClass().addAll("pane", "borderedPane");
-		box.setPrefHeight(40);
+	public static BorderPane createAchievementBorderPane(String s) {
+		BorderPane pane = new BorderPane();
+		pane.getStylesheets().add(Style.toExternalForm());
+		pane.getStylesheets().add(CommonStyle.toExternalForm());
+		pane.getStyleClass().addAll("pane", "borderedPane", "achievementPane");
+		pane.setPrefHeight(75);
 
 		Label label = new Label(s);
 		label.setAlignment(Pos.CENTER);
 		label.getStyleClass().add("achievementLabel");
-		box.getChildren().add(label);
+		pane.setLeft(label);
+		BorderPane.setAlignment(label, Pos.CENTER);
 
 		ProgressBar pBar = new ProgressBar();
 		pBar.getStyleClass().add("achievementProgressBar");
-		//pBar.setProgress(0.5);
-		box.getChildren().add(pBar);
+		pane.setRight(pBar);
+		BorderPane.setAlignment(pBar, Pos.CENTER);
 
-		return box;
+		return pane;
 	}
 
 	/**

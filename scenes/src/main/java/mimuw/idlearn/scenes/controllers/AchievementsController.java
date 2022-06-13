@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -33,11 +32,11 @@ public class AchievementsController extends GenericController {
                 .stream()
                 .map(AchievementManager::get)
                 .forEach(a -> {
-                    HBox achievementHBox = ResourceHandler.createAchievementHBox(a.getDisplayedText());
-                    achievementsVBox.getChildren().add(achievementHBox);
+                    BorderPane achievementPane = ResourceHandler.createAchievementBorderPane(a.getDisplayedText());
+                    achievementsVBox.getChildren().add(achievementPane);
 
-                    var label = (Label)achievementHBox.getChildren().get(0);
-                    var pBar = (ProgressBar)achievementHBox.getChildren().get(1);
+                    var label = (Label)achievementPane.getLeft();
+                    var pBar = (ProgressBar)achievementPane.getRight();
 
                     double progress = ((double)a.getUnlockedLevel()) / a.getNextThreshold();
 
@@ -45,16 +44,15 @@ public class AchievementsController extends GenericController {
                     System.out.println("Progress: " + progress + " for achievement " + a.getName());
 
                     // make the style change dynamically
-                    /*AchievementManager.emitter.connect(event -> {
-                        if (event.type() == AchievementProgressEvent.class) {
-                            AchievementProgressEvent achievementProgressEvent = (AchievementProgressEvent) event.value();
+/*                    AchievementManager.emitter.connect(e -> {
+                        if (e.type() == AchievementProgressEvent.class) {
+                            AchievementProgressEvent event = (AchievementProgressEvent) e.value();
                             // update the progress bar
-                            if (achievementProgressEvent.name().equals(a.getName()) && achievementProgressEvent.level() > 0) {
-                                pBar.setProgress(achievementProgressEvent.progress());
+                            if (event.name().equals(a.getName()) && event.level() > 0) {
+                                pBar.setProgress(event.progress());
                             }
                         }
                     });*/
-                    //TODO: tego nie musi być bo brzydko wygląda ten żółty/złoty tutaj
                     /*if (a.getUnlockedLevel() > 0)
                         ResourceHandler.setStyleForUnlockedAsset(label);*/
                 });
