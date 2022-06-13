@@ -16,6 +16,7 @@ import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.userdata.DataManager;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ResourceBundle;
@@ -62,10 +63,14 @@ public class TestSolvingController extends TaskController {
 
         Scanner scanner = null;
         try {
-            //DataManager.getTestID
-            scanner = pkg.getTestInputScanner(0);
-            //Files.readString(scanner);
-        } catch (FileNotFoundException e) {
+            int id = DataManager.getTestID(pkg.getTitle());
+            DataManager.incrementTestID(pkg.getTitle());
+            pkg.prepareTest(id);
+
+            //Maurycy, work your magic here:
+            scanner = pkg.getTestInputScanner(id);
+            //inputText.setText(...);
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
