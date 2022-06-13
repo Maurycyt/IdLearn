@@ -3,9 +3,10 @@ package mimuw.idlearn.scenes.controllers;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
@@ -96,9 +97,9 @@ public class TestSolvingController extends TaskController {
     @FXML
     private TextArea outputTextArea;
 
-    private static final Integer STARTTIME   = 15;
+    private static Long solutionSpeed;
 
-    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME * 100);
+    private LongProperty timeSeconds;
 
     private Timeline timeline;
 
@@ -120,19 +121,24 @@ public class TestSolvingController extends TaskController {
 
         // Bind the progressBar progressProperty
         // to the timeSeconds property
-        footerProgressBar.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
+        solutionSpeed = realSpeed;
+        timeSeconds = new SimpleLongProperty(solutionSpeed / 10 - offset / 10);
+
+        footerProgressBar.progressProperty().bind(timeSeconds.divide(realSpeed / 10.0).subtract(1).multiply(-1));
 
         // TODO - this doesn't work, needs to be fixed
         // Also needs to reflect the actual task and not a random constant
-        timeSeconds.set((STARTTIME + 1) * 100);
         timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(STARTTIME + 1), new KeyValue(timeSeconds, 0)));
-        timeline.playFromStart();
-    }
-
-    @FXML
-    protected void handleStartAction(ActionEvent event)
-    {
-
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(solutionSpeed - offset), new KeyValue(timeSeconds, 0)));
+        EventHandler<ActionEvent> setNewAnimation = actionEvent -> {
+            timeline.stop();
+            timeline.getKeyFrames().clear();
+            timeSeconds.set(solutionSpeed / 10);
+            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(solutionSpeed), new KeyValue(timeSeconds, 0)));
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.play();
+        };
+        timeline.setOnFinished(setNewAnimation);
+        timeline.play();
     }
 }
