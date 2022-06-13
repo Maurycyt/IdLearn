@@ -28,6 +28,7 @@ public class AchievementsController extends GenericController {
 
         AchievementManager.getAchievementNames()
                 .stream()
+                .sorted()
                 .map(AchievementManager::get)
                 .forEach(a -> {
                     BorderPane achievementPane = ResourceHandler.createAchievementBorderPane(a.getDisplayedText());
@@ -36,23 +37,15 @@ public class AchievementsController extends GenericController {
                     var label = (Label)achievementPane.getLeft();
                     var pBar = (ProgressBar)achievementPane.getRight();
 
-                    double progress = ((double)a.getUnlockedLevel()) / a.getNextThreshold();
+                    double progress = ((double)a.getProgress()) / a.getNextThreshold();
 
                     pBar.setProgress(progress);
                     System.out.println("Progress: " + progress + " for achievement " + a.getName());
 
-                    // make the style change dynamically
-/*                    AchievementManager.emitter.connect(e -> {
-                        if (e.type() == AchievementProgressEvent.class) {
-                            AchievementProgressEvent event = (AchievementProgressEvent) e.value();
-                            // update the progress bar
-                            if (event.name().equals(a.getName()) && event.level() > 0) {
-                                pBar.setProgress(event.progress());
-                            }
-                        }
-                    });*/
-                    /*if (a.getUnlockedLevel() > 0)
-                        ResourceHandler.setStyleForUnlockedAsset(label);*/
+                    if (a.getProgress() == a.getMaxProgress())
+                        ResourceHandler.setStyleForFullyUnlockedAchievement(achievementPane);
+
+                    ResourceHandler.setStyleForAchievement(label);
                 });
     }
 }

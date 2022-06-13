@@ -19,7 +19,7 @@ public class Achievement {
 	private final Deque<String> toShow = new ArrayDeque<>();
 
 	public String getDisplayedText() {
-		return levels[(unlockedLevel == 0 ? 0 : unlockedLevel - 1)].displayText();
+		return levels[unlockedLevel + (unlockedLevel == levels.length ? -1 : 0)].displayText();
 	}
 
 	public int getMaxProgress() {
@@ -52,6 +52,10 @@ public class Achievement {
 
 	public Optional<String> getNextPopup() {
 		return Optional.ofNullable(toShow.poll());
+	}
+
+	public int getProgress() {
+		return progress;
 	}
 
 	public void setProgress(int progress) {

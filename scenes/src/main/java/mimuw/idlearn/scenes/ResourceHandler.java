@@ -269,4 +269,12 @@ public class ResourceHandler {
 	public static void setStyleForUnlockedAsset(Node asset) {
 		asset.getStyleClass().add("unlockedAsset");
 	}
+
+	public static void setStyleForFullyUnlockedAchievement(Node asset) {
+		asset.getStyleClass().add("fullyUnlockedAchievement");
+	}
+
+	public static void setStyleForAchievement(Node asset) {
+		asset.getStyleClass().add("achievementText");
+	}
 }
