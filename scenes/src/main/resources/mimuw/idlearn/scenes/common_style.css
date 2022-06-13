@@ -172,7 +172,6 @@ The color scheme is as follows:
 }
 .achievementLabel{
     -fx-font-size: 20px;
-
 }
 .achievementProgressBar {
     -fx-pref-height: 40px;
