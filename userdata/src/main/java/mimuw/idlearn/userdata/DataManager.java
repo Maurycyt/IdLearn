@@ -64,7 +64,7 @@ public class DataManager {
 
 	public static void payPoints(long amount) throws NotEnoughPointsException {
 		if (amount > data.points) {
-			throw new NotEnoughPointsException();
+			throw new NotEnoughPointsException(amount);
 		}
 		data.points -= amount;
 		pointsChangeEmitter.fire(data.points);

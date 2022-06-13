@@ -66,7 +66,12 @@ public class TestSolvingController extends TaskController {
                     throw new WrongAnswerException();
                 }
                 // if didn't throw, then the user has successfully completed the task
-                DataManager.addPoints(5); //TODO: add constants for the points awarded and paid here and everywhere else
+                int pointsGiven = switch (pkg.getDifficulty()) {
+                    case Easy -> 5;
+                    case Medium -> 10;
+                    case Hard -> 20;
+                };
+                DataManager.addPoints(pointsGiven); //TODO: add constants for the points awarded and paid here and everywhere else
 
                 alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've provided correct output\n", ButtonType.OK);
                 alert.setTitle("Success");

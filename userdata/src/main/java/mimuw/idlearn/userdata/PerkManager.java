@@ -13,6 +13,7 @@ public class PerkManager {
 	private static final Map<String, Integer> maxPerkLevels;
 	private static final Map<String, Consumer<Integer>> onUpgrade;
 	private static final Map<String, Emitter> onUpgradeEmitters;
+	private static final Map<String, Integer> baseCosts;
 	private static final Emitter perkUnlockingEmitter = new Emitter();
 	private static final int BASE_MEMORY = 1000_000;
 	
@@ -34,8 +35,12 @@ public class PerkManager {
 						ResourceCounter.MAX_MEMORY = BASE_MEMORY * (1 + level)
 				),
 				new AbstractMap.SimpleEntry<>(Speed, level ->
-						onUpgradeEmitters.get(Speed).fire((double)(1 + level))
+						onUpgradeEmitters.get(Speed).fire((1 + ((double)level) / 3))
 				)
+		));
+		baseCosts = new HashMap<>(Map.ofEntries(
+				new AbstractMap.SimpleEntry<>(Memory, 100),
+				new AbstractMap.SimpleEntry<>(Speed, 500)
 		));
 	}
 	
@@ -49,7 +54,9 @@ public class PerkManager {
 		if (getLevel(perkName).equals(getMaxLevel(perkName))) {
 			throw new ReachedMaxLevelException();
 		}
-		DataManager.payPoints(100); //TODO: replace with actual cost
+		int cost = baseCosts.get(perkName);
+		cost *= (getLevel(perkName) + 1) * (getLevel(perkName) + 1);
+		DataManager.payPoints(cost);
 		int newLevel = 1 + unlockedPerkLevels.get(perkName);
 		assert newLevel <= maxPerkLevels.get(perkName);
 

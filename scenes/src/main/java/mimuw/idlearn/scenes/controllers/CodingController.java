@@ -108,7 +108,12 @@ public class CodingController extends TaskController {
 
             double time = runner.aggregateTestTimes();
             // if didn't throw, then the user has successfully completed the task
-            PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 1000), 10);
+            int pointsGiven = switch (pkg.getDifficulty()) {
+                case Easy -> 5;
+                case Medium -> 10;
+                case Hard -> 20;
+            };
+            PointsGiver.setSolutionSpeed(pkg.getTitle(), (long) (time * 3000), pointsGiven);
             DecimalFormat df = new DecimalFormat("####0.00");
             alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've completed the task in time:\n" + df.format(time), ButtonType.OK);
             alert.setTitle("Success");

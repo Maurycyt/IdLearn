@@ -68,7 +68,7 @@ public class PerkStoreController extends GenericController {
             alert.setHeaderText("Max perk level achieved!");
         } catch (NotEnoughPointsException e) {
             alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
-                            "Gather more points and try again", ButtonType.OK
+                            "Gather more points and try again! This perk costs " + e.triedToPay, ButtonType.OK
             );
             alert.setHeaderText("Not enough points!");
         } catch (IOException e) {
