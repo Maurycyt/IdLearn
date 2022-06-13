@@ -8,7 +8,7 @@ import java.util.*;
 
 public class AchievementTest {
 	@Test
-	public void AchievementManagerTest() {
+	public void testAchievementManager() {
 		AchievementManager.init(Map.ofEntries(
 				Map.entry(AchievementManager.CustomTaskLoaded, 1),
 				Map.entry(AchievementManager.TasksCompleted, 4)
