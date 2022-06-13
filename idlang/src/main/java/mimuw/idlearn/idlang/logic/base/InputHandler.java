@@ -10,7 +10,7 @@ import java.util.Scanner;
 import static mimuw.idlearn.idlang.logic.base.Type.Null;
 
 public class InputHandler extends Expression {
-	private Variable[] variables;
+	private final Variable[] variables;
 
 	public InputHandler(Variable... variables) {
 		this.variables = variables;
@@ -24,15 +24,13 @@ public class InputHandler extends Expression {
 		for (var variable : variables) {
 			counter.addTime(delay);
 
-			switch (variable.getType()) {
-				case Long -> {
-					if (!inputScanner.hasNextLong()) {
-						throw new EndOfInputException();
-					}
-					value = inputScanner.nextLong();
+			if (variable.getType() == Type.Long) {
+				if (!inputScanner.hasNextLong()) {
+					throw new EndOfInputException();
 				}
-				default ->
-						throw new AssertionError("Impossible data type - backend somehow allows parsing something imparsable");
+				value = inputScanner.nextLong();
+			} else {
+				throw new AssertionError("Impossible data type - backend somehow allows parsing something imparsable");
 			}
 
 			scope.add(variable.getName(), new Value(Type.Long, value));

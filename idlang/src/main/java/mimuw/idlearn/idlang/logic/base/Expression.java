@@ -7,7 +7,7 @@ import java.io.Writer;
 import java.util.Scanner;
 
 public abstract class Expression {
-	public double delay = 1;
+	public final double delay = 1;
 	protected Type type;
 	abstract public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException;
 	public void assertType(Type expected) {

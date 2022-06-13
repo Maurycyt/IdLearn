@@ -17,10 +17,9 @@ import mimuw.idlearn.userdata.CodeData;
 
 public class Get extends CodeBlock {
 
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#f2a963",1.0));
-	private TextField varName;
-	private TextField tabName;
-	private TextField index;
+	private final TextField varName;
+	private final TextField tabName;
+	private final TextField index;
 
 	/**
 	 * @return An equivalent expression
@@ -49,6 +48,7 @@ public class Get extends CodeBlock {
 		final Text at = new Text(" at ");
 		index = new ResizableTextField();
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#f2a963", 1.0));
 		base.addChild(varName);
 		base.addChild(equal);
 		base.addChild(tabName);

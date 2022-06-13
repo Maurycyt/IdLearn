@@ -13,7 +13,7 @@ public class AchievementManager {
 	public static final String ExpectedMemoryBeaten = "ExpectedMemoryBeaten";
 	public static final String CustomTaskLoaded = "CustomTaskLoaded";
 
-	public static Emitter emitter = new Emitter();
+	public static final Emitter emitter = new Emitter();
 
 	public static void init(Map<String, Integer> achievementProgress) {
 		achievements.put(TasksCompleted, new Achievement(TasksCompleted,

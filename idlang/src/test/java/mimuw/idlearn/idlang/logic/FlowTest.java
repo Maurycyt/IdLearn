@@ -28,12 +28,12 @@ public class FlowTest {
 		Variable x = new Variable(Type.Long, "x");
 		new Assignment("x", new Constant(5), false).evaluate(scope, new ResourceCounter(), null, null);
 
-		Block onTrue = new Block(new ArrayList(List.of(
+		Block onTrue = new Block(new ArrayList<>(List.of(
 						new Assignment("x",
 										TwoArgOperator.newAdd(x, new Constant(1)),
 										false)
 		)));
-		Block onFalse = new Block(new ArrayList(List.of(
+		Block onFalse = new Block(new ArrayList<>(List.of(
 						new Assignment("x",
 										TwoArgOperator.newAdd(x, new Constant(-1)),
 										false)
@@ -70,7 +70,7 @@ public class FlowTest {
 						new Constant(0)
 		);
 
-		Block block = new Block(new ArrayList(List.of(
+		Block block = new Block(new ArrayList<>(List.of(
 						new Assignment("x",
 										TwoArgOperator.newAdd(x, new Constant(1)),
 										false),

@@ -77,7 +77,7 @@ if [[ "$CMD" == "install" ]]; then
 	if [ "${FIRST_PATH_LETTER}" != "/" ] && [ "${FIRST_PATH_LETTER}" != "~" ]; then
 		INSTALL_PATH=$(pwd)/${INSTALL_PATH}
 	fi
-	rm -rf $INSTALL_PATH
+	rm -rf "$INSTALL_PATH"
 	mkdir -p "${INSTALL_PATH}"
 
 	mkdir -p "${CONFIG_DIR}"
@@ -89,10 +89,10 @@ if [[ "$CMD" == "install" ]]; then
 	build_packages
 elif [[ "$CMD" == "uninstall" ]]; then
 	INSTALL_PATH="$(get_install_path)"
-	rm -rf $INSTALL_PATH
+	rm -rf "$INSTALL_PATH"
 elif [[ "$CMD" == "repair" ]]; then
 	INSTALL_PATH="$(get_install_path)"
-	rm -rf $INSTALL_PATH/problems
+	rm -rf "$INSTALL_PATH"/problems
 	build_packages
 else
 	usage

@@ -1,31 +1,26 @@
 package mimuw.idlearn.scenes.controllers;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.WindowEvent;
+import mimuw.idlearn.idlang.logic.base.Expression;
+import mimuw.idlearn.idlang.logic.exceptions.*;
 import mimuw.idlearn.idlangblocks.GUI.CodeBox;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeSegment;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.*;
-import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.exceptions.*;
 import mimuw.idlearn.packages.PackageManager;
-import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.scoring.PointsGiver;
 import mimuw.idlearn.scoring.TestRunner;
-import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.userdata.CodeData;
 import mimuw.idlearn.userdata.DataManager;
 

@@ -1,6 +1,6 @@
 module mimuw.idlearn.idlangblocks {
 	requires javafx.controls;
-	requires javafx.fxml;
+	requires javafx.base;
 	requires mimuw.idlearn.packages;
 	requires mimuw.idlearn.idlang;
 	requires mimuw.idlearn.userdata;

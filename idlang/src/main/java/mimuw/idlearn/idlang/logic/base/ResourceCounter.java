@@ -9,12 +9,11 @@ public class ResourceCounter {
 	private double time = 0;
 	private int memory = 0;
 	public ResourceCounter() {}
-	public double addTime(double time) throws TimeoutException {
+	public void addTime(double time) throws TimeoutException {
 		this.time += time;
 		if (this.time > MAX_TIME) {
 			throw new TimeoutException(MAX_TIME);
 		}
-		return this.time;
 	}
 	public void addMemory(int memory) throws MemoryException {
 		this.memory += memory;

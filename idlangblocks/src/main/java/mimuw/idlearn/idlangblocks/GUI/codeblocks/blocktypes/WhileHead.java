@@ -8,8 +8,7 @@ import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.ResizableTextField;
 
 public class WhileHead extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#d980c4",1.0));
-	private TextField condition;
+	private final TextField condition;
 
 	public String getCond() {
 		return condition.getText();
@@ -24,6 +23,7 @@ public class WhileHead extends CodeBlock {
 		final Text whileText = new Text("While ");
 		condition = new ResizableTextField();
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#d980c4", 1.0));
 		base.addChild(whileText);
 		base.addChild(condition);
 

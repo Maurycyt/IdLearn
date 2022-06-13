@@ -5,10 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mimuw.idlearn.achievements.AchievementManager;
-import mimuw.idlearn.achievements.AchievementProgressEvent;
 import mimuw.idlearn.scenes.ResourceHandler;
 
 import java.net.URL;

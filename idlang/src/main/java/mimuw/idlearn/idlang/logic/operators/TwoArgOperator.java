@@ -11,8 +11,8 @@ import java.io.Writer;
 import java.util.Scanner;
 
 public abstract class TwoArgOperator extends Expression {
-	protected Expression arg1;
-	protected Expression arg2;
+	protected final Expression arg1;
+	protected final Expression arg2;
 	private static Value boolToLongVal(boolean bool) {
 		if (bool) {
 			return new Value(Type.Long, 1L);

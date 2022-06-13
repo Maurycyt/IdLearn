@@ -1,9 +1,6 @@
 package mimuw.idlearn.scenes.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -16,13 +13,13 @@ public class CreditsController extends GenericController {
     private Text resourcesText;
 
 
-    private final String authorsString = """
+    private static final String authorsString = """
             Antoni Puch
             Maurycy Wojda
             Kacper Chętkowski
             Kacper Kramarz-Fernandez
             """;
-    private final String resourcesString = """
+    private static final String resourcesString = """
             Fonts (SIL OFL):
             - Anonymous Pro: Mark Simonson (https://www.ms-studio.com)
             Icons (CC BY 3.0):

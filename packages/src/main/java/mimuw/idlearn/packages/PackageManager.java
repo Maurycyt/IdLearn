@@ -1,8 +1,6 @@
 package mimuw.idlearn.packages;
 
-import mimuw.idlearn.achievements.Achievement;
 import mimuw.idlearn.achievements.AchievementManager;
-import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.utils.ShellExecutor;
 import mimuw.idlearn.properties.Config;
 
@@ -19,7 +17,7 @@ import java.util.Set;
  * Static class, which manages problem packages.
  */
 public class PackageManager {
-	public static URL ProblemPackageDirectory = PackageManager.class.getResource("problems/");
+	public static final URL ProblemPackageDirectory = PackageManager.class.getResource("problems/");
 
 	/**
 	 * Reloads the problem package directory.

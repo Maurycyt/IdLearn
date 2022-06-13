@@ -2,15 +2,16 @@ package mimuw.idlearn.idlangblocks.GUI;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
-import mimuw.idlearn.idlangblocks.GUI.CodeBox;
-import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Operation;
-import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Read;
-import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Write;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
+import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
+import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Operation;
+import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Read;
+import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Write;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -50,13 +51,9 @@ public class BlockIOTest {
 			codeBox.addChild(0, r2);
 			codeBox.addChild(0, r3);
 
-			try {
-				Expression program = codeBox.compile();
-				Scope scope = new Scope();
-				program.evaluate(scope, new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123));
-				fail();
-			} catch (Exception e) {
-			}
+			Expression program = codeBox.compile();
+			Scope scope = new Scope();
+			Assertions.assertThrows(SimulationException.class, () -> program.evaluate(scope, new ResourceCounter(), pkg.getTestInputScanner(123), pkg.getTestOutputWriter(123)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

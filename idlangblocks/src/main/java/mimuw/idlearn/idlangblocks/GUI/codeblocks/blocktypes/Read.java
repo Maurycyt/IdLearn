@@ -10,13 +10,11 @@ import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.InputHandler;
 import mimuw.idlearn.idlang.logic.base.Type;
 import mimuw.idlearn.idlang.logic.base.Variable;
-import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.userdata.BlockType;
 import mimuw.idlearn.userdata.CodeData;
 
 public class Read extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#f7bd65",1.0));
-	private TextField varName;
+	private final TextField varName;
 
 	@Override
 	public Expression convert() {
@@ -33,6 +31,7 @@ public class Read extends CodeBlock {
 		final Text readText = new Text("Read ");
 		varName = new ResizableTextField();
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#f7bd65", 1.0));
 		base.addChild(readText);
 		base.addChild(varName);
 

@@ -11,7 +11,7 @@ import static mimuw.idlearn.idlang.logic.base.Type.Null;
 
 public class OutputHandler extends Expression {
 	private final static String separator = " ";
-	private Expression[] values;
+	private final Expression[] values;
 
 	public OutputHandler(Expression... values) {
 		this.values = values;

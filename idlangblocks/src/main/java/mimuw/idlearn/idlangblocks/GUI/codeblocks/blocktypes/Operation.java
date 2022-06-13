@@ -17,12 +17,11 @@ import mimuw.idlearn.userdata.BlockType;
 import mimuw.idlearn.userdata.CodeData;
 
 public class Operation extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#66c6e3",1.0));
-	private TextField oper1;
-	private TextField oper2;
-	private TextField result;
+	private final TextField oper1;
+	private final TextField oper2;
+	private final TextField result;
 
-	ChoiceBox<String> dropDown;
+	final ChoiceBox<String> dropDown;
 
 	/**
 	 * Create a new operation CodeBlock
@@ -51,6 +50,7 @@ public class Operation extends CodeBlock {
 
 		oper2 = new ResizableTextField();
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#66c6e3", 1.0));
 		base.addChild(result);
 		base.addChild(equal);
 		base.addChild(oper1);
@@ -82,8 +82,7 @@ public class Operation extends CodeBlock {
 			case "%" -> TwoArgOperator.newModulo(arg1, arg2);
 			default -> throw new Error("Invalid operand");
 		};
-		Expression result = new Assignment(assignee, op, false);
-		return result;
+		return new Assignment(assignee, op, false);
 	}
 
 	/**

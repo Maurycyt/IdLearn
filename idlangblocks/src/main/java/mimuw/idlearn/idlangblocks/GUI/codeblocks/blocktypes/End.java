@@ -5,7 +5,6 @@ import mimuw.idlearn.idlangblocks.GUI.codeblocks.BlockBase;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 
 public class End extends CodeBlock {
-	private final BlockBase base;
 
 	/**
 	 * Create a new End CodeBlock
@@ -15,7 +14,7 @@ public class End extends CodeBlock {
 	public End(Color colour) {
 		super();
 
-		base = new BlockBase(HEIGHT, colour);
+		BlockBase base = new BlockBase(HEIGHT, colour);
 
 		this.getChildren().add(base);
 	}

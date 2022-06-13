@@ -6,6 +6,7 @@ import mimuw.idlearn.userdata.PerkManager;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -124,8 +125,8 @@ public class PointsGiverTest {
 		TimeUnit.MILLISECONDS.sleep(1000);
 
 		System.out.println(PointsGiver.getOffset("a"));
-		assertTrue(PointsGiver.getOffset("a") >= 1000);
-		assertTrue(PointsGiver.getOffset("a") < 1100);
+		assertTrue(Optional.ofNullable(PointsGiver.getOffset("a")).orElse(0L) >= 1000);
+		assertTrue(Optional.ofNullable(PointsGiver.getOffset("a")).orElse(0L) < 1100);
 
 	}
 }

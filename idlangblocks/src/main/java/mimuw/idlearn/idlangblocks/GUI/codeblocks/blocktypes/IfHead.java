@@ -8,8 +8,7 @@ import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.ResizableTextField;
 
 public class IfHead extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#aa6ee6",1.0));
-	TextField condition;
+	final TextField condition;
 
 	public String getCond() {
 		return condition.getText();
@@ -24,6 +23,7 @@ public class IfHead extends CodeBlock {
 		final Text ifText = new Text("If ");
 		condition = new ResizableTextField();
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#aa6ee6", 1.0));
 		base.addChild(ifText);
 		base.addChild(condition);
 

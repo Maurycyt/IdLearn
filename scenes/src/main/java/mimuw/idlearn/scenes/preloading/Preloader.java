@@ -3,7 +3,6 @@ package mimuw.idlearn.scenes.preloading;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.core.Event;
@@ -12,6 +11,7 @@ import mimuw.idlearn.scenes.SceneManager;
 
 public class Preloader extends Group implements Listener {
 	private final Emitter emitter;
+	private final Timeline timeline;
 
 	// if root is null, it means IOException happened during loading of the preloader from .fxml
 	// otherwise it will be primary VBox from .fxml
@@ -24,7 +24,7 @@ public class Preloader extends Group implements Listener {
 		loader.setDaemon(true);
 		loader.start();
 
-		final Timeline timeline = new Timeline();
+		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
 		// Main loop, updates [framesPerSecond] times per second
@@ -45,14 +45,16 @@ public class Preloader extends Group implements Listener {
 
 	@Override
 	public void onNotify(Event event) {
-		// TODO: fill with content
 		// HERE AND ONLY HERE update javafx, you can set it up in constructor, but only modify it here
 		if (event.type() == PreloaderEvent.class) {
 			PreloaderEvent preloaderEvent = (PreloaderEvent) event.value();
 			if (preloaderEvent.type() == PreloaderEvent.Type.Success) {
 				SceneManager.getInstance().pop();
+				timeline.stop();
 			} else if (preloaderEvent.type() == PreloaderEvent.Type.Progress) {
-			} else if (preloaderEvent.type() == PreloaderEvent.Type.Fail) {}
+			} else if (preloaderEvent.type() == PreloaderEvent.Type.Fail) {
+				timeline.stop();
+			}
 		}
 	}
 }

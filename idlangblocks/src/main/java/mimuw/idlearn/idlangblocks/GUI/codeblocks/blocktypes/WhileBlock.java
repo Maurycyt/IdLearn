@@ -15,9 +15,9 @@ import mimuw.idlearn.userdata.CodeData;
 
 public class WhileBlock extends CodeBlock {
 
-	private Pane content;
-	private WhileHead head;
-	private CodeBlock foot;
+	private final Pane content;
+	private final WhileHead head;
+	private final CodeBlock foot;
 	private CodeSegment segment;
 
 	/**

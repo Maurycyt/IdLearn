@@ -119,8 +119,7 @@ public class CodeSegment extends VBox {
 			CodeBlock currentBlock = (CodeBlock) child;
 			expressions.add(currentBlock.convert());
 		}
-		Block block = new Block(expressions);
-		return block;
+		return new Block(expressions);
 	}
 
 	public CodeData saveFormat() {

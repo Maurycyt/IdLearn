@@ -3,14 +3,14 @@ package mimuw.idlearn.userdata;
 import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.achievements.AchievementProgressEvent;
 import mimuw.idlearn.core.Emitter;
-import mimuw.idlearn.core.Event;
 import mimuw.idlearn.core.Listener;
-import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.properties.Config;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -41,12 +41,12 @@ public class DataManager {
 	}
 	private static class Data {
 		public long points = 0;
-		public List<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
-		public Map<String, PointsGiving> pointsGiving = new HashMap<>();
-		public Map<String, Integer> perks = new HashMap<>();
-		public Map<String, Integer> achievements = new HashMap<>();
-		public Map<String, CodeData> userCode = new HashMap<>();
-		public Map<String, Integer> testIDs = new HashMap<>();
+		public final List<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
+		public final Map<String, PointsGiving> pointsGiving = new HashMap<>();
+		public final Map<String, Integer> perks = new HashMap<>();
+		public final Map<String, Integer> achievements = new HashMap<>();
+		public final Map<String, CodeData> userCode = new HashMap<>();
+		public final Map<String, Integer> testIDs = new HashMap<>();
 		public Data() {
 			for (String perk : PerkManager.getPerkNames()) {
 				perks.put(perk, 0);

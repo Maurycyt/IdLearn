@@ -15,17 +15,6 @@ public class BlockBase extends Group {
 	final private Rectangle bg = new Rectangle();
 	final private HBox content = new HBox();
 
-/*	private static class Rect extends Region {
-		@Override
-		public void setHeight(double v) {
-			super.setHeight(v);
-		}
-		@Override
-		public void setWidth(double v) {
-			super.setWidth(v);
-		}
-	}*/
-
 	/**
 	 * Create a new BlockBase
 	 *
@@ -80,12 +69,10 @@ public class BlockBase extends Group {
 	public void addChild(Node child) {
 
 		content.getChildren().add(child);
-		if (child instanceof Text) {
-			Text text = (Text)child;
+		if (child instanceof Text text) {
 			text.fontProperty().addListener((font) -> update());
 		}
-		if (child instanceof Region) {
-			Region region = (Region)child;
+		if (child instanceof Region region) {
 			region.widthProperty().addListener((val) -> update());
 		}
 

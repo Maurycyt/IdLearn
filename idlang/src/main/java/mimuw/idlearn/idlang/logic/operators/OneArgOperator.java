@@ -11,7 +11,7 @@ import java.io.Writer;
 import java.util.Scanner;
 
 public abstract class OneArgOperator extends Expression {
-	protected Expression arg;
+	protected final Expression arg;
 
 	private OneArgOperator(Expression arg, Type resultType) {
 		this.arg = arg;

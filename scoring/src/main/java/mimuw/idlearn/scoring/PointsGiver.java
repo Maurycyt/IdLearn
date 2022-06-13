@@ -29,9 +29,9 @@ public class PointsGiver {
 	}
 
 	private static class PointsTimerTask extends TimerTask {
-		long timeMillis;
-		long points;
-		String problem;
+		final long timeMillis;
+		final long points;
+		final String problem;
 		public PointsTimerTask(long time, long pointsPerGiving, String problem) {
 			super();
 			timeMillis = time;
@@ -96,7 +96,7 @@ public class PointsGiver {
 			return null;
 		}
 		Date date = new Date();
-		long realSpeed = getSolutionRealSpeed(problem);
+		long realSpeed = Optional.ofNullable(getSolutionRealSpeed(problem)).orElse(0L);
 		long start = startTime.get(problem);
 		return (date.getTime() - start) % realSpeed;
 	}

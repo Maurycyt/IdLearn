@@ -1,7 +1,6 @@
 package mimuw.idlearn.idlang.logic.base;
 
 import mimuw.idlearn.idlang.logic.environment.Scope;
-import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
 import java.io.Writer;
 import java.util.Scanner;
@@ -23,7 +22,7 @@ public class Constant extends Expression {
 	}
 
 	@Override
-	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) throws SimulationException {
+	public Value evaluate(Scope scope, ResourceCounter counter, Scanner inputScanner, Writer outputWriter) {
 		return value;
 	}
 }

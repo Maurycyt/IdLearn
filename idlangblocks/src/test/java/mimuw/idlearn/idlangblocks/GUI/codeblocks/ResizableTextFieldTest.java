@@ -2,7 +2,6 @@ package mimuw.idlearn.idlangblocks.GUI.codeblocks;
 
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

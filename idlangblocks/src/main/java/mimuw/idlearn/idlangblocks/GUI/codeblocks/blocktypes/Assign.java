@@ -14,9 +14,8 @@ import mimuw.idlearn.userdata.CodeData;
 
 public class Assign extends CodeBlock {
 
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#78d66b",1.0));
-	private TextField varName;
-	private TextField value;
+	private final TextField varName;
+	private final TextField value;
 
 	/**
 	 * @return An equivalent expression
@@ -26,8 +25,7 @@ public class Assign extends CodeBlock {
 		String name = varName.getText();
 		String valueText = value.getText();
 		Expression valueInt = StringToExpression.parse(valueText);
-		Assignment assign = new Assignment(name, valueInt, true);
-		return assign;
+		return new Assignment(name, valueInt, true);
 	}
 
 	@Override
@@ -49,6 +47,7 @@ public class Assign extends CodeBlock {
 		final Text equal = new Text(" = ");
 		value = new ResizableTextField();
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#78d66b", 1.0));
 		base.addChild(varName);
 		base.addChild(equal);
 		base.addChild(value);

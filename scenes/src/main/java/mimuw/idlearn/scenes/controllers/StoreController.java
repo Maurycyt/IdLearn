@@ -14,9 +14,7 @@ public class StoreController extends GenericController {
     private Button taskStoreBtn;
     @FXML
     private Button perkStoreBtn;
-   /* @FXML
-    private Button cosmeticsStoreBtn;*/
-    @FXML
+   @FXML
     private BorderPane mainBorderPane;
 
     @Override

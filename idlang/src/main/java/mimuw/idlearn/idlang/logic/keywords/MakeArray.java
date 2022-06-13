@@ -9,6 +9,7 @@ import mimuw.idlearn.idlang.logic.exceptions.SimulationException;
 
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static mimuw.idlearn.idlang.logic.base.Type.Null;
@@ -39,10 +40,7 @@ public class MakeArray extends Expression {
 		}
 
 
-		if (origin == null)
-			scope.add(name, new Value(Type.Table, table));
-		else
-			origin.add(name, new Value(Type.Table, table));
+		Objects.requireNonNullElse(origin, scope).add(name, new Value(Type.Table, table));
 
 		return new Value(Null, null);
 	}

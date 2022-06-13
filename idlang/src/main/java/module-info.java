@@ -1,5 +1,4 @@
 module mimuw.idlearn.idlang {
-	requires javafx.controls;
 	requires javafx.fxml;
 	requires mimuw.idlearn.packages;
 

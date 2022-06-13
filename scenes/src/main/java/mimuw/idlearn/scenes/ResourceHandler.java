@@ -29,25 +29,25 @@ import java.net.URL;
  * A set of utility functions related to scenes and other resources
  */
 public class ResourceHandler {
-	public static URL MainMenu = ResourceHandler.class.getResource("scenes/MainMenu.fxml");
-	public static URL GameMenu = ResourceHandler.class.getResource("scenes/GameMenu.fxml");
-	public static URL Preloader = ResourceHandler.class.getResource("scenes/Preloader.fxml");
-	public static URL Settings = ResourceHandler.class.getResource("scenes/Settings.fxml");
-	public static URL Achievements = ResourceHandler.class.getResource("scenes/Achievements.fxml");
-	public static URL Store = ResourceHandler.class.getResource("scenes/Store.fxml");
-	public static URL TaskStore = ResourceHandler.class.getResource("scenes/TaskStore.fxml");
-	public static URL PerkStore = ResourceHandler.class.getResource("scenes/PerkStore.fxml");
-	public static URL CosmeticsStore = ResourceHandler.class.getResource("scenes/CosmeticsStore.fxml");
-	public static URL TaskSelection = ResourceHandler.class.getResource("scenes/TaskSelection.fxml");
-	public static URL Coding = ResourceHandler.class.getResource("scenes/Coding.fxml");
-	public static URL TestSolving = ResourceHandler.class.getResource("scenes/TestSolving.fxml");
-	public static URL Credits = ResourceHandler.class.getResource("scenes/Credits.fxml");
+	public static final URL MainMenu = ResourceHandler.class.getResource("scenes/MainMenu.fxml");
+	public static final URL GameMenu = ResourceHandler.class.getResource("scenes/GameMenu.fxml");
+	public static final URL Preloader = ResourceHandler.class.getResource("scenes/Preloader.fxml");
+	public static final URL Settings = ResourceHandler.class.getResource("scenes/Settings.fxml");
+	public static final URL Achievements = ResourceHandler.class.getResource("scenes/Achievements.fxml");
+	public static final URL Store = ResourceHandler.class.getResource("scenes/Store.fxml");
+	public static final URL TaskStore = ResourceHandler.class.getResource("scenes/TaskStore.fxml");
+	public static final URL PerkStore = ResourceHandler.class.getResource("scenes/PerkStore.fxml");
+	public static final URL CosmeticsStore = ResourceHandler.class.getResource("scenes/CosmeticsStore.fxml");
+	public static final URL TaskSelection = ResourceHandler.class.getResource("scenes/TaskSelection.fxml");
+	public static final URL Coding = ResourceHandler.class.getResource("scenes/Coding.fxml");
+	public static final URL TestSolving = ResourceHandler.class.getResource("scenes/TestSolving.fxml");
+	public static final URL Credits = ResourceHandler.class.getResource("scenes/Credits.fxml");
 
-	public static URL TaskGridPane = ResourceHandler.class.getResource("elements/TaskGridPane.fxml");
+	public static final URL TaskGridPane = ResourceHandler.class.getResource("elements/TaskGridPane.fxml");
 
-	public static URL Style = ResourceHandler.class.getResource("style.css");
-	public static URL CommonStyle = ResourceHandler.class.getResource("common_style.css");
-	public static URL AppIcon = ResourceHandler.class.getResource("images/icon.png");
+	public static final URL Style = ResourceHandler.class.getResource("style.css");
+	public static final URL CommonStyle = ResourceHandler.class.getResource("common_style.css");
+	public static final URL AppIcon = ResourceHandler.class.getResource("images/icon.png");
 
 	/**
 	 * Load a scene from an .fxml file and return its root

@@ -10,7 +10,6 @@ import java.util.Set;
 
 public class Config {
 	private static Path dataPath = null;
-	private static final Config instance = new Config();
 	private static final Set<String> defaultTaskTitles = new HashSet<>(List.of(
 			"Addition",
 			"Addition 2 : Electric Boogaloo",

@@ -102,9 +102,7 @@ public class TestSolvingController extends TaskController {
     @FXML
     private TextArea outputTextArea;
 
-    private static Long solutionSpeed;
-
-    private LongProperty timeSeconds;
+	private LongProperty timeSeconds;
 
     private Timeline timeline;
 

@@ -3,19 +3,17 @@ package mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import mimuw.idlearn.idlang.logic.base.Expression;
+import mimuw.idlearn.idlang.logic.base.OutputHandler;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.BlockBase;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.ResizableTextField;
 import mimuw.idlearn.idlangblocks.GUI.parser.StringToExpression;
-import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.idlang.logic.base.OutputHandler;
-import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.userdata.BlockType;
 import mimuw.idlearn.userdata.CodeData;
 
 public class Write extends CodeBlock {
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#d16662",1.0));
-	private TextField varName;
+	private final TextField varName;
 
 	@Override
 	public Expression convert() {
@@ -33,6 +31,7 @@ public class Write extends CodeBlock {
 		final Text readText = new Text("Write ");
 		varName = new ResizableTextField();
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#d16662", 1.0));
 		base.addChild(readText);
 		base.addChild(varName);
 

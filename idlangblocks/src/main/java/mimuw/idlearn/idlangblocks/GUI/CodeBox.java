@@ -2,14 +2,9 @@ package mimuw.idlearn.idlangblocks.GUI;
 
 import javafx.geometry.Point2D;
 import javafx.scene.layout.VBox;
+import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeSegment;
-import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Ghost;
-import mimuw.idlearn.idlang.logic.base.Expression;
-import mimuw.idlearn.userdata.CodeData;
-import mimuw.idlearn.userdata.DataManager;
-
-import java.io.IOException;
 
 public class CodeBox extends VBox {
 
@@ -35,10 +30,9 @@ public class CodeBox extends VBox {
 	 * Remove our child
 	 *
 	 * @param block The child to be removed
-	 * @return Whether it was in us
 	 */
-	public boolean removeChild(CodeBlock block) {
-		return segment.removeChild(block);
+	public void removeChild(CodeBlock block) {
+		segment.removeChild(block);
 	}
 
 	/**

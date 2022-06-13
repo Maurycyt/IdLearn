@@ -14,10 +14,8 @@ import mimuw.idlearn.userdata.CodeData;
 
 public class NewArray extends CodeBlock {
 
-	private final BlockBase base = new BlockBase(HEIGHT, Color.web("#ff8fab",1.0));
-
-	private TextField tabName;
-	private TextField size;
+	private final TextField tabName;
+	private final TextField size;
 
 	/**
 	 * @return An equivalent expression
@@ -43,6 +41,7 @@ public class NewArray extends CodeBlock {
 		size = new ResizableTextField();
 		final Text rp = new Text("]");
 
+		BlockBase base = new BlockBase(HEIGHT, Color.web("#ff8fab", 1.0));
 		base.addChild(tabName);
 		base.addChild(lp);
 		base.addChild(size);
