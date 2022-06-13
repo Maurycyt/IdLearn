@@ -55,39 +55,39 @@ public class TestSolvingController extends TaskController {
 
     private void submitOutput() {
         Alert alert;
-        if (outputTextArea.getText() != null && !outputTextArea.getText().isEmpty()) {
-            try {
-                String outputString = outputTextArea.getText();
-                Writer outputWriter = pkg.getTestOutputWriter(testID);
-                outputWriter.write(outputString);
-                outputWriter.flush();
+				String outputString;
+        if (outputTextArea.getText() == null || outputTextArea.getText().isEmpty()) {
+					outputString = "";
+				} else {
+					outputString = outputTextArea.getText();
+				}
+				try {
+						Writer outputWriter = pkg.getTestOutputWriter(testID);
+						outputWriter.write(outputString);
+						outputWriter.flush();
 
-                if (!pkg.checkTest(testID)) {
-                    throw new WrongAnswerException();
-                }
-                // if didn't throw, then the user has successfully completed the task
-                int pointsGiven = switch (pkg.getDifficulty()) {
-                    case Easy -> 5;
-                    case Medium -> 10;
-                    case Hard -> 20;
-                };
-                DataManager.addPoints(pointsGiven); //TODO: add constants for the points awarded and paid here and everywhere else
+						if (!pkg.checkTest(testID)) {
+								throw new WrongAnswerException();
+						}
+						// if didn't throw, then the user has successfully completed the task
+						int pointsGiven = switch (pkg.getDifficulty()) {
+								case Easy -> 5;
+								case Medium -> 10;
+								case Hard -> 20;
+						};
+						DataManager.addPoints(pointsGiven); //TODO: add constants for the points awarded and paid here and everywhere else
 
-                alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've provided correct output\n", ButtonType.OK);
-                alert.setTitle("Success");
-                alert.setHeaderText("Good job!");
+						alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've provided correct output\n", ButtonType.OK);
+						alert.setTitle("Success");
+						alert.setHeaderText("Good job!");
 
-                // prepare the next test
-                DataManager.incrementTestID(pkg.getTitle());
-                getAndDisplayInput();
-            } catch (Exception e) {
-                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
-                alert.setHeaderText("Wrong output!");
-            }
-        } else {
-            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Fill out the output field and try again", ButtonType.OK);
-            alert.setHeaderText("No output provided!");
-        }
+						// prepare the next test
+						DataManager.incrementTestID(pkg.getTitle());
+						getAndDisplayInput();
+				} catch (Exception e) {
+						alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
+						alert.setHeaderText("Wrong output!");
+				}
         alert.show();
     }
 
