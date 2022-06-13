@@ -61,14 +61,13 @@ public class TestSolvingController extends TaskController {
         outputTextArea.prefWidthProperty().bind(ResourceHandler.createBinding(outputScrollPane, false, 10));
         outputTextArea.prefHeightProperty().bind(ResourceHandler.createBinding(outputScrollPane, true, 10));
 
-        Scanner scanner = null;
         try {
             int id = DataManager.getTestID(pkg.getTitle());
             DataManager.incrementTestID(pkg.getTitle());
             pkg.prepareTest(id);
 
             //Maurycy, work your magic here:
-            scanner = pkg.getTestInputScanner(id);
+            Scanner scanner = pkg.getTestInputScanner(id);
             //inputText.setText(...);
         } catch (IOException e) {
             e.printStackTrace();
