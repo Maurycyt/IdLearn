@@ -45,7 +45,15 @@ The color scheme is as follows:
     -fx-background-radius: 10px;
     -fx-background-color: #f2f2f5;
 }
-
+.borderedPane {
+    -fx-border-color: #00b167;
+}
+.achievementText {
+    -fx-font-size: 36px !important;
+}
+.fullyUnlockedAchievement {
+    -fx-effect: dropshadow(three-pass-box, #e7be16, 10, 0, 0, 0);
+}
 
 /* Buttons */
 .greenButton {
