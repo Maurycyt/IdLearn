@@ -36,14 +36,6 @@ public class CodeBlockSpawner extends HBox {
 		this.dragged = dragged;
 
 		spawnBlock();
-
-
-		// Listens if the child is being moved
-		// Non-moving interactions consume the event so this won't be triggered
-		this.addEventHandler(
-				MouseEvent.MOUSE_PRESSED,
-				mouseEvent -> spawnBlock()
-		);
 	}
 
 }
