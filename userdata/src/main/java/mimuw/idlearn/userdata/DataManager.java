@@ -95,7 +95,7 @@ public class DataManager {
 		if (data.testIDs.containsKey(problem)) {
 			return data.testIDs.get(problem);
 		}
-		return 0;
+		return 1;
 	}
 
 	public static void incrementTestID(String problem) throws IOException {
@@ -104,7 +104,7 @@ public class DataManager {
 			data.testIDs.put(problem, old + 1);
 		}
 		else {
-			data.testIDs.put(problem, 1);
+			data.testIDs.put(problem, 2);
 		}
 		saveData();
 	}

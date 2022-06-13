@@ -167,15 +167,26 @@ The color scheme is as follows:
 }
 
 /* Achievements */
+.achievementPane {
+    -fx-padding: 0px 20px 0px 20px;
+}
 .achievementLabel{
     -fx-font-size: 20px;
 }
 .achievementProgressBar {
-    -fx-border-color: #000000;
-    -fx-accent: #000000;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 200px;
+    -fx-border-color: #00b167;
+    -fx-border-width: 4px;
 }
+.achievementProgressBar .bar {
+    -fx-background-color: #00b167;
+}
+
 .achievementProgressBar > .track {
-    -fx-color: #000000;
-    -fx-control-inner-background: #000000;
-    -fx-background-color: #ff0000;
+    -fx-background-color: #f2f2f5;
+}
+
+.testSolvingTextElement{
+    -fx-font-size: 23px;
 }

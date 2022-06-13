@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane fx:id="dummyDragPane" style="-fx-font-weight: normal;" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <GridPane fx:id="mainGridPane" styleClass="pane" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="1.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <StackPane fx:id="statementStackPane" style="-fx-font-weight: normal;">
+               <children>
+                  <ScrollPane fx:id="statementScrollPane" styleClass="pane">
+                     <content>
+                        <Text fx:id="statementText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample text" wrappingWidth="103.38671875">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </content>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </ScrollPane>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="pane" />
+                  <String fx:value="borderedPane" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </StackPane>
+            <StackPane style="-fx-font-weight: normal;" GridPane.columnIndex="2">
+               <styleClass>
+                  <String fx:value="pane" />
+                  <String fx:value="borderedPane" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <children>
+                  <GridPane styleClass="pane">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testSolvingTextElement" text="Manually type your expected output for the given input" wrappingWidth="711.38671875">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <StackPane fx:id="inputStackPane" style="-fx-font-weight: normal;" GridPane.rowIndex="1">
+                           <children>
+                              <ScrollPane fx:id="inputScrollPane" styleClass="pane">
+                                 <content>
+                                    <Text fx:id="inputText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="testSolvingTextElement" text="Sample text" wrappingWidth="165.38671875">
+                                    </Text>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </ScrollPane>
+                           </children>
+                           <styleClass>
+                              <String fx:value="pane" />
+                              <String fx:value="borderedPane" />
+                           </styleClass>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="2.5" />
+                           </GridPane.margin>
+                        </StackPane>
+                        <StackPane fx:id="outputStackPane" style="-fx-font-weight: normal;" GridPane.rowIndex="2">
+                           <children>
+                              <ScrollPane fx:id="outputScrollPane" styleClass="pane">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <content>
+                                    <TextArea fx:id="outputTextArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Enter your output here" styleClass="testSolvingTextElement" />
+                                 </content>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </ScrollPane>
+                           </children>
+                           <styleClass>
+                              <String fx:value="pane" />
+                              <String fx:value="borderedPane" />
+                           </styleClass>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets top="2.5" />
+                           </GridPane.margin>
+                        </StackPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </StackPane>
+         </children>
+      </GridPane>
+   </center>
+   <stylesheets>
+      <URL value="@../common_style.css" />
+      <URL value="@../task_style.css" />
+   </stylesheets>
+   <bottom>
+      <GridPane prefHeight="75.0" style="-fx-alignment: center; -fx-font-weight: normal;" styleClass="pane" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="backBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="greenButton" text="Back" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #00b167;" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="pane" />
+                  <String fx:value="borderedPane" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </StackPane>
+            <Button fx:id="submitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="greenButton" text="Submit" GridPane.columnIndex="2" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="5.0" right="5.0" />
+         </padding>
+      </GridPane>
+   </bottom>
+</BorderPane>

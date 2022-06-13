@@ -22,6 +22,12 @@
         </dependency>
         <dependency>
             <groupId>mimuw</groupId>
+            <artifactId>properties</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>mimuw</groupId>
             <artifactId>packages</artifactId>
             <version>${revision}</version>
             <scope>compile</scope>
