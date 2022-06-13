@@ -1,19 +1,11 @@
 package mimuw.idlearn.scenes.controllers;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import mimuw.idlearn.idlang.logic.exceptions.WrongAnswerException;
 import mimuw.idlearn.packages.PackageManager;
-import mimuw.idlearn.packages.ProblemPackage;
 import mimuw.idlearn.scenes.ResourceHandler;
 import mimuw.idlearn.userdata.DataManager;
 
@@ -21,13 +13,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class TestSolvingController extends TaskController {
-
-		private int testID;
+    private int testID;
 
     public TestSolvingController(String taskName) {
         try {
@@ -37,47 +27,54 @@ public class TestSolvingController extends TaskController {
         }
     }
 
-		private void getInput() {
-			try {
-				testID = DataManager.getTestID(pkg.getTitle());
-				pkg.prepareTest(testID);
+    private void getAndDisplayInput() {
+        try {
+            testID = DataManager.getTestID(pkg.getTitle());
+            pkg.prepareTest(testID);
 
-				Scanner inputScanner = pkg.getTestInputScanner(testID);
-				StringBuilder sb = new StringBuilder();
-				while (inputScanner.hasNextLine()) {
-					sb.append(inputScanner.nextLine());
-					sb.append("\n");
-				}
-				inputText.setText(sb.toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+            Scanner inputScanner = pkg.getTestInputScanner(testID);
+            StringBuilder sb = new StringBuilder();
+            while (inputScanner.hasNextLine()) {
+                sb.append(inputScanner.nextLine());
+                sb.append("\n");
+            }
+            inputText.setText(sb.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void submitOutput() {
-        if ((outputTextArea.getText() != null && !outputTextArea.getText().isEmpty())) {
-					try {
-						String outputString = outputTextArea.getText();
-						Writer outputWriter = pkg.getTestOutputWriter(testID);
-						outputWriter.write(outputString);
-						outputWriter.flush();
+        Alert alert;
+        if (outputTextArea.getText() != null && !outputTextArea.getText().isEmpty()) {
+            try {
+                String outputString = outputTextArea.getText();
+                Writer outputWriter = pkg.getTestOutputWriter(testID);
+                outputWriter.write(outputString);
+                outputWriter.flush();
 
-						if (!pkg.checkTest(testID)) {
-							throw new WrongAnswerException();
-						}
+                if (!pkg.checkTest(testID)) {
+                    throw new WrongAnswerException();
+                }
+                // if didn't throw, then the user has successfully completed the task
+                DataManager.addPoints(5); //TODO: add constants for the points awarded and paid here and everywhere else
 
-						DataManager.addPoints(5);
+                alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION, "You've provided correct output\n", ButtonType.OK);
+                alert.setTitle("Success");
+                alert.setHeaderText("Good job!");
 
-						// Popup że ok
-
-						DataManager.incrementTestID(pkg.getTitle());
-						getInput();
-					} catch (Exception e) {
-						// Kacper magic
-					}
+                // prepare the next test
+                DataManager.incrementTestID(pkg.getTitle());
+                getAndDisplayInput();
+            } catch (Exception e) {
+                alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Try again. Remember that practice makes perfect", ButtonType.OK);
+                alert.setHeaderText("Wrong output!");
+            }
         } else {
-            System.out.println("You have not left a comment.");
+            alert = ResourceHandler.createAlert(Alert.AlertType.ERROR, "Fill out the output field and try again", ButtonType.OK);
+            alert.setHeaderText("No output provided!");
         }
+        alert.show();
     }
 
     @FXML
@@ -100,6 +97,6 @@ public class TestSolvingController extends TaskController {
         outputTextArea.setFocusTraversable(false);
         outputTextArea.prefWidthProperty().bind(ResourceHandler.createBinding(outputScrollPane, false, 10));
         outputTextArea.prefHeightProperty().bind(ResourceHandler.createBinding(outputScrollPane, true, 10));
-				getInput();
+        getAndDisplayInput();
     }
 }
