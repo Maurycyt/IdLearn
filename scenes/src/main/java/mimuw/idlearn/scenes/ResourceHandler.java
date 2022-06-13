@@ -2,6 +2,9 @@ package mimuw.idlearn.scenes;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -206,6 +209,57 @@ public class ResourceHandler {
 		BorderPane.setAlignment(pBar, Pos.CENTER);
 
 		return pane;
+	}
+
+	public static ObservableValue<Double> createBinding(ScrollPane scrollPane, boolean heightBinding, double offset) {
+		if (heightBinding) {
+			return new ObservableValue<>() {
+				@Override
+				public void addListener(InvalidationListener invalidationListener) {
+					scrollPane.heightProperty().addListener(invalidationListener);
+				}
+				@Override
+				public void removeListener(InvalidationListener invalidationListener) {
+					scrollPane.heightProperty().removeListener(invalidationListener);
+				}
+				@Override
+				public void addListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.heightProperty().addListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public void removeListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.heightProperty().removeListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public Double getValue() {
+					return scrollPane.getHeight() - offset;
+				}
+			};
+		} else {
+			return new ObservableValue<>() {
+				@Override
+				public void addListener(InvalidationListener invalidationListener) {
+					scrollPane.widthProperty().addListener(invalidationListener);
+				}
+				@Override
+				public void removeListener(InvalidationListener invalidationListener) {
+					scrollPane.widthProperty().removeListener(invalidationListener);
+				}
+				@Override
+				public void addListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.widthProperty().addListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public void removeListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.widthProperty().removeListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public Double getValue() {
+					return scrollPane.getWidth() - offset;
+				}
+			};
+		}
+
 	}
 
 	/**

@@ -9,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.ResourceHandler;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,30 +20,10 @@ public abstract class TaskController extends GenericController {
 
     private void initStatementText() {
         statementText.setText(pkg.getStatement());
-        statementText.wrappingWidthProperty().bind(new ObservableValue<Double>() {
-            @Override
-            public void addListener(InvalidationListener invalidationListener) {
-                statementScrollPane.widthProperty().addListener(invalidationListener);
-            }
-            @Override
-            public void removeListener(InvalidationListener invalidationListener) {
-                statementScrollPane.widthProperty().removeListener(invalidationListener);
-            }
-            @Override
-            public void addListener(ChangeListener<? super Double> changeListener) {
-                statementScrollPane.widthProperty().addListener((ChangeListener<? super Number>) changeListener);
-            }
-            @Override
-            public void removeListener(ChangeListener<? super Double> changeListener) {
-                statementScrollPane.widthProperty().removeListener((ChangeListener<? super Number>) changeListener);
-            }
-            @Override
-            public Double getValue() {
-                return statementScrollPane.getWidth() - 45;
-            }
-        });
+        statementText.wrappingWidthProperty().bind(ResourceHandler.createBinding(statementScrollPane, false, 45));
 
         // this fixes the bug described here: https://bugs.openjdk.java.net/browse/JDK-8214938
+        //TODO: help the ticket's author
         statementScrollPane.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             String target = mouseEvent.getTarget().toString();
             if (target.contains("ScrollPane") || target.contains("Text")) {

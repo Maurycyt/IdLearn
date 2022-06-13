@@ -12,10 +12,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
+import mimuw.idlearn.scenes.ResourceHandler;
+import mimuw.idlearn.userdata.DataManager;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class TestSolvingController extends TaskController {
 
@@ -49,7 +53,22 @@ public class TestSolvingController extends TaskController {
         super.initialize(url, resourceBundle);
         submitBtn.setOnAction(event -> submitOutput());
         backBtn.setOnAction(event -> goBack(null));
+
+        inputText.wrappingWidthProperty().bind(ResourceHandler.createBinding(outputScrollPane, false, 10));
+
         outputTextArea.setFocusTraversable(false);
-        outputTextArea.maxWidthProperty().bind(outputScrollPane.widthProperty());
+        outputTextArea.prefWidthProperty().bind(ResourceHandler.createBinding(outputScrollPane, false, 10));
+        outputTextArea.prefHeightProperty().bind(ResourceHandler.createBinding(outputScrollPane, true, 10));
+
+        Scanner scanner = null;
+        try {
+            //DataManager.getTestID
+            scanner = pkg.getTestInputScanner(0);
+            //Files.readString(scanner);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
