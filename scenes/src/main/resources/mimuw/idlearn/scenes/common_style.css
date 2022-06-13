@@ -186,3 +186,7 @@ The color scheme is as follows:
 .achievementProgressBar > .track {
     -fx-background-color: #f2f2f5;
 }
+
+.testSolvingTextElement{
+    -fx-font-size: 23px;
+}
