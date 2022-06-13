@@ -58,7 +58,7 @@ public class PerkStoreController extends GenericController {
             PerkManager.upgradePerk(title);
 
             alert = ResourceHandler.createAlert(Alert.AlertType.INFORMATION,
-                            "Acquired perk \"" + title + "\"", ButtonType.OK
+                            "Upgraded perk \"" + title + "\"", ButtonType.OK
             );
             alert.setHeaderText("Success!");
         } catch (ReachedMaxLevelException e) {
@@ -67,10 +67,10 @@ public class PerkStoreController extends GenericController {
             );
             alert.setHeaderText("Max perk level achieved!");
         } catch (NotEnoughPointsException e) {
-                alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
-                                "Gather more points and try again", ButtonType.OK
-                );
-                alert.setHeaderText("Not enough points!");
+            alert = ResourceHandler.createAlert(Alert.AlertType.WARNING,
+                            "Gather more points and try again", ButtonType.OK
+            );
+            alert.setHeaderText("Not enough points!");
         } catch (IOException e) {
                 e.printStackTrace();
                 return;

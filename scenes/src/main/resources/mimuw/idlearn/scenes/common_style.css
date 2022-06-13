@@ -168,14 +168,14 @@ The color scheme is as follows:
 
 /* Achievements */
 .achievementLabel{
-
+    -fx-font-size: 20px;
 }
 .achievementProgressBar {
-    -fx-border-color: #000000 !important;
-    -fx-accent: #000000 !important;
+    -fx-border-color: #000000;
+    -fx-accent: #000000;
 }
 .achievementProgressBar > .track {
-    -fx-color: #000000 !important;
-    -fx-control-inner-background: #000000 !important;
-    -fx-background-color: #ff0000 !important;
+    -fx-color: #000000;
+    -fx-control-inner-background: #000000;
+    -fx-background-color: #ff0000;
 }
