@@ -1,13 +1,17 @@
 package mimuw.idlearn.scenes;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
+import javafx.stage.*;
+import javafx.util.Duration;
 import mimuw.idlearn.scenes.controllers.GenericController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -35,8 +39,11 @@ public class ResourceHandler {
 	public static URL PerkStore = ResourceHandler.class.getResource("scenes/PerkStore.fxml");
 	public static URL CosmeticsStore = ResourceHandler.class.getResource("scenes/CosmeticsStore.fxml");
 	public static URL TaskSelection = ResourceHandler.class.getResource("scenes/TaskSelection.fxml");
-	public static URL Task = ResourceHandler.class.getResource("scenes/Task.fxml");
+	public static URL Coding = ResourceHandler.class.getResource("scenes/Coding.fxml");
+	public static URL TestSolving = ResourceHandler.class.getResource("scenes/TestSolving.fxml");
 	public static URL Credits = ResourceHandler.class.getResource("scenes/Credits.fxml");
+
+	public static URL TaskGridPane = ResourceHandler.class.getResource("elements/TaskGridPane.fxml");
 
 	public static URL Style = ResourceHandler.class.getResource("style.css");
 	public static URL CommonStyle = ResourceHandler.class.getResource("common_style.css");
@@ -123,6 +130,52 @@ public class ResourceHandler {
 		return alert;
 	}
 
+	public static void createAchievementAlert(String s){
+		Alert popup = new Alert(Alert.AlertType.NONE);
+		popup.initModality(Modality.NONE);
+
+		Label label = new Label(s);
+		label.setMinWidth(Label.USE_PREF_SIZE);
+		label.setAlignment(Pos.CENTER);
+
+		DialogPane dialogPane = popup.getDialogPane();
+		dialogPane.getStylesheets().add(Style.toExternalForm());
+		dialogPane.getStylesheets().add(CommonStyle.toExternalForm());
+		dialogPane.getStyleClass().add("ok-dialog");
+		dialogPane.setContent(label);
+
+		Stage stage = (Stage) dialogPane.getScene().getWindow();
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.getIcons().add(new Image(AppIcon.toExternalForm()));
+		stage.setX((Screen.getPrimary().getBounds().getWidth() - dialogPane.getWidth()) / 2);
+		popup.setY(50);
+
+
+		double delta = 1 / 15.0;
+		int[] iter = new int[1];
+		int iterCount = 15;
+		iter[0] = 1;
+
+		System.out.println("Spawning achievement" + s);
+		Timeline timeline = new Timeline();
+		timeline.getKeyFrames().add(new KeyFrame(
+				new Duration(100),
+				actionEvent -> {
+					stage.setOpacity((iterCount - iter[0]) * delta);
+					iter[0]++;
+					if(iter[0] == iterCount){
+						stage.hide();
+						stage.close();
+					}
+				}
+		));
+		timeline.setDelay(new Duration(3000));
+		timeline.setCycleCount(iterCount);
+		timeline.play();
+
+		popup.show();
+	}
+
 	/**
 	 * Wrapper for creating a clickable green button with styling.
 	 * @param s: the button's text
@@ -137,16 +190,83 @@ public class ResourceHandler {
 		return btn;
 	}
 
-	/**
-	 * Changes the style of the button for a completed/unlocked asset,
-	 * so that it's different from the others of its type.
-	 * @param taskBtn: button of an asset
-	 */
-	public static void setStyleForUnlockedAsset(Button taskBtn) {
-		taskBtn.getStyleClass().addAll("unlockedAssetButton");
+	public static BorderPane createAchievementBorderPane(String s) {
+		BorderPane pane = new BorderPane();
+		pane.getStylesheets().add(Style.toExternalForm());
+		pane.getStylesheets().add(CommonStyle.toExternalForm());
+		pane.getStyleClass().addAll("pane", "borderedPane", "achievementPane");
+		pane.setPrefHeight(75);
+
+		Label label = new Label(s);
+		label.setAlignment(Pos.CENTER);
+		label.getStyleClass().add("achievementLabel");
+		pane.setLeft(label);
+		BorderPane.setAlignment(label, Pos.CENTER);
+
+		ProgressBar pBar = new ProgressBar();
+		pane.setRight(pBar);
+		BorderPane.setAlignment(pBar, Pos.CENTER);
+
+		return pane;
 	}
 
-	//TODO: remove this
-	private static final String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-	public static String repeatLorem(int n) { return loremIpsum.repeat(Math.max(0, n)); }
+	public static ObservableValue<Double> createBinding(ScrollPane scrollPane, boolean heightBinding, double offset) {
+		if (heightBinding) {
+			return new ObservableValue<>() {
+				@Override
+				public void addListener(InvalidationListener invalidationListener) {
+					scrollPane.heightProperty().addListener(invalidationListener);
+				}
+				@Override
+				public void removeListener(InvalidationListener invalidationListener) {
+					scrollPane.heightProperty().removeListener(invalidationListener);
+				}
+				@Override
+				public void addListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.heightProperty().addListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public void removeListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.heightProperty().removeListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public Double getValue() {
+					return scrollPane.getHeight() - offset;
+				}
+			};
+		} else {
+			return new ObservableValue<>() {
+				@Override
+				public void addListener(InvalidationListener invalidationListener) {
+					scrollPane.widthProperty().addListener(invalidationListener);
+				}
+				@Override
+				public void removeListener(InvalidationListener invalidationListener) {
+					scrollPane.widthProperty().removeListener(invalidationListener);
+				}
+				@Override
+				public void addListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.widthProperty().addListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public void removeListener(ChangeListener<? super Double> changeListener) {
+					scrollPane.widthProperty().removeListener((ChangeListener<? super Number>) changeListener);
+				}
+				@Override
+				public Double getValue() {
+					return scrollPane.getWidth() - offset;
+				}
+			};
+		}
+
+	}
+
+	/**
+	 * Changes the style of a completed/unlocked asset,
+	 * so that it's different from the others of its type.
+	 * @param asset: node of an asset
+	 */
+	public static void setStyleForUnlockedAsset(Node asset) {
+		asset.getStyleClass().add("unlockedAsset");
+	}
 }

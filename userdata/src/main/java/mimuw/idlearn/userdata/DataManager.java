@@ -1,7 +1,11 @@
 package mimuw.idlearn.userdata;
 
+import mimuw.idlearn.achievements.AchievementManager;
+import mimuw.idlearn.achievements.AchievementProgressEvent;
 import mimuw.idlearn.core.Emitter;
+import mimuw.idlearn.core.Event;
 import mimuw.idlearn.core.Listener;
+import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.properties.Config;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -19,6 +23,17 @@ public class DataManager {
 	private static final String[] STARTING_TASKS = {"Addition"};
 	private static Data data = new Data();
 	private static final Emitter pointsChangeEmitter = new Emitter();
+	private static final Listener achievementsListener = event -> {
+		if (event.type() == AchievementProgressEvent.class){
+			AchievementProgressEvent value = (AchievementProgressEvent)event.value();
+			data.achievements.put(value.name(), value.progress());
+			try {
+				saveData();
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+	};
 
 	public static class PointsGiving {
 		public long timeInterval;
@@ -29,10 +44,15 @@ public class DataManager {
 		public List<String> unlockedTasks = new ArrayList<>(List.of(STARTING_TASKS));
 		public Map<String, PointsGiving> pointsGiving = new HashMap<>();
 		public Map<String, Integer> perks = new HashMap<>();
+		public Map<String, Integer> achievements = new HashMap<>();
 		public Map<String, CodeData> userCode = new HashMap<>();
+		public Map<String, Integer> testIDs = new HashMap<>();
 		public Data() {
 			for (String perk : PerkManager.getPerkNames()) {
 				perks.put(perk, 0);
+			}
+			for (String achievement : AchievementManager.getAchievementNames()) {
+				achievements.put(achievement, 0);
 			}
 		}
 	}
@@ -44,7 +64,7 @@ public class DataManager {
 
 	public static void payPoints(long amount) throws NotEnoughPointsException {
 		if (amount > data.points) {
-			throw new NotEnoughPointsException();
+			throw new NotEnoughPointsException(amount);
 		}
 		data.points -= amount;
 		pointsChangeEmitter.fire(data.points);
@@ -65,11 +85,29 @@ public class DataManager {
 	}
 
 
-	//Perks
+	// Perks
 	public static Integer getLevel(String perkName) {
 		return data.perks.get(perkName);
 	}
-	public static Map<String, Integer> getPerks() {return data.perks;}
+
+	// TestIDs
+	public static int getTestID(String problem) {
+		if (data.testIDs.containsKey(problem)) {
+			return data.testIDs.get(problem);
+		}
+		return 1;
+	}
+
+	public static void incrementTestID(String problem) throws IOException {
+		if (data.testIDs.containsKey(problem)) {
+			int old = data.testIDs.get(problem);
+			data.testIDs.put(problem, old + 1);
+		}
+		else {
+			data.testIDs.put(problem, 2);
+		}
+		saveData();
+	}
 
 	// Tasks
 	public static void unlockTask(String task) throws IOException {
@@ -90,9 +128,16 @@ public class DataManager {
 		pg.timeInterval = time;
 		pg.points = points;
 		data.pointsGiving.put(task, pg);
+
+		// Notify achievement manager of any new achievements.
+		AchievementManager.get(AchievementManager.TasksCompleted).setProgress(data.pointsGiving.size());
+
 		saveData();
 	}
 	public static Map<String, PointsGiving> getPointsGiving() {return new HashMap<>(data.pointsGiving);}
+
+	public static Map<String, Integer> getPerks() {return data.perks;}
+	public static Map<String, Integer> getAchievements() {return data.achievements;}
 
 	// User code
 	public static void updateUserCode(String task, CodeData codeData) throws IOException {
@@ -149,6 +194,8 @@ public class DataManager {
 
 	public static void init() throws IOException {
 		loadData();
+		AchievementManager.init(getAchievements());
+		AchievementManager.emitter.connect(achievementsListener);
 		setupAutosaveTimer();
 	}
 

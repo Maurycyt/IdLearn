@@ -1,5 +1,8 @@
 package mimuw.idlearn.packages;
 
+import mimuw.idlearn.achievements.Achievement;
+import mimuw.idlearn.achievements.AchievementManager;
+import mimuw.idlearn.core.Emitter;
 import mimuw.idlearn.utils.ShellExecutor;
 import mimuw.idlearn.properties.Config;
 
@@ -8,7 +11,9 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Static class, which manages problem packages.
@@ -18,7 +23,6 @@ public class PackageManager {
 
 	/**
 	 * Reloads the problem package directory.
-	 * Will be invoked before the first use of the PackageManager class to initialize `problemPackageDirectory`.
 	 * Avoid using if the problem package directory does not need to be reloaded.
 	 * Checks for the existence of problem "program files". If the directory
 	 * doesn't exist or `forceCopy` is true, it creates it and copies the default contents into it.
@@ -61,9 +65,16 @@ public class PackageManager {
 		}
 
 		HashMap<String, ProblemPackage> result = new HashMap<>();
+		Set<String> titles = new HashSet<>();
 		for (File packageDirectory : packageDirectories) {
 			ProblemPackage pack = new ProblemPackage(packageDirectory);
 			result.put(pack.getTitle(), pack);
+			titles.add(pack.getTitle());
+		}
+
+		// Award achievement for custom problem package.
+		if (!titles.equals(Config.getDefaultTaskTitles())) {
+			AchievementManager.get(AchievementManager.CustomTaskLoaded).setProgress(1);
 		}
 
 		problemPackages = result;

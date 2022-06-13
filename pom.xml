@@ -63,6 +63,7 @@
         <module>scenes</module>
         <module>application</module>
         <module>userdata</module>
+        <module>achievements</module>
     </modules>
 
     <build>

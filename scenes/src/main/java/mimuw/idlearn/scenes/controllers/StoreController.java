@@ -14,8 +14,8 @@ public class StoreController extends GenericController {
     private Button taskStoreBtn;
     @FXML
     private Button perkStoreBtn;
-    @FXML
-    private Button cosmeticsStoreBtn;
+   /* @FXML
+    private Button cosmeticsStoreBtn;*/
     @FXML
     private BorderPane mainBorderPane;
 
@@ -26,6 +26,6 @@ public class StoreController extends GenericController {
 
         taskStoreBtn.setContentDisplay(ContentDisplay.BOTTOM);
         perkStoreBtn.setContentDisplay(ContentDisplay.BOTTOM);
-        cosmeticsStoreBtn.setContentDisplay(ContentDisplay.BOTTOM);
+        //cosmeticsStoreBtn.setContentDisplay(ContentDisplay.BOTTOM);
     }
 }

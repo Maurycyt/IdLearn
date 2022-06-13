@@ -28,7 +28,22 @@
       </Button>
    </top>
    <center>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox" BorderPane.alignment="CENTER" />
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <content>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="pane">
+               <children>
+                  <ScrollBar disable="true" orientation="VERTICAL" visible="false" />
+                  <VBox fx:id="achievementsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" styleClass="menuVBox">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="12.0" right="12.0" />
+                     </padding></VBox>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
    </center>
    <stylesheets>
       <URL value="@../style.css" />

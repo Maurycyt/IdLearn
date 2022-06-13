@@ -1,18 +1,15 @@
 package mimuw.idlearn;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.stage.*;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.packages.PackageManager;
 import mimuw.idlearn.packages.ProblemPackage;
@@ -52,10 +49,8 @@ public class IdLearnApplication extends javafx.application.Application {
 		sceneManager.setStage(stage);
 		stage.setScene(new Scene(new Group()));
 
-		// Start data manager
+		// Start userdata stuff, DataManager first.
 		DataManager.init();
-
-		// Start perk manager
 		PerkManager.init();
 
 		// Start points giver
@@ -102,6 +97,13 @@ public class IdLearnApplication extends javafx.application.Application {
 		stage.show();
 
 		final Timeline timeline = new Timeline();
+		timeline.getKeyFrames().add(
+				new KeyFrame(new Duration(100),
+				event -> AchievementManager.getAchievementDialogsToShow()
+										   .forEach(ResourceHandler::createAchievementAlert)));
+//		timeline.getKeyFrames().add(
+//				new KeyFrame(new Duration(1000),
+//						event -> ResourceHandler.createAchievement(sceneManager.get(), "Hello there")));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
 		long loadEnd = System.currentTimeMillis();

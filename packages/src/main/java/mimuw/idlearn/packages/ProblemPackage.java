@@ -43,6 +43,8 @@ public class ProblemPackage {
 		public String testInput;
 		public String userOutput;
 		public ArrayList<Integer> testData;
+		public Double expectedTime;
+		public Integer expectedMemory;
 	}
 
 	/**

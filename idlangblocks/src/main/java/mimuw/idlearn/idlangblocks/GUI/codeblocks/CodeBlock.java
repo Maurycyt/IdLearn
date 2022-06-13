@@ -6,8 +6,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.idlangblocks.GUI.CodeBox;
-import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.*;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.userdata.CodeData;
@@ -23,7 +23,7 @@ public abstract class CodeBlock extends Group {
 	private Pane dragged;
 	private CodeBox codeBox;
 	private int indent = 0;
-	private static Timer killer = new Timer();
+	private static final Timer killer = new Timer();
 
 	/**
 	 * Return the height of this CodeBlock
@@ -152,6 +152,8 @@ public abstract class CodeBlock extends Group {
 			codeBox.addChild(this.localToScene(0, 0).getY(), this);
 
 			parent.getChildren().remove(this);
+
+			AchievementManager.get(AchievementManager.CodeBlocksPlaced).increaseProgress();
 		}
 		else {
 			this.relocate(0, 1000000);
@@ -252,62 +254,68 @@ public abstract class CodeBlock extends Group {
 
 	public static CodeBlock recreateBlock(CodeData data, CodeBox codeBox, Pane dragged) {
 		switch (data.type) {
-			case Assign:
+			case Assign -> {
 				Assign assign = new Assign();
 				assign.setEffectiveText(data.texts.get(0), data.texts.get(1));
 				assign.makeDraggable(codeBox, dragged);
 				return assign;
-			case Get:
+			}
+			case Get -> {
 				Get get = new Get();
 				get.setEffectiveText(data.texts.get(0), data.texts.get(1), data.texts.get(2));
 				get.makeDraggable(codeBox, dragged);
 				return get;
-			case IfElse:
+			}
+			case IfElse -> {
 				IfElse ifElse = new IfElse();
 				ifElse.setEffectiveText(data.texts.get(0));
 				ifElse.setIfSegment(CodeSegment.recreateSegment(data.children.get(0), codeBox, dragged));
 				ifElse.setElseSegment(CodeSegment.recreateSegment(data.children.get(1), codeBox, dragged));
 				ifElse.makeVisible();
 				ifElse.makeDraggable(codeBox, dragged);
-
 				return ifElse;
-			case NewArray:
+			}
+			case NewArray -> {
 				NewArray newArray = new NewArray();
 				newArray.setEffectiveText(data.texts.get(0), data.texts.get(1));
 				newArray.makeDraggable(codeBox, dragged);
 				return newArray;
-			case Operation:
+			}
+			case Operation -> {
 				Operation operation = new Operation();
 				operation.setEffectiveText(data.texts.get(0), data.texts.get(1), data.texts.get(3));
 				operation.setType(data.texts.get(2));
 				operation.makeDraggable(codeBox, dragged);
 				return operation;
-			case Read:
+			}
+			case Read -> {
 				Read read = new Read();
 				read.setEffectiveText(data.texts.get(0));
 				read.makeDraggable(codeBox, dragged);
 				return read;
-			case Write:
+			}
+			case Write -> {
 				Write write = new Write();
 				write.setEffectiveText(data.texts.get(0));
 				write.makeDraggable(codeBox, dragged);
 				return write;
-			case Set:
+			}
+			case Set -> {
 				Set set = new Set();
 				set.setEffectiveText(data.texts.get(0), data.texts.get(1), data.texts.get(2));
 				set.makeDraggable(codeBox, dragged);
 				return set;
-			case While:
+			}
+			case While -> {
 				WhileBlock whileBlock = new WhileBlock();
 				whileBlock.setEffectiveText(data.texts.get(0));
 				whileBlock.setSegment(CodeSegment.recreateSegment(data.children.get(0), codeBox, dragged));
 				whileBlock.makeVisible();
 				whileBlock.makeDraggable(codeBox, dragged);
 				return whileBlock;
-			case Segment:
-				throw new Error("This is a segment, not a codeblock");
-			default:
-				throw new Error("Illegal type");
+			}
+			case Segment -> throw new Error("This is a segment, not a codeblock");
+			default -> throw new Error("Illegal type");
 		}
 	}
 

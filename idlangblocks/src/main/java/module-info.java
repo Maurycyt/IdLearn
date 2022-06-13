@@ -4,6 +4,7 @@ module mimuw.idlearn.idlangblocks {
 	requires mimuw.idlearn.packages;
 	requires mimuw.idlearn.idlang;
 	requires mimuw.idlearn.userdata;
+	requires mimuw.idlearn.achievements;
 
 	exports mimuw.idlearn.idlangblocks.GUI;
 	exports mimuw.idlearn.idlangblocks.GUI.parser;

@@ -25,6 +25,7 @@ public class PointsGiverTest {
 
 		preparePlatform();
 		DataManager.init();
+		DataManager.resetData();
 		PerkManager.init();
 		PerkManager.setAndApplyPerkLevel("Speed", 0);
 
@@ -64,6 +65,8 @@ public class PointsGiverTest {
 	public void testTimeStamps() throws IOException, InterruptedException {
 
 		preparePlatform();
+		DataManager.init();
+		DataManager.resetData();
 
 		PointsGiver.setSolutionSpeed("a", 1, 1, 10);
 		PointsGiver.setSolutionSpeed("a", 1000, 0, 10);
@@ -94,11 +97,11 @@ public class PointsGiverTest {
 	public void testLoadSpeeds() throws IOException, InterruptedException {
 
 		preparePlatform();
+		DataManager.init();
 
 		PointsGiver.setSolutionSpeed("a", 1, 10);
 		PointsGiver.resetSolutions();
 
-		DataManager.init();
 		long points0 = DataManager.showPoints();
 		PerkManager.init();
 		PerkManager.setAndApplyPerkLevel("Speed", 0);

@@ -26,6 +26,12 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
+            <groupId>mimuw</groupId>
+            <artifactId>achievements</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>${snakeyaml.version}</version>

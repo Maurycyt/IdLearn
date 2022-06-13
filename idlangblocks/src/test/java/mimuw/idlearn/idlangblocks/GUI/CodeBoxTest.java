@@ -8,9 +8,13 @@ import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlock;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.CodeBlockSpawner;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.Assign;
 import mimuw.idlearn.idlangblocks.GUI.codeblocks.blocktypes.WhileBlock;
+import mimuw.idlearn.userdata.DataManager;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CodeBoxTest {
 
@@ -26,6 +30,12 @@ public class CodeBoxTest {
 	@Test
 	public void testGhost() {
 		preparePlatform();
+		try {
+			DataManager.init();
+		} catch (IOException e){
+			fail(e);
+		}
+
 		Group root = new Group();
 
 		Group codeBlocks = new Group();

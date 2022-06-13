@@ -22,7 +22,25 @@
         </dependency>
         <dependency>
             <groupId>mimuw</groupId>
+            <artifactId>properties</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>mimuw</groupId>
             <artifactId>packages</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>mimuw</groupId>
+            <artifactId>idlang</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>mimuw</groupId>
+            <artifactId>achievements</artifactId>
             <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
@@ -42,12 +60,6 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>mimuw</groupId>
-            <artifactId>idlang</artifactId>
-            <version>2.0.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

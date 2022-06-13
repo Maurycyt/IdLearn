@@ -1,5 +1,6 @@
 package mimuw.idlearn.scoring;
 
+import mimuw.idlearn.achievements.AchievementManager;
 import mimuw.idlearn.idlang.logic.base.Expression;
 import mimuw.idlearn.idlang.logic.base.ResourceCounter;
 import mimuw.idlearn.idlang.logic.environment.Scope;
@@ -30,8 +31,18 @@ public class TestRunner {
 		this.testData = pack.getTestData();
 	}
 
+	private static class TestResult {
+		public double time;
+		public int memory;
+
+		TestResult(double time, int memory) {
+			this.time = time;
+			this.memory = memory;
+		}
+	}
+
 	public double aggregateTestTimes() throws SimulationException, IOException {
-		double result = 1.0;
+		TestResult finalResult = new TestResult(1.0, 0);
 
 		try {
 			mutex.acquire();
@@ -43,7 +54,7 @@ public class TestRunner {
 
 		pack.build();
 		// Prepare futures which run tests and propagate exceptions.
-		ArrayList<CompletableFuture<Double>> futures = new ArrayList<>();
+		ArrayList<CompletableFuture<TestResult>> futures = new ArrayList<>();
 		for (Integer TestID : testData) {
 			futures.add(CompletableFuture.supplyAsync(() -> {
 				pack.prepareTest(TestID);
@@ -56,15 +67,17 @@ public class TestRunner {
 				} catch (SimulationException | IOException e) {
 					throw new CompletionException(e);
 				}
-				return resourceCounter.getTime();
+				return new TestResult(resourceCounter.getTime(), resourceCounter.getMemory());
 			}));
 		}
 
 		// Join all the futures, catch exceptions and aggregate test times.
-		for (CompletableFuture<Double> future : futures) {
+		for (CompletableFuture<TestResult> future : futures) {
 			try {
 				future.join();
-				result *= future.getNow(0.0);
+				TestResult singleResult = future.getNow(new TestResult(0.0, 0));
+				finalResult.time *= singleResult.time;
+				finalResult.memory = Math.max(finalResult.memory, singleResult.memory);
 			} catch (CompletionException e) {
 				try {
 					throw e.getCause();
@@ -79,7 +92,18 @@ public class TestRunner {
 
 		mutex.release();
 
-		// Return the geometric mean of the collected times.
-		return Math.pow(result, 1.0 / testData.size());
+		// Get the geometric mean of the collected times.
+		finalResult.time = Math.pow(finalResult.time, 1.0 / testData.size());
+		// Divide it by the expected time.
+		finalResult.time /= pack.getConfig().expectedTime;
+		// Notify achievement manager if expected time or memory has been beaten.
+		if (finalResult.time < 0.999) {
+			AchievementManager.get(AchievementManager.ExpectedTimeBeaten).setProgress(1);
+		}
+		if (finalResult.memory < pack.getConfig().expectedMemory) {
+			AchievementManager.get(AchievementManager.ExpectedMemoryBeaten).setProgress(1);
+		}
+		// Return normalised time.
+		return finalResult.time;
 	}
 }

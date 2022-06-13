@@ -36,18 +36,6 @@
                   <String fx:value="storeTileButton" />
                   <String fx:value="greenButton" />
                </styleClass></Button>
-            <Button fx:id="cosmeticsStoreBtn" layoutX="245.0" layoutY="185.0" mnemonicParsing="false" onAction="#addCosmeticsStoreScene" prefHeight="40.0" prefWidth="203.0" text="Cosmetics">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/prank-glasses.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <styleClass>
-                  <String fx:value="storeTileButton" />
-                  <String fx:value="greenButton" />
-               </styleClass></Button>
             </children>
         </TilePane>
     </center>
