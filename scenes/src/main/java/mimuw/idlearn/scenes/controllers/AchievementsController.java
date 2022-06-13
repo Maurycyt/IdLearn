@@ -26,8 +26,6 @@ public class AchievementsController extends GenericController {
         Button pointsBtn = ResourceHandler.createUserPointsButton();
         mainBorderPane.setTop(pointsBtn);
 
-        //double width = achievementsVBox.getMaxWidth();
-
         AchievementManager.getAchievementNames()
                 .stream()
                 .map(AchievementManager::get)

@@ -78,6 +78,8 @@ public class TestSolvingController extends TaskController {
     }
 
     @FXML
+    private ProgressBar footerProgressBar;
+    @FXML
     private Text inputText;
     @FXML
     private StackPane outputStackPane;

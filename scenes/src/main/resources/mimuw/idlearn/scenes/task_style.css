@@ -9,14 +9,6 @@ The color scheme is as follows:
     -fx-padding: 5px 5px 5px 5px
 }
 
-/*.borderedPane {
-    -fx-border-color: #00b167;
-    -fx-border-width: 4px;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-background-color: #f2f2f5;
-}*/
-
 .blockSelectionHBox {
     -fx-alignment: center;
     -fx-spacing: 45px;

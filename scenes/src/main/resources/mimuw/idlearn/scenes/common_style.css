@@ -166,25 +166,30 @@ The color scheme is as follows:
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
 }
 
+/* Progress Bars*/
+.progress-bar {
+    -fx-pref-height: 40px;
+    -fx-pref-width: 200px;
+    -fx-border-color: #00b167;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+
+    -fx-border-width: 4px;
+}
+.progress-bar .bar {
+    -fx-background-color: #00b167;
+}
+
+.progress-bar > .track {
+    -fx-background-color: #f2f2f5;
+}
+
 /* Achievements */
 .achievementPane {
     -fx-padding: 0px 20px 0px 20px;
 }
 .achievementLabel{
     -fx-font-size: 20px;
-}
-.achievementProgressBar {
-    -fx-pref-height: 40px;
-    -fx-pref-width: 200px;
-    -fx-border-color: #00b167;
-    -fx-border-width: 4px;
-}
-.achievementProgressBar .bar {
-    -fx-background-color: #00b167;
-}
-
-.achievementProgressBar > .track {
-    -fx-background-color: #f2f2f5;
 }
 
 .testSolvingTextElement{

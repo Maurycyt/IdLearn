@@ -204,7 +204,6 @@ public class ResourceHandler {
 		BorderPane.setAlignment(label, Pos.CENTER);
 
 		ProgressBar pBar = new ProgressBar();
-		pBar.getStyleClass().add("achievementProgressBar");
 		pane.setRight(pBar);
 		BorderPane.setAlignment(pBar, Pos.CENTER);
 
