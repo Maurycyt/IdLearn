@@ -24,11 +24,12 @@ public class TaskSelectionController extends GenericController {
 	@FXML
 	private BorderPane mainBorderPane;
 
-	private void connectButtonToCoding(Button codeBtn, String taskTitle, boolean isCompleted) {
+	private void connectButtonToCoding(Label taskLabel, Button codeBtn, String taskTitle, boolean isCompleted) {
 		// make the style change dynamically
 		PointsGiver.connectToTaskCompletion(event -> {
 			String incomingText = (String)event.value();
-			if (incomingText.equals(codeBtn.getText()))
+
+			if (incomingText.equals(taskLabel.getText()))
 				ResourceHandler.setStyleForUnlockedAsset(codeBtn);
 		});
 		if (isCompleted)
@@ -70,7 +71,7 @@ public class TaskSelectionController extends GenericController {
 			try {
 				GridPane gridPane = FXMLLoader.load(ResourceHandler.TaskGridPane);
 				gridPane.setStyle("-fx-cursor: hand"); // adding this here as the hand cursor doesn't work in the children for some reason
-
+				//FIXME: the codeBtn has the "unclickableButton" class
 				var label = (Label)gridPane.getChildren().get(0);
 				var codeBtn = (Button)gridPane.getChildren().get(2);
 				var testsBtn = (Button)gridPane.getChildren().get(1);
@@ -78,7 +79,7 @@ public class TaskSelectionController extends GenericController {
 				label.setText(taskTitle);
 				label.setStyle("-fx-font-size: 20px");
 				label.setWrapText(true);
-				connectButtonToCoding(codeBtn, taskTitle, completedTasks.contains(taskTitle));
+				connectButtonToCoding(label, codeBtn, taskTitle, completedTasks.contains(taskTitle));
 				connectButtonToTestSolving(testsBtn, taskTitle);
 
 				tasksVBox.getChildren().add(gridPane);
