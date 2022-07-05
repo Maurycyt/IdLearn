@@ -6,7 +6,7 @@ What you see is a repository of the group project for the [Software Engineering]
 - [Antoni Puch](TODO)
 - [Maurycy Wojda](TODO)
 - [Kacper Chętkowski](TODO)
-- [Kacper Kramarz-Fernandez](TODO)
+- [Kacper Kramarz-Fernandez](https://github.com/kfernandez31)
 
 # Brief description
 
