@@ -30,6 +30,9 @@
 !setup/
 setup/*.jar
 
+# And the presentation
+!IdLearn.pptx
+
 # Finally, throw out all useless IDE files and CMake replies and stuff and target directories
 **/.idea/
 **/target/
