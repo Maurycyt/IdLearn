@@ -16,4 +16,4 @@ Our project, **IdLearn** is a desktop app for learning algorithmics with aspects
 
 You can find a more in-depth description [**here**](https://gitlab.com/Maurycyt/idlearn/-/wikis/home).
 
-Our project's presentation can be found [**here**](TODO).
+Our project's presentation can be found [**here**](https://gitlab.com/Maurycyt/idlearn/-/blob/repo_readme/IdLearn.pptx).
