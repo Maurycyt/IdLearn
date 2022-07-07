@@ -4,7 +4,7 @@ What you see is a repository of the group project for the [Software Engineering]
 
 # Authors
 - [Antoni Puch](TODO)
-- [Maurycy Wojda](TODO)
+- [Maurycy Wojda](https://github.com/Maurycyt)
 - [Kacper Chętkowski](TODO)
 - [Kacper Kramarz-Fernandez](https://github.com/kfernandez31)
 
