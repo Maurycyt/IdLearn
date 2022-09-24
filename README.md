@@ -3,7 +3,7 @@
 What you see is a repository of the group project for the [Software Engineering](https://usosweb.mimuw.edu.pl/kontroler.php?_action=katalog2/przedmioty/pokazPrzedmiot&prz_kod=1000-214bIOP) course offered by the Faculty of Mathematics, Informatics and Mechanics at the University of Warsaw (further referred to as "MIM UW") in the 2021/2022 winter semester.
 
 # Authors
-- [Antoni Puch](TODO)
+- [Antoni Puch](https://gitlab.com/users/Quwertyn)
 - [Maurycy Wojda](https://github.com/Maurycyt)
 - [Kacper Chętkowski](https://github.com/capi1500)
 - [Kacper Kramarz-Fernandez](https://github.com/kfernandez31)
