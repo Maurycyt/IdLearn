@@ -18,4 +18,4 @@ Yes! Simply follow the instructions in the [**latest release**](https://github.c
 
 You can find a more in-depth description [**here**](https://github.com/Maurycyt/IdLearn/wiki) and on other pages of the wiki.
 
-Our project's presentation can be found [**here**](https://github.com/Maurycyt/IdLearn/blob/main/IdLearn.pptx).
+Our project's presentation can be found [**here**](https://github.com/Maurycyt/IdLearn/blob/main/IdLearn.pptx). Opening in Google Slides is recommended.
